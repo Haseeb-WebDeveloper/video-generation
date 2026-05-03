@@ -78,7 +78,6 @@ const DECAL_H = Math.round((DECAL_W * DECAL_PLANE_H) / DECAL_PLANE_W);
 // so tall plinths cause the camera to angle UP — bottom of the plinth drops
 // out of frame, cover stays centered. This is what sells "real camera looking
 // up at a towering monument."
-const FOV_HALF_TAN = Math.tan((FOV * Math.PI) / 180 / 2);
 const FIXED_DIST = 24;
 const EYE_Y = 5;
 const SIDE_OFFSET_X = 1.6;
