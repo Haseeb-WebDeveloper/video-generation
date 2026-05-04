@@ -1,0 +1,28 @@
+{
+  "slug": "top-20-best-selling-video-games",
+  "title": ["TOP 20 BEST-SELLING", "VIDEO GAMES OF ALL TIME"],
+  "outro": ["THANKS FOR WATCHING", "Like & subscribe for more"],
+  "unitLabel": "copies sold",
+  "items": [
+    { "rank": 1, "title": "Minecraft", "value": 300, "imagePath": "covers/top-20-best-selling-video-games/1.png" },
+    { "rank": 2, "title": "Grand Theft Auto V", "value": 210, "imagePath": "covers/top-20-best-selling-video-games/2.jpg" },
+    { "rank": 3, "title": "Tetris (EA)", "value": 100, "imagePath": "covers/top-20-best-selling-video-games/3.png" },
+    { "rank": 4, "title": "Wii Sports", "value": 82.9, "imagePath": "covers/top-20-best-selling-video-games/4.jpg" },
+    { "rank": 5, "title": "PUBG: Battlegrounds", "value": 75, "imagePath": "covers/top-20-best-selling-video-games/5.jpg" },
+    { "rank": 6, "title": "Mario Kart 8 / Deluxe", "value": 75, "imagePath": "covers/top-20-best-selling-video-games/6.jpg" },
+    { "rank": 7, "title": "Red Dead Redemption 2", "value": 70, "imagePath": "covers/top-20-best-selling-video-games/7.jpg" },
+    { "rank": 8, "title": "The Elder Scrolls V: Skyrim", "value": 60, "imagePath": "covers/top-20-best-selling-video-games/8.jpg" },
+    { "rank": 9, "title": "Terraria", "value": 58.7, "imagePath": "covers/top-20-best-selling-video-games/9.jpg" },
+    { "rank": 10, "title": "Super Mario Bros.", "value": 58, "imagePath": "covers/top-20-best-selling-video-games/10.png" },
+    { "rank": 11, "title": "The Witcher 3: Wild Hunt", "value": 55, "imagePath": "covers/top-20-best-selling-video-games/11.jpg" },
+    { "rank": 12, "title": "Pokémon Red / Blue / Yellow", "value": 47.5, "imagePath": "covers/top-20-best-selling-video-games/12.png" },
+    { "rank": 13, "title": "Animal Crossing: New Horizons", "value": 47, "imagePath": "covers/top-20-best-selling-video-games/13.jpg" },
+    { "rank": 14, "title": "Wii Fit / Plus", "value": 43, "imagePath": "covers/top-20-best-selling-video-games/14.jpg" },
+    { "rank": 15, "title": "Human: Fall Flat", "value": 40, "imagePath": "covers/top-20-best-selling-video-games/15.jpg" },
+    { "rank": 16, "title": "Mario Kart Wii", "value": 37.4, "imagePath": "covers/top-20-best-selling-video-games/16.png" },
+    { "rank": 17, "title": "Hogwarts Legacy", "value": 30, "imagePath": "covers/top-20-best-selling-video-games/17.jpg" },
+    { "rank": 18, "title": "Diablo III", "value": 30, "imagePath": "covers/top-20-best-selling-video-games/18.png" },
+    { "rank": 19, "title": "Call of Duty: Modern Warfare (2019)", "value": 30, "imagePath": "covers/top-20-best-selling-video-games/19.jpg" },
+    { "rank": 20, "title": "New Super Mario Bros. (DS)", "value": 30, "imagePath": "covers/top-20-best-selling-video-games/20.jpg" }
+  ]
+}

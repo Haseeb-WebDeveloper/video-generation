@@ -10,84 +10,41 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { games, Game } from "./games";
+import { Episode, EpisodeItem } from "./episode";
 
 // ───── Geometry ─────
-// Pure floating cover images, no billboard frame. Cover is the hero.
-// Square covers — image cropped to fit (object-cover behavior).
 const COVER_W = 9.5;
-const COVER_H = 9.5; // 1:1 square
+const COVER_H = 9.5;
 const COVER_BORDER = 0.07;
 const COVER_BORDER_DEPTH = 0.05;
 
-// Label plane aspect MUST match the canvas aspect (2048×560) so text doesn't
-// stretch. Plane H computed from W to maintain ratio. Plane is wider so the
-// (now larger) text reads bigger in frame.
 const LABEL_PLANE_W = 10.0;
-const LABEL_PLANE_H = (LABEL_PLANE_W * 560) / 2048; // 2.73
+const LABEL_PLANE_H = (LABEL_PLANE_W * 760) / 2048; // 3.71
 const LABEL_GAP = 0.45;
 
-const SPACING_X = 10.5;
+const SPACING_X = 20.0;
 const Z_JIG = 3.6;
 const Y_JIG = 0.5;
-const TILT_DEG = 18;
 
 const FOV = 30;
 
-// Title and outro waypoint X positions (off the row, at far ends)
-const TITLE_DROP_X = -22; // distance to the LEFT of #20 where title sits
-const OUTRO_DROP_X = 22;  // distance to the RIGHT of #1 where outro sits
+const TITLE_DROP_X = -22;
+const OUTRO_DROP_X = 22;
 
-// Title and outro plane sizes — aspect MUST match canvas (2048×1024 = 2:1)
-const TITLE_PLANE_W = 13;
-const TITLE_PLANE_H = TITLE_PLANE_W / 2; // 6.5 → 2:1 aspect
+const TITLE_PLANE_W = 18;
+const TITLE_PLANE_H = TITLE_PLANE_W / 2;
 
 // ───── Palette ─────
 const BG_COLOR = "#040814";
 const COVER_TRIM = "#1a1f2a";
 const ACCENT_ORANGE = "#f5b35a";
 
-const COVERS: Record<number, string> = {
-  1: "1.png",
-  2: "2.jpg",
-  3: "3.png",
-  4: "4.jpg",
-  5: "5.jpg",
-  6: "6.jpg",
-  7: "7.jpg",
-  8: "8.jpg",
-  9: "9.jpg",
-  10: "10.png",
-  11: "11.jpg",
-  12: "12.png",
-  13: "13.jpg",
-  14: "14.jpg",
-  15: "15.jpg",
-  16: "16.png",
-  17: "17.jpg",
-  18: "18.png",
-  19: "19.jpg",
-  20: "20.jpg",
-};
-
-const ordered = [...games].sort((a, b) => b.rank - a.rank);
-const N = ordered.length;
-const maxValue = Math.max(...games.map((g) => g.copiesMillions));
-
-const coverX = (i: number) => i * SPACING_X - ((N - 1) * SPACING_X) / 2;
+// ───── Position helpers (depend on item count) ─────
+const coverX = (i: number, n: number) =>
+  i * SPACING_X - ((n - 1) * SPACING_X) / 2;
 const coverZ = (i: number) => (i % 2 === 0 ? -Z_JIG : Z_JIG);
 const coverY = (i: number) => 5 + Math.sin(i * 0.9) * Y_JIG;
-const coverRotY = (i: number) => {
-  const center = (N - 1) / 2;
-  const t = (i - center) / center;
-  return -t * (TILT_DEG * Math.PI) / 180;
-};
 
-const TITLE_X = coverX(0) + TITLE_DROP_X;
-const OUTRO_X = coverX(N - 1) + OUTRO_DROP_X;
-// Title/outro face the camera path (same tilt convention as covers)
-const TITLE_ROT_Y = ((TILT_DEG + 6) * Math.PI) / 180;
-const OUTRO_ROT_Y = -((TILT_DEG + 6) * Math.PI) / 180;
 const TITLE_Y = 5;
 const OUTRO_Y = 5;
 
@@ -99,74 +56,28 @@ function formatValue(m: number): string {
 type Vec3 = [number, number, number];
 type FocusPose = { camPos: Vec3; lookAt: Vec3 };
 
-const CAM_DIST = 28;
+const CAM_DIST = 36;
 const CAM_Y_OFFSET = -3.0;
 const CAM_X_OFFSET = 1.5;
 
-function coverFocusPose(i: number): FocusPose {
-  const x = coverX(i);
+function coverFocusPose(i: number, n: number): FocusPose {
+  const x = coverX(i, n);
   const y = coverY(i);
   const z = coverZ(i);
-  // Cover+label visual center sits below cover center because of the label
-  // plane below the (now-square) cover. Bias lookAt down to center the pair.
   return {
     camPos: [x + CAM_X_OFFSET, y + CAM_Y_OFFSET, z + CAM_DIST],
-    lookAt: [x, y - 0.9, z],
+    lookAt: [x, y - 0.6, z],
   };
 }
 
-const titleFocusPose: FocusPose = {
-  camPos: [TITLE_X + CAM_X_OFFSET, TITLE_Y + CAM_Y_OFFSET + 1, CAM_DIST],
-  lookAt: [TITLE_X, TITLE_Y - 0.4, 0],
-};
-
-const outroFocusPose: FocusPose = {
-  camPos: [OUTRO_X + CAM_X_OFFSET, OUTRO_Y + CAM_Y_OFFSET + 1, CAM_DIST],
-  lookAt: [OUTRO_X, OUTRO_Y - 0.4, 0],
-};
-
-// All waypoints: title → cover[0..N-1] → outro
-const waypoints: FocusPose[] = [
-  titleFocusPose,
-  ...ordered.map((_, i) => coverFocusPose(i)),
-  outroFocusPose,
-];
-const NW = waypoints.length;
-
-// Per-waypoint dwell weights. Title and outro get extra time so the viewer
-// can read them; covers get progressive boost for top ranks.
-const waypointWeights: number[] = [
-  2.6, // title — extra reading time
-  ...ordered.map((g) => {
-    const t = Math.sqrt(g.copiesMillions / maxValue);
-    return 0.85 + 1.0 * t;
-  }),
-  2.6, // outro — extra reading time
-];
-const cumWeights = [0];
-for (let i = 0; i < waypointWeights.length; i++)
-  cumWeights.push(cumWeights[i] + waypointWeights[i]);
-const totalWeight = cumWeights[cumWeights.length - 1];
-
-function progressToFloatIdx(p: number): number {
-  const target = p * totalWeight;
-  for (let i = 0; i < waypointWeights.length; i++) {
-    if (cumWeights[i + 1] >= target) {
-      const segStart = cumWeights[i];
-      const segEnd = cumWeights[i + 1];
-      const f = (target - segStart) / (segEnd - segStart);
-      return i + f;
-    }
-  }
-  return waypointWeights.length - 1;
-}
-
 // ───── Pacing (60fps) ─────
-// One continuous shot: opening dolly into the title, then a single weighted
-// spline through title → 20 covers → outro. No discrete hold anywhere.
-const PHASE_INTRO = 100; // ~1.67s opening dolly to title
-const PHASE_TRAVEL = 3700; // ~61.7s through all 22 waypoints
-export const TOTAL_FRAMES = PHASE_INTRO + PHASE_TRAVEL + 60;
+const PHASE_INTRO = 160;
+const PER_ITEM_FRAMES = 270;
+const TAIL_PADDING = 90;
+
+export function totalFrames(items: EpisodeItem[]): number {
+  return PHASE_INTRO + items.length * PER_ITEM_FRAMES + TAIL_PADDING;
+}
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -182,33 +93,114 @@ function smoothstep(t: number) {
   return c * c * (3 - 2 * c);
 }
 
-const easeInOut = Easing.bezier(0.45, 0, 0.2, 1);
-
-const startPose: FocusPose = {
-  camPos: [
-    titleFocusPose.camPos[0] - 14,
-    titleFocusPose.camPos[1] + 0.5,
-    titleFocusPose.camPos[2] + 5,
-  ],
-  lookAt: [
-    titleFocusPose.lookAt[0],
-    titleFocusPose.lookAt[1],
-    titleFocusPose.lookAt[2],
-  ],
-};
-
-// Float index of the focal waypoint at a given frame
-// Returns 0 for title, 1..N for covers (so cover[i] is index i+1), N+1 for outro
-function focalIdxAt(frame: number): number {
-  if (frame < PHASE_INTRO) return 0;
-  if (frame < PHASE_INTRO + PHASE_TRAVEL) {
-    const tNorm = (frame - PHASE_INTRO) / PHASE_TRAVEL;
-    return progressToFloatIdx(tNorm);
-  }
-  return NW - 1;
+const SEG_HOLD_FRAC = 0.55;
+function segmentEase(t: number): number {
+  const half = SEG_HOLD_FRAC / 2;
+  if (t <= half) return 0;
+  if (t >= 1 - half) return 1;
+  const u = (t - half) / (1 - SEG_HOLD_FRAC);
+  return smoothstep(u);
 }
 
-function CameraRig({ frame }: { frame: number }) {
+const easeInOut = Easing.bezier(0.45, 0, 0.2, 1);
+
+// ───── Per-episode runtime ─────
+type EpisodeRuntime = {
+  items: EpisodeItem[];
+  N: number;
+  waypoints: FocusPose[];
+  cumWeights: number[];
+  totalWeight: number;
+  startPose: FocusPose;
+  titleX: number;
+  outroX: number;
+  travelFrames: number;
+};
+
+function buildRuntime(episode: Episode): EpisodeRuntime {
+  const items = [...episode.items].sort((a, b) => b.rank - a.rank);
+  const N = items.length;
+  const maxValue = Math.max(...items.map((i) => i.value));
+  const titleX = coverX(0, N) + TITLE_DROP_X;
+  const outroX = coverX(N - 1, N) + OUTRO_DROP_X;
+  const titleFocusPose: FocusPose = {
+    camPos: [titleX + CAM_X_OFFSET, TITLE_Y + CAM_Y_OFFSET + 1, CAM_DIST],
+    lookAt: [titleX, TITLE_Y - 0.4, 0],
+  };
+  const outroFocusPose: FocusPose = {
+    camPos: [outroX + CAM_X_OFFSET, OUTRO_Y + CAM_Y_OFFSET + 1, CAM_DIST],
+    lookAt: [outroX, OUTRO_Y - 0.4, 0],
+  };
+  const waypoints: FocusPose[] = [
+    titleFocusPose,
+    ...items.map((_, i) => coverFocusPose(i, N)),
+    outroFocusPose,
+  ];
+  const weights: number[] = [
+    2.6,
+    ...items.map((it) => 0.85 + 1.0 * Math.sqrt(it.value / maxValue)),
+    2.6,
+  ];
+  const cumWeights = [0];
+  let acc = 0;
+  for (const w of weights) {
+    acc += w;
+    cumWeights.push(acc);
+  }
+  const startPose: FocusPose = {
+    camPos: [
+      titleFocusPose.camPos[0] - 14,
+      titleFocusPose.camPos[1] + 0.5,
+      titleFocusPose.camPos[2] + 5,
+    ],
+    lookAt: [
+      titleFocusPose.lookAt[0],
+      titleFocusPose.lookAt[1],
+      titleFocusPose.lookAt[2],
+    ],
+  };
+  return {
+    items,
+    N,
+    waypoints,
+    cumWeights,
+    totalWeight: acc,
+    startPose,
+    titleX,
+    outroX,
+    travelFrames: N * PER_ITEM_FRAMES,
+  };
+}
+
+function progressToFloatIdx(p: number, runtime: EpisodeRuntime): number {
+  const target = p * runtime.totalWeight;
+  for (let i = 0; i < runtime.cumWeights.length - 1; i++) {
+    if (runtime.cumWeights[i + 1] >= target) {
+      const segStart = runtime.cumWeights[i];
+      const segEnd = runtime.cumWeights[i + 1];
+      const f = (target - segStart) / (segEnd - segStart);
+      return i + f;
+    }
+  }
+  return runtime.waypoints.length - 1;
+}
+
+function focalIdxAt(frame: number, runtime: EpisodeRuntime): number {
+  if (frame < PHASE_INTRO) return 0;
+  if (frame < PHASE_INTRO + runtime.travelFrames) {
+    const tNorm = (frame - PHASE_INTRO) / runtime.travelFrames;
+    return progressToFloatIdx(tNorm, runtime);
+  }
+  return runtime.waypoints.length - 1;
+}
+
+function CameraRig({
+  frame,
+  runtime,
+}: {
+  frame: number;
+  runtime: EpisodeRuntime;
+}) {
   const camera = useThree((s) => s.camera);
 
   let pos: Vec3;
@@ -217,18 +209,20 @@ function CameraRig({ frame }: { frame: number }) {
   if (frame < PHASE_INTRO) {
     const t = frame / PHASE_INTRO;
     const e = easeInOut(t);
-    pos = lerpVec3(startPose.camPos, waypoints[0].camPos, e);
-    look = lerpVec3(startPose.lookAt, waypoints[0].lookAt, e);
+    pos = lerpVec3(runtime.startPose.camPos, runtime.waypoints[0].camPos, e);
+    look = lerpVec3(runtime.startPose.lookAt, runtime.waypoints[0].lookAt, e);
   } else {
-    const tNorm = clamp01(
-      (frame - PHASE_INTRO) / PHASE_TRAVEL,
-    );
-    const floatIdx = progressToFloatIdx(tNorm);
-    const a = Math.min(Math.floor(floatIdx), NW - 2);
+    const tNorm = clamp01((frame - PHASE_INTRO) / runtime.travelFrames);
+    const floatIdx = progressToFloatIdx(tNorm, runtime);
+    const a = Math.min(Math.floor(floatIdx), runtime.waypoints.length - 2);
     const b = a + 1;
-    const f = smoothstep(floatIdx - a);
-    pos = lerpVec3(waypoints[a].camPos, waypoints[b].camPos, f);
-    look = lerpVec3(waypoints[a].lookAt, waypoints[b].lookAt, f);
+    const f = segmentEase(floatIdx - a);
+    pos = lerpVec3(runtime.waypoints[a].camPos, runtime.waypoints[b].camPos, f);
+    look = lerpVec3(
+      runtime.waypoints[a].lookAt,
+      runtime.waypoints[b].lookAt,
+      f,
+    );
   }
 
   const time = frame / 60;
@@ -245,12 +239,10 @@ function CameraRig({ frame }: { frame: number }) {
 }
 
 // ───── Cover label texture ─────
-// "03 — Grand Theft Auto V" on top (white), "175M copies sold" below (orange).
-// LABEL_H tuned so even 2-line wrapped titles fit with safe padding.
 const LABEL_W = 2048;
-const LABEL_H = 560;
+const LABEL_H = 760;
 
-function makeLabel(game: Game): THREE.CanvasTexture {
+function makeLabel(item: EpisodeItem, unitLabel: string): THREE.CanvasTexture {
   const c = document.createElement("canvas");
   c.width = LABEL_W;
   c.height = LABEL_H;
@@ -260,24 +252,18 @@ function makeLabel(game: Game): THREE.CanvasTexture {
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
-  // Bigger text per request — kept just under prior wrap thresholds so 2-line
-  // titles still fit comfortably in the canvas height.
   const titleBaseSize = Math.round(LABEL_H * 0.34);
   const valueSize = Math.round(LABEL_H * 0.27);
 
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  const rankStr = String(game.rank).padStart(2, "0");
-  const titleLine = `${rankStr} — ${game.title}`;
-
-  const lines = wrapText(ctx, titleLine, LABEL_W * 0.94, titleBaseSize, 700);
+  const lines = wrapText(ctx, item.title, LABEL_W * 0.94, titleBaseSize, 700);
   const actualTitle = lines[0].size;
   const titleLineH = actualTitle * 1.08;
 
   const valueGap = LABEL_H * 0.05;
   const blockH = lines.length * titleLineH + valueGap + valueSize;
-  // Center vertically with safe padding above/below
   const topY = Math.max(LABEL_H * 0.08, (LABEL_H - blockH) / 2);
 
   ctx.fillStyle = "#ffffff";
@@ -287,14 +273,21 @@ function makeLabel(game: Game): THREE.CanvasTexture {
     ctx.fillText(lines[i].text, LABEL_W / 2, y);
   }
 
+  // Auto-shrink the value line so long unit labels never clip horizontally
+  const valueText = `${formatValue(item.value)} ${unitLabel}`;
+  const valueMaxW = LABEL_W * 0.94;
+  let actualValueSize = valueSize;
+  ctx.font = `600 ${actualValueSize}px ${FONT}`;
+  while (
+    ctx.measureText(valueText).width > valueMaxW &&
+    actualValueSize > Math.round(valueSize * 0.5)
+  ) {
+    actualValueSize -= 4;
+    ctx.font = `600 ${actualValueSize}px ${FONT}`;
+  }
   ctx.fillStyle = ACCENT_ORANGE;
-  ctx.font = `600 ${valueSize}px ${FONT}`;
-  const valueY = topY + lines.length * titleLineH + valueGap + valueSize;
-  ctx.fillText(
-    `${formatValue(game.copiesMillions)} copies sold`,
-    LABEL_W / 2,
-    valueY,
-  );
+  const valueY = topY + lines.length * titleLineH + valueGap + actualValueSize;
+  ctx.fillText(valueText, LABEL_W / 2, valueY);
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -302,8 +295,6 @@ function makeLabel(game: Game): THREE.CanvasTexture {
   return tex;
 }
 
-// wrapText — tries 1-line at large sizes, falls back to 2-line at SMALLER
-// sizes (so the 2-line block always fits in the canvas vertically).
 function wrapText(
   ctx: CanvasRenderingContext2D,
   text: string,
@@ -314,15 +305,12 @@ function wrapText(
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
-  // Phase 1: try to fit on ONE line, shrinking from baseSize to ~80% of baseSize
   for (let size = baseSize; size >= Math.round(baseSize * 0.8); size -= 4) {
     ctx.font = `${weight} ${size}px ${FONT}`;
     if (ctx.measureText(text).width <= maxWidth) {
       return [{ text, size }];
     }
   }
-  // Phase 2: must wrap to 2 lines. Use sizes max ~78% of baseSize so vertical
-  // stack fits comfortably in the canvas height.
   for (
     let size = Math.round(baseSize * 0.78);
     size >= Math.round(baseSize * 0.55);
@@ -344,11 +332,58 @@ function wrapText(
       }
     }
   }
-  // Phase 3: last resort — single line at minimum size
   return [{ text, size: Math.round(baseSize * 0.55) }];
 }
 
-// ───── Title / outro text textures (two centered lines) ─────
+// ───── Rank badge texture ─────
+const RANK_W = 1024;
+const RANK_H = 512;
+
+function makeRankTex(rank: number): THREE.CanvasTexture {
+  const c = document.createElement("canvas");
+  c.width = RANK_W;
+  c.height = RANK_H;
+  const ctx = c.getContext("2d")!;
+  ctx.clearRect(0, 0, RANK_W, RANK_H);
+
+  const FONT =
+    "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+  const rankStr = String(rank).padStart(2, "0");
+  const size = Math.round(RANK_H * 0.78);
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+
+  ctx.shadowColor = "rgba(0,0,0,0.55)";
+  ctx.shadowBlur = 28;
+  ctx.shadowOffsetY = 6;
+
+  ctx.font = `900 ${size}px ${FONT}`;
+
+  const hash = "#";
+  const hashW = ctx.measureText(hash).width;
+  const numW = ctx.measureText(rankStr).width;
+  const gap = size * 0.04;
+  const totalW = hashW + gap + numW;
+  const startX = (RANK_W - totalW) / 2;
+  const baselineY = RANK_H * 0.5 + size * 0.36;
+
+  ctx.fillStyle = ACCENT_ORANGE;
+  ctx.fillText(hash, startX + hashW / 2, baselineY);
+  ctx.fillText(rankStr, startX + hashW + gap + numW / 2, baselineY);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 16;
+  return tex;
+}
+
+const RANK_PLANE_W = 4.5;
+const RANK_PLANE_H = (RANK_PLANE_W * RANK_H) / RANK_W;
+const RANK_GAP = 0.5;
+
+// ───── Title / outro text textures ─────
 const TITLE_TEX_W = 2048;
 const TITLE_TEX_H = 1024;
 
@@ -368,7 +403,6 @@ function makeTitleTexture(
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
-  // Auto-fit line 1 to canvas width (was overflowing on long titles)
   const line1MaxW = W * 0.92;
   let line1Size = Math.round(H * 0.18);
   ctx.font = `800 ${line1Size}px ${FONT}`;
@@ -380,7 +414,6 @@ function makeTitleTexture(
     ctx.font = `800 ${line1Size}px ${FONT}`;
   }
 
-  // Auto-fit line 2
   const line2MaxW = W * 0.92;
   let line2Size = Math.round(H * 0.085);
   ctx.font = `500 ${line2Size}px ${FONT}`;
@@ -399,12 +432,10 @@ function makeTitleTexture(
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  // Line 1 — big bold white
   ctx.fillStyle = "#ffffff";
   ctx.font = `800 ${line1Size}px ${FONT}`;
   ctx.fillText(line1, W / 2, topY + line1Size);
 
-  // Line 2 — smaller, accent color or muted white
   ctx.fillStyle = accent ? ACCENT_ORANGE : "rgba(255,255,255,0.78)";
   ctx.font = `500 ${line2Size}px ${FONT}`;
   ctx.fillText(line2, W / 2, topY + line1Size + gap + line2Size);
@@ -417,33 +448,39 @@ function makeTitleTexture(
 
 // ───── Floating cover ─────
 function FloatingCover({
-  game,
   index,
+  N,
   coverTex,
   labelTex,
+  rankTex,
   focalIdx,
 }: {
-  game: Game;
   index: number;
+  N: number;
   coverTex: THREE.Texture;
   labelTex: THREE.Texture;
+  rankTex: THREE.Texture;
   focalIdx: number;
 }) {
-  const x = coverX(index);
+  const x = coverX(index, N);
   const y = coverY(index);
   const z = coverZ(index);
-  const rotY = coverRotY(index);
 
-  // Focal index is offset by 1 (waypoint 0 is title), so cover i = waypoint i+1
   const myWaypointIdx = index + 1;
   const d = Math.abs(myWaypointIdx - focalIdx);
-  const boost = 0.10 * Math.exp(-d * d * 0.5);
+  const boost = 0.1 * Math.exp(-d * d * 0.5);
   const scale = 1 + boost;
 
   const labelY = -COVER_H / 2 - LABEL_GAP - LABEL_PLANE_H / 2;
+  const rankY = COVER_H / 2 + RANK_GAP + RANK_PLANE_H / 2;
 
   return (
-    <group position={[x, y, z]} rotation={[0, rotY, 0]}>
+    <group position={[x, y, z]}>
+      <mesh position={[0, rankY, 0.02]}>
+        <planeGeometry args={[RANK_PLANE_W, RANK_PLANE_H]} />
+        <meshBasicMaterial map={rankTex} transparent depthWrite={false} />
+      </mesh>
+
       <mesh scale={[scale, scale, 1]} position={[0, 0, -COVER_BORDER_DEPTH]}>
         <boxGeometry
           args={[
@@ -452,7 +489,11 @@ function FloatingCover({
             COVER_BORDER_DEPTH,
           ]}
         />
-        <meshStandardMaterial color={COVER_TRIM} roughness={0.6} metalness={0.2} />
+        <meshStandardMaterial
+          color={COVER_TRIM}
+          roughness={0.6}
+          metalness={0.2}
+        />
       </mesh>
 
       <mesh scale={[scale, scale, 1]}>
@@ -478,15 +519,13 @@ function FloatingCover({
 // ───── Title / outro boards ─────
 function TextBoard({
   position,
-  rotY,
   texture,
 }: {
   position: Vec3;
-  rotY: number;
   texture: THREE.Texture;
 }) {
   return (
-    <group position={position} rotation={[0, rotY, 0]}>
+    <group position={position}>
       <mesh>
         <planeGeometry args={[TITLE_PLANE_W, TITLE_PLANE_H]} />
         <meshBasicMaterial map={texture} transparent depthWrite={false} />
@@ -495,29 +534,39 @@ function TextBoard({
   );
 }
 
-function CoverRow({ frame }: { frame: number }) {
+function CoverRow({
+  frame,
+  episode,
+  runtime,
+}: {
+  frame: number;
+  episode: Episode;
+  runtime: EpisodeRuntime;
+}) {
   const coverPaths = useMemo(
-    () => ordered.map((g) => staticFile(`covers/${COVERS[g.rank]}`)),
-    [],
+    () => runtime.items.map((it) => staticFile(it.imagePath ?? "")),
+    [runtime.items],
   );
   const covers = useTexture(coverPaths);
-  const labels = useMemo(() => ordered.map((g) => makeLabel(g)), []);
+  const labels = useMemo(
+    () => runtime.items.map((it) => makeLabel(it, episode.unitLabel)),
+    [runtime.items, episode.unitLabel],
+  );
+  const ranks = useMemo(
+    () => runtime.items.map((it) => makeRankTex(it.rank)),
+    [runtime.items],
+  );
   const titleTex = useMemo(
-    () => makeTitleTexture("TOP 20 BEST-SELLING", "VIDEO GAMES OF ALL TIME", false),
-    [],
+    () => makeTitleTexture(episode.title[0], episode.title[1], false),
+    [episode.title],
   );
   const outroTex = useMemo(
-    () =>
-      makeTitleTexture(
-        "THANKS FOR WATCHING",
-        "Like & subscribe for more",
-        true,
-      ),
-    [],
+    () => makeTitleTexture(episode.outro[0], episode.outro[1], true),
+    [episode.outro],
   );
 
   useMemo(() => {
-    const planeAspect = COVER_W / COVER_H; // 1.0 (square)
+    const planeAspect = COVER_W / COVER_H;
     covers.forEach((t) => {
       t.colorSpace = THREE.SRGBColorSpace;
       t.anisotropy = 16;
@@ -525,12 +574,10 @@ function CoverRow({ frame }: { frame: number }) {
       if (img && img.width && img.height) {
         const imgAspect = img.width / img.height;
         if (imgAspect > planeAspect) {
-          // Image wider than plane → show full height, crop sides
           const r = planeAspect / imgAspect;
           t.repeat.set(r, 1);
           t.offset.set((1 - r) / 2, 0);
         } else {
-          // Image taller than plane → show full width, crop top/bottom
           const r = imgAspect / planeAspect;
           t.repeat.set(1, r);
           t.offset.set(0, (1 - r) / 2);
@@ -540,35 +587,31 @@ function CoverRow({ frame }: { frame: number }) {
     });
   }, [covers]);
 
-  const focal = focalIdxAt(frame);
+  const focal = focalIdxAt(frame, runtime);
 
   return (
     <>
-      <TextBoard
-        position={[TITLE_X, TITLE_Y, 0]}
-        rotY={TITLE_ROT_Y}
-        texture={titleTex}
-      />
-      {ordered.map((g, i) => (
+      <TextBoard position={[runtime.titleX, TITLE_Y, 0]} texture={titleTex} />
+      {runtime.items.map((item, i) => (
         <FloatingCover
-          key={g.rank}
-          game={g}
+          key={item.rank}
           index={i}
+          N={runtime.N}
           coverTex={covers[i]}
           labelTex={labels[i]}
+          rankTex={ranks[i]}
           focalIdx={focal}
         />
       ))}
-      <TextBoard
-        position={[OUTRO_X, OUTRO_Y, 0]}
-        rotY={OUTRO_ROT_Y}
-        texture={outroTex}
-      />
+      <TextBoard position={[runtime.outroX, OUTRO_Y, 0]} texture={outroTex} />
     </>
   );
 }
 
 // ───── Starfield + nebula backdrop ─────
+// Math.random is fine here: this canvas is built ONCE per mount via useMemo,
+// not per-frame. Each render gets a stable starfield.
+/* eslint-disable @remotion/deterministic-randomness */
 function makeSpaceTexture(): THREE.CanvasTexture {
   const W = 4096;
   const H = 2048;
@@ -578,68 +621,232 @@ function makeSpaceTexture(): THREE.CanvasTexture {
   const ctx = c.getContext("2d")!;
 
   const base = ctx.createLinearGradient(0, 0, W, H);
-  base.addColorStop(0, "#0a1424");
-  base.addColorStop(0.5, "#040814");
-  base.addColorStop(1, "#020410");
+  base.addColorStop(0, "#070d1c");
+  base.addColorStop(0.55, "#03060f");
+  base.addColorStop(1, "#01020a");
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, W, H);
 
-  const g1 = ctx.createRadialGradient(
-    W * 0.18,
-    H * 0.28,
-    0,
-    W * 0.18,
-    H * 0.28,
-    W * 0.42,
-  );
-  g1.addColorStop(0, "rgba(140, 180, 240, 0.38)");
-  g1.addColorStop(0.4, "rgba(80, 120, 200, 0.12)");
-  g1.addColorStop(1, "rgba(0, 0, 0, 0)");
-  ctx.fillStyle = g1;
-  ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = "screen";
+  type Nebula = { x: number; y: number; r: number; color: string; a: number };
+  const nebulae: Nebula[] = [
+    { x: 0.16, y: 0.26, r: 0.4, color: "120, 160, 230", a: 0.32 },
+    { x: 0.22, y: 0.18, r: 0.2, color: "160, 200, 255", a: 0.18 },
+    { x: 0.1, y: 0.34, r: 0.16, color: "80, 120, 200", a: 0.14 },
+    { x: 0.72, y: 0.52, r: 0.32, color: "200, 90, 170", a: 0.2 },
+    { x: 0.78, y: 0.48, r: 0.16, color: "240, 130, 200", a: 0.14 },
+    { x: 0.68, y: 0.6, r: 0.12, color: "180, 60, 140", a: 0.12 },
+    { x: 0.44, y: 0.72, r: 0.22, color: "230, 150, 90", a: 0.1 },
+    { x: 0.48, y: 0.78, r: 0.1, color: "255, 180, 120", a: 0.1 },
+    { x: 0.85, y: 0.3, r: 0.2, color: "80, 200, 220", a: 0.1 },
+    { x: 0.2, y: 0.78, r: 0.24, color: "180, 50, 60", a: 0.08 },
+    { x: 0.28, y: 0.85, r: 0.12, color: "220, 80, 80", a: 0.08 },
+  ];
+  for (const n of nebulae) {
+    const cx = W * n.x;
+    const cy = H * n.y;
+    const r = W * n.r;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0, `rgba(${n.color}, ${n.a})`);
+    g.addColorStop(0.45, `rgba(${n.color}, ${n.a * 0.35})`);
+    g.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
 
-  const g2 = ctx.createRadialGradient(
-    W * 0.7,
-    H * 0.55,
-    0,
-    W * 0.7,
-    H * 0.55,
-    W * 0.3,
-  );
-  g2.addColorStop(0, "rgba(140, 100, 200, 0.13)");
-  g2.addColorStop(1, "rgba(0, 0, 0, 0)");
-  ctx.fillStyle = g2;
-  ctx.fillRect(0, 0, W, H);
+  ctx.save();
+  ctx.translate(W / 2, H / 2);
+  ctx.rotate(-0.22);
+  const band = ctx.createLinearGradient(0, -H * 0.35, 0, H * 0.35);
+  band.addColorStop(0, "rgba(0,0,0,0)");
+  band.addColorStop(0.45, "rgba(120, 130, 180, 0.05)");
+  band.addColorStop(0.5, "rgba(180, 170, 200, 0.09)");
+  band.addColorStop(0.55, "rgba(120, 130, 180, 0.05)");
+  band.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = band;
+  ctx.fillRect(-W, -H * 0.35, W * 2, H * 0.7);
+  ctx.restore();
 
-  // STARS — dimmer (per user request). 1px dots via ImageData.
+  for (let i = 0; i < 14; i++) {
+    const cx = Math.random() * W;
+    const cy = Math.random() * H;
+    const rx = 8 + Math.random() * 16;
+    const ry = rx * (0.35 + Math.random() * 0.4);
+    const rot = Math.random() * Math.PI;
+    const tint = Math.random() < 0.5 ? "200, 180, 160" : "160, 180, 220";
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rot);
+    ctx.scale(1, ry / rx);
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+    g.addColorStop(0, `rgba(${tint}, 0.55)`);
+    g.addColorStop(0.4, `rgba(${tint}, 0.20)`);
+    g.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(0, 0, rx, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  ctx.globalCompositeOperation = "source-over";
+
+  const STAR_PALETTE: Array<[number, number, number]> = [
+    [180, 200, 255],
+    [210, 220, 255],
+    [255, 255, 255],
+    [255, 245, 220],
+    [255, 220, 180],
+    [255, 180, 140],
+  ];
+  const STAR_WEIGHTS = [0.05, 0.12, 0.3, 0.3, 0.15, 0.08];
+  const cumStarW: number[] = [];
+  let acc = 0;
+  for (const w of STAR_WEIGHTS) {
+    acc += w;
+    cumStarW.push(acc);
+  }
+  function pickStarColor(): [number, number, number] {
+    const r = Math.random();
+    for (let i = 0; i < cumStarW.length; i++) {
+      if (r <= cumStarW[i]) return STAR_PALETTE[i];
+    }
+    return STAR_PALETTE[2];
+  }
+
   const imageData = ctx.getImageData(0, 0, W, H);
   const data = imageData.data;
-  for (let i = 0; i < 8000; i++) {
+  for (let i = 0; i < 9000; i++) {
     const px = Math.floor(Math.random() * W);
     const py = Math.floor(Math.random() * H);
-    const a = 0.18 + Math.random() * 0.4; // dimmer than before (was 0.4-0.95)
+    const a = 0.08 + Math.random() * 0.25;
+    const [r, g, b] = pickStarColor();
     const idx = (py * W + px) * 4;
-    data[idx] = 255;
-    data[idx + 1] = 255;
-    data[idx + 2] = 255;
-    data[idx + 3] = Math.round(a * 255);
-  }
-  // Brighter stars also dimmed
-  for (let i = 0; i < 200; i++) {
-    const px = Math.floor(Math.random() * W);
-    const py = Math.floor(Math.random() * H);
-    const idx = (py * W + px) * 4;
-    data[idx] = 255;
-    data[idx + 1] = 255;
-    data[idx + 2] = 255;
-    data[idx + 3] = 180; // ~70% (was 255)
+    const ex = data[idx],
+      ey = data[idx + 1],
+      ez = data[idx + 2];
+    data[idx] = Math.min(255, ex + r * a);
+    data[idx + 1] = Math.min(255, ey + g * a);
+    data[idx + 2] = Math.min(255, ez + b * a);
+    data[idx + 3] = 255;
   }
   ctx.putImageData(imageData, 0, 0);
+
+  // Medium stars (2-3px) with soft halo — dimmed
+  ctx.globalCompositeOperation = "lighter";
+  for (let i = 0; i < 350; i++) {
+    const cx = Math.random() * W;
+    const cy = Math.random() * H;
+    const [r, g, b] = pickStarColor();
+    const size = 1 + Math.random() * 1.5;
+    const haloR = size * 5;
+    const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, haloR);
+    halo.addColorStop(0, `rgba(${r},${g},${b},0.28)`);
+    halo.addColorStop(0.4, `rgba(${r},${g},${b},0.06)`);
+    halo.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = halo;
+    ctx.beginPath();
+    ctx.arc(cx, cy, haloR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = `rgba(${r},${g},${b},0.55)`;
+    ctx.beginPath();
+    ctx.arc(cx, cy, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Hero stars with diffraction spikes — significantly dimmed
+  for (let i = 0; i < 18; i++) {
+    const cx = Math.random() * W;
+    const cy = Math.random() * H;
+    const [r, g, b] = pickStarColor();
+    const haloR = 22 + Math.random() * 22;
+    const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, haloR);
+    halo.addColorStop(0, `rgba(${r},${g},${b},0.40)`);
+    halo.addColorStop(0.25, `rgba(${r},${g},${b},0.10)`);
+    halo.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = halo;
+    ctx.beginPath();
+    ctx.arc(cx, cy, haloR, 0, Math.PI * 2);
+    ctx.fill();
+    const spikeLen = haloR * 1.4;
+    const spike = ctx.createLinearGradient(
+      cx - spikeLen,
+      cy,
+      cx + spikeLen,
+      cy,
+    );
+    spike.addColorStop(0, "rgba(0,0,0,0)");
+    spike.addColorStop(0.5, `rgba(${r},${g},${b},0.22)`);
+    spike.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = spike;
+    ctx.fillRect(cx - spikeLen, cy - 0.5, spikeLen * 2, 1);
+    const spikeV = ctx.createLinearGradient(
+      cx,
+      cy - spikeLen,
+      cx,
+      cy + spikeLen,
+    );
+    spikeV.addColorStop(0, "rgba(0,0,0,0)");
+    spikeV.addColorStop(0.5, `rgba(${r},${g},${b},0.22)`);
+    spikeV.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = spikeV;
+    ctx.fillRect(cx - 0.5, cy - spikeLen, 1, spikeLen * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.beginPath();
+    ctx.arc(cx, cy, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalCompositeOperation = "source-over";
+
+  // Distant "planets" — a handful of larger filled bodies (no spikes, no halo)
+  // so they read as solid surfaces rather than glowing stars. Subtle inner
+  // shading + faint atmospheric ring sells the planet feel.
+  const PLANET_COLORS: Array<[number, number, number]> = [
+    [180, 130, 90], // warm rusty (Mars-like)
+    [210, 180, 130], // pale tan (Saturn-like)
+    [110, 140, 190], // cool blue (Neptune-like)
+    [160, 110, 140], // dusty rose
+    [120, 160, 130], // muted teal
+  ];
+  const PLANET_COUNT = 5;
+  for (let i = 0; i < PLANET_COUNT; i++) {
+    const cx = Math.random() * W;
+    const cy = Math.random() * H;
+    const radius = 14 + Math.random() * 22; // 14–36px surface
+    const [pr, pg, pb] = PLANET_COLORS[i % PLANET_COLORS.length];
+    // Subtle outer atmosphere glow (very low opacity)
+    const atmoR = radius * 1.45;
+    const atmo = ctx.createRadialGradient(cx, cy, radius, cx, cy, atmoR);
+    atmo.addColorStop(0, `rgba(${pr},${pg},${pb},0.18)`);
+    atmo.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = atmo;
+    ctx.beginPath();
+    ctx.arc(cx, cy, atmoR, 0, Math.PI * 2);
+    ctx.fill();
+    // Surface — radial shading from lit edge to terminator
+    const lightX = cx - radius * 0.35;
+    const lightY = cy - radius * 0.35;
+    const surface = ctx.createRadialGradient(
+      lightX,
+      lightY,
+      radius * 0.1,
+      cx,
+      cy,
+      radius,
+    );
+    surface.addColorStop(0, `rgba(${Math.min(255, pr + 35)},${Math.min(255, pg + 35)},${Math.min(255, pb + 35)},1)`);
+    surface.addColorStop(0.55, `rgba(${pr},${pg},${pb},1)`);
+    surface.addColorStop(1, `rgba(${Math.round(pr * 0.45)},${Math.round(pg * 0.45)},${Math.round(pb * 0.45)},1)`);
+    ctx.fillStyle = surface;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 }
+/* eslint-enable @remotion/deterministic-randomness */
 
 function Backdrop() {
   const space = useMemo(() => makeSpaceTexture(), []);
@@ -651,7 +858,15 @@ function Backdrop() {
   );
 }
 
-function Scene({ frame }: { frame: number }) {
+function Scene({
+  frame,
+  episode,
+  runtime,
+}: {
+  frame: number;
+  episode: Episode;
+  runtime: EpisodeRuntime;
+}) {
   return (
     <>
       <color attach="background" args={[BG_COLOR]} />
@@ -670,15 +885,18 @@ function Scene({ frame }: { frame: number }) {
       />
 
       <Suspense fallback={null}>
-        <CoverRow frame={frame} />
+        <CoverRow frame={frame} episode={episode} runtime={runtime} />
       </Suspense>
     </>
   );
 }
 
-export const BillboardsComposition = () => {
+export const BillboardsComposition: React.FC<{ episode: Episode }> = ({
+  episode,
+}) => {
   const { width, height } = useVideoConfig();
   const frame = useCurrentFrame();
+  const runtime = useMemo(() => buildRuntime(episode), [episode]);
   return (
     <AbsoluteFill style={{ background: BG_COLOR }}>
       <ThreeCanvas
@@ -694,9 +912,9 @@ export const BillboardsComposition = () => {
         }}
       >
         <Suspense fallback={null}>
-          <Scene frame={frame} />
+          <Scene frame={frame} episode={episode} runtime={runtime} />
         </Suspense>
-        <CameraRig frame={frame} />
+        <CameraRig frame={frame} runtime={runtime} />
       </ThreeCanvas>
     </AbsoluteFill>
   );

@@ -1,0 +1,81 @@
+{
+  "slug": "top-10-highest-grossing-movies",
+  "title": [
+    "TOP 10 HIGHEST-GROSSING",
+    "MOVIES OF ALL TIME"
+  ],
+  "outro": [
+    "THANKS FOR WATCHING",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "in worldwide box office",
+  "items": [
+    {
+      "rank": 1,
+      "title": "Avatar",
+      "value": 2924,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg",
+      "imagePath": "covers/top-10-highest-grossing-movies/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Avengers: Endgame",
+      "value": 2798,
+      "imagePath": "covers/top-10-highest-grossing-movies/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Avatar: The Way of Water",
+      "value": 2334,
+      "imagePath": "covers/top-10-highest-grossing-movies/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Titanic",
+      "value": 2258,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/1/18/Titanic_%281997_film%29_poster.png",
+      "imagePath": "covers/top-10-highest-grossing-movies/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Ne Zha 2",
+      "value": 2216,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/b/b6/Ne_Zha_2_poster.jpg",
+      "imagePath": "covers/top-10-highest-grossing-movies/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Star Wars: The Force Awakens",
+      "value": 2068,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg",
+      "imagePath": "covers/top-10-highest-grossing-movies/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Avengers: Infinity War",
+      "value": 2048,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg",
+      "imagePath": "covers/top-10-highest-grossing-movies/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Spider-Man: No Way Home",
+      "value": 1923,
+      "imagePath": "covers/top-10-highest-grossing-movies/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Zootopia 2",
+      "value": 1867,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/6/6a/Zootopia_2_%282025_film%29.jpg",
+      "imagePath": "covers/top-10-highest-grossing-movies/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Inside Out 2",
+      "value": 1699,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/f/f7/Inside_Out_2_poster.jpg",
+      "imagePath": "covers/top-10-highest-grossing-movies/10.jpg"
+    }
+  ]
+}
