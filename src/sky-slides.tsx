@@ -13,24 +13,30 @@ import {
 import { Episode, EpisodeItem } from "./episode";
 
 // ───── Geometry ─────
+// ADJUST: cover (poster) size in 3D units. Bigger = poster fills more of frame.
 const COVER_W = 9.5;
 const COVER_H = 9.5;
 const COVER_BORDER = 0.07;
 const COVER_BORDER_DEPTH = 0.05;
 
+// ADJUST: label plane (title + value text under each cover). Width matches a 2048x760 canvas.
 const LABEL_PLANE_W = 10.0;
 const LABEL_PLANE_H = (LABEL_PLANE_W * 760) / 2048; // 3.71
-const LABEL_GAP = 0.45;
+const LABEL_GAP = 0.45; // vertical gap between cover and label
 
+// ADJUST: horizontal gap between cards. Bigger = more breathing room, longer camera travel.
 const SPACING_X = 20.0;
-const Z_JIG = 3.6;
-const Y_JIG = 0.5;
+const Z_JIG = 3.6; // alternating forward/back depth offset per card (visual interest)
+const Y_JIG = 0.5; // subtle vertical wave across cards
 
-const FOV = 30;
+const FOV = 30; // camera field of view (lower = more zoomed in / less perspective distortion)
 
-const TITLE_DROP_X = -22;
-const OUTRO_DROP_X = 22;
+// ADJUST: distance from first/last card to intro/outro title (in 3D units).
+// More negative TITLE_DROP_X / more positive OUTRO_DROP_X = bigger gap.
+const TITLE_DROP_X = -35;
+const OUTRO_DROP_X = 35;
 
+// ADJUST: intro/outro title plane size. Bigger = larger title text on screen.
 const TITLE_PLANE_W = 18;
 const TITLE_PLANE_H = TITLE_PLANE_W / 2;
 
@@ -56,6 +62,10 @@ function formatValue(m: number): string {
 type Vec3 = [number, number, number];
 type FocusPose = { camPos: Vec3; lookAt: Vec3 };
 
+// ADJUST: camera framing per card.
+// CAM_DIST: distance from card. Bigger = card looks smaller / more space around it.
+// CAM_Y_OFFSET: vertical camera offset. Negative = camera looks slightly upward at card.
+// CAM_X_OFFSET: horizontal camera offset (small lateral nudge for composition).
 const CAM_DIST = 36;
 const CAM_Y_OFFSET = -3.0;
 const CAM_X_OFFSET = 1.5;
@@ -71,9 +81,13 @@ function coverFocusPose(i: number, n: number): FocusPose {
 }
 
 // ───── Pacing (60fps) ─────
-const PHASE_INTRO = 160;
-const PER_ITEM_FRAMES = 270;
-const TAIL_PADDING = 90;
+// ADJUST: all values are in frames @ 60fps. So 60 = 1 second.
+// PHASE_INTRO: how long the intro title stays before camera starts moving to card #N.
+// PER_ITEM_FRAMES: total time budget per card (includes both travel-to and dwell-on).
+// TAIL_PADDING: how long the outro title stays at the end.
+const PHASE_INTRO = 200; // ~3.3s intro
+const PER_ITEM_FRAMES = 250; // ~5.5s per card
+const TAIL_PADDING = 120; // ~2s outro hold
 
 export function totalFrames(items: EpisodeItem[]): number {
   return PHASE_INTRO + items.length * PER_ITEM_FRAMES + TAIL_PADDING;
@@ -93,7 +107,12 @@ function smoothstep(t: number) {
   return c * c * (3 - 2 * c);
 }
 
-const SEG_HOLD_FRAC = 0.55;
+// ADJUST: how long each card stays still on screen before the camera moves on.
+// Pause-per-card (seconds) = PER_ITEM_FRAMES * SEG_HOLD_FRAC / 60
+// e.g. 330 * 0.52 / 60 ≈ 2.86s paused, then ~2.64s gliding to the next card.
+// Higher SEG_HOLD_FRAC = longer pause / faster glide (same total video length).
+// To make BOTH pause and glide longer, raise PER_ITEM_FRAMES instead.
+const SEG_HOLD_FRAC = 0.4;
 function segmentEase(t: number): number {
   const half = SEG_HOLD_FRAC / 2;
   if (t <= half) return 0;
@@ -252,6 +271,8 @@ function makeLabel(item: EpisodeItem, unitLabel: string): THREE.CanvasTexture {
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
+  // ADJUST: text sizes for the title (movie/game name) and value (e.g. "2.9B").
+  // Multiplier of LABEL_H (760). Larger = bigger text. Wraps + auto-shrinks if too wide.
   const titleBaseSize = Math.round(LABEL_H * 0.34);
   const valueSize = Math.round(LABEL_H * 0.27);
 
@@ -891,7 +912,7 @@ function Scene({
   );
 }
 
-export const BillboardsComposition: React.FC<{ episode: Episode }> = ({
+export const SkySlidesComposition: React.FC<{ episode: Episode }> = ({
   episode,
 }) => {
   const { width, height } = useVideoConfig();

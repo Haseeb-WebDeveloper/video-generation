@@ -34,7 +34,9 @@
     "lint": "eslint src && tsc",
     "new-episode": "node scripts/new-episode.mjs",
     "build-episode": "node scripts/build-episode.mjs",
-    "render": "node scripts/render-episode.mjs"
+    "render": "node scripts/render-episode.mjs",
+    "youtube-auth": "node scripts/youtube-auth.mjs",
+    "publish-episode": "node scripts/publish-episode.mjs"
   },
   "sideEffects": [
     "*.css"

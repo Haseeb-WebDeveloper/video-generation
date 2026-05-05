@@ -1,7 +1,7 @@
 import "./index.css";
 import { Composition } from "remotion";
 import { episodes } from "../episodes";
-import { BillboardsComposition, totalFrames } from "./Billboards";
+import { SkySlidesComposition, totalFrames } from "./sky-slides";
 import type { Episode } from "./episode";
 
 export const RemotionRoot: React.FC = () => {
@@ -11,7 +11,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition
           key={ep.slug}
           id={ep.slug}
-          component={BillboardsComposition}
+          component={SkySlidesComposition}
           durationInFrames={totalFrames(ep.items)}
           fps={60}
           width={1920}

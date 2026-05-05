@@ -17,6 +17,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { existsSync } from "node:fs";
 import sharp from "sharp";
+import { loadEpisode, writeEpisode } from "./lib/episode-loader.mjs";
 
 const [, , slug] = process.argv;
 if (!slug) {
@@ -24,22 +25,11 @@ if (!slug) {
   process.exit(1);
 }
 
-const ROOT = path.resolve(process.cwd());
-const EPISODE_FILE = path.join(ROOT, "episodes", `${slug}.json`);
-const COVERS_DIR = path.join(ROOT, "public", "covers", slug);
+const { episode, paths } = await loadEpisode(slug);
+const { root: ROOT, episodeFile: EPISODE_FILE, coversDir: COVERS_DIR } = paths;
 
 const UA = "VideoBuilder/1.0 (offline-render)";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-const raw = await fs.readFile(EPISODE_FILE, "utf-8");
-const episode = JSON.parse(raw);
-
-if (episode.slug !== slug) {
-  console.error(
-    `Episode slug mismatch: file has "${episode.slug}", argv has "${slug}".`,
-  );
-  process.exit(1);
-}
 
 await fs.mkdir(COVERS_DIR, { recursive: true });
 
@@ -96,7 +86,7 @@ for (const item of episode.items) {
 }
 
 if (updated) {
-  await fs.writeFile(EPISODE_FILE, JSON.stringify(episode, null, 2) + "\n");
+  await writeEpisode(slug, episode);
   console.log(`\nUpdated ${path.relative(ROOT, EPISODE_FILE)}`);
 }
 console.log(

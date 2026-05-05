@@ -1,0 +1,189 @@
+{
+  "slug": "top-25-highest-grossing-movies",
+  "title": [
+    "TOP 25 HIGHEST-GROSSING",
+    "MOVIES OF ALL TIME"
+  ],
+  "outro": [
+    "WHAT IS YOUR FAVOURITE?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "in worldwide box office",
+  "items": [
+    {
+      "rank": 1,
+      "title": "Avatar",
+      "value": 2924,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Avengers: Endgame",
+      "value": 2798,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Avatar: The Way of Water",
+      "value": 2334,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/9/9a/Avatar_The_Way_of_Water_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Titanic",
+      "value": 2258,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/1/18/Titanic_%281997_film%29_poster.png",
+      "imagePath": "covers/top-25-highest-grossing-movies/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Ne Zha 2",
+      "value": 2216,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/b/b6/Ne_Zha_2_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Star Wars: The Force Awakens",
+      "value": 2068,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Avengers: Infinity War",
+      "value": 2048,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Spider-Man: No Way Home",
+      "value": 1923,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Zootopia 2",
+      "value": 1867,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/6/6a/Zootopia_2_%282025_film%29.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Inside Out 2",
+      "value": 1699,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/f/f7/Inside_Out_2_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "Jurassic World",
+      "value": 1672,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/6/6e/Jurassic_World_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "The Lion King",
+      "value": 1657,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/9/9d/Disney_The_Lion_King_2019.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "The Avengers",
+      "value": 1519,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/8/8a/The_Avengers_%282012_film%29_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Furious 7",
+      "value": 1515,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/b/b8/Furious_7_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Top Gun: Maverick",
+      "value": 1496,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/1/13/Top_Gun_Maverick_Poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/15.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Avatar: Fire and Ash",
+      "value": 1486,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/9/95/Avatar_Fire_and_Ash_poster.jpeg",
+      "imagePath": "covers/top-25-highest-grossing-movies/16.jpg"
+    },
+    {
+      "rank": 17,
+      "title": "Frozen 2",
+      "value": 1450,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/8/89/Frozen_II_%282019_animated_film%29.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/17.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "Barbie",
+      "value": 1447,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/0/0b/Barbie_2023_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/18.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "Avengers: Age of Ultron",
+      "value": 1403,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/f/ff/Avengers_Age_of_Ultron_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/19.jpg"
+    },
+    {
+      "rank": 20,
+      "title": "The Super Mario Bros. Movie",
+      "value": 1361,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/4/44/The_Super_Mario_Bros._Movie_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/20.jpg"
+    },
+    {
+      "rank": 21,
+      "title": "Black Panther",
+      "value": 1347,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/d/d6/Black_Panther_%28film%29_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/21.jpg"
+    },
+    {
+      "rank": 22,
+      "title": "Harry Potter and the Deathly Hallows – Part 2",
+      "value": 1342,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/d/df/Harry_Potter_and_the_Deathly_Hallows_%E2%80%93_Part_2.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/22.jpg"
+    },
+    {
+      "rank": 23,
+      "title": "Deadpool & Wolverine",
+      "value": 1338,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/4/4c/Deadpool_%26_Wolverine_poster.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/23.jpg"
+    },
+    {
+      "rank": 24,
+      "title": "Star Wars: The Last Jedi",
+      "value": 1333,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/7/7f/Star_Wars_The_Last_Jedi.jpg",
+      "imagePath": "covers/top-25-highest-grossing-movies/24.jpg"
+    },
+    {
+      "rank": 25,
+      "title": "Jurassic World: Fallen Kingdom",
+      "value": 1308,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/c/c6/Jurassic_World_Fallen_Kingdom.png",
+      "imagePath": "covers/top-25-highest-grossing-movies/25.jpg"
+    }
+  ]
+}

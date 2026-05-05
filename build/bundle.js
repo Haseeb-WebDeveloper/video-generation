@@ -87202,7 +87202,7 @@ function Billboards_Scene({
     /* @__PURE__ */ (0,jsx_runtime.jsx)(react.Suspense, { fallback: null, children: /* @__PURE__ */ (0,jsx_runtime.jsx)(CoverRow, { frame, episode, runtime }) })
   ] });
 }
-const BillboardsComposition = ({
+const SkySlidesComposition = ({
   episode
 }) => {
   const { width, height } = (0,esm.useVideoConfig)();
@@ -87241,7 +87241,7 @@ const RemotionRoot = () => {
     esm.Composition,
     {
       id: ep.slug,
-      component: BillboardsComposition,
+      component: SkySlidesComposition,
       durationInFrames: totalFrames(ep.items),
       fps: 60,
       width: 1920,

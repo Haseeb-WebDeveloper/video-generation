@@ -11,6 +11,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { loadEpisode } from "./lib/episode-loader.mjs";
 
 const [, , slug] = process.argv;
 if (!slug) {
@@ -18,14 +19,8 @@ if (!slug) {
   process.exit(1);
 }
 
-const ROOT = path.resolve(process.cwd());
-const EPISODE_FILE = path.join(ROOT, "episodes", `${slug}.json`);
-if (!existsSync(EPISODE_FILE)) {
-  console.error(`Episode JSON not found: ${EPISODE_FILE}`);
-  process.exit(1);
-}
-
-const episode = JSON.parse(await fs.readFile(EPISODE_FILE, "utf-8"));
+const { episode, paths } = await loadEpisode(slug);
+const { root: ROOT, outDir: OUT_DIR, outFile: OUT_FILE } = paths;
 
 const missing = episode.items.filter(
   (it) =>
@@ -39,9 +34,7 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const OUT_DIR = path.join(ROOT, "out");
 await fs.mkdir(OUT_DIR, { recursive: true });
-const OUT_FILE = path.join(OUT_DIR, `${slug}.mp4`);
 
 const args = [
   "remotion",

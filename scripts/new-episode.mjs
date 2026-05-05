@@ -54,7 +54,7 @@ console.log(`Updated ${path.relative(ROOT, INDEX_FILE)}`);
 
 async function regenerateIndex() {
   const files = (await fs.readdir(EPISODES_DIR))
-    .filter((f) => f.endsWith(".json"))
+    .filter((f) => f.endsWith(".json") && !f.endsWith(".published.json"))
     .sort();
 
   const importLines = files
