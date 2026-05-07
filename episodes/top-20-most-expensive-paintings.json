@@ -1,0 +1,139 @@
+{
+  "slug": "top-20-most-expensive-paintings",
+  "title": [
+    "TOP 20 MOST EXPENSIVE",
+    "PAINTINGS EVER SOLD"
+  ],
+  "outro": [
+    "WHICH ONE IS WORTH IT?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "million USD (sale price)",
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.35,
+  "items": [
+    {
+      "rank": 1,
+      "title": "Salvator Mundi (Leonardo)",
+      "value": 450.3,
+      "imagePath": "covers/top-20-most-expensive-paintings/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Interchange (de Kooning)",
+      "value": 300,
+      "imagePath": "covers/top-20-most-expensive-paintings/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "The Card Players",
+      "value": 250,
+      "imagePath": "covers/top-20-most-expensive-paintings/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Nafea Faa Ipoipo",
+      "value": 210,
+      "imagePath": "covers/top-20-most-expensive-paintings/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Number 17A",
+      "value": 200,
+      "imagePath": "covers/top-20-most-expensive-paintings/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Shot Sage Blue Marilyn",
+      "value": 195,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/5/5c/Shot_Marilyns.jpg",
+      "imagePath": "covers/top-20-most-expensive-paintings/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "No. 6 (Violet, Green and Red)",
+      "value": 186,
+      "imagePath": "covers/top-20-most-expensive-paintings/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Wasserschlangen II",
+      "value": 183.8,
+      "imagePath": "covers/top-20-most-expensive-paintings/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Pendant portraits of Maerten Soolmans and Oopjen Coppit",
+      "value": 180,
+      "imagePath": "covers/top-20-most-expensive-paintings/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Les Femmes d'Alger",
+      "value": 179.4,
+      "imagePath": "covers/top-20-most-expensive-paintings/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "Nu couché (1917)",
+      "value": 170.4,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Modigliani_-_Nu_couch%C3%A9.jpg",
+      "imagePath": "covers/top-20-most-expensive-paintings/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "Masterpiece (Lichtenstein)",
+      "value": 165,
+      "imagePath": "covers/top-20-most-expensive-paintings/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "Nu couché (sur le côté gauche)",
+      "value": 157.2,
+      "imagePath": "covers/top-20-most-expensive-paintings/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Le Rêve (Picasso)",
+      "value": 155,
+      "imagePath": "covers/top-20-most-expensive-paintings/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Portrait of Adele Bloch-Bauer II",
+      "value": 150,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/3/33/Gustav_Klimt_047.jpg",
+      "imagePath": "covers/top-20-most-expensive-paintings/15.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Les Poseuses",
+      "value": 149.2,
+      "imagePath": "covers/top-20-most-expensive-paintings/16.jpg"
+    },
+    {
+      "rank": 17,
+      "title": "Three Studies of Lucian Freud",
+      "value": 142.4,
+      "imagePath": "covers/top-20-most-expensive-paintings/17.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "No. 5, 1948",
+      "value": 140,
+      "imagePath": "covers/top-20-most-expensive-paintings/18.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "Woman III",
+      "value": 137.5,
+      "imagePath": "covers/top-20-most-expensive-paintings/19.jpg"
+    },
+    {
+      "rank": 20,
+      "title": "Portrait of Adele Bloch-Bauer I",
+      "value": 135,
+      "imagePath": "covers/top-20-most-expensive-paintings/20.jpg"
+    }
+  ]
+}

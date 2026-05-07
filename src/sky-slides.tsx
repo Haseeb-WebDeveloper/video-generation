@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { useMemo, Suspense } from "react";
 import {
   AbsoluteFill,
+  Audio,
   Easing,
   staticFile,
   useCurrentFrame,
@@ -13,11 +14,22 @@ import {
 import { Episode, EpisodeItem } from "./episode";
 
 // ───── Geometry ─────
-// ADJUST: cover (poster) size in 3D units. Bigger = poster fills more of frame.
+// ADJUST: cover (poster) MAX size in 3D units — the bounding box every cover
+// fits inside. Each cover's plane is sized to its image aspect ratio (no
+// cropping); landscape covers shrink in height, portrait covers shrink in
+// width. Label and rank positions are anchored to this max box, so they line
+// up across cards regardless of individual painting/poster aspect.
 const COVER_W = 9.5;
 const COVER_H = 9.5;
 const COVER_BORDER = 0.07;
 const COVER_BORDER_DEPTH = 0.05;
+
+function fitCoverDims(imgW: number, imgH: number): { w: number; h: number } {
+  if (!imgW || !imgH) return { w: COVER_W, h: COVER_H };
+  const aspect = imgW / imgH;
+  if (aspect >= 1) return { w: COVER_W, h: COVER_W / aspect };
+  return { w: COVER_H * aspect, h: COVER_H };
+}
 
 // ADJUST: label plane (title + value text under each cover). Width matches a 2048x760 canvas.
 const LABEL_PLANE_W = 10.0;
@@ -33,8 +45,8 @@ const FOV = 30; // camera field of view (lower = more zoomed in / less perspecti
 
 // ADJUST: distance from first/last card to intro/outro title (in 3D units).
 // More negative TITLE_DROP_X / more positive OUTRO_DROP_X = bigger gap.
-const TITLE_DROP_X = -35;
-const OUTRO_DROP_X = 35;
+const TITLE_DROP_X = -32;
+const OUTRO_DROP_X = 32;
 
 // ADJUST: intro/outro title plane size. Bigger = larger title text on screen.
 const TITLE_PLANE_W = 18;
@@ -85,8 +97,8 @@ function coverFocusPose(i: number, n: number): FocusPose {
 // PHASE_INTRO: how long the intro title stays before camera starts moving to card #N.
 // PER_ITEM_FRAMES: total time budget per card (includes both travel-to and dwell-on).
 // TAIL_PADDING: how long the outro title stays at the end.
-const PHASE_INTRO = 200; // ~3.3s intro
-const PER_ITEM_FRAMES = 250; // ~5.5s per card
+const PHASE_INTRO = 150; // ~3.3s intro
+const PER_ITEM_FRAMES = 250; // ~4s per card
 const TAIL_PADDING = 120; // ~2s outro hold
 
 export function totalFrames(items: EpisodeItem[]): number {
@@ -475,6 +487,8 @@ function FloatingCover({
   labelTex,
   rankTex,
   focalIdx,
+  coverW,
+  coverH,
 }: {
   index: number;
   N: number;
@@ -482,6 +496,8 @@ function FloatingCover({
   labelTex: THREE.Texture;
   rankTex: THREE.Texture;
   focalIdx: number;
+  coverW: number;
+  coverH: number;
 }) {
   const x = coverX(index, N);
   const y = coverY(index);
@@ -492,6 +508,8 @@ function FloatingCover({
   const boost = 0.1 * Math.exp(-d * d * 0.5);
   const scale = 1 + boost;
 
+  // Anchor label/rank to the max bounding box so they align across cards
+  // regardless of each cover's individual aspect ratio.
   const labelY = -COVER_H / 2 - LABEL_GAP - LABEL_PLANE_H / 2;
   const rankY = COVER_H / 2 + RANK_GAP + RANK_PLANE_H / 2;
 
@@ -505,8 +523,8 @@ function FloatingCover({
       <mesh scale={[scale, scale, 1]} position={[0, 0, -COVER_BORDER_DEPTH]}>
         <boxGeometry
           args={[
-            COVER_W + COVER_BORDER * 2,
-            COVER_H + COVER_BORDER * 2,
+            coverW + COVER_BORDER * 2,
+            coverH + COVER_BORDER * 2,
             COVER_BORDER_DEPTH,
           ]}
         />
@@ -518,7 +536,7 @@ function FloatingCover({
       </mesh>
 
       <mesh scale={[scale, scale, 1]}>
-        <planeGeometry args={[COVER_W, COVER_H]} />
+        <planeGeometry args={[coverW, coverH]} />
         <meshStandardMaterial
           map={coverTex}
           roughness={0.45}
@@ -586,25 +604,13 @@ function CoverRow({
     [episode.outro],
   );
 
-  useMemo(() => {
-    const planeAspect = COVER_W / COVER_H;
-    covers.forEach((t) => {
+  const coverDims = useMemo(() => {
+    return covers.map((t) => {
       t.colorSpace = THREE.SRGBColorSpace;
       t.anisotropy = 16;
+      t.needsUpdate = true;
       const img = t.image as { width?: number; height?: number } | undefined;
-      if (img && img.width && img.height) {
-        const imgAspect = img.width / img.height;
-        if (imgAspect > planeAspect) {
-          const r = planeAspect / imgAspect;
-          t.repeat.set(r, 1);
-          t.offset.set((1 - r) / 2, 0);
-        } else {
-          const r = imgAspect / planeAspect;
-          t.repeat.set(1, r);
-          t.offset.set(0, (1 - r) / 2);
-        }
-        t.needsUpdate = true;
-      }
+      return fitCoverDims(img?.width ?? 0, img?.height ?? 0);
     });
   }, [covers]);
 
@@ -622,6 +628,8 @@ function CoverRow({
           labelTex={labels[i]}
           rankTex={ranks[i]}
           focalIdx={focal}
+          coverW={coverDims[i].w}
+          coverH={coverDims[i].h}
         />
       ))}
       <TextBoard position={[runtime.outroX, OUTRO_Y, 0]} texture={outroTex} />
@@ -854,9 +862,15 @@ function makeSpaceTexture(): THREE.CanvasTexture {
       cy,
       radius,
     );
-    surface.addColorStop(0, `rgba(${Math.min(255, pr + 35)},${Math.min(255, pg + 35)},${Math.min(255, pb + 35)},1)`);
+    surface.addColorStop(
+      0,
+      `rgba(${Math.min(255, pr + 35)},${Math.min(255, pg + 35)},${Math.min(255, pb + 35)},1)`,
+    );
     surface.addColorStop(0.55, `rgba(${pr},${pg},${pb},1)`);
-    surface.addColorStop(1, `rgba(${Math.round(pr * 0.45)},${Math.round(pg * 0.45)},${Math.round(pb * 0.45)},1)`);
+    surface.addColorStop(
+      1,
+      `rgba(${Math.round(pr * 0.45)},${Math.round(pg * 0.45)},${Math.round(pb * 0.45)},1)`,
+    );
     ctx.fillStyle = surface;
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
@@ -912,12 +926,21 @@ function Scene({
   );
 }
 
+// ADJUST: background music fade in/out length, in frames @ 60fps. 60 = 1 second.
+const AUDIO_FADE_FRAMES = 90;
+
 export const SkySlidesComposition: React.FC<{ episode: Episode }> = ({
   episode,
 }) => {
-  const { width, height } = useVideoConfig();
+  const { width, height, durationInFrames } = useVideoConfig();
   const frame = useCurrentFrame();
   const runtime = useMemo(() => buildRuntime(episode), [episode]);
+  const baseVolume = episode.audioVolume ?? 0.35;
+  const fadeVolume = (f: number) => {
+    const fadeIn = Math.min(1, f / AUDIO_FADE_FRAMES);
+    const fadeOut = Math.min(1, (durationInFrames - f) / AUDIO_FADE_FRAMES);
+    return baseVolume * Math.max(0, Math.min(fadeIn, fadeOut));
+  };
   return (
     <AbsoluteFill style={{ background: BG_COLOR }}>
       <ThreeCanvas
@@ -937,6 +960,9 @@ export const SkySlidesComposition: React.FC<{ episode: Episode }> = ({
         </Suspense>
         <CameraRig frame={frame} runtime={runtime} />
       </ThreeCanvas>
+      {episode.audioPath && (
+        <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} />
+      )}
     </AbsoluteFill>
   );
 };
