@@ -21,7 +21,7 @@ import { Episode, EpisodeItem } from "./episode";
 // every card occupies the same vertical band on screen. With label/rank
 // anchored to this height, the label and rank Y positions are also constant
 // across the row, eliminating per-card size variation.
-const COVER_H = 7.0;
+const COVER_H = 9.0;
 const COVER_BORDER = 0.07;
 const COVER_BORDER_DEPTH = 0.05;
 
@@ -31,24 +31,25 @@ function fitCoverDims(imgW: number, imgH: number): { w: number; h: number } {
   return { w: COVER_H * aspect, h: COVER_H };
 }
 
-const LABEL_PLANE_W = 10.0;
+const LABEL_PLANE_W = 11.5;
 const LABEL_PLANE_H = (LABEL_PLANE_W * 760) / 2048;
 const LABEL_GAP = 0.45;
 
-const SPACING_X = 20.0;
-// Flat row — every card at the same Z and Y so perspective doesn't make some
-// cards render larger than others. The previous Z-jig ±3.6 was producing
-// ~22% size differences between adjacent cards (32.4 vs 39.6 unit camera
-// distance), which the user read as "text smaller on some cards."
-const Z_JIG = 0;
-const Y_JIG = 0;
+// Fixed EDGE-TO-EDGE gap between adjacent cards. Card center positions are
+// derived from cumulative card widths plus this gap, so a wide landscape
+// card sitting next to a narrow portrait card has the same visual breathing
+// room as two square cards. (Center-to-center spacing made narrow cards
+// look isolated — bigger gap to neighbors — and wide cards crowded.)
+const CARD_GAP = 10.0;
 
 const FOV = 30;
 
-// No intro title board in flow-slides — keep a small left-side buffer so the
-// camera has somewhere to swoop in from before the first card enters frame.
-const TITLE_DROP_X = -5;
-const OUTRO_DROP_X = 32;
+// Intro title sits TITLE_DROP_X units left of the first card; outro title
+// sits OUTRO_DROP_X units right of the last card. Smaller buffers = camera
+// reaches the title sooner. Outro is intentionally tighter so the closing
+// title appears quickly after the last card.
+const TITLE_DROP_X = -22;
+const OUTRO_DROP_X = 20;
 const TITLE_PLANE_W = 18;
 const TITLE_PLANE_H = TITLE_PLANE_W / 2;
 
@@ -57,14 +58,13 @@ const BG_COLOR = "#040814";
 const COVER_TRIM = "#1a1f2a";
 const ACCENT_ORANGE = "#f5b35a";
 
-// ───── Position helpers ─────
-const coverX = (i: number, n: number) =>
-  i * SPACING_X - ((n - 1) * SPACING_X) / 2;
-const coverZ = (i: number) => (i % 2 === 0 ? -Z_JIG : Z_JIG);
-const coverY = (i: number) => 5 + Math.sin(i * 0.9) * Y_JIG;
+// Every card sits on the same flat row at this Y/Z. No per-index jig — a
+// uniform formation so perspective doesn't make some cards render larger.
+const ROW_Y = 5;
+const ROW_Z = 0;
 
-const TITLE_Y = 5;
-const OUTRO_Y = 5;
+const TITLE_Y = ROW_Y;
+const OUTRO_Y = ROW_Y;
 
 function formatValue(m: number): string {
   if (m >= 1000) return `${(m / 1000).toFixed(1)}B`;
@@ -74,9 +74,9 @@ function formatValue(m: number): string {
 type Vec3 = [number, number, number];
 
 // ADJUST: camera framing. Same closeness as sky-slides so cards read at the
-// same big size. With this CAM_DIST + SPACING_X the row naturally cycles
-// between "one card centered" and "two adjacent cards meeting at screen
-// middle" as the camera pans — exactly like sky-slides, just continuous.
+// same big size. The continuous pan flows the row past the camera; with
+// CARD_GAP-based positioning, one or two cards stay in frame at a time
+// regardless of their individual aspect ratios.
 const CAM_DIST = 36;
 const CAM_Y_OFFSET = -3.0;
 // Symmetric framing during a continuous pan — no lateral nudge.
@@ -87,7 +87,7 @@ const CAM_X_OFFSET = 0;
 // hold. PER_ITEM_FRAMES is the time budget per card — bigger = slower pan.
 // At CAM_DIST = 36 each card has a narrower transit window than the wide
 // framing did, so we slow down a bit to keep ~3s of clear read time per card.
-const PHASE_INTRO = 60; // ~1s swoop-in (no intro title board to read)
+const PHASE_INTRO = 70; // ~1s swoop-in (no intro title board to read)
 const PER_ITEM_FRAMES = 300; // ~5s per card-spacing of camera travel
 const TAIL_PADDING = 120; // ~2s outro hold
 
@@ -104,25 +104,36 @@ function clamp01(t: number) {
 
 const easeInOut = Easing.bezier(0.45, 0, 0.2, 1);
 
-// ───── Per-episode runtime ─────
-type EpisodeRuntime = {
-  items: EpisodeItem[];
-  N: number;
+// ───── Layout ─────
+// Computed from actual cover dimensions (widths come from loaded textures).
+// `centers[i]` is the X position of card i's center; the camera path
+// derives titleX/outroX/startCamX from those endpoints.
+type Layout = {
+  centers: number[];
   titleX: number;
   outroX: number;
   startCamX: number;
   travelFrames: number;
 };
 
-function buildRuntime(episode: Episode): EpisodeRuntime {
-  const items = [...episode.items].sort((a, b) => b.rank - a.rank);
-  const N = items.length;
-  const titleX = coverX(0, N) + TITLE_DROP_X;
-  const outroX = coverX(N - 1, N) + OUTRO_DROP_X;
+function buildLayout(coverWidths: number[]): Layout {
+  const N = coverWidths.length;
+  const total =
+    coverWidths.reduce((a, b) => a + b, 0) + Math.max(0, N - 1) * CARD_GAP;
+  const centers: number[] = [];
+  let cursor = -total / 2;
+  for (let i = 0; i < N; i++) {
+    cursor += coverWidths[i] / 2;
+    centers.push(cursor);
+    cursor += coverWidths[i] / 2 + CARD_GAP;
+  }
+  const first = centers[0] ?? 0;
+  const last = centers[N - 1] ?? 0;
+  const titleX = first + TITLE_DROP_X;
+  const outroX = last + OUTRO_DROP_X;
   const startCamX = titleX - 14;
   return {
-    items,
-    N,
+    centers,
     titleX,
     outroX,
     startCamX,
@@ -130,29 +141,29 @@ function buildRuntime(episode: Episode): EpisodeRuntime {
   };
 }
 
-function cameraXAt(frame: number, runtime: EpisodeRuntime): number {
+function cameraXAt(frame: number, layout: Layout): number {
   if (frame < PHASE_INTRO) {
     const t = easeInOut(clamp01(frame / PHASE_INTRO));
-    return lerp(runtime.startCamX, runtime.titleX, t);
+    return lerp(layout.startCamX, layout.titleX, t);
   }
-  const travelEnd = PHASE_INTRO + runtime.travelFrames;
+  const travelEnd = PHASE_INTRO + layout.travelFrames;
   if (frame < travelEnd) {
-    const t = clamp01((frame - PHASE_INTRO) / runtime.travelFrames);
-    return lerp(runtime.titleX, runtime.outroX, t);
+    const t = clamp01((frame - PHASE_INTRO) / layout.travelFrames);
+    return lerp(layout.titleX, layout.outroX, t);
   }
-  return runtime.outroX;
+  return layout.outroX;
 }
 
 function CameraRig({
   frame,
-  runtime,
+  layout,
 }: {
   frame: number;
-  runtime: EpisodeRuntime;
+  layout: Layout;
 }) {
   const camera = useThree((s) => s.camera);
 
-  const x = cameraXAt(frame, runtime);
+  const x = cameraXAt(frame, layout);
   const lookY = TITLE_Y - 0.6;
 
   const time = frame / 60;
@@ -175,7 +186,7 @@ const LABEL_H = 760;
 // its title and value at this exact size — no per-card auto-shrinking, no
 // per-card variation. Min/max are chosen so 1-line and 2-line titles always
 // fit within the label canvas height.
-const LABEL_FONT_BASE = Math.round(LABEL_H * 0.28); // ~213
+const LABEL_FONT_BASE = Math.round(LABEL_H * 0.32); // ~243
 const LABEL_FONT_MIN = Math.round(LABEL_H * 0.13); // ~99
 
 function chooseLabelFontSize(
@@ -379,36 +390,28 @@ function makeTitleTexture(
 
 // ───── Floating cover ─────
 function FloatingCover({
-  index,
-  N,
+  x,
   coverTex,
   labelTex,
   rankTex,
   coverW,
   coverH,
 }: {
-  index: number;
-  N: number;
+  x: number;
   coverTex: THREE.Texture;
   labelTex: THREE.Texture;
   rankTex: THREE.Texture;
   coverW: number;
   coverH: number;
 }) {
-  const x = coverX(index, N);
-  const y = coverY(index);
-  const z = coverZ(index);
-
   // Anchor label / rank to this cover's ACTUAL fitted height so the rank,
-  // image, title, and value always sit as a tight stack. Anchoring to the
-  // max bounding box (as sky-slides does) causes landscape covers to leave
-  // a visible empty band between the image and the label, which reads as
-  // inconsistent "justify-between" spacing when two cards are on screen.
+  // image, title, and value always sit as a tight stack regardless of
+  // aspect ratio.
   const labelY = -coverH / 2 - LABEL_GAP - LABEL_PLANE_H / 2;
   const rankY = coverH / 2 + RANK_GAP + RANK_PLANE_H / 2;
 
   return (
-    <group position={[x, y, z]}>
+    <group position={[x, ROW_Y, ROW_Z]}>
       <mesh position={[0, rankY, 0.02]}>
         <planeGeometry args={[RANK_PLANE_W, RANK_PLANE_H]} />
         <meshBasicMaterial map={rankTex} transparent depthWrite={false} />
@@ -467,66 +470,6 @@ function TextBoard({
   );
 }
 
-function CoverRow({
-  episode,
-  runtime,
-}: {
-  episode: Episode;
-  runtime: EpisodeRuntime;
-}) {
-  const coverPaths = useMemo(
-    () => runtime.items.map((it) => staticFile(it.imagePath ?? "")),
-    [runtime.items],
-  );
-  const covers = useTexture(coverPaths);
-  const labelFontSize = useMemo(
-    () => chooseLabelFontSize(runtime.items, episode.unitLabel),
-    [runtime.items, episode.unitLabel],
-  );
-  const labels = useMemo(
-    () =>
-      runtime.items.map((it) =>
-        makeLabel(it, episode.unitLabel, labelFontSize),
-      ),
-    [runtime.items, episode.unitLabel, labelFontSize],
-  );
-  const ranks = useMemo(
-    () => runtime.items.map((it) => makeRankTex(it.rank)),
-    [runtime.items],
-  );
-  const outroTex = useMemo(
-    () => makeTitleTexture(episode.outro[0], episode.outro[1], true),
-    [episode.outro],
-  );
-
-  const coverDims = useMemo(() => {
-    return covers.map((t) => {
-      t.colorSpace = THREE.SRGBColorSpace;
-      t.anisotropy = 16;
-      t.needsUpdate = true;
-      const img = t.image as { width?: number; height?: number } | undefined;
-      return fitCoverDims(img?.width ?? 0, img?.height ?? 0);
-    });
-  }, [covers]);
-
-  return (
-    <>
-      {runtime.items.map((item, i) => (
-        <FloatingCover
-          key={item.rank}
-          index={i}
-          N={runtime.N}
-          coverTex={covers[i]}
-          labelTex={labels[i]}
-          rankTex={ranks[i]}
-          coverW={coverDims[i].w}
-          coverH={coverDims[i].h}
-        />
-      ))}
-      <TextBoard position={[runtime.outroX, OUTRO_Y, 0]} texture={outroTex} />
-    </>
-  );
-}
 
 // ───── Starfield + nebula backdrop ─────
 /* eslint-disable @remotion/deterministic-randomness */
@@ -790,11 +733,60 @@ function Backdrop() {
 
 function Scene({
   episode,
-  runtime,
+  frame,
 }: {
   episode: Episode;
-  runtime: EpisodeRuntime;
+  frame: number;
 }) {
+  const items = useMemo(
+    () => [...episode.items].sort((a, b) => b.rank - a.rank),
+    [episode.items],
+  );
+
+  const coverPaths = useMemo(
+    () => items.map((it) => staticFile(it.imagePath ?? "")),
+    [items],
+  );
+  const covers = useTexture(coverPaths);
+
+  // Compute fitted cover dimensions from loaded textures.
+  const dims = useMemo(() => {
+    return covers.map((t) => {
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = 16;
+      t.needsUpdate = true;
+      const img = t.image as { width?: number; height?: number } | undefined;
+      return fitCoverDims(img?.width ?? 0, img?.height ?? 0);
+    });
+  }, [covers]);
+
+  // Layout: card centers spaced by their actual widths plus a fixed gap.
+  const layout = useMemo(
+    () => buildLayout(dims.map((d) => d.w)),
+    [dims],
+  );
+
+  const labelFontSize = useMemo(
+    () => chooseLabelFontSize(items, episode.unitLabel),
+    [items, episode.unitLabel],
+  );
+  const labels = useMemo(
+    () => items.map((it) => makeLabel(it, episode.unitLabel, labelFontSize)),
+    [items, episode.unitLabel, labelFontSize],
+  );
+  const ranks = useMemo(
+    () => items.map((it) => makeRankTex(it.rank)),
+    [items],
+  );
+  const titleTex = useMemo(
+    () => makeTitleTexture(episode.title[0], episode.title[1], false),
+    [episode.title],
+  );
+  const outroTex = useMemo(
+    () => makeTitleTexture(episode.outro[0], episode.outro[1], true),
+    [episode.outro],
+  );
+
   return (
     <>
       <color attach="background" args={[BG_COLOR]} />
@@ -812,9 +804,21 @@ function Scene({
         color="#ffe2c0"
       />
 
-      <Suspense fallback={null}>
-        <CoverRow episode={episode} runtime={runtime} />
-      </Suspense>
+      <TextBoard position={[layout.titleX, TITLE_Y, 0]} texture={titleTex} />
+      {items.map((item, i) => (
+        <FloatingCover
+          key={item.rank}
+          x={layout.centers[i]}
+          coverTex={covers[i]}
+          labelTex={labels[i]}
+          rankTex={ranks[i]}
+          coverW={dims[i].w}
+          coverH={dims[i].h}
+        />
+      ))}
+      <TextBoard position={[layout.outroX, OUTRO_Y, 0]} texture={outroTex} />
+
+      <CameraRig frame={frame} layout={layout} />
     </>
   );
 }
@@ -826,7 +830,6 @@ export const FlowSlidesComposition: React.FC<{ episode: Episode }> = ({
 }) => {
   const { width, height, durationInFrames } = useVideoConfig();
   const frame = useCurrentFrame();
-  const runtime = useMemo(() => buildRuntime(episode), [episode]);
   const baseVolume = episode.audioVolume ?? 0.35;
   const fadeVolume = (f: number) => {
     const fadeIn = Math.min(1, f / AUDIO_FADE_FRAMES);
@@ -848,9 +851,8 @@ export const FlowSlidesComposition: React.FC<{ episode: Episode }> = ({
         }}
       >
         <Suspense fallback={null}>
-          <Scene episode={episode} runtime={runtime} />
+          <Scene episode={episode} frame={frame} />
         </Suspense>
-        <CameraRig frame={frame} runtime={runtime} />
       </ThreeCanvas>
       {episode.audioPath && (
         <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} />
