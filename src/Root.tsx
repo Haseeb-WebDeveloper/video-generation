@@ -1,7 +1,14 @@
 import "./index.css";
 import { Composition } from "remotion";
 import { episodes } from "../episodes";
-import { SkySlidesComposition, totalFrames } from "./sky-slides";
+import {
+  SkySlidesComposition,
+  totalFrames as skyTotalFrames,
+} from "./sky-slides";
+import {
+  FlowSlidesComposition,
+  totalFrames as flowTotalFrames,
+} from "./flow-slides";
 import type { Episode } from "./episode";
 
 export const RemotionRoot: React.FC = () => {
@@ -12,13 +19,28 @@ export const RemotionRoot: React.FC = () => {
           key={ep.slug}
           id={ep.slug}
           component={SkySlidesComposition}
-          durationInFrames={totalFrames(ep.items)}
+          durationInFrames={skyTotalFrames(ep.items)}
           fps={60}
           width={1920}
           height={1080}
           defaultProps={{ episode: ep }}
           calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-            durationInFrames: totalFrames(props.episode.items),
+            durationInFrames: skyTotalFrames(props.episode.items),
+          })}
+        />
+      ))}
+      {episodes.map((ep) => (
+        <Composition
+          key={`${ep.slug}-flow`}
+          id={`${ep.slug}-flow`}
+          component={FlowSlidesComposition}
+          durationInFrames={flowTotalFrames(ep.items)}
+          fps={60}
+          width={1920}
+          height={1080}
+          defaultProps={{ episode: ep }}
+          calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
+            durationInFrames: flowTotalFrames(props.episode.items),
           })}
         />
       ))}
