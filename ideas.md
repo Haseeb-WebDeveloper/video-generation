@@ -2,142 +2,9 @@
 
 Ranked by **retention potential**: how hard it is for a viewer to skip before #1. The strongest ideas have a *curiosity gap* (you genuinely don't know who's #1), *stakes* (real money / fame numbers), and *visuals* (every entry has a recognizable image we can auto-fetch from Wikipedia / Wikimedia Commons).
 
-Each idea lists:
-- **Hook** — the one-line reason a viewer doesn't skip
-- **Source** — where the data lives (so the auto-fetch step is realistic)
-- **Why #1 surprises** — the payoff that keeps them to the end
+We now have **3 templates**: `sky` (3D space scene, best for visual artifacts — movies, paintings, products), `flow` (continuous scrolling row, similar use as sky), `bar` (3D pillars sized by value, best for money/count/size comparisons where the *number* is the star).
 
----
-
-## Tier S — Unskippable (build these first)
-
-### 1. Top 15 Richest People In The World 2026
-- **Hook:** "#1 just passed half a trillion dollars."
-- **Source:** Forbes Real-Time Billionaires / Bloomberg Billionaires Index
-- **Why #1 surprises:** the order swaps month to month between Musk / Arnault / Bezos / Zuck. Live-feeling.
-
-### 2. Top 20 Most Subscribed YouTube Channels
-- **Hook:** MrBeast vs T-Series — but the rest of the list is full of channels most people have never heard of.
-- **Source:** Social Blade / Wikipedia "List of most-subscribed YouTube channels"
-- **Why #1 surprises:** the gap between #1 and #2 is massive, and 60% of the top 20 are non-English channels.
-
-### 3. Top 20 Most Followed Instagram Accounts
-- **Hook:** Ronaldo vs Messi vs Selena Gomez — only one breaks 700M.
-- **Source:** Wikipedia "List of most-followed Instagram accounts"
-- **Why #1 surprises:** Instagram's own account is in the mix; many viewers expect Kardashians on top.
-
-### 4. Top 25 Highest-Paid Athletes 2025
-- **Hook:** A boxer earned more in one night than LeBron earns in a year.
-- **Source:** Forbes "World's Highest-Paid Athletes" annual list
-- **Why #1 surprises:** it's almost never a footballer or basketball player — it's typically a boxer or golfer in a mega-fight year.
-
-### 5. Top 20 Richest Companies In The World 2026 (by market cap)
-- **Hook:** Apple, Microsoft, Nvidia — only one has crossed $4 trillion.
-- **Source:** companiesmarketcap.com / Wikipedia "List of public corporations by market cap"
-- **Why #1 surprises:** ordering flips weekly; Saudi Aramco lurks unexpectedly high.
-
-### 6. Top 20 Most Streamed Songs On Spotify Of All Time
-- **Hook:** "Blinding Lights" vs "Shape of You" — and a song from 2017 still wins.
-- **Source:** Spotify Charts / Wikipedia "List of most-streamed songs on Spotify"
-- **Why #1 surprises:** the all-time #1 hasn't been #1 on weekly charts in 5+ years, but compound streams keep it on top.
-
-### 7. Top 25 Highest-Grossing Movies Of All Time (inflation-adjusted)
-- **Hook:** Avatar isn't #1 when you adjust for inflation — Gone With The Wind is.
-- **Source:** Box Office Mojo / The-Numbers
-- **Why #1 surprises:** flips the conventional list everyone has seen on YouTube already.
-
----
-
-## Tier A — Strong concept, slightly nichier
-
-### 8. Top 20 Most Followed Spotify Artists
-- **Hook:** Taylor Swift, Bad Bunny, The Weeknd — listeners flip every 6 months.
-- **Source:** Wikipedia "List of most-followed Spotify artists"
-
-### 9. Top 25 Most-Visited Websites In The World
-- **Hook:** Google #1 — but #2 is *not* YouTube anymore.
-- **Source:** Similarweb / Cloudflare Radar / Wikipedia
-- **Why #1 surprises:** ChatGPT cracked the top 5; PornHub is publicly listed and shocks viewers; X / Reddit ordering is fluid.
-
-### 10. Top 25 Best-Selling Video Games Of All Time
-- **Hook:** Minecraft vs GTA V vs Tetris — only one has crossed 300M copies.
-- **Source:** Wikipedia "List of best-selling video games"
-
-### 11. Top 20 Highest-Paid Actors 2025
-- **Hook:** The Rock vs Tom Cruise vs a Bollywood star you may not know.
-- **Source:** Forbes "World's Highest-Paid Actors"
-
-### 12. Top 20 Tallest Buildings In The World 2026
-- **Hook:** Burj Khalifa is finally being beaten — Jeddah Tower opens soon.
-- **Source:** CTBUH / Wikipedia "List of tallest buildings"
-
-### 13. Top 20 Most Expensive Paintings Ever Sold
-- **Hook:** Salvator Mundi sold for $450M — and nobody knows where it is.
-- **Source:** Wikipedia "List of most expensive paintings"
-
-### 14. Top 20 Largest Armies In The World (active personnel)
-- **Hook:** USA isn't #1. Russia isn't #2.
-- **Source:** IISS Military Balance / Wikipedia
-
-### 15. Top 20 Countries By GDP 2026
-- **Hook:** India just passed Japan; China still trails the US by trillions.
-- **Source:** IMF World Economic Outlook
-
-### 16. Top 25 Most-Watched YouTube Videos Of All Time
-- **Hook:** Baby Shark vs Despacito — the gap is wider than you think.
-- **Source:** Wikipedia "List of most-viewed YouTube videos"
-
-### 17. Top 20 Highest-Grossing Concert Tours Of All Time
-- **Hook:** Taylor Swift's Eras Tour broke a record nobody expected to fall.
-- **Source:** Pollstar / Wikipedia "List of highest-grossing concert tours"
-
-### 18. Top 20 Fastest Cars In The World 2026
-- **Hook:** Bugatti vs Koenigsegg vs SSC — only one has officially crossed 300 mph.
-- **Source:** manufacturer specs / Wikipedia
-
-### 19. Top 20 Most Expensive Watches Ever Sold At Auction
-- **Hook:** A Patek Philippe sold for $31 million.
-- **Source:** Phillips / Christie's / Sotheby's auction records
-
-### 20. Top 20 Highest-Paid CEOs 2025
-- **Hook:** Elon vs Tim Cook vs the CEO who out-earned them both with one stock grant.
-- **Source:** AFL-CIO Executive Paywatch / SEC filings
-
----
-
-## Tier B — Niche but high-retention if framed right
-
-### 21. Top 20 Best-Selling Music Albums Of All Time
-- **Hook:** Thriller still #1 after 40+ years.
-- **Source:** RIAA / Wikipedia "List of best-selling albums"
-
-### 22. Top 20 Largest Companies By Employee Count
-- **Hook:** Walmart has more employees than the population of Slovenia.
-- **Source:** Fortune Global 500
-
-### 23. Top 20 Most Populous Cities 2026
-- **Hook:** Tokyo isn't #1 anymore.
-- **Source:** UN World Urbanization Prospects
-
-### 24. Top 20 Richest Football Clubs 2025
-- **Hook:** Real Madrid vs Man City vs PSG.
-- **Source:** Deloitte Football Money League
-
-### 25. Top 20 Most Decorated Olympians Of All Time
-- **Hook:** Phelps' record looks unbeatable — until you see who's #2.
-- **Source:** IOC / Wikipedia
-
-### 26. Top 20 Most Expensive Domain Names Ever Sold
-- **Hook:** Voice.com sold for $30 million.
-- **Source:** DN Journal Sales Reports
-
-### 27. Top 20 Highest-Grossing Anime Films Of All Time
-- **Hook:** Demon Slayer vs Spirited Away vs Suzume.
-- **Source:** Wikipedia "List of highest-grossing anime films"
-
-### 28. Top 20 Most Followed TikTok Accounts
-- **Hook:** Khaby Lame passed Charli D'Amelio — without speaking on camera.
-- **Source:** Social Blade / Wikipedia
+Each idea below tags the template it's built for.
 
 ---
 
@@ -151,6 +18,148 @@ Each idea lists:
 
 ---
 
-## Recommended next episode
+## Already shipped
 
-**Top 20 Most Subscribed YouTube Channels** — easiest to source (Wikipedia + Social Blade), strongest universal recognition, and the meta-angle ("a YouTube video about YouTube channels") gets recommendation-engine love.
+- top-10-highest-grossing-movies
+- top-20-best-selling-video-games
+- top-20-largest-companies-by-employee-count (also `-flow` variant)
+- top-20-most-expensive-paintings
+- top-20-most-expensive-watches
+- top-25-highest-grossing-movies
+- top-25-most-watched-youtube-videos
+
+Avoid the saturated lanes our competitors hammer (richest people, tallest buildings, fastest cars, most expensive cars, biggest celebrity net worths, best soccer players). The list below targets **specifically what the algorithm rewards but few channels make** — strong curiosity gap, clean numerical data, recognizable visuals.
+
+---
+
+## Tier 1 — Highest CTR, lowest competition
+
+### 1. Top 15 Most Expensive Liquids in the World
+- **Template:** `bar` — values per gallon are perfect pillar heights.
+- **Hook:** "Scorpion venom is $39 million per gallon. What costs more than that?"
+- **Why it pops:** Genuinely WTF list — black printer ink, snake venom, human blood, insulin, lab chemicals. Almost nobody guesses #1 right.
+- **Source:** Wikipedia "List of most expensive liquids" + lab supplier price lists for verification.
+- **Surprise at #1:** Often a research chemical or rare antivenom, not gold.
+
+### 2. Top 20 Apps That Hit 1 Billion Users Fastest
+- **Template:** `bar` — months-to-1B as the value, log-friendly.
+- **Hook:** "ChatGPT did it in 2 months. TikTok in 9. Facebook took 8 years."
+- **Why it pops:** Tech-savvy audience, modern hook, every entry has a clean recognizable logo. Almost no competitor has framed it this way.
+- **Source:** Statista + company press releases. Months-to-1B-MAUs.
+- **Surprise at #1:** ChatGPT or Threads (5 days to 100M, fastest ever) — depending on how the metric is defined.
+
+### 3. Top 15 Most Expensive Music Catalogs Ever Sold
+- **Template:** `bar` — sale price is the value.
+- **Hook:** "Springsteen sold his catalog for $500M. Bob Dylan? Even more."
+- **Why it pops:** Recency (most sales since 2020), every artist is universally recognizable, the *idea* of "selling your songs" intrigues people.
+- **Source:** Music Business Worldwide, Variety, Billboard.
+- **Surprise at #1:** Often Bruce Springsteen or Michael Jackson estate (~$600M+).
+
+### 4. Top 20 Largest Sovereign Wealth Funds
+- **Template:** `bar` — AUM in $ trillions / billions.
+- **Hook:** "Norway's fund owns 1.5% of every public company on Earth. It's not even #1."
+- **Why it pops:** Counterintuitive #1 (usually a Gulf state, not a famous superpower), educational without being dry, evergreen data.
+- **Source:** SWFI rankings, public fund disclosures.
+- **Surprise at #1:** Norway is #1 by AUM (≈$1.7T), beating every Gulf state — most viewers expect Saudi Arabia.
+
+### 5. Top 15 Biggest Heists in History (by amount stolen)
+- **Template:** `bar` — $ stolen, inflation-adjusted.
+- **Hook:** "$3.5 billion vanished from Iraq's central bank in a single afternoon."
+- **Why it pops:** Stories sell themselves, every entry has a memorable name (Antwerp Diamond, Brink's-Mat, Banco Central). Strong rewatch value.
+- **Source:** FBI/Interpol records, Wikipedia "List of major heists."
+- **Surprise at #1:** Iraq Central Bank ($1B in 2003) or the Bitfinex hack ($72B at peak) — depends on whether crypto counts.
+
+---
+
+## Tier 2 — Strong curiosity, slightly more competition
+
+### 6. Top 20 Most-Streamed Songs on Spotify of All Time
+- **Template:** `bar` — stream count is the value.
+- **Hook:** "Blinding Lights has been streamed more than the Bible has been read."
+- **Why it pops:** Universal recognition, every song has cover art, perpetually relevant.
+- **Source:** Spotify Charts API / Chartmasters running totals.
+
+### 7. Top 15 Most Expensive Sneakers Ever Sold
+- **Template:** `flow` or `sky` — the shoe IS the visual.
+- **Hook:** "A pair of Nikes sold for $1.8 million. Whose feet were in them?"
+- **Why it pops:** Sneakerhead audience is huge and rabid, every entry has provenance (Kanye, Jordan, Eminem).
+- **Source:** Sotheby's auction archives.
+
+### 8. Top 15 Largest Diamonds Ever Found (by raw carats)
+- **Template:** `bar` (carats) or `sky` (the stone is photogenic).
+- **Hook:** "The Cullinan was 3,106 carats. The diamond #1 makes it look small."
+- **Why it pops:** Visual gemstones, royalty stories (Cullinan → British Crown Jewels), discovery dates that span 200 years.
+- **Source:** Wikipedia "List of largest rough diamonds."
+
+### 9. Top 20 Largest Cruise Ships Ever Built (by gross tonnage)
+- **Template:** `bar` — tonnage scales beautifully on pillars.
+- **Hook:** "Icon of the Seas weighs as much as 5 Eiffel Towers. It still floats."
+- **Why it pops:** Universal "WOW that's huge" reaction, every ship is photogenic, growth-curve angle (each generation outdoes the last).
+- **Source:** Cruise Lines International Association, Wikipedia.
+
+### 10. Top 15 Most Expensive Photographs Ever Sold
+- **Template:** `flow` or `sky` — the photo *is* the cover.
+- **Hook:** "Andreas Gursky's Rhein II sold for $4.3M. It's a picture of a river."
+- **Why it pops:** "I could've taken that" outrage drives comments, art-world money fascinates outsiders.
+- **Source:** Christie's, Sotheby's, Phillips public auction results.
+
+---
+
+## Tier 3 — Niche but rabid audiences
+
+### 11. Top 20 Most Expensive Magic: The Gathering Cards
+- **Template:** `bar` (price) or `sky` (the card art).
+- **Hook:** "A single card sold for $3 million. It's a piece of cardboard."
+- **Why it pops:** MTG community is enormous and high-engagement, no big mainstream channel covers this seriously.
+- **Source:** MTGGoldfish, eBay sold listings, public auction houses.
+
+### 12. Top 15 Most Expensive Domain Names Ever Sold
+- **Template:** `bar` — pure $.
+- **Hook:** "Cars.com sold for $872M. That's not even close to #1."
+- **Why it pops:** Tech-business crossover audience, the URL itself is the visual hook.
+- **Source:** Sedo + DNJournal sales records.
+
+### 13. Top 20 Highest-Grossing Concert Tours of All Time
+- **Template:** `bar` — gross in $ millions.
+- **Hook:** "Taylor Swift's Eras Tour grossed $2 billion. That broke every record we had."
+- **Why it pops:** Music fans, recency (Eras + Beyoncé Renaissance reset the chart), every artist is iconic.
+- **Source:** Pollstar Year-End rankings.
+
+### 14. Top 15 Largest Statues in the World (by total height)
+- **Template:** `bar` — height in meters scales naturally.
+- **Hook:** "The Statue of Unity is twice the height of the Statue of Liberty."
+- **Why it pops:** Counterintuitive geography (most are in Asia, not where Western viewers expect), photogenic.
+- **Source:** Wikipedia "List of tallest statues."
+
+### 15. Top 15 Wealthiest Royal Families
+- **Template:** `bar` — family net worth.
+- **Hook:** "The British royals have $28 billion. The Saudi royals are 50× richer."
+- **Why it pops:** "Royal" anything spikes CTR, the scale comparison between Western and Gulf monarchies genuinely shocks people.
+- **Source:** Forbes royal wealth estimates.
+
+---
+
+## Tier 4 — Solid bets, evergreen
+
+### 16. Top 15 Most Expensive Spices in the World
+- **Template:** `bar` — $ per pound. Saffron, vanilla, cardamom, etc. Universal curiosity, kitchen-relevant.
+
+### 17. Top 15 Companies With the Largest Cash Reserves
+- **Template:** `bar`. Apple, Berkshire, Saudi Aramco. Counterintuitive — Apple alone could buy Lockheed Martin in cash.
+
+### 18. Top 20 Tallest Roller Coasters in the World
+- **Template:** `bar` (height) or `sky` (visual).  Theme-park audience is huge, every coaster has a recognizable name and a backstory.
+
+### 19. Top 15 Largest Aquariums in the World (by water volume)
+- **Template:** `bar` — gallons. Visual photos, family-friendly clicks, surprising #1 (China dominates the list now).
+
+### 20. Top 15 Highest-Paid eSports Player Transfers
+- **Template:** `bar` — transfer fee. Gaming demographic skews younger and more engaged than mainstream sports rankings.
+
+---
+
+## What to ship next
+
+**Strongest single bet:** **Top 15 Most Expensive Liquids in the World** with the new `bar` template. It hits every viral lever — counterintuitive #1, every entry has a "wait what" reaction, clean Wikipedia source, and the bar visualization lets us land the exponential gap (something/gallon vs $39M/gallon) hard at the end. Low competition because the topic is too "weird" for the big channels to bother researching, but exactly the kind of curiosity bait the algorithm pushes.
+
+**Strongest combo for the channel arc:** ship one Tier 1 idea, then a Tier 3 niche, then back to Tier 1. Mixing universal-curiosity hits with rabid-niche hits maximizes both watch time *and* shareability across audience segments.

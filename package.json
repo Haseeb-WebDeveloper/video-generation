@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "9.6.0",
     "@remotion/cli": "4.0.452",
@@ -36,6 +37,7 @@
     "build-episode": "node scripts/build-episode.mjs",
     "fetch-flags": "node scripts/fetch-flags.mjs",
     "upscale": "node scripts/upscale-image.mjs",
+    "remove-bg": "node scripts/remove-bg.mjs",
     "render": "node scripts/render-episode.mjs",
     "youtube-auth": "node scripts/youtube-auth.mjs",
     "publish-episode": "node scripts/publish-episode.mjs"

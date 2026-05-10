@@ -68,28 +68,40 @@ const CAM_DIST = 30;
 const K_LOOK = 2.0;
 const CAM_Y_LIFT = 1.8;
 
-// Title boards sit beyond the first/last bar in X. The pan flows past them
-// continuously, so they're far enough out that the camera has settled on a
-// clean view by the time it reaches them — and importantly, the closest
-// bar is fully out of frame when the camera holds on the title board.
-const TITLE_DROP_X = -24;
-const OUTRO_DROP_X = 24;
-const TITLE_PLANE_W = 16;
+// Title boards sit beyond the first/last bar in X. The camera covers these
+// gaps in their own dedicated phases (APPROACH/EXIT) at much higher than
+// per-bar speed, so generous spacing reads as "breathing room" rather than
+// "long boring travel."
+const TITLE_DROP_X = -22;
+const OUTRO_DROP_X = 22;
+// Title/outro board size in world units. Bigger plane = bigger text on
+// screen (text scales with the plane since the canvas texture is fixed).
+const TITLE_PLANE_W = 20;
 const TITLE_PLANE_H = TITLE_PLANE_W / 2;
 
 // ───── Palette ─────
-const BAR_COLOR = "#e6dcc2"; // cream/beige pillar
-const BAR_COLOR_DARK = "#bfb593"; // shadow side tint via lighting, not material
-const NAMEPLATE_COLOR = "#3a1f23"; // deep maroon
-const VALUE_COLOR = "#7c1c1c"; // dark blood red
-const FLOOR_COLOR = "#8e8c87";
-const FLOOR_TILE_LINE = "#787671";
-// Back wall — same gray family as the floor, slightly lighter so the floor
-// reads as the foreground surface and the wall fades back. Tile lines a
-// touch darker than the wall fill so the pattern is visible without being
-// noisy.
-const WALL_COLOR = "#a3a098";
-const WALL_TILE_LINE = "#8a8780";
+// Channel branding: deep space navy background, white sans-serif text, warm
+// orange highlight, hint of cosmic purple. Cream pillars are kept because
+// they contrast cleanly with the navy and read as physical monuments — the
+// scene's "ranking podium" metaphor.
+const BAR_COLOR = "#efe7d1"; // ivory pillar — slightly cleaner than the previous warm cream
+const BAR_COLOR_DARK = "#cfc6a8"; // top-cap shading
+const NAMEPLATE_COLOR = "#0e1430"; // deep brand navy — matches wall/floor
+const NAMEPLATE_TEXT = "#ffffff"; // pure white text on the nameplate
+const VALUE_COLOR = "#0e1430"; // deep brand navy — same as nameplate, reads as ink on the cream pillar
+// Soft neutral-gray floor — slightly lighter and cooler than before, with
+// tile lines pulled close to the base color so the grid reads as a faint
+// perspective hint rather than a sharp pattern.
+const FLOOR_COLOR = "#433c5c";
+const FLOOR_TILE_LINE = "#6a6380";
+// Back wall: same space navy, painted with a sparse starfield so the
+// backdrop reads as "cosmic" instead of "warehouse." Stars are baked into
+// the wall texture (see makeWallTex).
+const WALL_COLOR = "#0a0f24";
+const STAR_COLOR = "#ffffff";
+const STAR_TINT = "#b6b4ff"; // bluish halo on the brightest stars
+const TITLE_TEXT = "#ffffff"; // primary title color
+const TITLE_TEXT_SOFT = "rgba(255, 255, 255, 0.86)"; // subtitle / line 2
 
 // Bar X helper — index 0 sits leftmost; sorted so the smallest pillar is first
 // and the tallest is last (ascending reveal).
@@ -109,15 +121,29 @@ type Vec3 = [number, number, number];
 type FocusPose = { camPos: Vec3; lookAt: Vec3 };
 
 // ───── Pacing (60fps) ─────
-// One continuous sweep: hold on title → smooth pan past every bar → hold on
-// outro. No per-bar dwell; the camera glides past at constant velocity, with
-// gentle ease in/out at the very start and end of the pan.
-const HOLD_INTRO = 120; // ~2s on the title board
-const HOLD_OUTRO = 140; // ~2.3s on the outro board
-const PER_ITEM_FRAMES = 200; // ~3.3s of pan time per bar — slower glide so the viewer can read each one
+// Five phases: intro hold → fast approach → constant-velocity bar pan →
+// fast exit → outro hold.
+//
+// The bar pan stays at a CONSTANT velocity (V_BAR = SPACING_X/PER_ITEM_FRAMES)
+// so every bar gets identical on-screen time — each one reads cleanly.
+// APPROACH/EXIT are separate Hermite curves that traverse the title/outro
+// gaps in a SHORT window — peak velocity inside them is several × V_BAR,
+// which is what reads as "snappy intro/outro." The Hermite math links
+// approach end velocity exactly to V_BAR (and exit start velocity to V_BAR)
+// so there are no velocity jolts at the phase seams.
+const HOLD_INTRO = 75; // ~1.25s static title hold — long enough to read the title
+const APPROACH_FRAMES = 180; // ~3.0s — relaxed dive from titleX into first bar
+const PER_ITEM_FRAMES = 200; // ~3.3s per bar at constant velocity
+const EXIT_FRAMES = 180; // ~3.0s — mirror of approach, dive away from last bar
+const HOLD_OUTRO = 90; // ~1.5s static outro hold
 
 export function totalFrames(items: EpisodeItem[]): number {
-  return HOLD_INTRO + items.length * PER_ITEM_FRAMES + HOLD_OUTRO;
+  // (N - 1) bar-to-bar transitions at PER_ITEM_FRAMES each, framed by the
+  // approach and exit phases on either side.
+  const barPanFrames = Math.max(0, items.length - 1) * PER_ITEM_FRAMES;
+  return (
+    HOLD_INTRO + APPROACH_FRAMES + barPanFrames + EXIT_FRAMES + HOLD_OUTRO
+  );
 }
 
 function lerp(a: number, b: number, t: number) {
@@ -131,21 +157,28 @@ function smoothstep(t: number) {
   return c * c * (3 - 2 * c);
 }
 
-// Soft ease near the very ends of the pan so the camera doesn't jolt when
-// it transitions between hold and pan. Most of the pan stays linear so the
-// per-bar velocity is constant — that's what reads as "seamless flow" rather
-// than stop-and-go.
-function panEase(t: number): number {
-  const RAMP = 0.1; // fraction of pan duration spent ramping up/down
-  if (t < RAMP) {
-    const u = t / RAMP;
-    return 0.5 * RAMP * smoothstep(u);
-  }
-  if (t > 1 - RAMP) {
-    const u = (t - (1 - RAMP)) / RAMP;
-    return 1 - 0.5 * RAMP * (1 - smoothstep(u));
-  }
-  return t;
+// Bar-pan velocity in world units per frame. Constant across the bar row so
+// each bar gets identical on-screen time. Approach/exit are derived to meet
+// this velocity exactly at the row's first/last bar — no kicks at the seams.
+const V_BAR = SPACING_X / PER_ITEM_FRAMES;
+
+// Hermite cubic from rest at offset 0 to V_BAR at offset D over `frames`.
+// Used by the APPROACH phase: camera starts still at titleX (end of intro
+// hold) and matches the constant bar-pan velocity exactly when it reaches
+// the first bar, with peak velocity in the middle of the curve being many
+// × V_BAR — the visible "snappy dive in."
+function hermiteAccelerate(u: number, D: number, frames: number): number {
+  // p(u) = h01(u)*p1 + h11(u)*v1_norm
+  //      = smoothstep(u)*D + (u^3 - u^2)*V_BAR*frames
+  return smoothstep(u) * D + (u * u * u - u * u) * V_BAR * frames;
+}
+
+// Mirror of hermiteAccelerate: starts at V_BAR (matching end of bar pan),
+// ends at rest at offset D over `frames`. Used by the EXIT phase.
+function hermiteDecelerate(u: number, D: number, frames: number): number {
+  // p(u) = h10(u)*v0_norm + h01(u)*p1
+  //      = (u^3 - 2u^2 + u)*V_BAR*frames + smoothstep(u)*D
+  return (u * u * u - 2 * u * u + u) * V_BAR * frames + smoothstep(u) * D;
 }
 
 // ───── Per-episode runtime ─────
@@ -156,7 +189,6 @@ type EpisodeRuntime = {
   N: number;
   titleX: number;
   outroX: number;
-  panFrames: number;
 };
 
 function buildRuntime(episode: Episode): EpisodeRuntime {
@@ -184,38 +216,39 @@ function buildRuntime(episode: Episode): EpisodeRuntime {
     N,
     titleX,
     outroX,
-    panFrames: N * PER_ITEM_FRAMES,
   };
 }
 
 // What "height" does the camera see at world X? Used so the camera Y can
 // track the current bar top in real time. Inside the bar row this is a
-// smooth blend of the two nearest bar heights. Outside the row (before the
-// first bar or after the last) it eases toward TITLE_VIEW_H so the title /
-// outro boards sit at a sensible camera framing.
-const TITLE_VIEW_H = MIN_BAR_H + 1; // pretend-height for the title region
-const TITLE_RAMP_X = 8; // distance over which we ease from title region into bar row
-
+// smooth blend of the two nearest bar heights. Outside the row, the camera
+// inherits the height of the nearest bar so the intro/outro hold uses the
+// SAME framing the camera will have when it reaches the first/last bar —
+// no abrupt Y drop between hold and pan.
 function heightAtX(x: number, runtime: EpisodeRuntime): number {
   const { items, N } = runtime;
   const x0 = barX(0, N);
   const xN = barX(N - 1, N);
 
-  if (x <= x0 - TITLE_RAMP_X) return TITLE_VIEW_H;
-  if (x >= xN + TITLE_RAMP_X) return TITLE_VIEW_H;
-  if (x < x0) {
-    const t = (x - (x0 - TITLE_RAMP_X)) / TITLE_RAMP_X;
-    return lerp(TITLE_VIEW_H, items[0]._barH, smoothstep(t));
-  }
-  if (x > xN) {
-    const t = (x - xN) / TITLE_RAMP_X;
-    return lerp(items[N - 1]._barH, TITLE_VIEW_H, smoothstep(t));
-  }
+  if (x <= x0) return items[0]._barH;
+  if (x >= xN) return items[N - 1]._barH;
   const idx = (x - x0) / SPACING_X;
   const i0 = Math.max(0, Math.min(N - 2, Math.floor(idx)));
   const f = smoothstep(idx - i0);
   return lerp(items[i0]._barH, items[i0 + 1]._barH, f);
 }
+
+// How far above the camera's lookAt the title/outro board centers sit.
+// Tuned so the board reads in the upper-middle of the frame, the same
+// position a bar's nameplate would occupy.
+const TITLE_OFFSET_FROM_LOOK = 1.5;
+
+// Camera dolly applied during the (now short) intro/outro holds so neither
+// feels static. Smaller magnitudes than before because the holds are only
+// ~0.5–0.8s — the bulk of the visual motion comes from the APPROACH/EXIT
+// phases that follow the intro hold and precede the outro hold.
+const HOLD_DOLLY_Z = 2.5;
+const HOLD_DOLLY_Y = 0.6;
 
 function camPoseAt(x: number, runtime: EpisodeRuntime): FocusPose {
   const h = heightAtX(x, runtime);
@@ -236,22 +269,57 @@ function CameraRig({
 }) {
   const camera = useThree((s) => s.camera);
 
-  // Three phases: hold on title, continuous pan, hold on outro. The pan is
-  // panEase'd so the velocity ramps up smoothly off the title and decelerates
-  // gently into the outro — but is constant for the bulk of the row.
+  const { N, titleX, outroX } = runtime;
+  const x0 = barX(0, N);
+  const xN = barX(N - 1, N);
+  const barPanFrames = Math.max(0, N - 1) * PER_ITEM_FRAMES;
+  const approachD = x0 - titleX; // > 0
+  const exitD = outroX - xN; // > 0
+
+  // Phase boundary frames.
+  const fApproach = HOLD_INTRO;
+  const fBarPan = fApproach + APPROACH_FRAMES;
+  const fExit = fBarPan + barPanFrames;
+  const fOutroHold = fExit + EXIT_FRAMES;
+
   let x: number;
-  if (frame < HOLD_INTRO) {
-    x = runtime.titleX;
-  } else if (frame < HOLD_INTRO + runtime.panFrames) {
-    const tRaw = (frame - HOLD_INTRO) / runtime.panFrames;
-    const t = panEase(clamp01(tRaw));
-    x = lerp(runtime.titleX, runtime.outroX, t);
+  let dollyZ = 0;
+  let dollyY = 0;
+  if (frame < fApproach) {
+    // Phase 1: intro hold. Subtle settle dolly (back+up → base).
+    x = titleX;
+    const t = smoothstep(frame / HOLD_INTRO);
+    dollyZ = (1 - t) * HOLD_DOLLY_Z;
+    dollyY = (1 - t) * HOLD_DOLLY_Y;
+  } else if (frame < fBarPan) {
+    // Phase 2: fast approach. Hermite curve ramps from rest to V_BAR exactly
+    // as the camera reaches the first bar — peak velocity in the middle is
+    // many × V_BAR, which is what reads as a "snappy dive in."
+    const u = (frame - fApproach) / APPROACH_FRAMES;
+    x = titleX + hermiteAccelerate(u, approachD, APPROACH_FRAMES);
+  } else if (frame < fExit) {
+    // Phase 3: constant V_BAR pan through the bar row. Each bar gets the
+    // same on-screen time.
+    x = x0 + V_BAR * (frame - fBarPan);
+  } else if (frame < fOutroHold) {
+    // Phase 4: fast exit. Mirror of approach — starts at V_BAR, decelerates
+    // to rest exactly at the outro position.
+    const u = (frame - fExit) / EXIT_FRAMES;
+    x = xN + hermiteDecelerate(u, exitD, EXIT_FRAMES);
   } else {
-    x = runtime.outroX;
+    // Phase 5: outro hold. Subtle pull-back dolly (base → back+up).
+    x = outroX;
+    const t = smoothstep((frame - fOutroHold) / HOLD_OUTRO);
+    dollyZ = t * HOLD_DOLLY_Z;
+    dollyY = t * HOLD_DOLLY_Y;
   }
 
   const pose = camPoseAt(x, runtime);
-  let pos = pose.camPos;
+  let pos: Vec3 = [
+    pose.camPos[0],
+    pose.camPos[1] + dollyY,
+    pose.camPos[2] + dollyZ,
+  ];
   const look = pose.lookAt;
 
   // Subtle handheld-style sway, kept very small so the pan still reads as
@@ -270,10 +338,14 @@ function CameraRig({
 }
 
 // ───── Texture builders ─────
-const FONT_SERIF =
-  "'Times New Roman', Georgia, 'Cambria', Cochin, serif";
+// Brand uses one clean sans family across all surfaces — title cards,
+// nameplates, value text. Inter first (matches the channel thumbnails),
+// with system-stack fallbacks for non-Inter render environments.
 const FONT_SANS =
-  "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+  "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+// Kept as an alias so existing references keep working without churn — the
+// "serif" surfaces (nameplate, value, title) all now use the brand sans.
+const FONT_SERIF = FONT_SANS;
 
 function makeNameplateTex(title: string): THREE.CanvasTexture {
   const W = 1024;
@@ -283,16 +355,16 @@ function makeNameplateTex(title: string): THREE.CanvasTexture {
   c.height = H;
   const ctx = c.getContext("2d")!;
 
-  // Maroon banner with a faint inner gradient for depth.
+  // Brand navy banner with a faint inner gradient for depth.
   const grd = ctx.createLinearGradient(0, 0, 0, H);
-  grd.addColorStop(0, "#4a2a30");
+  grd.addColorStop(0, "#1a2148");
   grd.addColorStop(0.5, NAMEPLATE_COLOR);
-  grd.addColorStop(1, "#2c1418");
+  grd.addColorStop(1, "#070b1c");
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, W, H);
 
   // Soft top highlight line.
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillStyle = "rgba(255,255,255,0.08)";
   ctx.fillRect(0, 0, W, 4);
 
   ctx.textAlign = "center";
@@ -306,7 +378,7 @@ function makeNameplateTex(title: string): THREE.CanvasTexture {
   const MAX_W = W * 0.92;
   const lines = layoutNameplate(ctx, title, BASE_SIZE, MAX_W);
 
-  ctx.fillStyle = "#fbf2dc";
+  ctx.fillStyle = NAMEPLATE_TEXT;
   const lineSize = lines[0].size;
   const lineH = lineSize * 1.12;
   const blockH = lines.length * lineH;
@@ -397,10 +469,12 @@ function makeValueTex(text: string): THREE.CanvasTexture {
     ctx.font = `700 ${size}px ${FONT_SERIF}`;
   }
 
-  // Drop shadow for depth against the pillar face.
-  ctx.shadowColor = "rgba(0,0,0,0.45)";
-  ctx.shadowBlur = 14;
-  ctx.shadowOffsetY = 6;
+  // Light drop shadow for depth. Dark navy text on cream pillar already has
+  // strong contrast, so the shadow is just a hint — heavier values muddied
+  // the letterforms.
+  ctx.shadowColor = "rgba(14, 20, 48, 0.18)";
+  ctx.shadowBlur = 8;
+  ctx.shadowOffsetY = 3;
   ctx.fillStyle = VALUE_COLOR;
   ctx.fillText(text, W / 2, H / 2);
 
@@ -507,11 +581,11 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
 
-  ctx.fillStyle = "#fbf2dc";
-  ctx.font = `800 ${s1}px ${FONT_SERIF}`;
+  ctx.fillStyle = TITLE_TEXT;
+  ctx.font = `800 ${s1}px ${FONT_SANS}`;
   ctx.fillText(line1, W / 2, topY + s1);
 
-  ctx.fillStyle = "rgba(251, 242, 220, 0.86)";
+  ctx.fillStyle = TITLE_TEXT_SOFT;
   ctx.font = `500 ${s2}px ${FONT_SANS}`;
   ctx.fillText(line2, W / 2, topY + s1 + gap + s2);
 
@@ -522,36 +596,90 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
 }
 
 // ───── Backdrop (back wall) ─────
+// Sparse starfield baked into a single large texture (no tiled repeat —
+// stars would visibly tile and break the illusion). Subtle vertical
+// gradient gives the sky a sense of depth, brighter near the horizon.
 function makeWallTex(): THREE.CanvasTexture {
-  const W = 1024;
+  const W = 4096;
   const H = 1024;
   const c = document.createElement("canvas");
   c.width = W;
   c.height = H;
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = WALL_COLOR;
+
+  // Vertical gradient: a touch lighter near the bottom (horizon glow).
+  const grd = ctx.createLinearGradient(0, 0, 0, H);
+  grd.addColorStop(0, "#070b1c");
+  grd.addColorStop(0.7, WALL_COLOR);
+  grd.addColorStop(1, "#101638");
+  ctx.fillStyle = grd;
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = WALL_TILE_LINE;
-  ctx.lineWidth = 4;
-  const STEP = 128;
-  for (let i = 0; i <= W; i += STEP) {
+
+  // Deterministic PRNG so the starfield is identical across re-renders.
+  let seed = 1337;
+  const rnd = () => {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+
+  // Faint dust stars — very small, low opacity.
+  for (let i = 0; i < 1200; i++) {
+    const x = rnd() * W;
+    const y = rnd() * H;
+    const r = 0.5 + rnd() * 1.0;
+    const a = 0.18 + rnd() * 0.45;
+    ctx.fillStyle = `rgba(255, 255, 255, ${a.toFixed(3)})`;
     ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, H);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, i);
-    ctx.lineTo(W, i);
-    ctx.stroke();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
   }
+
+  // Highlight stars with a soft halo — mimics the sparkles in the channel
+  // logo without being literal.
+  for (let i = 0; i < 60; i++) {
+    const x = rnd() * W;
+    const y = rnd() * H;
+    const r = 1.6 + rnd() * 1.4;
+    const halo = ctx.createRadialGradient(x, y, 0, x, y, r * 6);
+    halo.addColorStop(0, "rgba(196, 196, 255, 0.35)");
+    halo.addColorStop(1, "rgba(196, 196, 255, 0)");
+    ctx.fillStyle = halo;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = STAR_COLOR;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Two or three faint nebula tints — sample from the channel logo's
+  // purple-to-pink palette. Keeps the wall from feeling flat.
+  const nebulaTints = ["rgba(82, 36, 134, 0.18)", "rgba(160, 80, 200, 0.10)"];
+  for (let i = 0; i < 6; i++) {
+    const x = rnd() * W;
+    const y = H * (0.25 + rnd() * 0.5);
+    const r = 220 + rnd() * 280;
+    const tint = nebulaTints[i % nebulaTints.length];
+    const cloud = ctx.createRadialGradient(x, y, 0, x, y, r);
+    cloud.addColorStop(0, tint);
+    cloud.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.fillStyle = cloud;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Quiet the nebula clouds with a subtle dark vignette near the very top
+  // and bottom so they don't hover at the edges of the wall.
+  void STAR_TINT;
+
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  // ~6 world-unit tiles on the wall — a touch larger than the floor's so
-  // the perspective scale of the two surfaces reads as different surfaces,
-  // not one continuous texture.
-  tex.repeat.set(20, 4);
+  // No repeat — single big texture across the whole back wall so stars
+  // don't tile visibly.
+  tex.wrapS = THREE.ClampToEdgeWrapping;
+  tex.wrapT = THREE.ClampToEdgeWrapping;
   tex.anisotropy = 16;
   return tex;
 }
@@ -565,9 +693,10 @@ function makeFloorTex(): THREE.CanvasTexture {
   const ctx = c.getContext("2d")!;
   ctx.fillStyle = FLOOR_COLOR;
   ctx.fillRect(0, 0, W, H);
-  // Tile grid.
+  // Tile grid — thinner than before so the floor reads as a hazy plane,
+  // not a hard grid.
   ctx.strokeStyle = FLOOR_TILE_LINE;
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 2;
   const STEP = 128;
   for (let i = 0; i <= W; i += STEP) {
     ctx.beginPath();
@@ -594,12 +723,7 @@ function Backdrop() {
   return (
     <mesh position={[0, 28, -180]}>
       <planeGeometry args={[600, 110]} />
-      <meshStandardMaterial
-        map={wall}
-        roughness={0.95}
-        metalness={0}
-        color="#b6b3aa"
-      />
+      <meshBasicMaterial map={wall} />
     </mesh>
   );
 }
@@ -611,9 +735,9 @@ function Floor() {
       <planeGeometry args={[1200, 1200]} />
       <meshStandardMaterial
         map={floor}
-        roughness={0.95}
+        roughness={0.98}
         metalness={0}
-        color="#a4a29c"
+        color="#aaaaa6"
       />
     </mesh>
   );
@@ -804,14 +928,21 @@ function TitleBoards({
     () => makeTitleTex(episode.outro[0], episode.outro[1]),
     [episode.outro],
   );
+  // Boards sit at the camera's natural framing for the nearest bar — same
+  // Y a bar's nameplate would occupy from this distance — so the cut from
+  // intro hold into pan (and from pan into outro hold) involves no Y change.
+  const titleBoardY =
+    runtime.items[0]._barH - K_LOOK + TITLE_OFFSET_FROM_LOOK;
+  const outroBoardY =
+    runtime.items[runtime.N - 1]._barH - K_LOOK + TITLE_OFFSET_FROM_LOOK;
   return (
     <>
       <TextBoard
-        position={[runtime.titleX, TITLE_VIEW_H - 0.5, 0]}
+        position={[runtime.titleX, titleBoardY, 0]}
         texture={titleTex}
       />
       <TextBoard
-        position={[runtime.outroX, TITLE_VIEW_H - 0.5, 0]}
+        position={[runtime.outroX, outroBoardY, 0]}
         texture={outroTex}
       />
     </>
@@ -897,16 +1028,20 @@ function Scene({
       <Backdrop />
       <Floor />
 
-      <ambientLight intensity={0.9} color="#ffffff" />
+      <ambientLight intensity={0.85} color="#cdd4ee" />
+      {/* Cool key light tinted toward the brand navy/violet so the cream
+          pillars don't read as warm sunlight against the cosmic backdrop. */}
       <directionalLight
         position={[-30, 50, 25]}
-        intensity={0.85}
-        color="#fff5e0"
+        intensity={0.95}
+        color="#e8eaff"
       />
+      {/* Faint warm rim light from the right — picks up the brand orange
+          and prevents the back side of each pillar from going dead flat. */}
       <directionalLight
         position={[20, 10, 15]}
-        intensity={0.25}
-        color="#e2dccd"
+        intensity={0.3}
+        color="#f5a64a"
       />
 
       <TitleBoards episode={episode} runtime={runtime} />

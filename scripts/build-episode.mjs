@@ -17,6 +17,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { existsSync } from "node:fs";
 import sharp from "sharp";
+import { removeBackground } from "@imgly/background-removal-node";
 import { loadEpisode, writeEpisode } from "./lib/episode-loader.mjs";
 
 const [, , slug] = process.argv;
@@ -79,6 +80,19 @@ for (const item of episode.items) {
     misses++;
     await sleep(300);
     continue;
+  }
+
+  // Optional background removal — run before the flag composite so the flag
+  // chip lands on a clean isolated subject. Per-item override beats the
+  // episode-level flag.
+  const wantBgRemoval = item.removeBg ?? episode.removeBg ?? false;
+  if (wantBgRemoval) {
+    try {
+      buf = await applyBgRemoval(buf);
+      source += " +nobg";
+    } catch (err) {
+      console.warn(`  bg removal failed for #${item.rank}: ${err.message}`);
+    }
   }
 
   if (item.country) {
@@ -169,6 +183,45 @@ async function downloadAndNormalize(url) {
     .flatten({ background: "#ffffff" })
     .jpeg({ quality: 85, mozjpeg: true })
     .withMetadata()
+    .toBuffer();
+}
+
+// Strip the background, then composite the cutout onto a white square. This
+// gives covers a clean studio-lookbook feel — every subject sits on the
+// same neutral backdrop, which reads as premium in the 3D scene.
+async function applyBgRemoval(buf) {
+  const blob = new Blob([buf], { type: "image/jpeg" });
+  const resultBlob = await removeBackground(blob);
+  const cutoutBuf = Buffer.from(await resultBlob.arrayBuffer());
+
+  const meta = await sharp(cutoutBuf).metadata();
+  const w = meta.width ?? 0;
+  const h = meta.height ?? 0;
+  const side = Math.max(w, h);
+
+  return sharp({
+    create: {
+      width: side,
+      height: side,
+      channels: 3,
+      background: { r: 255, g: 255, b: 255 },
+    },
+  })
+    .composite([
+      {
+        input: cutoutBuf,
+        top: Math.round((side - h) / 2),
+        left: Math.round((side - w) / 2),
+      },
+    ])
+    .flatten({ background: "#ffffff" })
+    .resize({
+      width: 1024,
+      height: 1024,
+      fit: "contain",
+      background: "#ffffff",
+    })
+    .jpeg({ quality: 92, mozjpeg: true })
     .toBuffer();
 }
 

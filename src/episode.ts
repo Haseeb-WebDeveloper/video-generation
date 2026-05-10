@@ -7,6 +7,10 @@ export type EpisodeItem = {
   // ISO 3166-1 alpha-2 country code (e.g. "US", "CN", "DE"). When set, a
   // small flag chip is composited into the cover image at build time.
   country?: string;
+  // Per-item override for the episode-level `removeBg` flag. Use this when
+  // most items in an episode share one preference but a few need the
+  // opposite (e.g. one item already ships with a clean background).
+  removeBg?: boolean;
 };
 
 // title, description, and tags are REQUIRED at publish time. Type stays
@@ -44,6 +48,12 @@ export type Episode = {
   // "contain": pad each cover to a 1024×1024 square with white background so
   // mixed-aspect logos render at consistent card size in the 3D scene.
   coverFit?: "inside" | "contain";
+  // When true, the build pipeline strips the background from every cover
+  // image and composites it onto a white square. Best for episodes where
+  // the subject is a discrete object (a watch, a diamond, a sneaker) and
+  // source photos arrive with messy / inconsistent backgrounds.
+  // Per-item override available on `EpisodeItem.removeBg`.
+  removeBg?: boolean;
   // YouTube thumbnail. Path is relative to /public, e.g.
   // "thumbnails/top-25-best-foo.jpg". This image is the master — typically a
   // 4K upscale produced via `npm run upscale`. publish-episode resizes and
