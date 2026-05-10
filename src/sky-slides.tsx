@@ -66,7 +66,8 @@ const coverY = (i: number) => 5 + Math.sin(i * 0.9) * Y_JIG;
 const TITLE_Y = 5;
 const OUTRO_Y = 5;
 
-function formatValue(m: number): string {
+function formatValue(m: number, format: "compact" | "raw" = "compact"): string {
+  if (format === "raw") return m.toLocaleString("en-US");
   if (m >= 1000) return `${(m / 1000).toFixed(1)}B`;
   return `${m}M`;
 }
@@ -273,7 +274,11 @@ function CameraRig({
 const LABEL_W = 2048;
 const LABEL_H = 760;
 
-function makeLabel(item: EpisodeItem, unitLabel: string): THREE.CanvasTexture {
+function makeLabel(
+  item: EpisodeItem,
+  unitLabel: string,
+  valueFormat: "compact" | "raw" = "compact",
+): THREE.CanvasTexture {
   const c = document.createElement("canvas");
   c.width = LABEL_W;
   c.height = LABEL_H;
@@ -307,7 +312,7 @@ function makeLabel(item: EpisodeItem, unitLabel: string): THREE.CanvasTexture {
   }
 
   // Auto-shrink the value line so long unit labels never clip horizontally
-  const valueText = `${formatValue(item.value)} ${unitLabel}`;
+  const valueText = `${formatValue(item.value, valueFormat)} ${unitLabel}`;
   const valueMaxW = LABEL_W * 0.94;
   let actualValueSize = valueSize;
   ctx.font = `600 ${actualValueSize}px ${FONT}`;
@@ -588,8 +593,11 @@ function CoverRow({
   );
   const covers = useTexture(coverPaths);
   const labels = useMemo(
-    () => runtime.items.map((it) => makeLabel(it, episode.unitLabel)),
-    [runtime.items, episode.unitLabel],
+    () =>
+      runtime.items.map((it) =>
+        makeLabel(it, episode.unitLabel, episode.valueFormat ?? "compact"),
+      ),
+    [runtime.items, episode.unitLabel, episode.valueFormat],
   );
   const ranks = useMemo(
     () => runtime.items.map((it) => makeRankTex(it.rank)),

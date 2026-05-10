@@ -66,7 +66,8 @@ const ROW_Z = 0;
 const TITLE_Y = ROW_Y;
 const OUTRO_Y = ROW_Y;
 
-function formatValue(m: number): string {
+function formatValue(m: number, format: "compact" | "raw" = "compact"): string {
+  if (format === "raw") return m.toLocaleString("en-US");
   if (m >= 1000) return `${(m / 1000).toFixed(1)}B`;
   return `${m}M`;
 }
@@ -192,6 +193,7 @@ const LABEL_FONT_MIN = Math.round(LABEL_H * 0.13); // ~99
 function chooseLabelFontSize(
   items: EpisodeItem[],
   unitLabel: string,
+  valueFormat: "compact" | "raw" = "compact",
 ): number {
   const c = document.createElement("canvas");
   const ctx = c.getContext("2d")!;
@@ -200,21 +202,37 @@ function chooseLabelFontSize(
   const maxW = LABEL_W * 0.94;
 
   ctx.font = `600 ${LABEL_FONT_BASE}px ${FONT}`;
-  let widest = 0;
+  let widestValue = 0;
   for (const it of items) {
-    const text = `${formatValue(it.value)} ${unitLabel}`;
+    const text = `${formatValue(it.value, valueFormat)} ${unitLabel}`;
     const w = ctx.measureText(text).width;
-    if (w > widest) widest = w;
+    if (w > widestValue) widestValue = w;
   }
-  if (widest <= maxW) return LABEL_FONT_BASE;
-  const fit = Math.floor(LABEL_FONT_BASE * (maxW / widest));
-  return Math.max(LABEL_FONT_MIN, fit);
+  let candidate =
+    widestValue <= maxW
+      ? LABEL_FONT_BASE
+      : Math.floor(LABEL_FONT_BASE * (maxW / widestValue));
+
+  // If any title needs to wrap to 2 lines at the candidate, the canvas must
+  // also fit 2 title lines + value gap + value line + descender. Solving
+  // (topY=0.08H, lineH=1.08F, valueGap=0.05H, descender≈0.25F):
+  //   0.13H + 3.16F + 0.25F ≤ H  →  F ≤ 0.255H
+  ctx.font = `700 ${candidate}px ${FONT}`;
+  const anyWraps = items.some(
+    (it) => ctx.measureText(it.title).width > maxW,
+  );
+  if (anyWraps) {
+    candidate = Math.min(candidate, Math.floor(LABEL_H * 0.25));
+  }
+
+  return Math.max(LABEL_FONT_MIN, candidate);
 }
 
 function makeLabel(
   item: EpisodeItem,
   unitLabel: string,
   fontSize: number,
+  valueFormat: "compact" | "raw" = "compact",
 ): THREE.CanvasTexture {
   const c = document.createElement("canvas");
   c.width = LABEL_W;
@@ -225,7 +243,7 @@ function makeLabel(
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
-  const valueText = `${formatValue(item.value)} ${unitLabel}`;
+  const valueText = `${formatValue(item.value, valueFormat)} ${unitLabel}`;
   const maxW = LABEL_W * 0.94;
 
   // Title may need to wrap to 2 lines at the fixed size. Value stays single
@@ -471,264 +489,14 @@ function TextBoard({
 }
 
 
-// ───── Starfield + nebula backdrop ─────
-/* eslint-disable @remotion/deterministic-randomness */
-function makeSpaceTexture(): THREE.CanvasTexture {
-  const W = 4096;
-  const H = 2048;
-  const c = document.createElement("canvas");
-  c.width = W;
-  c.height = H;
-  const ctx = c.getContext("2d")!;
-
-  const base = ctx.createLinearGradient(0, 0, W, H);
-  base.addColorStop(0, "#070d1c");
-  base.addColorStop(0.55, "#03060f");
-  base.addColorStop(1, "#01020a");
-  ctx.fillStyle = base;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.globalCompositeOperation = "screen";
-  type Nebula = { x: number; y: number; r: number; color: string; a: number };
-  const nebulae: Nebula[] = [
-    { x: 0.16, y: 0.26, r: 0.4, color: "120, 160, 230", a: 0.32 },
-    { x: 0.22, y: 0.18, r: 0.2, color: "160, 200, 255", a: 0.18 },
-    { x: 0.1, y: 0.34, r: 0.16, color: "80, 120, 200", a: 0.14 },
-    { x: 0.72, y: 0.52, r: 0.32, color: "200, 90, 170", a: 0.2 },
-    { x: 0.78, y: 0.48, r: 0.16, color: "240, 130, 200", a: 0.14 },
-    { x: 0.68, y: 0.6, r: 0.12, color: "180, 60, 140", a: 0.12 },
-    { x: 0.44, y: 0.72, r: 0.22, color: "230, 150, 90", a: 0.1 },
-    { x: 0.48, y: 0.78, r: 0.1, color: "255, 180, 120", a: 0.1 },
-    { x: 0.85, y: 0.3, r: 0.2, color: "80, 200, 220", a: 0.1 },
-    { x: 0.2, y: 0.78, r: 0.24, color: "180, 50, 60", a: 0.08 },
-    { x: 0.28, y: 0.85, r: 0.12, color: "220, 80, 80", a: 0.08 },
-  ];
-  for (const n of nebulae) {
-    const cx = W * n.x;
-    const cy = H * n.y;
-    const r = W * n.r;
-    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-    g.addColorStop(0, `rgba(${n.color}, ${n.a})`);
-    g.addColorStop(0.45, `rgba(${n.color}, ${n.a * 0.35})`);
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, W, H);
-  }
-
-  ctx.save();
-  ctx.translate(W / 2, H / 2);
-  ctx.rotate(-0.22);
-  const band = ctx.createLinearGradient(0, -H * 0.35, 0, H * 0.35);
-  band.addColorStop(0, "rgba(0,0,0,0)");
-  band.addColorStop(0.45, "rgba(120, 130, 180, 0.05)");
-  band.addColorStop(0.5, "rgba(180, 170, 200, 0.09)");
-  band.addColorStop(0.55, "rgba(120, 130, 180, 0.05)");
-  band.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = band;
-  ctx.fillRect(-W, -H * 0.35, W * 2, H * 0.7);
-  ctx.restore();
-
-  for (let i = 0; i < 14; i++) {
-    const cx = Math.random() * W;
-    const cy = Math.random() * H;
-    const rx = 8 + Math.random() * 16;
-    const ry = rx * (0.35 + Math.random() * 0.4);
-    const rot = Math.random() * Math.PI;
-    const tint = Math.random() < 0.5 ? "200, 180, 160" : "160, 180, 220";
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(rot);
-    ctx.scale(1, ry / rx);
-    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
-    g.addColorStop(0, `rgba(${tint}, 0.55)`);
-    g.addColorStop(0.4, `rgba(${tint}, 0.20)`);
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(0, 0, rx, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-  ctx.globalCompositeOperation = "source-over";
-
-  // Muted, no-pure-white palette so stars read as ambient backdrop instead
-  // of distracting bright dots. Cooler shades on top, warmer below.
-  const STAR_PALETTE: Array<[number, number, number]> = [
-    [140, 160, 200],
-    [165, 180, 205],
-    [195, 200, 205],
-    [215, 200, 170],
-    [200, 175, 140],
-    [180, 140, 105],
-  ];
-  const STAR_WEIGHTS = [0.05, 0.12, 0.3, 0.3, 0.15, 0.08];
-  const cumStarW: number[] = [];
-  let acc = 0;
-  for (const w of STAR_WEIGHTS) {
-    acc += w;
-    cumStarW.push(acc);
-  }
-  function pickStarColor(): [number, number, number] {
-    const r = Math.random();
-    for (let i = 0; i < cumStarW.length; i++) {
-      if (r <= cumStarW[i]) return STAR_PALETTE[i];
-    }
-    return STAR_PALETTE[2];
-  }
-
-  const imageData = ctx.getImageData(0, 0, W, H);
-  const data = imageData.data;
-  for (let i = 0; i < 9000; i++) {
-    const px = Math.floor(Math.random() * W);
-    const py = Math.floor(Math.random() * H);
-    const a = 0.08 + Math.random() * 0.25;
-    const [r, g, b] = pickStarColor();
-    const idx = (py * W + px) * 4;
-    const ex = data[idx],
-      ey = data[idx + 1],
-      ez = data[idx + 2];
-    data[idx] = Math.min(255, ex + r * a);
-    data[idx + 1] = Math.min(255, ey + g * a);
-    data[idx + 2] = Math.min(255, ez + b * a);
-    data[idx + 3] = 255;
-  }
-  ctx.putImageData(imageData, 0, 0);
-
-  ctx.globalCompositeOperation = "lighter";
-  for (let i = 0; i < 180; i++) {
-    const cx = Math.random() * W;
-    const cy = Math.random() * H;
-    const [r, g, b] = pickStarColor();
-    const size = 1 + Math.random() * 1.5;
-    const haloR = size * 5;
-    const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, haloR);
-    halo.addColorStop(0, `rgba(${r},${g},${b},0.16)`);
-    halo.addColorStop(0.4, `rgba(${r},${g},${b},0.04)`);
-    halo.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = halo;
-    ctx.beginPath();
-    ctx.arc(cx, cy, haloR, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = `rgba(${r},${g},${b},0.30)`;
-    ctx.beginPath();
-    ctx.arc(cx, cy, size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Hero stars are by far the most distracting element on the row, so we
-  // keep just a handful and dial the spike/halo intensity way down.
-  for (let i = 0; i < 6; i++) {
-    const cx = Math.random() * W;
-    const cy = Math.random() * H;
-    const [r, g, b] = pickStarColor();
-    const haloR = 22 + Math.random() * 22;
-    const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, haloR);
-    halo.addColorStop(0, `rgba(${r},${g},${b},0.22)`);
-    halo.addColorStop(0.25, `rgba(${r},${g},${b},0.06)`);
-    halo.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = halo;
-    ctx.beginPath();
-    ctx.arc(cx, cy, haloR, 0, Math.PI * 2);
-    ctx.fill();
-    const spikeLen = haloR * 1.2;
-    const spike = ctx.createLinearGradient(
-      cx - spikeLen,
-      cy,
-      cx + spikeLen,
-      cy,
-    );
-    spike.addColorStop(0, "rgba(0,0,0,0)");
-    spike.addColorStop(0.5, `rgba(${r},${g},${b},0.12)`);
-    spike.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = spike;
-    ctx.fillRect(cx - spikeLen, cy - 0.5, spikeLen * 2, 1);
-    const spikeV = ctx.createLinearGradient(
-      cx,
-      cy - spikeLen,
-      cx,
-      cy + spikeLen,
-    );
-    spikeV.addColorStop(0, "rgba(0,0,0,0)");
-    spikeV.addColorStop(0.5, `rgba(${r},${g},${b},0.12)`);
-    spikeV.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = spikeV;
-    ctx.fillRect(cx - 0.5, cy - spikeLen, 1, spikeLen * 2);
-    ctx.fillStyle = `rgba(${r},${g},${b},0.30)`;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 2, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.globalCompositeOperation = "source-over";
-
-  const PLANET_COLORS: Array<[number, number, number]> = [
-    [180, 130, 90],
-    [210, 180, 130],
-    [110, 140, 190],
-    [160, 110, 140],
-    [120, 160, 130],
-  ];
-  const PLANET_COUNT = 5;
-  for (let i = 0; i < PLANET_COUNT; i++) {
-    const cx = Math.random() * W;
-    const cy = Math.random() * H;
-    const radius = 14 + Math.random() * 22;
-    const [pr, pg, pb] = PLANET_COLORS[i % PLANET_COLORS.length];
-    const atmoR = radius * 1.45;
-    const atmo = ctx.createRadialGradient(cx, cy, radius, cx, cy, atmoR);
-    atmo.addColorStop(0, `rgba(${pr},${pg},${pb},0.18)`);
-    atmo.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = atmo;
-    ctx.beginPath();
-    ctx.arc(cx, cy, atmoR, 0, Math.PI * 2);
-    ctx.fill();
-    const lightX = cx - radius * 0.35;
-    const lightY = cy - radius * 0.35;
-    const surface = ctx.createRadialGradient(
-      lightX,
-      lightY,
-      radius * 0.1,
-      cx,
-      cy,
-      radius,
-    );
-    surface.addColorStop(
-      0,
-      `rgba(${Math.min(255, pr + 35)},${Math.min(255, pg + 35)},${Math.min(255, pb + 35)},1)`,
-    );
-    surface.addColorStop(0.55, `rgba(${pr},${pg},${pb},1)`);
-    surface.addColorStop(
-      1,
-      `rgba(${Math.round(pr * 0.45)},${Math.round(pg * 0.45)},${Math.round(pb * 0.45)},1)`,
-    );
-    ctx.fillStyle = surface;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Subtle final blur pass — pushes the backdrop just out of focus so the
-  // foreground covers feel like the eye's natural focal plane.
-  const blurred = document.createElement("canvas");
-  blurred.width = W;
-  blurred.height = H;
-  const bctx = blurred.getContext("2d")!;
-  bctx.filter = "blur(1px)";
-  bctx.drawImage(c, 0, 0);
-
-  const tex = new THREE.CanvasTexture(blurred);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
-/* eslint-enable @remotion/deterministic-randomness */
-
+// ───── Static image backdrop ─────
+// Renders public/bg.jpeg as the scene background — a flat fullscreen quad
+// that always fills the canvas regardless of camera position, so the image
+// reads as a fixed wallpaper rather than a parallaxed plane.
 function Backdrop() {
-  const space = useMemo(() => makeSpaceTexture(), []);
-  return (
-    <mesh position={[0, 0, -250]}>
-      <planeGeometry args={[1800, 900]} />
-      <meshBasicMaterial map={space} />
-    </mesh>
-  );
+  const tex = useTexture(staticFile("bg.jpeg"));
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return <primitive attach="background" object={tex} />;
 }
 
 function Scene({
@@ -767,12 +535,25 @@ function Scene({
   );
 
   const labelFontSize = useMemo(
-    () => chooseLabelFontSize(items, episode.unitLabel),
-    [items, episode.unitLabel],
+    () =>
+      chooseLabelFontSize(
+        items,
+        episode.unitLabel,
+        episode.valueFormat ?? "compact",
+      ),
+    [items, episode.unitLabel, episode.valueFormat],
   );
   const labels = useMemo(
-    () => items.map((it) => makeLabel(it, episode.unitLabel, labelFontSize)),
-    [items, episode.unitLabel, labelFontSize],
+    () =>
+      items.map((it) =>
+        makeLabel(
+          it,
+          episode.unitLabel,
+          labelFontSize,
+          episode.valueFormat ?? "compact",
+        ),
+      ),
+    [items, episode.unitLabel, labelFontSize, episode.valueFormat],
   );
   const ranks = useMemo(
     () => items.map((it) => makeRankTex(it.rank)),
@@ -789,7 +570,6 @@ function Scene({
 
   return (
     <>
-      <color attach="background" args={[BG_COLOR]} />
       <Backdrop />
 
       <ambientLight intensity={0.7} color="#cfdcef" />

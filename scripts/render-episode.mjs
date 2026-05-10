@@ -44,6 +44,9 @@ const args = [
   "--codec=h264",
   "--crf=18",
   "--concurrency=1",
+  // R3F can take >30s to recover after a browser restart on long renders.
+  // 2-min per-handle timeout keeps the render alive across crashes.
+  "--timeout=120000",
 ];
 
 console.log(`Rendering ${slug} → ${path.relative(ROOT, OUT_FILE)}`);

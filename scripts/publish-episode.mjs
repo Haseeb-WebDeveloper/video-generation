@@ -21,11 +21,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { existsSync } from "node:fs";
+import sharp from "sharp";
 import * as dotenv from "./lib/dotenv.mjs";
 import { loadEpisode } from "./lib/episode-loader.mjs";
 import { buildMetadata, validateMetadata } from "./lib/youtube-meta.mjs";
 import { chaptersWillAutoDetect } from "./lib/chapters.mjs";
 import { getAccessToken } from "./lib/youtube-auth.mjs";
+
+const THUMBNAIL_MAX_BYTES = 2 * 1024 * 1024;
 
 const argv = process.argv.slice(2);
 const slug = argv.find((a) => !a.startsWith("--"));
@@ -72,8 +75,10 @@ const existingLock = existsSync(paths.publishedFile)
   ? JSON.parse(await fs.readFile(paths.publishedFile, "utf-8"))
   : null;
 
+const thumbnailInfo = await resolveThumbnail(episode, paths);
+
 if (dryRun) {
-  printDryRun({ slug, meta, mp4Stat, existingLock });
+  printDryRun({ slug, meta, mp4Stat, existingLock, thumbnailInfo });
   process.exit(0);
 }
 
@@ -126,9 +131,18 @@ if (update) {
   const videoId = existingLock.videoId;
   console.log(`Updating metadata for ${videoId}…`);
   const updated = await patchVideo(accessToken, videoId, meta);
+  let thumbResult = existingLock.thumbnail ?? null;
+  if (thumbnailInfo) {
+    console.log(
+      `Updating thumbnail (${thumbnailInfo.width}×${thumbnailInfo.height}, ${formatBytes(thumbnailInfo.buf.length)})…`,
+    );
+    const set = await uploadThumbnail(accessToken, videoId, thumbnailInfo);
+    thumbResult = serializableThumbnail(thumbnailInfo, set);
+  }
   await writeLockfile(paths.publishedFile, {
     ...existingLock,
     metadata: serializableMeta(meta),
+    thumbnail: thumbResult,
     updatedAt: new Date().toISOString(),
   });
   console.log(`\nUpdated → https://youtu.be/${updated.id}`);
@@ -144,11 +158,29 @@ const video = await resumableUpload({
   uploadStateFile: paths.uploadStateFile,
 });
 
+let thumbResult = null;
+if (thumbnailInfo) {
+  console.log(
+    `Uploading thumbnail (${thumbnailInfo.width}×${thumbnailInfo.height}, ${formatBytes(thumbnailInfo.buf.length)})…`,
+  );
+  try {
+    const set = await uploadThumbnail(accessToken, video.id, thumbnailInfo);
+    thumbResult = serializableThumbnail(thumbnailInfo, set);
+    console.log(`  Thumbnail set.`);
+  } catch (err) {
+    // Don't fail the whole publish if just the thumbnail breaks — the video
+    // is already up. Surface the error and let the user retry with --update.
+    console.error(`  Thumbnail upload failed: ${err.message}`);
+    console.error(`  Re-run with --update once the issue is fixed.`);
+  }
+}
+
 const lock = {
   videoId: video.id,
   uploadedAt: new Date().toISOString(),
   url: `https://youtu.be/${video.id}`,
   metadata: serializableMeta(meta),
+  thumbnail: thumbResult,
   fileBytes: mp4Stat.size,
   fileMtime: mp4Stat.mtime.toISOString(),
 };
@@ -174,11 +206,16 @@ if (!chaptersWillAutoDetect(meta.chapters)) {
   );
 }
 console.log(`\nNext steps in YT Studio (https://studio.youtube.com):`);
-console.log(`  1. Upload a custom thumbnail (1280×720, ≤2MB).`);
-console.log(`  2. Confirm "Audience" → not made for kids.`);
-console.log(`  3. Add to a playlist if applicable.`);
-console.log(`  4. Review the Checks tab for copyright issues on cover images.`);
-console.log(`  5. Flip privacy from private → public when ready.`);
+let nextStep = 1;
+if (!thumbnailInfo) {
+  console.log(
+    `  ${nextStep++}. Upload a custom thumbnail (set "thumbnailPath" in the JSON to automate).`,
+  );
+}
+console.log(`  ${nextStep++}. Confirm "Audience" → not made for kids.`);
+console.log(`  ${nextStep++}. Add to a playlist if applicable.`);
+console.log(`  ${nextStep++}. Review the Checks tab for copyright issues on cover images.`);
+console.log(`  ${nextStep++}. Flip privacy from private → public when ready.`);
 
 // ───────────────────────────────────────────────────────────────────────────
 
@@ -289,6 +326,86 @@ async function initResumableSession({ accessToken, fileSize, meta }) {
   return location;
 }
 
+async function uploadThumbnail(accessToken, videoId, thumb) {
+  const url =
+    `https://www.googleapis.com/upload/youtube/v3/thumbnails/set` +
+    `?videoId=${encodeURIComponent(videoId)}&uploadType=media`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "image/jpeg",
+      "Content-Length": String(thumb.buf.length),
+    },
+    body: thumb.buf,
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`thumbnails.set failed: HTTP ${res.status} — ${text}`);
+  }
+  return await res.json();
+}
+
+// Resolve the episode's thumbnailPath to a buffer that fits YouTube's
+// 2MB cap. Tries native res first, then 1080p, then 720p, dropping JPEG
+// quality at each tier until something fits. Returns null if no thumbnail
+// is configured for this episode (publish proceeds without one).
+async function resolveThumbnail(episode, paths) {
+  if (!episode.thumbnailPath) return null;
+  const abs = path.join(paths.root, "public", episode.thumbnailPath);
+  if (!existsSync(abs)) {
+    throw new Error(
+      `thumbnailPath set to "${episode.thumbnailPath}" but no file at ${abs}.`,
+    );
+  }
+  const meta = await sharp(abs).metadata();
+  const tiers = [
+    { width: meta.width, height: meta.height, label: "native" },
+    { width: 1920, height: 1080, label: "1080p" },
+    { width: 1280, height: 720, label: "720p" },
+  ];
+  for (const t of tiers) {
+    for (const quality of [92, 88, 84, 78, 72, 65]) {
+      const buf = await sharp(abs)
+        .rotate()
+        .resize({
+          width: t.width,
+          height: t.height,
+          fit: "inside",
+          withoutEnlargement: true,
+        })
+        .jpeg({ quality, mozjpeg: true })
+        .toBuffer();
+      if (buf.length <= THUMBNAIL_MAX_BYTES) {
+        const final = await sharp(buf).metadata();
+        return {
+          buf,
+          width: final.width,
+          height: final.height,
+          tier: t.label,
+          quality,
+          source: episode.thumbnailPath,
+        };
+      }
+    }
+  }
+  throw new Error(
+    `Could not compress ${episode.thumbnailPath} under 2MB even at 1280×720 q=65.`,
+  );
+}
+
+function serializableThumbnail(thumb, apiResponse) {
+  return {
+    source: thumb.source,
+    uploadedWidth: thumb.width,
+    uploadedHeight: thumb.height,
+    uploadedBytes: thumb.buf.length,
+    tier: thumb.tier,
+    quality: thumb.quality,
+    etag: apiResponse?.etag ?? null,
+  };
+}
+
 async function patchVideo(accessToken, videoId, meta) {
   const url = "https://www.googleapis.com/youtube/v3/videos?part=snippet,status";
   const body = { id: videoId, ...videoResource(meta) };
@@ -346,7 +463,7 @@ function serializableMeta(meta) {
   };
 }
 
-function printDryRun({ slug, meta, mp4Stat, existingLock }) {
+function printDryRun({ slug, meta, mp4Stat, existingLock, thumbnailInfo }) {
   const ruler = "─".repeat(70);
   console.log(`\n${ruler}\nDRY RUN: ${slug}\n${ruler}`);
   console.log(`MP4: ${mp4Stat ? formatBytes(mp4Stat.size) : "NOT YET RENDERED"}`);
@@ -363,6 +480,14 @@ function printDryRun({ slug, meta, mp4Stat, existingLock }) {
   for (const c of meta.chapters) console.log(`  ${c.time}  ${c.label}`);
   console.log(`\nCategory: ${meta.categoryId}    Privacy: ${meta.privacyStatus}    Kids: ${meta.madeForKids}`);
   if (meta.publishAt) console.log(`Scheduled publish: ${meta.publishAt}`);
+  if (thumbnailInfo) {
+    console.log(
+      `\nThumbnail: ${thumbnailInfo.source} → ${thumbnailInfo.width}×${thumbnailInfo.height} ` +
+        `(${thumbnailInfo.tier}, q${thumbnailInfo.quality}, ${formatBytes(thumbnailInfo.buf.length)})`,
+    );
+  } else {
+    console.log(`\nThumbnail: (none — set "thumbnailPath" in the JSON to upload one)`);
+  }
   console.log(`\nValidation: PASS\n${ruler}\n`);
 }
 

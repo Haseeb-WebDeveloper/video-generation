@@ -3,6 +3,8 @@
   "title": ["TOP 20 BEST-SELLING", "VIDEO GAMES OF ALL TIME"],
   "outro": ["THANKS FOR WATCHING", "Like & subscribe for more"],
   "unitLabel": "copies sold",
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.35,
   "items": [
     { "rank": 1, "title": "Minecraft", "value": 300, "imagePath": "covers/top-20-best-selling-video-games/1.png" },
     { "rank": 2, "title": "Grand Theft Auto V", "value": 210, "imagePath": "covers/top-20-best-selling-video-games/2.jpg" },

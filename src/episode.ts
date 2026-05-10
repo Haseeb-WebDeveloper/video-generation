@@ -4,14 +4,20 @@ export type EpisodeItem = {
   value: number;
   imageSource?: string;
   imagePath?: string;
+  // ISO 3166-1 alpha-2 country code (e.g. "US", "CN", "DE"). When set, a
+  // small flag chip is composited into the cover image at build time.
+  country?: string;
 };
 
+// title, description, and tags are REQUIRED at publish time. Type stays
+// optional so the studio can load episodes that haven't had SEO authored yet,
+// but `npm run publish-episode <slug>` refuses to upload until they are set.
+// description supports a literal `{{chapters}}` token, replaced at publish
+// time with the auto-computed chapter timestamp block.
 export type EpisodeYouTube = {
   title?: string;
   description?: string;
   tags?: string[];
-  extraTags?: string[];
-  hashtags?: string[];
   categoryId?: string;
   privacyStatus?: "private" | "unlisted" | "public";
   madeForKids?: boolean;
@@ -30,5 +36,22 @@ export type Episode = {
   audioPath?: string;
   // 0 to 1. Defaults to 0.35 if omitted.
   audioVolume?: number;
+  // "compact" (default): value treated as millions, displayed as "2.1M" / "14.0B".
+  // "raw": value is the literal count, displayed with thousands separators ("2,100,000").
+  valueFormat?: "compact" | "raw";
+  // "inside" (default): preserve cover aspect ratio (existing behavior — wide
+  // photos stay wide, tall photos stay tall).
+  // "contain": pad each cover to a 1024×1024 square with white background so
+  // mixed-aspect logos render at consistent card size in the 3D scene.
+  coverFit?: "inside" | "contain";
+  // YouTube thumbnail. Path is relative to /public, e.g.
+  // "thumbnails/top-25-best-foo.jpg". This image is the master — typically a
+  // 4K upscale produced via `npm run upscale`. publish-episode resizes and
+  // recompresses it to fit YouTube's 2MB / 1280×720+ spec before uploading
+  // via the thumbnails.set API after the video upload completes.
+  thumbnailPath?: string;
+  // Optional URL to download into thumbnailPath at build-episode time. If
+  // both are set, an existing local thumbnailPath wins (no re-download).
+  thumbnailSource?: string;
   youtube?: EpisodeYouTube;
 };

@@ -31,6 +31,11 @@ const { root: ROOT, episodeFile: EPISODE_FILE, coversDir: COVERS_DIR } = paths;
 const UA = "VideoBuilder/1.0 (offline-render)";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Per-episode knob: "inside" preserves cover aspect (default), "contain" pads
+// every cover to a 1024×1024 white square — used when covers are mixed-aspect
+// logos that should render at uniform card size.
+const COVER_FIT = episode.coverFit === "contain" ? "contain" : "inside";
+
 await fs.mkdir(COVERS_DIR, { recursive: true });
 
 let updated = false;
@@ -76,13 +81,52 @@ for (const item of episode.items) {
     continue;
   }
 
+  if (item.country) {
+    try {
+      buf = await compositeFlag(buf, item.country);
+      source += ` +flag:${item.country}`;
+    } catch (err) {
+      console.warn(`  flag composite failed for #${item.rank}: ${err.message}`);
+    }
+  }
+
   await fs.writeFile(absLocal, buf);
   item.imagePath = localPath;
   updated = true;
   console.log(
     `OK    #${item.rank} ${source} → ${localPath} (${(buf.length / 1024).toFixed(0)}KB)`,
   );
-  await sleep(300);
+  await sleep(1500);
+}
+
+// Optional thumbnail download. We only fetch when thumbnailSource is set and
+// thumbnailPath isn't already pointing at an existing local file. Re-running
+// build never clobbers a thumbnail you've already authored or upscaled.
+if (episode.thumbnailSource) {
+  const wantPath = `thumbnails/${slug}.jpg`;
+  const absWant = path.join(ROOT, "public", wantPath);
+  const haveLocal =
+    episode.thumbnailPath &&
+    existsSync(path.join(ROOT, "public", episode.thumbnailPath));
+  if (haveLocal) {
+    console.log(`SKIP  thumbnail (already at ${episode.thumbnailPath})`);
+  } else {
+    try {
+      await fs.mkdir(path.dirname(absWant), { recursive: true });
+      const buf = await downloadAndNormalize(episode.thumbnailSource);
+      await fs.writeFile(absWant, buf);
+      episode.thumbnailPath = wantPath;
+      updated = true;
+      console.log(
+        `OK    thumbnail url:${episode.thumbnailSource} → ${wantPath} (${(buf.length / 1024).toFixed(0)}KB)`,
+      );
+      console.log(
+        `      Tip: run "npm run upscale -- public/${wantPath}" to produce a 4K master.`,
+      );
+    } catch (err) {
+      console.warn(`  thumbnail download failed: ${err.message}`);
+    }
+  }
 }
 
 if (updated) {
@@ -104,10 +148,75 @@ async function downloadAndNormalize(url) {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const ab = await res.arrayBuffer();
   if (ab.byteLength < 2000) throw new Error("response too small");
-  return sharp(Buffer.from(ab))
+  const img = sharp(Buffer.from(ab), { density: 384 });
+  if (COVER_FIT === "contain") {
+    // Pad to a square canvas so mixed-aspect covers render at uniform size.
+    return img
+      .resize({
+        width: 1024,
+        height: 1024,
+        fit: "contain",
+        background: "#ffffff",
+      })
+      .flatten({ background: "#ffffff" })
+      .jpeg({ quality: 90, mozjpeg: true })
+      .withMetadata()
+      .toBuffer();
+  }
+  // Default: preserve aspect, no padding (the original behavior).
+  return img
     .resize({ width: 1024, height: 1024, fit: "inside", withoutEnlargement: true })
+    .flatten({ background: "#ffffff" })
     .jpeg({ quality: 85, mozjpeg: true })
     .withMetadata()
+    .toBuffer();
+}
+
+// Compose a small country flag chip in the upper-right of the cover. The flag
+// PNG is fetched from flagcdn.com keyed by ISO 3166-1 alpha-2 code.
+async function compositeFlag(coverBuf, country) {
+  const code = country.toLowerCase();
+  const flagUrl = `https://flagcdn.com/w320/${code}.png`;
+  const res = await fetch(flagUrl, { headers: { "User-Agent": UA } });
+  if (!res.ok) throw new Error(`flagcdn HTTP ${res.status}`);
+  const flagAb = await res.arrayBuffer();
+  // Simple horizontal-stripe flags (DE, RU, FR) compress to ~150 bytes — that's
+  // legitimate, not an error response. 80 is a safe floor for any real PNG.
+  if (flagAb.byteLength < 80) throw new Error("flag response too small");
+
+  const meta = await sharp(coverBuf).metadata();
+  const flagH = Math.round(meta.height * 0.1); // ~10% of cover height
+  const flagResized = await sharp(Buffer.from(flagAb))
+    .resize({ height: flagH, fit: "contain" })
+    .png()
+    .toBuffer();
+  const fmeta = await sharp(flagResized).metadata();
+
+  // Add a subtle 2px dark border around the flag so it reads against any logo.
+  const border = 2;
+  const flagWithBorder = await sharp({
+    create: {
+      width: fmeta.width + border * 2,
+      height: fmeta.height + border * 2,
+      channels: 4,
+      background: { r: 30, g: 30, b: 30, alpha: 1 },
+    },
+  })
+    .composite([{ input: flagResized, top: border, left: border }])
+    .png()
+    .toBuffer();
+  const fbm = await sharp(flagWithBorder).metadata();
+
+  const margin = Math.round(meta.height * 0.025);
+  return sharp(coverBuf)
+    .composite([
+      {
+        input: flagWithBorder,
+        top: margin,
+        left: meta.width - fbm.width - margin,
+      },
+    ])
+    .jpeg({ quality: 90, mozjpeg: true })
     .toBuffer();
 }
 

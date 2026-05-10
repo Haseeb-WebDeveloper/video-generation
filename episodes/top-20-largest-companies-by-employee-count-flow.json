@@ -1,0 +1,178 @@
+{
+  "slug": "top-20-largest-companies-by-employee-count-flow",
+  "title": [
+    "TOP 20 LARGEST COMPANIES",
+    "BY EMPLOYEE COUNT"
+  ],
+  "outro": [
+    "WHO SURPRISED YOU?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "employees worldwide",
+  "valueFormat": "raw",
+  "coverFit": "contain",
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.35,
+  "items": [
+    {
+      "rank": 1,
+      "title": "Walmart",
+      "value": 2100000,
+      "country": "US",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Walmart_logo_(2025).svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "State Grid Corporation of China",
+      "value": 1720000,
+      "country": "CN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/State_Grid_Corporation_of_China_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Amazon",
+      "value": 1556000,
+      "country": "US",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Amazon_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "China National Petroleum (CNPC)",
+      "value": 985155,
+      "country": "CN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/China_National_Petroleum_Corporation_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "BYD",
+      "value": 968900,
+      "country": "CN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/BYD_Auto_2022_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "JD.com",
+      "value": 900000,
+      "country": "CN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/JD.com_logo.png?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Foxconn (Hon Hai)",
+      "value": 826608,
+      "country": "TW",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Foxconn_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Accenture",
+      "value": 791000,
+      "country": "IE",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Accenture.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "China Post",
+      "value": 723227,
+      "country": "CN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/China_Post_Logo.png?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Volkswagen Group",
+      "value": 656134,
+      "country": "DE",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Volkswagen_logo_2019.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "Tata Consultancy Services",
+      "value": 607979,
+      "country": "IN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/TATA_Consultancy_Services_Logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "DHL Group",
+      "value": 594879,
+      "country": "DE",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/DHL_Logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "Compass Group",
+      "value": 580000,
+      "country": "GB",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Compass_Group.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "UPS",
+      "value": 490000,
+      "country": "US",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/UPS_Logo_Shield_2017.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Home Depot",
+      "value": 470000,
+      "country": "US",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/TheHomeDepot.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/15.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Gazprom",
+      "value": 468000,
+      "country": "RU",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Gazprom_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/16.jpg"
+    },
+    {
+      "rank": 17,
+      "title": "China Mobile",
+      "value": 455405,
+      "country": "CN",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/9/90/China_Mobile_logo_%282019%29.svg",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/17.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "Agricultural Bank of China",
+      "value": 454716,
+      "country": "CN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Agricultural_Bank_of_China_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/18.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "Concentrix",
+      "value": 450000,
+      "country": "US",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Concentrix_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/19.jpg"
+    },
+    {
+      "rank": 20,
+      "title": "Teleperformance",
+      "value": 446052,
+      "country": "FR",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Teleperformance_logo.svg?width=1024",
+      "imagePath": "covers/top-20-largest-companies-by-employee-count-flow/20.jpg"
+    }
+  ]
+}
