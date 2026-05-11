@@ -16,8 +16,16 @@ import { Episode, EpisodeItem } from "./episode";
 // One pillar per item. Bar width/depth fixed; height scales with value.
 const BAR_W = 7.0;
 const BAR_D = 7.0;
-const MIN_BAR_H = 8;
-const MAX_BAR_H = 22;
+// Bar height range. Wider range = larger absolute difference between any
+// two bars on screen, which is what the eye reads as "this is bigger
+// than that." With a 14-unit range (8→22) a 3-unit bar-height difference
+// only registered as ~17% of frame height; with the wider range below
+// the same numerical gap covers ~25%, so adjacent ranks read as visibly
+// different bars even when their values are close in numerical terms.
+// MIN stays clear of the floor so the value text plane doesn't clip
+// against it on the shortest bar.
+const MIN_BAR_H = 10;
+const MAX_BAR_H = 100;
 
 // X distance between bar centers. Bigger = more breathing room, longer pan.
 // Tuned with FOV/CAM_DIST so only ~2.5–3 bars are visible at once — the
@@ -25,11 +33,21 @@ const MAX_BAR_H = 22;
 // left/right edges, matching how the reference video composes each beat.
 const SPACING_X = 11.5;
 
-// Disc (logo badge) sitting on top of the pillar. DISC_OVERLAP = how much
-// of the disc bottom dips into the bar top (price-tag look from the
-// reference). 0 = flush, positive = submerged.
-const DISC_R = 3.6;
-const DISC_OVERLAP = 0.8;
+// Cover card sitting on top of the pillar. Flat plane that displays the
+// cover image AS-IS — no clipping, no halo, no white padding. The card
+// width/height adapt to the cover's native aspect ratio (computed from
+// the loaded texture's image dimensions) so portrait sources render
+// portrait and landscape sources render landscape — never letterboxed
+// into a square.
+const CARD_MAX = 7.0; // both dimensions fit inside CARD_MAX × CARD_MAX
+const CARD_OVERLAP = 0.6;
+
+function fitCardDims(imgW: number, imgH: number): { w: number; h: number } {
+  if (!imgW || !imgH) return { w: CARD_MAX, h: CARD_MAX };
+  const aspect = imgW / imgH;
+  if (aspect >= 1) return { w: CARD_MAX, h: CARD_MAX / aspect };
+  return { w: CARD_MAX * aspect, h: CARD_MAX };
+}
 
 // Nameplate banner mounted near the top of the bar's front face. Tall
 // enough to fit two lines of text at the same size as a one-line nameplate
@@ -58,14 +76,17 @@ const FLAG_W = 1.7;
 const FLAG_H = 1.1;
 
 // Camera framing. The pan is one continuous sweep from titleX to outroX.
-// Camera Y tracks the CURRENT bar top so the disc + nameplate stay in frame
-// even as bars get taller. CAM_DIST is the constant Z standoff. K_LOOK is
-// how far below bar-top the camera aims (so the disc sits in the upper half).
+// Camera Y tracks the CURRENT bar top so the card + nameplate stay in frame
+// even as bars get taller.
+//
+// LOOK_ABOVE_BAR_TOP: how far ABOVE the bar's top face the camera aims.
+// Positive lifts the aim into the card area and gives the card real
+// headroom in the frame — without this the cards graze the top edge.
 // CAM_Y_LIFT is how much higher than lookAt the camera sits (gives a slight
 // downward gaze, like a person walking past a row of pedestals).
 const FOV = 34;
 const CAM_DIST = 30;
-const K_LOOK = 2.0;
+const LOOK_ABOVE_BAR_TOP = 2.0;
 const CAM_Y_LIFT = 1.8;
 
 // Title boards sit beyond the first/last bar in X. The camera covers these
@@ -84,7 +105,8 @@ const TITLE_PLANE_H = TITLE_PLANE_W / 2;
 // orange highlight, hint of cosmic purple. Cream pillars are kept because
 // they contrast cleanly with the navy and read as physical monuments — the
 // scene's "ranking podium" metaphor.
-const BAR_COLOR = "#efe7d1"; // ivory pillar — slightly cleaner than the previous warm cream
+const BAR_COLOR = "#efe7d1"; // ivory — front and back face of the pillar
+const BAR_SIDE_COLOR = "#bdb398"; // darker gray-beige — left and right faces, fakes ambient occlusion against the side walls
 const BAR_COLOR_DARK = "#cfc6a8"; // top-cap shading
 const NAMEPLATE_COLOR = "#0e1430"; // deep brand navy — matches wall/floor
 const NAMEPLATE_TEXT = "#ffffff"; // pure white text on the nameplate
@@ -92,14 +114,13 @@ const VALUE_COLOR = "#0e1430"; // deep brand navy — same as nameplate, reads a
 // Soft neutral-gray floor — slightly lighter and cooler than before, with
 // tile lines pulled close to the base color so the grid reads as a faint
 // perspective hint rather than a sharp pattern.
-const FLOOR_COLOR = "#433c5c";
-const FLOOR_TILE_LINE = "#6a6380";
-// Back wall: same space navy, painted with a sparse starfield so the
-// backdrop reads as "cosmic" instead of "warehouse." Stars are baked into
-// the wall texture (see makeWallTex).
-const WALL_COLOR = "#0a0f24";
-const STAR_COLOR = "#ffffff";
-const STAR_TINT = "#b6b4ff"; // bluish halo on the brightest stars
+const FLOOR_COLOR = "#5d5b63";
+const FLOOR_TILE_LINE = "#7c7a82";
+// Back wall: same tile style as the floor, one shade lighter so the two
+// surfaces read as distinct planes (floor in shadow, wall catching more
+// light) without losing the "we're in the same room" continuity.
+const WALL_COLOR = "#2a2638";
+const WALL_TILE_LINE = "#4a4559";
 const TITLE_TEXT = "#ffffff"; // primary title color
 const TITLE_TEXT_SOFT = "rgba(255, 255, 255, 0.86)"; // subtitle / line 2
 
@@ -108,11 +129,13 @@ const TITLE_TEXT_SOFT = "rgba(255, 255, 255, 0.86)"; // subtitle / line 2
 const barX = (i: number, n: number) =>
   i * SPACING_X - ((n - 1) * SPACING_X) / 2;
 
+// Format the bare numeric value (no unit). The unit label is rendered as a
+// separate line by makeValueTex.
 function formatValueFull(
   m: number,
   format: "compact" | "raw" = "compact",
 ): string {
-  if (format === "raw") return `${m.toLocaleString("en-US")}`;
+  if (format === "raw") return m.toLocaleString("en-US");
   if (m >= 1000) return `$ ${(m / 1000).toFixed(1)} B`;
   return `$ ${m.toFixed(0)} M`;
 }
@@ -191,23 +214,37 @@ type EpisodeRuntime = {
   outroX: number;
 };
 
+// Bar height scales by log10 of value, so every doubling of the value
+// produces a constant height increment ("doubles look doubled" in log
+// space). Pure linear scaling is mathematically impossible across the
+// real-world dynamic range we see in these episodes — e.g. mosquito vs
+// shark is 72,500× apart, so a true-linear mosquito bar would be
+// 72,500× taller than shark's, which can't share a frame. Log is the
+// strongest visually-honest scaling that fits.
+//
+// A small per-rank perturbation (TIE_BREAK) prevents same-value items
+// (e.g. lion + buffalo both at 200) from rendering as identical-height
+// duplicate bars. The perturbation is too small to disrupt log
+// proportionality between unequal values.
+const TIE_BREAK = 0.02;
+
 function buildRuntime(episode: Episode): EpisodeRuntime {
   // Sort ascending by value: smallest bar first (left), tallest last (right).
   const sorted = [...episode.items].sort((a, b) => a.value - b.value);
-  const maxV = Math.max(...sorted.map((it) => it.value));
-  const minV = Math.min(...sorted.map((it) => it.value));
-  const items: SortedItem[] = sorted.map((it) => {
-    // Height proportional to value, with a floor so even the smallest bar
-    // reads as a real pillar. Use sqrt so dynamic range doesn't crush small
-    // values when one item dwarfs the rest (e.g. Walmart vs the field).
-    const t =
-      maxV === minV
-        ? 1
-        : Math.sqrt((it.value - minV) / (maxV - minV)) * 0.85 + 0.15;
+  const N = sorted.length;
+  const safeMin = Math.max(1, sorted[0]?.value ?? 1);
+  const safeMax = Math.max(1, sorted[N - 1]?.value ?? 1);
+  const logMin = Math.log10(safeMin);
+  const logMax = Math.log10(safeMax);
+  const logRange = Math.max(logMax - logMin, 0.001);
+
+  const items: SortedItem[] = sorted.map((it, i) => {
+    const tLog = (Math.log10(Math.max(1, it.value)) - logMin) / logRange;
+    const tieBreaker = N <= 1 ? 0 : (i / (N - 1)) * TIE_BREAK;
+    const t = clamp01(tLog * (1 - TIE_BREAK) + tieBreaker);
     const _barH = MIN_BAR_H + t * (MAX_BAR_H - MIN_BAR_H);
     return { ...it, _barH };
   });
-  const N = items.length;
   const titleX = barX(0, N) + TITLE_DROP_X;
   const outroX = barX(N - 1, N) + OUTRO_DROP_X;
 
@@ -252,7 +289,7 @@ const HOLD_DOLLY_Y = 0.6;
 
 function camPoseAt(x: number, runtime: EpisodeRuntime): FocusPose {
   const h = heightAtX(x, runtime);
-  const lookY = h - K_LOOK;
+  const lookY = h + LOOK_ABOVE_BAR_TOP;
   const camY = lookY + CAM_Y_LIFT;
   return {
     camPos: [x, camY, CAM_DIST],
@@ -450,7 +487,11 @@ function layoutNameplate(
   return [{ text, size: Math.round(baseSize * 0.55) }];
 }
 
-function makeValueTex(text: string): THREE.CanvasTexture {
+// Value text. The number is the protagonist (rendered large + bold);
+// `unit` is rendered smaller on a second line below — keeps long unit
+// labels like "human deaths per year" from forcing the headline number to
+// shrink to nothing on a single-line layout.
+function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
   const W = 1024;
   const H = 384;
   const c = document.createElement("canvas");
@@ -460,85 +501,61 @@ function makeValueTex(text: string): THREE.CanvasTexture {
   ctx.clearRect(0, 0, W, H);
 
   ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = "alphabetic";
 
-  let size = Math.round(H * 0.62);
-  ctx.font = `700 ${size}px ${FONT_SERIF}`;
-  while (ctx.measureText(text).width > W * 0.92 && size > Math.round(H * 0.3)) {
-    size -= 6;
-    ctx.font = `700 ${size}px ${FONT_SERIF}`;
-  }
-
-  // Light drop shadow for depth. Dark navy text on cream pillar already has
-  // strong contrast, so the shadow is just a hint — heavier values muddied
-  // the letterforms.
   ctx.shadowColor = "rgba(14, 20, 48, 0.18)";
   ctx.shadowBlur = 8;
   ctx.shadowOffsetY = 3;
   ctx.fillStyle = VALUE_COLOR;
-  ctx.fillText(text, W / 2, H / 2);
 
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 16;
-  return tex;
-}
-
-function makeDiscTex(coverImg: HTMLImageElement | null): THREE.CanvasTexture {
-  const S = 1024;
-  const c = document.createElement("canvas");
-  c.width = S;
-  c.height = S;
-  const ctx = c.getContext("2d")!;
-  ctx.clearRect(0, 0, S, S);
-
-  const cx = S / 2;
-  const cy = S / 2;
-  // Soft outer halo for premium depth — no hard ring/border. The halo lives
-  // outside the disc face so the face itself reads as a clean white circle.
-  const haloR = S * 0.495;
-  const halo = ctx.createRadialGradient(cx, cy, haloR * 0.92, cx, cy, haloR);
-  halo.addColorStop(0, "rgba(0,0,0,0)");
-  halo.addColorStop(0.6, "rgba(20,24,32,0.05)");
-  halo.addColorStop(1, "rgba(20,24,32,0.0)");
-  ctx.beginPath();
-  ctx.arc(cx, cy, haloR, 0, Math.PI * 2);
-  ctx.fillStyle = halo;
-  ctx.fill();
-
-  // Pure white disc face — no border, no ring.
-  const faceR = S * 0.48;
-  ctx.beginPath();
-  ctx.arc(cx, cy, faceR, 0, Math.PI * 2);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-
-  // Very subtle inner gradient for a hint of dimension, not a vignette.
-  const grd = ctx.createRadialGradient(cx - 40, cy - 60, 20, cx, cy, faceR);
-  grd.addColorStop(0, "rgba(255,255,255,0.0)");
-  grd.addColorStop(0.85, "rgba(0,0,0,0.0)");
-  grd.addColorStop(1, "rgba(0,0,0,0.06)");
-  ctx.beginPath();
-  ctx.arc(cx, cy, faceR, 0, Math.PI * 2);
-  ctx.fillStyle = grd;
-  ctx.fill();
-
-  // Logo clipped inside the face with generous margin.
-  if (coverImg && coverImg.width > 0) {
-    const margin = faceR * 0.20;
-    const fitR = faceR - margin;
-    const aspect = coverImg.width / coverImg.height;
-    let drawW = fitR * 2;
-    let drawH = fitR * 2;
-    if (aspect >= 1) drawH = drawW / aspect;
-    else drawW = drawH * aspect;
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, faceR - 2, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.drawImage(coverImg, cx - drawW / 2, cy - drawH / 2, drawW, drawH);
-    ctx.restore();
+  if (!unit) {
+    // No unit label — single line, big number.
+    let size = Math.round(H * 0.62);
+    ctx.font = `700 ${size}px ${FONT_SERIF}`;
+    while (
+      ctx.measureText(value).width > W * 0.92 &&
+      size > Math.round(H * 0.3)
+    ) {
+      size -= 6;
+      ctx.font = `700 ${size}px ${FONT_SERIF}`;
+    }
+    ctx.fillText(value, W / 2, H / 2 + size * 0.36);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 16;
+    return tex;
   }
+
+  // Two-line layout: big number on top, unit label below at ~40% size.
+  const MAX_W = W * 0.92;
+  let valueSize = Math.round(H * 0.5);
+  ctx.font = `700 ${valueSize}px ${FONT_SERIF}`;
+  while (ctx.measureText(value).width > MAX_W && valueSize > Math.round(H * 0.3)) {
+    valueSize -= 6;
+    ctx.font = `700 ${valueSize}px ${FONT_SERIF}`;
+  }
+
+  let unitSize = Math.round(valueSize * 0.4);
+  ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
+  while (ctx.measureText(unit).width > MAX_W && unitSize > Math.round(H * 0.1)) {
+    unitSize -= 3;
+    ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
+  }
+
+  const gap = H * 0.06;
+  const blockH = valueSize + gap + unitSize;
+  const topY = (H - blockH) / 2;
+
+  ctx.font = `700 ${valueSize}px ${FONT_SERIF}`;
+  ctx.fillText(value, W / 2, topY + valueSize);
+
+  // Unit gets no shadow — the small text reads cleaner without it.
+  ctx.shadowColor = "rgba(0,0,0,0)";
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
+  ctx.fillStyle = VALUE_COLOR;
+  ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
+  ctx.fillText(unit, W / 2, topY + valueSize + gap + unitSize);
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -596,90 +613,35 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
 }
 
 // ───── Backdrop (back wall) ─────
-// Sparse starfield baked into a single large texture (no tiled repeat —
-// stars would visibly tile and break the illusion). Subtle vertical
-// gradient gives the sky a sense of depth, brighter near the horizon.
+// Same tile pattern as the floor (see makeFloorTex below) so the wall and
+// floor read as belonging to the same room. The wall just uses a slightly
+// lighter palette so the two surfaces aren't visually identical.
 function makeWallTex(): THREE.CanvasTexture {
-  const W = 4096;
+  const W = 1024;
   const H = 1024;
   const c = document.createElement("canvas");
   c.width = W;
   c.height = H;
   const ctx = c.getContext("2d")!;
-
-  // Vertical gradient: a touch lighter near the bottom (horizon glow).
-  const grd = ctx.createLinearGradient(0, 0, 0, H);
-  grd.addColorStop(0, "#070b1c");
-  grd.addColorStop(0.7, WALL_COLOR);
-  grd.addColorStop(1, "#101638");
-  ctx.fillStyle = grd;
+  ctx.fillStyle = WALL_COLOR;
   ctx.fillRect(0, 0, W, H);
-
-  // Deterministic PRNG so the starfield is identical across re-renders.
-  let seed = 1337;
-  const rnd = () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
-
-  // Faint dust stars — very small, low opacity.
-  for (let i = 0; i < 1200; i++) {
-    const x = rnd() * W;
-    const y = rnd() * H;
-    const r = 0.5 + rnd() * 1.0;
-    const a = 0.18 + rnd() * 0.45;
-    ctx.fillStyle = `rgba(255, 255, 255, ${a.toFixed(3)})`;
+  ctx.strokeStyle = WALL_TILE_LINE;
+  ctx.lineWidth = 2;
+  const STEP = 128;
+  for (let i = 0; i <= W; i += STEP) {
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i, H);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, i);
+    ctx.lineTo(W, i);
+    ctx.stroke();
   }
-
-  // Highlight stars with a soft halo — mimics the sparkles in the channel
-  // logo without being literal.
-  for (let i = 0; i < 60; i++) {
-    const x = rnd() * W;
-    const y = rnd() * H;
-    const r = 1.6 + rnd() * 1.4;
-    const halo = ctx.createRadialGradient(x, y, 0, x, y, r * 6);
-    halo.addColorStop(0, "rgba(196, 196, 255, 0.35)");
-    halo.addColorStop(1, "rgba(196, 196, 255, 0)");
-    ctx.fillStyle = halo;
-    ctx.beginPath();
-    ctx.arc(x, y, r * 6, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = STAR_COLOR;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Two or three faint nebula tints — sample from the channel logo's
-  // purple-to-pink palette. Keeps the wall from feeling flat.
-  const nebulaTints = ["rgba(82, 36, 134, 0.18)", "rgba(160, 80, 200, 0.10)"];
-  for (let i = 0; i < 6; i++) {
-    const x = rnd() * W;
-    const y = H * (0.25 + rnd() * 0.5);
-    const r = 220 + rnd() * 280;
-    const tint = nebulaTints[i % nebulaTints.length];
-    const cloud = ctx.createRadialGradient(x, y, 0, x, y, r);
-    cloud.addColorStop(0, tint);
-    cloud.addColorStop(1, "rgba(0, 0, 0, 0)");
-    ctx.fillStyle = cloud;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Quiet the nebula clouds with a subtle dark vignette near the very top
-  // and bottom so they don't hover at the edges of the wall.
-  void STAR_TINT;
-
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
-  // No repeat — single big texture across the whole back wall so stars
-  // don't tile visibly.
-  tex.wrapS = THREE.ClampToEdgeWrapping;
-  tex.wrapT = THREE.ClampToEdgeWrapping;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
   tex.anisotropy = 16;
   return tex;
 }
@@ -719,10 +681,25 @@ function makeFloorTex(): THREE.CanvasTexture {
 
 // ───── Components ─────
 function Backdrop() {
-  const wall = useMemo(() => makeWallTex(), []);
+  const wall = useMemo(() => {
+    const tex = makeWallTex();
+    // Tile world-size stays the same (~3 world units per tile). Because
+    // the wall is now much farther from the camera than before, those
+    // same-sized tiles render SMALLER on screen — exactly what the eye
+    // reads as "this surface is far away" rather than "this is a flat
+    // poster a few feet behind the pillars."
+    tex.repeat.set(90, 22);
+    return tex;
+  }, []);
+  // Wall pushed deep — z=-380 (was -180). To still cover the camera's
+  // view at that distance the plane has to scale up roughly with the
+  // distance ratio (~2×), so 2700×680 here. Tile texture tiles freely so
+  // the plane aspect is free to be whatever gives full coverage. Y span
+  // (~-280..400) covers the camera's vertical view across the entire
+  // MIN..MAX_BAR_H range with comfortable margin.
   return (
-    <mesh position={[0, 28, -180]}>
-      <planeGeometry args={[600, 110]} />
+    <mesh position={[0, 60, -380]}>
+      <planeGeometry args={[2700, 680]} />
       <meshBasicMaterial map={wall} />
     </mesh>
   );
@@ -799,7 +776,7 @@ function Pillar({
   N,
   item,
   episode,
-  discTex,
+  coverTex,
   flagTex,
   frame,
 }: {
@@ -807,7 +784,7 @@ function Pillar({
   N: number;
   item: SortedItem;
   episode: Episode;
-  discTex: THREE.Texture;
+  coverTex: THREE.Texture;
   flagTex: THREE.Texture | null;
   frame: number;
 }) {
@@ -820,8 +797,11 @@ function Pillar({
   );
   const valueTex = useMemo(
     () =>
-      makeValueTex(formatValueFull(item.value, episode.valueFormat ?? "compact")),
-    [item.value, episode.valueFormat],
+      makeValueTex(
+        formatValueFull(item.value, episode.valueFormat ?? "compact"),
+        episode.unitLabel ?? "",
+      ),
+    [item.value, episode.valueFormat, episode.unitLabel],
   );
 
   // Front face is at z = +BAR_D/2 ; mount nameplate/value slightly in front.
@@ -830,26 +810,59 @@ function Pillar({
   const nameplateY = h - NAMEPLATE_FROM_TOP;
   const valueY = nameplateY - NAMEPLATE_H / 2 - VALUE_FROM_NAMEPLATE - VALUE_PLANE_H / 2 + 0.4;
 
-  // Disc sits on top of the pillar; DISC_OVERLAP submerges its bottom edge
-  // slightly into the bar top for the price-tag look in the reference.
-  const discY = h + DISC_R - DISC_OVERLAP;
+  // Card aspect tracks the cover's native dimensions — landscape covers
+  // render landscape, portrait portrait, no letterboxing.
+  const img = (coverTex.image ?? null) as { width?: number; height?: number } | null;
+  const card = fitCardDims(img?.width ?? 0, img?.height ?? 0);
+  // Card sits on top of the pillar; CARD_OVERLAP lets its bottom edge dip
+  // slightly into the bar top so the card reads as mounted to it.
+  const cardY = h + card.h / 2 - CARD_OVERLAP;
 
   return (
     <group position={[x, 0, 0]}>
-      {/* Pillar block — pivot at base so we can scale Y from the floor up. */}
+      {/* Pillar block — pivot at base so we can scale Y from the floor up.
+          Per-face material array gives left + right faces a darker tone so
+          the pillar reads as a 3D solid even under flat lighting. Order
+          follows BoxGeometry's material indices: 0=+X, 1=-X, 2=+Y, 3=-Y,
+          4=+Z (front), 5=-Z (back). */}
       <mesh position={[0, h / 2, 0]}>
         <boxGeometry args={[BAR_W, h, BAR_D]} />
         <meshStandardMaterial
+          attach="material-0"
+          color={BAR_SIDE_COLOR}
+          roughness={0.9}
+          metalness={0.02}
+        />
+        <meshStandardMaterial
+          attach="material-1"
+          color={BAR_SIDE_COLOR}
+          roughness={0.9}
+          metalness={0.02}
+        />
+        <meshStandardMaterial
+          attach="material-2"
+          color={BAR_COLOR_DARK}
+          roughness={0.95}
+          metalness={0.02}
+        />
+        <meshStandardMaterial
+          attach="material-3"
+          color={BAR_COLOR}
+          roughness={0.95}
+          metalness={0.02}
+        />
+        <meshStandardMaterial
+          attach="material-4"
           color={BAR_COLOR}
           roughness={0.9}
           metalness={0.02}
         />
-      </mesh>
-
-      {/* Subtle top cap shading — slightly darker plane on top to fake AO */}
-      <mesh position={[0, h + 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[BAR_W * 0.999, BAR_D * 0.999]} />
-        <meshStandardMaterial color={BAR_COLOR_DARK} roughness={1} />
+        <meshStandardMaterial
+          attach="material-5"
+          color={BAR_COLOR}
+          roughness={0.9}
+          metalness={0.02}
+        />
       </mesh>
 
       {/* Nameplate */}
@@ -864,31 +877,26 @@ function Pillar({
         <meshBasicMaterial map={valueTex} transparent depthWrite={false} />
       </mesh>
 
-      {/* Logo disc — billboard-ish: slight forward lean so it reads from the
-          camera angle. Z slightly forward of bar center. */}
-      <group position={[0, discY, 0.4]} rotation={[0, 0, 0]}>
-        <mesh>
-          <circleGeometry args={[DISC_R, 64]} />
-          <meshStandardMaterial
-            map={discTex}
-            transparent
-            roughness={0.55}
-            metalness={0.05}
-          />
-        </mesh>
-      </group>
+      {/* Cover card — flat plane that displays the cover image AS-IS at its
+          native aspect ratio. No clipping, no halo, no white padding. */}
+      <mesh position={[0, cardY, 0.4]}>
+        <planeGeometry args={[card.w, card.h]} />
+        <meshBasicMaterial map={coverTex} toneMapped={false} />
+      </mesh>
 
-      {/* Flag — pole planted in the top-right-front corner of the pillar so
-          it pokes up just above bar-top level, exactly how the reference
-          mounts each flag. */}
-      <Flag
-        flagTex={flagTex}
-        baseX={BAR_W / 2 - 0.4}
-        baseY={h}
-        z={BAR_D / 2 - 0.4}
-        frame={frame}
-        index={index}
-      />
+      {/* Flag — pole + flag plane only render when the item carries a
+          country code. Episodes without country data (e.g. animals) get a
+          clean pillar with no orphaned flagpole sticking out the top. */}
+      {item.country ? (
+        <Flag
+          flagTex={flagTex}
+          baseX={BAR_W / 2 - 0.4}
+          baseY={h}
+          z={BAR_D / 2 - 0.4}
+          frame={frame}
+          index={index}
+        />
+      ) : null}
     </group>
   );
 }
@@ -932,9 +940,9 @@ function TitleBoards({
   // Y a bar's nameplate would occupy from this distance — so the cut from
   // intro hold into pan (and from pan into outro hold) involves no Y change.
   const titleBoardY =
-    runtime.items[0]._barH - K_LOOK + TITLE_OFFSET_FROM_LOOK;
+    runtime.items[0]._barH + LOOK_ABOVE_BAR_TOP + TITLE_OFFSET_FROM_LOOK;
   const outroBoardY =
-    runtime.items[runtime.N - 1]._barH - K_LOOK + TITLE_OFFSET_FROM_LOOK;
+    runtime.items[runtime.N - 1]._barH + LOOK_ABOVE_BAR_TOP + TITLE_OFFSET_FROM_LOOK;
   return (
     <>
       <TextBoard
@@ -964,14 +972,12 @@ function BarRow({
     [runtime.items],
   );
   const covers = useTexture(coverPaths);
-
-  // Build a disc texture per item — composite logo into a circular badge.
-  const discTexs = useMemo(() => {
-    return covers.map((t) => {
-      const img = (t.image ?? null) as HTMLImageElement | null;
-      return makeDiscTex(img);
-    });
-  }, [covers]);
+  // Standard color/anisotropy treatment so the cover renders crisp at any
+  // camera distance.
+  for (const t of covers) {
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 16;
+  }
 
   // Flag textures — load via plain TextureLoader (non-suspending). If a flag
   // PNG is missing or fails, the corresponding entry stays null and the flag
@@ -1004,7 +1010,7 @@ function BarRow({
           N={runtime.N}
           item={item}
           episode={episode}
-          discTex={discTexs[i]}
+          coverTex={covers[i]}
           flagTex={flagTexs[i]}
           frame={frame}
         />

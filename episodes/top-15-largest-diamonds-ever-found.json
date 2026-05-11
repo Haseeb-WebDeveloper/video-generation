@@ -1,0 +1,76 @@
+{
+  "slug": "top-15-largest-diamonds-ever-found",
+  "title": [
+    "THE LARGEST DIAMONDS",
+    "EVER FOUND"
+  ],
+  "outro": [
+    "WHICH ONE BLEW YOUR MIND?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "carats",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "items": [
+    {
+      "rank": 1,
+      "title": "Cullinan Diamond",
+      "value": 3107,
+      "country": "ZA",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Cullinan_Diamond.jpg?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Lesedi La Rona",
+      "value": 1109,
+      "country": "BW",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Lesedi_La_Rona.jpg?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Excelsior Diamond",
+      "value": 995,
+      "country": "ZA",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Excelsior_diamond.jpg?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Star of Sierra Leone",
+      "value": 969,
+      "country": "SL",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Star_of_Sierra_Leone.jpg?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Great Mogul Diamond",
+      "value": 787,
+      "country": "IN",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Great_Mogul_Diamond.jpg?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Golden Jubilee Diamond",
+      "value": 756,
+      "country": "ZA",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/GoldenJubilee.JPG?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Jubilee Diamond",
+      "value": 651,
+      "country": "ZA",
+      "imageSource": "https://en.wikipedia.org/wiki/Special:FilePath/Jubilee_Diamond_replica.jpg?width=2048",
+      "imagePath": "covers/top-15-largest-diamonds-ever-found/7.jpg"
+    }
+  ]
+}

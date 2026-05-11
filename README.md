@@ -1,14 +1,13 @@
 # Top X Ranking Video Generator
 
-Remotion + React Three Fiber pipeline for producing 1920×1080 ranking videos. One JSON file describes an episode (rank, title, value, image source); the build pipeline fetches images, optionally strips backgrounds and adds country flags; the renderer outputs a finished MP4 in one of three 3D templates.
+Remotion + React Three Fiber pipeline for producing 1920×1080 ranking videos. One JSON file describes an episode (rank, title, value, image source); the build pipeline fetches images, optionally strips backgrounds and adds country flags; the renderer outputs a finished MP4 in one of two 3D templates.
 
 ## Templates
 
-For each episode `<slug>` you get three compositions in the studio:
+For each episode `<slug>` you get two compositions in the studio:
 
 | Composition id          | File                  | Best for                                        |
 | ----------------------- | --------------------- | ----------------------------------------------- |
-| `<slug>`                | `src/sky-slides.tsx`  | Visual artifacts (movies, paintings, products) — covers float in a starfield. |
 | `<slug>-flow`           | `src/flow-slides.tsx` | Continuous side-scrolling row of covers over a still photo backdrop.          |
 | `<slug>-bars`           | `src/bar-slides.tsx`  | Money / count / size comparisons — 3D pillars sized by value, indoor showroom. |
 
@@ -23,8 +22,7 @@ npm run new-episode top-15-largest-diamonds-ever-found "TOP 15 LARGEST" "DIAMOND
 # 3. Fetch + normalize all cover images (and optional bg-removal / flag chips)
 npm run build-episode top-15-largest-diamonds-ever-found
 
-# 4. Render any of the three templates to MP4
-npm run render top-15-largest-diamonds-ever-found        # sky
+# 4. Render either template to MP4
 npm run render top-15-largest-diamonds-ever-found-flow   # flow
 npm run render top-15-largest-diamonds-ever-found-bars   # bar
 
@@ -84,7 +82,6 @@ scripts/          Build / render / publish CLI tools
 src/
   bar-slides.tsx  3D pillar template
   flow-slides.tsx Side-scrolling row template
-  sky-slides.tsx  Starfield template
   episode.ts      Episode + EpisodeItem types
   Root.tsx        Registers compositions for every episode in episodes/
 out/              Rendered MP4s (gitignored)

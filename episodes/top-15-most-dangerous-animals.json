@@ -1,0 +1,110 @@
+{
+  "slug": "top-15-most-dangerous-animals",
+  "title": [
+    "TOP 15 MOST DANGEROUS",
+    "ANIMALS IN THE WORLD"
+  ],
+  "outro": [
+    "DID YOU GUESS #1?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "human deaths per year",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "items": [
+    {
+      "rank": 1,
+      "title": "Mosquito",
+      "value": 725000,
+      "imagePath": "covers/top-15-most-dangerous-animals/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Saw-scaled Viper",
+      "value": 138000,
+      "imagePath": "covers/top-15-most-dangerous-animals/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Dog",
+      "value": 59000,
+      "imagePath": "covers/top-15-most-dangerous-animals/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Tsetse Fly",
+      "value": 10000,
+      "imagePath": "covers/top-15-most-dangerous-animals/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Kissing Bug",
+      "value": 10000,
+      "imagePath": "covers/top-15-most-dangerous-animals/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Freshwater Snail",
+      "value": 10000,
+      "imagePath": "covers/top-15-most-dangerous-animals/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Roundworm",
+      "value": 4500,
+      "imagePath": "covers/top-15-most-dangerous-animals/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Tapeworm",
+      "value": 2000,
+      "imagePath": "covers/top-15-most-dangerous-animals/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Saltwater Crocodile",
+      "value": 1000,
+      "imagePath": "covers/top-15-most-dangerous-animals/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Hippopotamus",
+      "value": 500,
+      "imagePath": "covers/top-15-most-dangerous-animals/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "African Elephant",
+      "value": 500,
+      "imagePath": "covers/top-15-most-dangerous-animals/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "Lion",
+      "value": 200,
+      "imagePath": "covers/top-15-most-dangerous-animals/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "African Buffalo",
+      "value": 200,
+      "imagePath": "covers/top-15-most-dangerous-animals/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Honey Bee",
+      "value": 60,
+      "imagePath": "covers/top-15-most-dangerous-animals/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Great White Shark",
+      "value": 10,
+      "imagePath": "covers/top-15-most-dangerous-animals/15.jpg"
+    }
+  ]
+}

@@ -14,8 +14,8 @@ import {
 import { Episode, EpisodeItem } from "./episode";
 
 // ───── Geometry ─────
-// Same cover sizing rules as sky-slides — covers fit inside a max bounding
-// box; landscape/portrait images shrink to fit without cropping.
+// Cover sizing — covers fit inside a max bounding box; landscape/portrait
+// images shrink to fit without cropping.
 // Fixed height for every cover. Width follows the image's native aspect —
 // portraits are narrow, landscapes are wide — but heights stay uniform so
 // every card occupies the same vertical band on screen. With label/rank
@@ -74,8 +74,7 @@ function formatValue(m: number, format: "compact" | "raw" = "compact"): string {
 
 type Vec3 = [number, number, number];
 
-// ADJUST: camera framing. Same closeness as sky-slides so cards read at the
-// same big size. The continuous pan flows the row past the camera; with
+// ADJUST: camera framing — sets how close cards read on screen. The continuous pan flows the row past the camera; with
 // CARD_GAP-based positioning, one or two cards stay in frame at a time
 // regardless of their individual aspect ratios.
 const CAM_DIST = 36;

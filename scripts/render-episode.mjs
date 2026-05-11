@@ -11,16 +11,44 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { loadEpisode } from "./lib/episode-loader.mjs";
+import { loadEpisode, episodePaths } from "./lib/episode-loader.mjs";
 
-const [, , slug] = process.argv;
-if (!slug) {
-  console.error("Usage: node scripts/render-episode.mjs <slug>");
+const [, , compositionId] = process.argv;
+if (!compositionId) {
+  console.error(
+    "Usage: node scripts/render-episode.mjs <slug>[-flow|-bars]",
+  );
   process.exit(1);
 }
 
-const { episode, paths } = await loadEpisode(slug);
-const { root: ROOT, outDir: OUT_DIR, outFile: OUT_FILE } = paths;
+// Composition ids are <slug>-flow or <slug>-bars (one per template). The
+// episode JSON lives at episodes/<slug>.json — strip the template suffix to
+// find it. A bare slug (no suffix) is rejected so the user explicitly
+// chooses which template to render.
+const TEMPLATE_SUFFIXES = ["-flow", "-bars"];
+let slug = compositionId;
+let templateSuffix = "";
+for (const suf of TEMPLATE_SUFFIXES) {
+  if (compositionId.endsWith(suf)) {
+    slug = compositionId.slice(0, -suf.length);
+    templateSuffix = suf;
+    break;
+  }
+}
+if (!templateSuffix) {
+  console.error(
+    `Composition id must end in -flow or -bars. Got: ${compositionId}`,
+  );
+  console.error(`  Try: npm run render ${compositionId}-bars`);
+  process.exit(1);
+}
+
+const { episode } = await loadEpisode(slug);
+const paths = episodePaths(slug);
+const { root: ROOT, outDir: OUT_DIR } = paths;
+// Output file mirrors the composition id so template variants don't overwrite
+// each other in out/.
+const OUT_FILE = path.join(OUT_DIR, `${slug}${templateSuffix}.mp4`);
 
 const missing = episode.items.filter(
   (it) =>
@@ -39,7 +67,7 @@ await fs.mkdir(OUT_DIR, { recursive: true });
 const args = [
   "remotion",
   "render",
-  slug,
+  compositionId,
   OUT_FILE,
   "--codec=h264",
   "--crf=18",
@@ -49,7 +77,7 @@ const args = [
   "--timeout=120000",
 ];
 
-console.log(`Rendering ${slug} → ${path.relative(ROOT, OUT_FILE)}`);
+console.log(`Rendering ${compositionId} → ${path.relative(ROOT, OUT_FILE)}`);
 const child = spawn("npx", args, { stdio: "inherit", shell: process.platform === "win32" });
 child.on("exit", (code) => {
   if (code !== 0) process.exit(code ?? 1);

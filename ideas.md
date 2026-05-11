@@ -2,7 +2,7 @@
 
 Ranked by **retention potential**: how hard it is for a viewer to skip before #1. The strongest ideas have a *curiosity gap* (you genuinely don't know who's #1), *stakes* (real money / fame numbers), and *visuals* (every entry has a recognizable image we can auto-fetch from Wikipedia / Wikimedia Commons).
 
-We now have **3 templates**: `sky` (3D space scene, best for visual artifacts — movies, paintings, products), `flow` (continuous scrolling row, similar use as sky), `bar` (3D pillars sized by value, best for money/count/size comparisons where the *number* is the star).
+We have **2 templates**: `flow` (continuous side-scrolling row of covers over a still photo backdrop, best for visual artifacts — movies, paintings, products) and `bar` (3D pillars sized by value, best for money/count/size comparisons where the *number* is the star).
 
 Each idea below tags the template it's built for.
 
@@ -80,13 +80,13 @@ Avoid the saturated lanes our competitors hammer (richest people, tallest buildi
 - **Source:** Spotify Charts API / Chartmasters running totals.
 
 ### 7. Top 15 Most Expensive Sneakers Ever Sold
-- **Template:** `flow` or `sky` — the shoe IS the visual.
+- **Template:** `flow` — the shoe IS the visual.
 - **Hook:** "A pair of Nikes sold for $1.8 million. Whose feet were in them?"
 - **Why it pops:** Sneakerhead audience is huge and rabid, every entry has provenance (Kanye, Jordan, Eminem).
 - **Source:** Sotheby's auction archives.
 
 ### 8. Top 15 Largest Diamonds Ever Found (by raw carats)
-- **Template:** `bar` (carats) or `sky` (the stone is photogenic).
+- **Template:** `bar` (carats) or `flow` (the stone is photogenic).
 - **Hook:** "The Cullinan was 3,106 carats. The diamond #1 makes it look small."
 - **Why it pops:** Visual gemstones, royalty stories (Cullinan → British Crown Jewels), discovery dates that span 200 years.
 - **Source:** Wikipedia "List of largest rough diamonds."
@@ -98,7 +98,7 @@ Avoid the saturated lanes our competitors hammer (richest people, tallest buildi
 - **Source:** Cruise Lines International Association, Wikipedia.
 
 ### 10. Top 15 Most Expensive Photographs Ever Sold
-- **Template:** `flow` or `sky` — the photo *is* the cover.
+- **Template:** `flow` — the photo *is* the cover.
 - **Hook:** "Andreas Gursky's Rhein II sold for $4.3M. It's a picture of a river."
 - **Why it pops:** "I could've taken that" outrage drives comments, art-world money fascinates outsiders.
 - **Source:** Christie's, Sotheby's, Phillips public auction results.
@@ -108,7 +108,7 @@ Avoid the saturated lanes our competitors hammer (richest people, tallest buildi
 ## Tier 3 — Niche but rabid audiences
 
 ### 11. Top 20 Most Expensive Magic: The Gathering Cards
-- **Template:** `bar` (price) or `sky` (the card art).
+- **Template:** `bar` (price) or `flow` (the card art).
 - **Hook:** "A single card sold for $3 million. It's a piece of cardboard."
 - **Why it pops:** MTG community is enormous and high-engagement, no big mainstream channel covers this seriously.
 - **Source:** MTGGoldfish, eBay sold listings, public auction houses.
@@ -148,7 +148,7 @@ Avoid the saturated lanes our competitors hammer (richest people, tallest buildi
 - **Template:** `bar`. Apple, Berkshire, Saudi Aramco. Counterintuitive — Apple alone could buy Lockheed Martin in cash.
 
 ### 18. Top 20 Tallest Roller Coasters in the World
-- **Template:** `bar` (height) or `sky` (visual).  Theme-park audience is huge, every coaster has a recognizable name and a backstory.
+- **Template:** `bar` (height) or `flow` (visual).  Theme-park audience is huge, every coaster has a recognizable name and a backstory.
 
 ### 19. Top 15 Largest Aquariums in the World (by water volume)
 - **Template:** `bar` — gallons. Visual photos, family-friendly clicks, surprising #1 (China dominates the list now).

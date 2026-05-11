@@ -95,7 +95,11 @@ for (const item of episode.items) {
     }
   }
 
-  if (item.country) {
+  // Flag chip is opt-in (default true). Bar-template-focused episodes
+  // typically set compositeFlagOnCover:false because the template renders a
+  // separate flagpole next to each pillar.
+  const wantFlagChip = (episode.compositeFlagOnCover ?? true) && !!item.country;
+  if (wantFlagChip) {
     try {
       buf = await compositeFlag(buf, item.country);
       source += ` +flag:${item.country}`;

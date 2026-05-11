@@ -54,6 +54,11 @@ export type Episode = {
   // source photos arrive with messy / inconsistent backgrounds.
   // Per-item override available on `EpisodeItem.removeBg`.
   removeBg?: boolean;
+  // Defaults to true. When false, the build pipeline does NOT bake a country
+  // flag chip into the cover JPG — useful when the chosen template renders
+  // its own flag (e.g. the bar template's flagpole) and a chip on the cover
+  // would be redundant or visually noisy.
+  compositeFlagOnCover?: boolean;
   // YouTube thumbnail. Path is relative to /public, e.g.
   // "thumbnails/top-25-best-foo.jpg". This image is the master — typically a
   // 4K upscale produced via `npm run upscale`. publish-episode resizes and
