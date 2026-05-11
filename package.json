@@ -10,6 +10,7 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "9.6.0",
     "@remotion/cli": "4.0.452",
+    "@remotion/google-fonts": "^4.0.452",
     "@remotion/tailwind-v4": "4.0.452",
     "@remotion/three": "4.0.452",
     "react": "19.2.3",

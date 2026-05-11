@@ -2,7 +2,10 @@
 // Upload one episode to YouTube with auto-generated SEO metadata.
 //
 // Usage:
-//   node scripts/publish-episode.mjs <slug> [flags]
+//   node scripts/publish-episode.mjs <slug>-flow|-bars [flags]
+//
+// The episode JSON is shared between template variants; the variant suffix
+// selects the MP4 in out/ and the publish lockfile in episodes/.
 //
 // Flags:
 //   --dry-run         Print metadata + chapter list and exit (no upload).
@@ -12,9 +15,9 @@
 //                     Requires a lockfile from a prior successful upload.
 //   --privacy=<v>     Override privacyStatus for this run (private|unlisted|public).
 //
-// On success, writes episodes/<slug>.published.json (the publish ledger).
-// On mid-upload failure, writes out/<slug>.upload-state.json and the next
-// run resumes from the last byte the YouTube server confirmed.
+// On success, writes episodes/<slug>-<variant>.published.json (the publish
+// ledger). On mid-upload failure, writes out/<slug>-<variant>.upload-state.json
+// and the next run resumes from the last byte the YouTube server confirmed.
 //
 // First-time setup: see scripts/youtube-auth.mjs.
 
@@ -23,7 +26,7 @@ import path from "node:path";
 import { existsSync } from "node:fs";
 import sharp from "sharp";
 import * as dotenv from "./lib/dotenv.mjs";
-import { loadEpisode } from "./lib/episode-loader.mjs";
+import { loadEpisode, parseCompositionId } from "./lib/episode-loader.mjs";
 import { buildMetadata, validateMetadata } from "./lib/youtube-meta.mjs";
 import { chaptersWillAutoDetect } from "./lib/chapters.mjs";
 import { getAccessToken } from "./lib/youtube-auth.mjs";
@@ -31,7 +34,7 @@ import { getAccessToken } from "./lib/youtube-auth.mjs";
 const THUMBNAIL_MAX_BYTES = 2 * 1024 * 1024;
 
 const argv = process.argv.slice(2);
-const slug = argv.find((a) => !a.startsWith("--"));
+const compositionId = argv.find((a) => !a.startsWith("--"));
 const flags = new Set(argv.filter((a) => a.startsWith("--") && !a.includes("=")));
 const opts = Object.fromEntries(
   argv
@@ -42,10 +45,19 @@ const opts = Object.fromEntries(
     }),
 );
 
-if (!slug) {
+if (!compositionId) {
   console.error(
-    "Usage: node scripts/publish-episode.mjs <slug> [--dry-run] [--force] [--update] [--privacy=<v>]",
+    "Usage: node scripts/publish-episode.mjs <slug>-flow|-bars [--dry-run] [--force] [--update] [--privacy=<v>]",
   );
+  process.exit(1);
+}
+
+const { slug, variantSuffix } = parseCompositionId(compositionId);
+if (!variantSuffix) {
+  console.error(
+    `Composition id must end in -flow or -bars. Got: ${compositionId}`,
+  );
+  console.error(`  Try: npm run publish-episode ${compositionId}-bars`);
   process.exit(1);
 }
 
@@ -57,7 +69,7 @@ if (force && update) {
   process.exit(1);
 }
 
-const { episode, paths } = await loadEpisode(slug);
+const { episode, paths } = await loadEpisode(slug, variantSuffix);
 const meta = buildMetadata(episode);
 if (opts.privacy) meta.privacyStatus = opts.privacy;
 
@@ -78,13 +90,13 @@ const existingLock = existsSync(paths.publishedFile)
 const thumbnailInfo = await resolveThumbnail(episode, paths);
 
 if (dryRun) {
-  printDryRun({ slug, meta, mp4Stat, existingLock, thumbnailInfo });
+  printDryRun({ label: compositionId, meta, mp4Stat, existingLock, thumbnailInfo });
   process.exit(0);
 }
 
 if (!mp4Exists) {
   console.error(
-    `MP4 not found: ${paths.outFile}. Run: npm run render ${slug}`,
+    `MP4 not found: ${paths.outFile}. Run: npm run render ${compositionId}`,
   );
   process.exit(1);
 }
@@ -463,9 +475,9 @@ function serializableMeta(meta) {
   };
 }
 
-function printDryRun({ slug, meta, mp4Stat, existingLock, thumbnailInfo }) {
+function printDryRun({ label, meta, mp4Stat, existingLock, thumbnailInfo }) {
   const ruler = "─".repeat(70);
-  console.log(`\n${ruler}\nDRY RUN: ${slug}\n${ruler}`);
+  console.log(`\n${ruler}\nDRY RUN: ${label}\n${ruler}`);
   console.log(`MP4: ${mp4Stat ? formatBytes(mp4Stat.size) : "NOT YET RENDERED"}`);
   if (existingLock) {
     console.log(`Lockfile: published as ${existingLock.url} on ${existingLock.uploadedAt}`);

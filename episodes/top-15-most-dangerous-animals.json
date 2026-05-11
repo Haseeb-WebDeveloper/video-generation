@@ -15,6 +15,32 @@
   "compositeFlagOnCover": false,
   "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
   "audioVolume": 0.32,
+  "thumbnailPath": "thumbnail/top-15-most-dangerous-animals-bars.png",
+  "youtube": {
+    "title": "Top 15 Most Dangerous Animals in the World — Ranked by Human Deaths",
+    "description": "You'd guess sharks. You'd guess lions. You'd be wrong.\n\nThis is the real ranking of the world's deadliest animals — sorted by how many humans they kill every year. From the apex predators you'd expect to the tiny creatures quietly killing hundreds of thousands, here's the countdown of the 15 most dangerous animals on Earth.\n\nLike and subscribe if #1 surprised you.",
+    "tags": [
+      "top 15",
+      "most dangerous animals",
+      "deadliest animals",
+      "dangerous animals",
+      "deadliest animals in the world",
+      "animal facts",
+      "animal rankings",
+      "mosquito deaths",
+      "human deaths by animal",
+      "animal kingdom",
+      "shark attacks",
+      "wildlife",
+      "nature",
+      "ranked",
+      "countdown"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
   "items": [
     {
       "rank": 1,

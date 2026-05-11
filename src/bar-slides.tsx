@@ -10,7 +10,14 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { loadFont } from "@remotion/google-fonts/Inter";
 import { Episode, EpisodeItem } from "./episode";
+
+// Trigger Inter load at module scope so Remotion's delayRender holds the
+// render until the font is actually available. Without this, the first
+// frame paints with the system sans-serif fallback because the canvas
+// fillText runs before any web font has decoded.
+const { fontFamily: INTER } = loadFont();
 
 // ───── Geometry ─────
 // One pillar per item. Bar width/depth fixed; height scales with value.
@@ -25,7 +32,7 @@ const BAR_D = 7.0;
 // MIN stays clear of the floor so the value text plane doesn't clip
 // against it on the shortest bar.
 const MIN_BAR_H = 10;
-const MAX_BAR_H = 100;
+const MAX_BAR_H = 80;
 
 // X distance between bar centers. Bigger = more breathing room, longer pan.
 // Tuned with FOV/CAM_DIST so only ~2.5–3 bars are visible at once — the
@@ -62,10 +69,13 @@ const NAMEPLATE_W = BAR_W - NAMEPLATE_PAD * 2; // 6.6 on a 7.0 bar
 const NAMEPLATE_H = 1.85;
 const NAMEPLATE_FROM_TOP = NAMEPLATE_PAD + NAMEPLATE_H / 2; // top edge sits NAMEPLATE_PAD below bar top
 
-// Value text plane (just below the nameplate).
-const VALUE_PLANE_W = 5.2;
-const VALUE_PLANE_H = 1.9;
-const VALUE_FROM_NAMEPLATE = 1.0;
+// Value text plane (just below the nameplate). Sized as a wide, generous
+// block so the headline number + unit label have room to breathe. Aspect
+// (6.0/2.25 ≈ 2.67) matches the value canvas (1024×384) so nothing
+// stretches.
+const VALUE_PLANE_W = 6.0;
+const VALUE_PLANE_H = 2.25;
+const VALUE_FROM_NAMEPLATE = 0.9;
 
 // Flagpole + flag. Pole is short and sits ON the top of the bar, sticking
 // up just enough to hang the flag at bar-top level (matches the reference,
@@ -105,24 +115,24 @@ const TITLE_PLANE_H = TITLE_PLANE_W / 2;
 // orange highlight, hint of cosmic purple. Cream pillars are kept because
 // they contrast cleanly with the navy and read as physical monuments — the
 // scene's "ranking podium" metaphor.
-const BAR_COLOR = "#efe7d1"; // ivory — front and back face of the pillar
-const BAR_SIDE_COLOR = "#bdb398"; // darker gray-beige — left and right faces, fakes ambient occlusion against the side walls
-const BAR_COLOR_DARK = "#cfc6a8"; // top-cap shading
-const NAMEPLATE_COLOR = "#0e1430"; // deep brand navy — matches wall/floor
+const BAR_COLOR = "#d9d9d8"; // deep blue — front and back face of the pillar
+const BAR_SIDE_COLOR = "#ffffff"; // warm cream — left and right faces (and top cap)
+const BAR_COLOR_DARK = "#e8dfb5"; // slightly darker cream — top-cap shading, sits between BAR_SIDE_COLOR and BAR_COLOR for soft AO
+const NAMEPLATE_COLOR = "#15015b"; // deep brand navy — matches wall/floor
 const NAMEPLATE_TEXT = "#ffffff"; // pure white text on the nameplate
-const VALUE_COLOR = "#0e1430"; // deep brand navy — same as nameplate, reads as ink on the cream pillar
-// Soft neutral-gray floor — slightly lighter and cooler than before, with
-// tile lines pulled close to the base color so the grid reads as a faint
-// perspective hint rather than a sharp pattern.
-const FLOOR_COLOR = "#5d5b63";
-const FLOOR_TILE_LINE = "#7c7a82";
-// Back wall: same tile style as the floor, one shade lighter so the two
-// surfaces read as distinct planes (floor in shadow, wall catching more
-// light) without losing the "we're in the same room" continuity.
-const WALL_COLOR = "#2a2638";
-const WALL_TILE_LINE = "#4a4559";
-const TITLE_TEXT = "#ffffff"; // primary title color
-const TITLE_TEXT_SOFT = "rgba(255, 255, 255, 0.86)"; // subtitle / line 2
+// Dark ink on the light pillar front. Matches the nameplate background so
+// the title nameplate and the numeric value read as the same family of
+// marks, just at different scales.
+const VALUE_COLOR = "#000000";
+// Fallback color shown under the canvas while bg-2.jpg loads, and at any
+// frame edge the scene background quad doesn't cover. Match the deep
+// navy of the chosen backdrop so the transition is invisible if it ever
+// flashes.
+const WALL_COLOR = "#0a0f24";
+// Dark ink for the intro/outro boards — matches the nameplate + value
+// palette so every text surface in the scene reads as the same family.
+const TITLE_TEXT = "#15015b"; // primary title color (line 1)
+const TITLE_TEXT_SOFT = "rgba(21, 1, 91, 0.86)"; // subtitle / line 2 — same hue at 86% opacity
 
 // Bar X helper — index 0 sits leftmost; sorted so the smallest pillar is first
 // and the tallest is last (ascending reveal).
@@ -375,13 +385,12 @@ function CameraRig({
 }
 
 // ───── Texture builders ─────
-// Brand uses one clean sans family across all surfaces — title cards,
-// nameplates, value text. Inter first (matches the channel thumbnails),
-// with system-stack fallbacks for non-Inter render environments.
-const FONT_SANS =
-  "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-// Kept as an alias so existing references keep working without churn — the
-// "serif" surfaces (nameplate, value, title) all now use the brand sans.
+// One clean sans family across every surface — title cards, nameplates,
+// value text. INTER is the family name resolved by Remotion's google-fonts
+// loader; fallbacks cover the rare frame painted before the font fully
+// decodes (delayRender keeps that window short).
+const FONT_SANS = `"${INTER}", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+// Alias kept so the existing references in this file don't have to change.
 const FONT_SERIF = FONT_SANS;
 
 function makeNameplateTex(title: string): THREE.CanvasTexture {
@@ -510,14 +519,14 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
 
   if (!unit) {
     // No unit label — single line, big number.
-    let size = Math.round(H * 0.62);
-    ctx.font = `700 ${size}px ${FONT_SERIF}`;
+    let size = Math.round(H * 0.74);
+    ctx.font = `800 ${size}px ${FONT_SERIF}`;
     while (
       ctx.measureText(value).width > W * 0.92 &&
       size > Math.round(H * 0.3)
     ) {
       size -= 6;
-      ctx.font = `700 ${size}px ${FONT_SERIF}`;
+      ctx.font = `800 ${size}px ${FONT_SERIF}`;
     }
     ctx.fillText(value, W / 2, H / 2 + size * 0.36);
     const tex = new THREE.CanvasTexture(c);
@@ -526,13 +535,17 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
     return tex;
   }
 
-  // Two-line layout: big number on top, unit label below at ~40% size.
+  // Two-line layout. Clean display:caption hierarchy:
+  //   number  → ~52% canvas height, the hero
+  //   unit    → 40% of the number, clear secondary caption
+  //   gap     → ~30% of the number, generous breathing room
+  // Auto-shrink falls back gracefully for very long values or units.
   const MAX_W = W * 0.92;
-  let valueSize = Math.round(H * 0.5);
-  ctx.font = `700 ${valueSize}px ${FONT_SERIF}`;
+  let valueSize = Math.round(H * 0.52);
+  ctx.font = `800 ${valueSize}px ${FONT_SERIF}`;
   while (ctx.measureText(value).width > MAX_W && valueSize > Math.round(H * 0.3)) {
     valueSize -= 6;
-    ctx.font = `700 ${valueSize}px ${FONT_SERIF}`;
+    ctx.font = `800 ${valueSize}px ${FONT_SERIF}`;
   }
 
   let unitSize = Math.round(valueSize * 0.4);
@@ -542,11 +555,11 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
     ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
   }
 
-  const gap = H * 0.06;
+  const gap = Math.round(valueSize * 0.3);
   const blockH = valueSize + gap + unitSize;
   const topY = (H - blockH) / 2;
 
-  ctx.font = `700 ${valueSize}px ${FONT_SERIF}`;
+  ctx.font = `800 ${valueSize}px ${FONT_SERIF}`;
   ctx.fillText(value, W / 2, topY + valueSize);
 
   // Unit gets no shadow — the small text reads cleaner without it.
@@ -612,112 +625,29 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
   return tex;
 }
 
-// ───── Backdrop (back wall) ─────
-// Same tile pattern as the floor (see makeFloorTex below) so the wall and
-// floor read as belonging to the same room. The wall just uses a slightly
-// lighter palette so the two surfaces aren't visually identical.
-function makeWallTex(): THREE.CanvasTexture {
-  const W = 1024;
-  const H = 1024;
-  const c = document.createElement("canvas");
-  c.width = W;
-  c.height = H;
-  const ctx = c.getContext("2d")!;
-  ctx.fillStyle = WALL_COLOR;
-  ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = WALL_TILE_LINE;
-  ctx.lineWidth = 2;
-  const STEP = 128;
-  for (let i = 0; i <= W; i += STEP) {
-    ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, H);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, i);
-    ctx.lineTo(W, i);
-    ctx.stroke();
-  }
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  tex.anisotropy = 16;
-  return tex;
-}
-
-function makeFloorTex(): THREE.CanvasTexture {
-  const W = 1024;
-  const H = 1024;
-  const c = document.createElement("canvas");
-  c.width = W;
-  c.height = H;
-  const ctx = c.getContext("2d")!;
-  ctx.fillStyle = FLOOR_COLOR;
-  ctx.fillRect(0, 0, W, H);
-  // Tile grid — thinner than before so the floor reads as a hazy plane,
-  // not a hard grid.
-  ctx.strokeStyle = FLOOR_TILE_LINE;
-  ctx.lineWidth = 2;
-  const STEP = 128;
-  for (let i = 0; i <= W; i += STEP) {
-    ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, H);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, i);
-    ctx.lineTo(W, i);
-    ctx.stroke();
-  }
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(40, 40);
-  tex.anisotropy = 16;
-  return tex;
-}
-
 // ───── Components ─────
+// Full-frame static photo as the scene background, same pattern as the
+// flow template. <primitive attach="background" object={tex}> binds the
+// texture to scene.background, which Three.js renders as a fullscreen
+// quad — the image stays fixed regardless of camera position, so it
+// reads as a wallpaper, not a parallaxed plane. Texture loaded via
+// plain TextureLoader (non-suspending) so it never blocks the Scene
+// suspense while bg-2.jpg decodes.
 function Backdrop() {
-  const wall = useMemo(() => {
-    const tex = makeWallTex();
-    // Tile world-size stays the same (~3 world units per tile). Because
-    // the wall is now much farther from the camera than before, those
-    // same-sized tiles render SMALLER on screen — exactly what the eye
-    // reads as "this surface is far away" rather than "this is a flat
-    // poster a few feet behind the pillars."
-    tex.repeat.set(90, 22);
-    return tex;
+  const tex = useMemo(() => {
+    const loader = new THREE.TextureLoader();
+    const t = loader.load(
+      staticFile("bg-2.jpg"),
+      undefined,
+      undefined,
+      () => {
+        // swallow load errors — AbsoluteFill bg shows through
+      },
+    );
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
   }, []);
-  // Wall pushed deep — z=-380 (was -180). To still cover the camera's
-  // view at that distance the plane has to scale up roughly with the
-  // distance ratio (~2×), so 2700×680 here. Tile texture tiles freely so
-  // the plane aspect is free to be whatever gives full coverage. Y span
-  // (~-280..400) covers the camera's vertical view across the entire
-  // MIN..MAX_BAR_H range with comfortable margin.
-  return (
-    <mesh position={[0, 60, -380]}>
-      <planeGeometry args={[2700, 680]} />
-      <meshBasicMaterial map={wall} />
-    </mesh>
-  );
-}
-
-function Floor() {
-  const floor = useMemo(() => makeFloorTex(), []);
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-      <planeGeometry args={[1200, 1200]} />
-      <meshStandardMaterial
-        map={floor}
-        roughness={0.98}
-        metalness={0}
-        color="#aaaaa6"
-      />
-    </mesh>
-  );
+  return <primitive attach="background" object={tex} />;
 }
 
 function Flag({
@@ -1030,9 +960,7 @@ function Scene({
 }) {
   return (
     <>
-      <color attach="background" args={[WALL_COLOR]} />
       <Backdrop />
-      <Floor />
 
       <ambientLight intensity={0.85} color="#cdd4ee" />
       {/* Cool key light tinted toward the brand navy/violet so the cream
