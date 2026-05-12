@@ -489,11 +489,11 @@ function TextBoard({
 
 
 // ───── Static image backdrop ─────
-// Renders public/bg.jpeg as the scene background — a flat fullscreen quad
+// Renders public/bg-0.jpeg as the scene background — a flat fullscreen quad
 // that always fills the canvas regardless of camera position, so the image
 // reads as a fixed wallpaper rather than a parallaxed plane.
 function Backdrop() {
-  const tex = useTexture(staticFile("bg.jpeg"));
+  const tex = useTexture(staticFile("bg-0.jpeg"));
   tex.colorSpace = THREE.SRGBColorSpace;
   return <primitive attach="background" object={tex} />;
 }

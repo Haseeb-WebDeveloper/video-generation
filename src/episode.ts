@@ -76,6 +76,12 @@ export type Episode = {
   // recompresses it to fit YouTube's 2MB / 1280×720+ spec before uploading
   // via the thumbnails.set API after the video upload completes.
   thumbnailPath?: string;
+  // Optional override for which item gets heroed in the auto-generated
+  // thumbnail (via the `<slug>-flow-thumb` Remotion still composition).
+  // Defaults to 1 (the #1-ranked item). Useful when #1's cover doesn't
+  // make a compelling blurred mystery (e.g. an instantly-recognizable
+  // national flag) and a lower-rank item creates a better tease.
+  thumbnailHeroRank?: number;
   // Optional URL to download into thumbnailPath at build-episode time. If
   // both are set, an existing local thumbnailPath wins (no re-download).
   thumbnailSource?: string;

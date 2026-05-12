@@ -75,7 +75,7 @@ npm run publish-episode top-15-largest-diamonds-ever-found-bars
 episodes/         Episode JSONs (auto-indexed via episodes/index.ts)
 public/
   audio/          Reusable background music
-  bg.jpeg         Backdrop used by flow-slides
+  bg-0.jpeg         Backdrop used by flow-slides
   covers/         Per-episode cover images (built by build-episode)
   flags/          Country flag PNGs (downloaded by fetch-flags)
 scripts/          Build / render / publish CLI tools

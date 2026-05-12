@@ -87,13 +87,16 @@ const FLAG_H = 1.1;
 
 // Hero-flag mode (episode.flagHero === true). Used for flag-themed
 // episodes (e.g. "countries by X") where the flag IS the visual — no
-// cover card. The pole rises tall from the bar's top-back edge and
-// carries a large 3:2 flag that floats roughly where a cover card would
-// have sat, so the camera framing still works without retuning.
-const HERO_POLE_H = 7.5;
+// cover card. With showPole=false the pole is invisible, so HERO_POLE_H
+// becomes the Y-offset of the flag's pivot above the bar top. Lower
+// values sit the flag closer to the pillar; the chosen value puts the
+// flag center near the camera's lookAt (LOOK_ABOVE_BAR_TOP + a bit), so
+// the flag reads as a billboard hovering just above its pillar rather
+// than floating high overhead.
+const HERO_POLE_H = 6;
 const HERO_FLAG_W = 7.0;
 const HERO_FLAG_H = 4.67; // 3:2 aspect (matches normalized flag covers)
-const HERO_POLE_R = 0.08; // slightly thicker pole — proportional to bigger flag
+const HERO_POLE_R = 0.08; // unused while showPole=false, kept for future toggle
 
 // Camera framing. The pan is one continuous sweep from the first bar to outroX.
 // Camera Y tracks the CURRENT bar top so the card + nameplate stay in frame
@@ -139,13 +142,15 @@ const VALUE_COLOR = "#000000";
 const WALL_COLOR = "#0a0f24";
 // Dark ink for the intro/outro boards — matches the nameplate + value
 // palette so every text surface in the scene reads as the same family.
-const TITLE_TEXT = "#15015b"; // primary title color (line 1)
-const TITLE_TEXT_SOFT = "rgba(21, 1, 91, 0.86)"; // subtitle / line 2 — same hue at 86% opacity
+const TITLE_TEXT = "#ffffff"; // primary title color (line 1)
+const TITLE_TEXT_SOFT = "rgba(255, 255, 255, 0.9)"; // subtitle / line 2 — same hue at 86% opacity
 
 // Bar X helper — index 0 sits leftmost; sorted so the smallest pillar is first
 // and the tallest is last (ascending reveal).
-const barX = (i: number, n: number) =>
+export const barX = (i: number, n: number) =>
   i * SPACING_X - ((n - 1) * SPACING_X) / 2;
+
+export { SPACING_X, BAR_W, MIN_BAR_H, MAX_BAR_H };
 
 // Format the bare numeric value (no unit). The unit label is rendered as a
 // separate line by makeValueTex.
@@ -253,7 +258,7 @@ type EpisodeRuntime = {
 // proportionality between unequal values.
 const TIE_BREAK = 0.02;
 
-function buildRuntime(episode: Episode): EpisodeRuntime {
+export function buildRuntime(episode: Episode): EpisodeRuntime {
   // Sort ascending by value: smallest bar first (left), tallest last (right).
   const sorted = [...episode.items].sort((a, b) => a.value - b.value);
   const N = sorted.length;
@@ -650,12 +655,12 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
 // quad — the image stays fixed regardless of camera position, so it
 // reads as a wallpaper, not a parallaxed plane. Texture loaded via
 // plain TextureLoader (non-suspending) so it never blocks the Scene
-// suspense while bg-floor.jpeg decodes.
-function Backdrop() {
+// suspense while bg-0.jpeg decodes.
+export function Backdrop() {
   const tex = useMemo(() => {
     const loader = new THREE.TextureLoader();
     const t = loader.load(
-      staticFile("bg-floor.jpeg"),
+      staticFile("bg-0.jpeg"),
       undefined,
       undefined,
       () => {
@@ -679,6 +684,7 @@ function Flag({
   poleR = POLE_R,
   flagW = FLAG_W,
   flagH = FLAG_H,
+  showPole = true,
 }: {
   flagTex: THREE.Texture | null;
   baseX: number;
@@ -690,28 +696,63 @@ function Flag({
   poleR?: number;
   flagW?: number;
   flagH?: number;
+  showPole?: boolean;
 }) {
 
-  // Subtle wave: rotate the flag plane on Y around the pole, plus a small Z tilt.
+  // Multi-frequency wave for organic, real-cloth feel. A single sine wave
+  // looks mechanical because its period is perfectly regular; layering a
+  // slow base oscillation with a smaller, faster detail wave breaks the
+  // periodicity the eye can latch onto. Frequencies are deliberately
+  // incommensurate (no simple ratio between them) so the combined motion
+  // never repeats — it always feels like fresh ambient wind.
+  //
+  // Each item is offset by index*0.7s so adjacent flags don't sway in
+  // lockstep (a row of identically-phased flags reads as one rigid object).
   const t = frame / 60 + index * 0.7;
-  const sway = Math.sin(t * 1.6) * 0.18;
-  const tilt = Math.sin(t * 1.2 + 1) * 0.08;
+
+  // Y rotation around the pivot — the dominant cloth motion (flag
+  // turning edge-on and back as wind shifts). Smaller amplitudes than
+  // the single-sine version (0.18 → 0.10 base) because the layered
+  // motion compounds visually.
+  const sway =
+    Math.sin(t * 0.55) * 0.10 + Math.sin(t * 1.3 + 0.5) * 0.035;
+
+  // Z rotation — slight wind-angle tilt. Very small range; too much
+  // reads as spinning rather than fluttering.
+  const tilt =
+    Math.sin(t * 0.38 + 1.2) * 0.05 + Math.sin(t * 0.95) * 0.02;
+
+  // Subtle position drift on Y and Z — sells the "free-floating cloth in
+  // air" illusion when no pole is shown. With a pole the drift is small
+  // enough to read as the flag tugging on the rope.
+  const bobY =
+    Math.sin(t * 0.5 + 0.7) * 0.06 + Math.cos(t * 1.1 + 0.3) * 0.02;
+  const bobZ = Math.cos(t * 0.42) * 0.04;
 
   return (
     <group position={[baseX, baseY, z]}>
-      {/* Pole */}
-      <mesh position={[0, poleH / 2, 0]}>
-        <cylinderGeometry args={[poleR, poleR, poleH, 12]} />
-        <meshStandardMaterial color="#c9b274" metalness={0.6} roughness={0.4} />
-      </mesh>
-      {/* Pole cap */}
-      <mesh position={[0, poleH + 0.08, 0]}>
-        <sphereGeometry args={[poleR * 1.8, 12, 12]} />
-        <meshStandardMaterial color="#e6cf86" metalness={0.7} roughness={0.3} />
-      </mesh>
-      {/* Flag — pivot at left edge so it rotates around the pole */}
+      {showPole && (
+        <>
+          {/* Pole */}
+          <mesh position={[0, poleH / 2, 0]}>
+            <cylinderGeometry args={[poleR, poleR, poleH, 12]} />
+            <meshStandardMaterial color="#c9b274" metalness={0.6} roughness={0.4} />
+          </mesh>
+          {/* Pole cap */}
+          <mesh position={[0, poleH + 0.08, 0]}>
+            <sphereGeometry args={[poleR * 1.8, 12, 12]} />
+            <meshStandardMaterial color="#e6cf86" metalness={0.7} roughness={0.3} />
+          </mesh>
+        </>
+      )}
+      {/* Flag — pivot at left edge so rotation looks like wind catching
+          the free side. With showPole=false, bobY + bobZ make the flag
+          read as floating in air rather than pinned to an invisible point. */}
       {flagTex && (
-        <group position={[0, poleH - flagH * 0.6, 0]} rotation={[0, sway, tilt]}>
+        <group
+          position={[0, poleH - flagH * 0.6 + bobY, bobZ]}
+          rotation={[0, sway, tilt]}
+        >
           <mesh position={[flagW / 2, 0, 0]}>
             <planeGeometry args={[flagW, flagH, 16, 6]} />
             <meshStandardMaterial
@@ -727,7 +768,7 @@ function Flag({
   );
 }
 
-function Pillar({
+export function Pillar({
   index,
   N,
   item,
@@ -850,6 +891,7 @@ function Pillar({
           poleR={HERO_POLE_R}
           flagW={HERO_FLAG_W}
           flagH={HERO_FLAG_H}
+          showPole={false}
         />
       ) : (
         <>
