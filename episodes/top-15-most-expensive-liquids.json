@@ -1,0 +1,144 @@
+{
+  "slug": "top-15-most-expensive-liquids",
+  "title": [
+    "TOP 15 MOST EXPENSIVE",
+    "LIQUIDS IN THE WORLD"
+  ],
+  "outro": [
+    "DID YOU GUESS #1?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "USD per gallon",
+  "valueFormat": "raw",
+  "coverFit": "contain",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "This Liquid Costs $39,000,000 Per Gallon — Top 15 Most Expensive Liquids on Earth",
+    "description": "Scorpion venom costs $39 million per gallon. But why? And what else is more valuable than gold?\n\nFrom kitchen staples to lab-grade venoms, this is the real ranking of the world's most expensive liquids — sorted by US dollars per gallon. Most people can't guess #1. Most people don't even know it exists.\n\nLike and subscribe if #1 surprised you.",
+    "tags": [
+      "top 15",
+      "most expensive liquids",
+      "expensive liquids",
+      "scorpion venom",
+      "king cobra venom",
+      "horseshoe crab blood",
+      "most expensive liquid in the world",
+      "deathstalker scorpion",
+      "expensive things",
+      "ranked",
+      "countdown",
+      "ranking",
+      "science facts",
+      "wild facts",
+      "weird science"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "Scorpion Venom",
+      "value": 39000000,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/3/39/Deathstalker_ST_07.JPG",
+      "imagePath": "covers/top-15-most-expensive-liquids/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "King Cobra Venom",
+      "value": 153000,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/en/4/4b/Indian_king_cobra.JPG",
+      "imagePath": "covers/top-15-most-expensive-liquids/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Horseshoe Crab Blood",
+      "value": 60000,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/27/Limulus_polyphemus_%28Atlantic_Horseshoe_Crab%29_%2827256381030%29.jpg",
+      "imagePath": "covers/top-15-most-expensive-liquids/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Chanel No. 5",
+      "value": 26000,
+      "imagePath": "covers/top-15-most-expensive-liquids/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Insulin",
+      "value": 9400,
+      "imagePath": "covers/top-15-most-expensive-liquids/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Mercury",
+      "value": 3300,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/9/99/Pouring_liquid_mercury_bionerd.jpg",
+      "imagePath": "covers/top-15-most-expensive-liquids/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Printer Ink",
+      "value": 2700,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Canon_PG-810_CL-811_ink_cartridge.JPG",
+      "imagePath": "covers/top-15-most-expensive-liquids/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Human Blood",
+      "value": 1500,
+      "imagePath": "covers/top-15-most-expensive-liquids/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Nail Polish",
+      "value": 900,
+      "imagePath": "covers/top-15-most-expensive-liquids/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Patchouli Oil",
+      "value": 830,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/7/72/PatchouliEssentialOil.png",
+      "imagePath": "covers/top-15-most-expensive-liquids/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "Argan Oil",
+      "value": 500,
+      "imagePath": "covers/top-15-most-expensive-liquids/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "Truffle Oil",
+      "value": 400,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Truffle_olive_oil_with_Tuber_melanosporum.JPG",
+      "imagePath": "covers/top-15-most-expensive-liquids/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "Liquid Paper",
+      "value": 250,
+      "imagePath": "covers/top-15-most-expensive-liquids/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Vanilla Extract",
+      "value": 90,
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/a/af/Vanilla_extract.JPG",
+      "imagePath": "covers/top-15-most-expensive-liquids/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Maple Syrup",
+      "value": 40,
+      "imageSource": "https://commons.wikimedia.org/wiki/Special:FilePath/Crown_Maple_Syrup.JPG",
+      "imagePath": "covers/top-15-most-expensive-liquids/15.jpg"
+    }
+  ]
+}

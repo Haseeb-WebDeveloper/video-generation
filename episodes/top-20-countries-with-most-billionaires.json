@@ -1,0 +1,206 @@
+{
+  "slug": "top-20-countries-with-most-billionaires",
+  "title": [
+    "TOP 20 COUNTRIES",
+    "WITH THE MOST BILLIONAIRES"
+  ],
+  "outro": [
+    "WHERE DOES YOUR COUNTRY RANK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "billionaires",
+  "valueFormat": "raw",
+  "coverFit": "cover",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "America Has 989 Billionaires — Where Does YOUR Country Rank? | Top 20 Countries",
+    "description": "America has 989 billionaires. China has 539. India has 229. Where does your country rank?\n\nThis is the real ranking of the world's richest countries — sorted by how many billionaires they have, based on the latest Forbes World's Billionaires list. From the obvious superpowers to the small nations punching far above their weight, here's the countdown of the 20 countries with the most billionaires on Earth.\n\nDrop your country in the comments — let's see how many of you made the list.",
+    "tags": [
+      "top 20",
+      "billionaires by country",
+      "countries with the most billionaires",
+      "forbes billionaires",
+      "richest countries",
+      "billionaires list",
+      "world billionaires",
+      "country ranking",
+      "wealth ranking",
+      "richest people",
+      "ranked",
+      "countdown",
+      "ranking",
+      "world facts",
+      "economy"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "United States",
+      "value": 989,
+      "country": "US",
+      "imageSource": "https://flagcdn.com/w1280/us.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "China",
+      "value": 539,
+      "country": "CN",
+      "imageSource": "https://flagcdn.com/w1280/cn.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "India",
+      "value": 229,
+      "country": "IN",
+      "imageSource": "https://flagcdn.com/w1280/in.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Germany",
+      "value": 212,
+      "country": "DE",
+      "imageSource": "https://flagcdn.com/w2560/de.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Russia",
+      "value": 147,
+      "country": "RU",
+      "imageSource": "https://flagcdn.com/w2560/ru.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Italy",
+      "value": 89,
+      "country": "IT",
+      "imageSource": "https://flagcdn.com/w2560/it.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Canada",
+      "value": 82,
+      "country": "CA",
+      "imageSource": "https://flagcdn.com/w1280/ca.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Hong Kong",
+      "value": 71,
+      "country": "HK",
+      "imageSource": "https://flagcdn.com/w1280/hk.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Brazil",
+      "value": 70,
+      "country": "BR",
+      "imageSource": "https://flagcdn.com/w1280/br.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Taiwan",
+      "value": 66,
+      "country": "TW",
+      "imageSource": "https://flagcdn.com/w1280/tw.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "United Kingdom",
+      "value": 56,
+      "country": "GB",
+      "imageSource": "https://flagcdn.com/w1280/gb.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "Singapore",
+      "value": 55,
+      "country": "SG",
+      "imageSource": "https://flagcdn.com/w1280/sg.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "France",
+      "value": 51,
+      "country": "FR",
+      "imageSource": "https://flagcdn.com/w2560/fr.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Sweden",
+      "value": 50,
+      "country": "SE",
+      "imageSource": "https://flagcdn.com/w2560/se.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "South Korea",
+      "value": 49,
+      "country": "KR",
+      "imageSource": "https://flagcdn.com/w1280/kr.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/15.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Australia",
+      "value": 47,
+      "country": "AU",
+      "imageSource": "https://flagcdn.com/w1280/au.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/16.jpg"
+    },
+    {
+      "rank": 17,
+      "title": "Switzerland",
+      "value": 45,
+      "country": "CH",
+      "imageSource": "https://flagcdn.com/w2560/ch.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/17.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "Israel",
+      "value": 42,
+      "country": "IL",
+      "imageSource": "https://flagcdn.com/w1280/il.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/18.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "Japan",
+      "value": 41,
+      "country": "JP",
+      "imageSource": "https://flagcdn.com/w1280/jp.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/19.jpg"
+    },
+    {
+      "rank": 20,
+      "title": "Spain",
+      "value": 34,
+      "country": "ES",
+      "imageSource": "https://flagcdn.com/w1280/es.png",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/20.jpg"
+    }
+  ]
+}

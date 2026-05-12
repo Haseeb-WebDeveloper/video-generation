@@ -163,3 +163,6 @@ Avoid the saturated lanes our competitors hammer (richest people, tallest buildi
 **Strongest single bet:** **Top 15 Most Expensive Liquids in the World** with the new `bar` template. It hits every viral lever — counterintuitive #1, every entry has a "wait what" reaction, clean Wikipedia source, and the bar visualization lets us land the exponential gap (something/gallon vs $39M/gallon) hard at the end. Low competition because the topic is too "weird" for the big channels to bother researching, but exactly the kind of curiosity bait the algorithm pushes.
 
 **Strongest combo for the channel arc:** ship one Tier 1 idea, then a Tier 3 niche, then back to Tier 1. Mixing universal-curiosity hits with rabid-niche hits maximizes both watch time *and* shareability across audience segments.
+
+
+<!-- World record for the longest fart in history -->

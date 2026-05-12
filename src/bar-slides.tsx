@@ -85,6 +85,16 @@ const POLE_R = 0.05;
 const FLAG_W = 1.7;
 const FLAG_H = 1.1;
 
+// Hero-flag mode (episode.flagHero === true). Used for flag-themed
+// episodes (e.g. "countries by X") where the flag IS the visual — no
+// cover card. The pole rises tall from the bar's top-back edge and
+// carries a large 3:2 flag that floats roughly where a cover card would
+// have sat, so the camera framing still works without retuning.
+const HERO_POLE_H = 7.5;
+const HERO_FLAG_W = 7.0;
+const HERO_FLAG_H = 4.67; // 3:2 aspect (matches normalized flag covers)
+const HERO_POLE_R = 0.08; // slightly thicker pole — proportional to bigger flag
+
 // Camera framing. The pan is one continuous sweep from the first bar to outroX.
 // Camera Y tracks the CURRENT bar top so the card + nameplate stay in frame
 // even as bars get taller.
@@ -543,8 +553,10 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
 
   // Two-line layout. Clean display:caption hierarchy:
   //   number  → ~52% canvas height, the hero
-  //   unit    → 40% of the number, clear secondary caption
-  //   gap     → ~30% of the number, generous breathing room
+  //   unit    → 60% of the number, readable secondary caption (bumped from
+  //             40% — at the original size the label was hard to read
+  //             at typical pan distance)
+  //   gap     → ~22% of the number, tight enough to read as one block
   // Auto-shrink falls back gracefully for very long values or units.
   const MAX_W = W * 0.92;
   let valueSize = Math.round(H * 0.52);
@@ -554,14 +566,14 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
     ctx.font = `800 ${valueSize}px ${FONT_SERIF}`;
   }
 
-  let unitSize = Math.round(valueSize * 0.4);
-  ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
-  while (ctx.measureText(unit).width > MAX_W && unitSize > Math.round(H * 0.1)) {
+  let unitSize = Math.round(valueSize * 0.6);
+  ctx.font = `600 ${unitSize}px ${FONT_SANS}`;
+  while (ctx.measureText(unit).width > MAX_W && unitSize > Math.round(H * 0.12)) {
     unitSize -= 3;
-    ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
+    ctx.font = `600 ${unitSize}px ${FONT_SANS}`;
   }
 
-  const gap = Math.round(valueSize * 0.3);
+  const gap = Math.round(valueSize * 0.22);
   const blockH = valueSize + gap + unitSize;
   const topY = (H - blockH) / 2;
 
@@ -573,7 +585,7 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
   ctx.shadowBlur = 0;
   ctx.shadowOffsetY = 0;
   ctx.fillStyle = VALUE_COLOR;
-  ctx.font = `500 ${unitSize}px ${FONT_SANS}`;
+  ctx.font = `600 ${unitSize}px ${FONT_SANS}`;
   ctx.fillText(unit, W / 2, topY + valueSize + gap + unitSize);
 
   const tex = new THREE.CanvasTexture(c);
@@ -638,12 +650,12 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
 // quad — the image stays fixed regardless of camera position, so it
 // reads as a wallpaper, not a parallaxed plane. Texture loaded via
 // plain TextureLoader (non-suspending) so it never blocks the Scene
-// suspense while bg-2.jpg decodes.
+// suspense while bg-floor.jpeg decodes.
 function Backdrop() {
   const tex = useMemo(() => {
     const loader = new THREE.TextureLoader();
     const t = loader.load(
-      staticFile("bg-2.jpg"),
+      staticFile("bg-floor.jpeg"),
       undefined,
       undefined,
       () => {
@@ -663,6 +675,10 @@ function Flag({
   z,
   frame,
   index,
+  poleH = POLE_H,
+  poleR = POLE_R,
+  flagW = FLAG_W,
+  flagH = FLAG_H,
 }: {
   flagTex: THREE.Texture | null;
   baseX: number;
@@ -670,6 +686,10 @@ function Flag({
   z: number;
   frame: number;
   index: number;
+  poleH?: number;
+  poleR?: number;
+  flagW?: number;
+  flagH?: number;
 }) {
 
   // Subtle wave: rotate the flag plane on Y around the pole, plus a small Z tilt.
@@ -680,20 +700,20 @@ function Flag({
   return (
     <group position={[baseX, baseY, z]}>
       {/* Pole */}
-      <mesh position={[0, POLE_H / 2, 0]}>
-        <cylinderGeometry args={[POLE_R, POLE_R, POLE_H, 12]} />
+      <mesh position={[0, poleH / 2, 0]}>
+        <cylinderGeometry args={[poleR, poleR, poleH, 12]} />
         <meshStandardMaterial color="#c9b274" metalness={0.6} roughness={0.4} />
       </mesh>
       {/* Pole cap */}
-      <mesh position={[0, POLE_H + 0.08, 0]}>
-        <sphereGeometry args={[POLE_R * 1.8, 12, 12]} />
+      <mesh position={[0, poleH + 0.08, 0]}>
+        <sphereGeometry args={[poleR * 1.8, 12, 12]} />
         <meshStandardMaterial color="#e6cf86" metalness={0.7} roughness={0.3} />
       </mesh>
       {/* Flag — pivot at left edge so it rotates around the pole */}
       {flagTex && (
-        <group position={[0, POLE_H - FLAG_H * 0.6, 0]} rotation={[0, sway, tilt]}>
-          <mesh position={[FLAG_W / 2, 0, 0]}>
-            <planeGeometry args={[FLAG_W, FLAG_H, 16, 6]} />
+        <group position={[0, poleH - flagH * 0.6, 0]} rotation={[0, sway, tilt]}>
+          <mesh position={[flagW / 2, 0, 0]}>
+            <planeGeometry args={[flagW, flagH, 16, 6]} />
             <meshStandardMaterial
               map={flagTex}
               side={THREE.DoubleSide}
@@ -813,26 +833,47 @@ function Pillar({
         <meshBasicMaterial map={valueTex} transparent depthWrite={false} />
       </mesh>
 
-      {/* Cover card — flat plane that displays the cover image AS-IS at its
-          native aspect ratio. No clipping, no halo, no white padding. */}
-      <mesh position={[0, cardY, 0.4]}>
-        <planeGeometry args={[card.w, card.h]} />
-        <meshBasicMaterial map={coverTex} toneMapped={false} />
-      </mesh>
-
-      {/* Flag — pole + flag plane only render when the item carries a
-          country code. Episodes without country data (e.g. animals) get a
-          clean pillar with no orphaned flagpole sticking out the top. */}
-      {item.country ? (
+      {episode.flagHero ? (
+        /* Hero-flag mode: a single large 3:2 flag on a tall pole, centered
+           on the bar. No cover card, no small corner flag. Uses the cover
+           texture (which the build pipeline normalized to a uniform 3:2
+           crop) so the big flag is high-resolution and uniformly framed
+           across all bars. */
         <Flag
-          flagTex={flagTex}
-          baseX={BAR_W / 2 - 0.4}
+          flagTex={coverTex}
+          baseX={-HERO_FLAG_W / 2}
           baseY={h}
           z={BAR_D / 2 - 0.4}
           frame={frame}
           index={index}
+          poleH={HERO_POLE_H}
+          poleR={HERO_POLE_R}
+          flagW={HERO_FLAG_W}
+          flagH={HERO_FLAG_H}
         />
-      ) : null}
+      ) : (
+        <>
+          {/* Cover card — flat plane that displays the cover image AS-IS at
+              its native aspect ratio. No clipping, no halo, no white padding. */}
+          <mesh position={[0, cardY, 0.4]}>
+            <planeGeometry args={[card.w, card.h]} />
+            <meshBasicMaterial map={coverTex} toneMapped={false} />
+          </mesh>
+
+          {/* Standard flagpole — small flag at the bar's top-front-right
+              corner. Only renders when the item carries a country code. */}
+          {item.country ? (
+            <Flag
+              flagTex={flagTex}
+              baseX={BAR_W / 2 - 0.4}
+              baseY={h}
+              z={BAR_D / 2 - 0.4}
+              frame={frame}
+              index={index}
+            />
+          ) : null}
+        </>
+      )}
     </group>
   );
 }

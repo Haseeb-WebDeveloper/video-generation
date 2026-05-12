@@ -32,10 +32,13 @@ const { root: ROOT, episodeFile: EPISODE_FILE, coversDir: COVERS_DIR } = paths;
 const UA = "VideoBuilder/1.0 (offline-render)";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// Per-episode knob: "inside" preserves cover aspect (default), "contain" pads
-// every cover to a 1024×1024 white square — used when covers are mixed-aspect
-// logos that should render at uniform card size.
-const COVER_FIT = episode.coverFit === "contain" ? "contain" : "inside";
+// Per-episode knob:
+//   "inside" (default): preserve cover aspect.
+//   "contain": pad to a 1024×1024 white square — uniform card size, white bars.
+//   "cover":  center-crop to uniform 3:2 — uniform card size, no padding.
+const COVER_FIT = ["contain", "cover"].includes(episode.coverFit)
+  ? episode.coverFit
+  : "inside";
 
 await fs.mkdir(COVERS_DIR, { recursive: true });
 
@@ -176,6 +179,19 @@ async function downloadAndNormalize(url) {
         fit: "contain",
         background: "#ffffff",
       })
+      .flatten({ background: "#ffffff" })
+      .jpeg({ quality: 90, mozjpeg: true })
+      .withMetadata()
+      .toBuffer();
+  }
+  if (COVER_FIT === "cover") {
+    // Center-crop to uniform 3:2. Used for country flags so every card in
+    // the row is the same shape, without the white padding of "contain".
+    // Square flags (Switzerland) lose a thin top/bottom strip; 2:1 flags
+    // (UK, Australia, Canada) lose a thin left/right strip — central motif
+    // always reads.
+    return img
+      .resize({ width: 1024, height: 683, fit: "cover", position: "center" })
       .flatten({ background: "#ffffff" })
       .jpeg({ quality: 90, mozjpeg: true })
       .withMetadata()

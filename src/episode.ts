@@ -47,7 +47,11 @@ export type Episode = {
   // photos stay wide, tall photos stay tall).
   // "contain": pad each cover to a 1024×1024 square with white background so
   // mixed-aspect logos render at consistent card size in the 3D scene.
-  coverFit?: "inside" | "contain";
+  // "cover": center-crop each cover to a uniform 3:2 aspect ratio. Used for
+  // country flags (most are 3:2 native; outliers like Switzerland 1:1 lose
+  // a thin strip but the central motif still reads). Produces a clean row
+  // of same-shaped cards without the white padding of "contain".
+  coverFit?: "inside" | "contain" | "cover";
   // When true, the build pipeline strips the background from every cover
   // image and composites it onto a white square. Best for episodes where
   // the subject is a discrete object (a watch, a diamond, a sneaker) and
@@ -59,6 +63,13 @@ export type Episode = {
   // its own flag (e.g. the bar template's flagpole) and a chip on the cover
   // would be redundant or visually noisy.
   compositeFlagOnCover?: boolean;
+  // Bar-template-only knob. When true, each pillar renders a single LARGE
+  // centered flag on a pole rising from its top — no cover card, no small
+  // corner flag. Used for flag-themed ranking episodes (e.g. "countries by
+  // X") where the flag IS the visual and a separate cover image is
+  // redundant. Falls back to the standard cover-card layout when false or
+  // unset.
+  flagHero?: boolean;
   // YouTube thumbnail. Path is relative to /public, e.g.
   // "thumbnails/top-25-best-foo.jpg". This image is the master — typically a
   // 4K upscale produced via `npm run upscale`. publish-episode resizes and
