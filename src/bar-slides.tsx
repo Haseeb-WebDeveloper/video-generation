@@ -85,7 +85,7 @@ const POLE_R = 0.05;
 const FLAG_W = 1.7;
 const FLAG_H = 1.1;
 
-// Camera framing. The pan is one continuous sweep from titleX to outroX.
+// Camera framing. The pan is one continuous sweep from the first bar to outroX.
 // Camera Y tracks the CURRENT bar top so the card + nameplate stay in frame
 // even as bars get taller.
 //
@@ -99,11 +99,9 @@ const CAM_DIST = 30;
 const LOOK_ABOVE_BAR_TOP = 2.0;
 const CAM_Y_LIFT = 1.8;
 
-// Title boards sit beyond the first/last bar in X. The camera covers these
-// gaps in their own dedicated phases (APPROACH/EXIT) at much higher than
-// per-bar speed, so generous spacing reads as "breathing room" rather than
-// "long boring travel."
-const TITLE_DROP_X = -22;
+// Outro board sits beyond the last bar in X. The camera covers this gap in
+// its own dedicated EXIT phase at much higher than per-bar speed, so the
+// generous spacing reads as "breathing room" rather than "long boring travel."
 const OUTRO_DROP_X = 22;
 // Title/outro board size in world units. Bigger plane = bigger text on
 // screen (text scales with the plane since the canvas texture is fixed).
@@ -154,29 +152,37 @@ type Vec3 = [number, number, number];
 type FocusPose = { camPos: Vec3; lookAt: Vec3 };
 
 // ───── Pacing (60fps) ─────
-// Five phases: intro hold → fast approach → constant-velocity bar pan →
-// fast exit → outro hold.
+// Four phases: cinematic intro → constant-velocity bar pan → fast exit →
+// outro hold.
 //
 // The bar pan stays at a CONSTANT velocity (V_BAR = SPACING_X/PER_ITEM_FRAMES)
-// so every bar gets identical on-screen time — each one reads cleanly.
-// APPROACH/EXIT are separate Hermite curves that traverse the title/outro
-// gaps in a SHORT window — peak velocity inside them is several × V_BAR,
-// which is what reads as "snappy intro/outro." The Hermite math links
-// approach end velocity exactly to V_BAR (and exit start velocity to V_BAR)
-// so there are no velocity jolts at the phase seams.
-const HOLD_INTRO = 75; // ~1.25s static title hold — long enough to read the title
-const APPROACH_FRAMES = 180; // ~3.0s — relaxed dive from titleX into first bar
+// so every bar gets identical on-screen time — each one reads cleanly. INTRO
+// and EXIT are Hermite curves: INTRO accelerates from rest into V_BAR exactly
+// as the camera arrives at the first bar; EXIT mirrors it after the last
+// bar. Peak velocity inside each curve is several × V_BAR — the visible
+// "cinematic dive in/out." The math links the seams so there are no
+// velocity jolts.
+const INTRO_FRAMES = 150; // ~2.5s cinematic dive into the first bar
 const PER_ITEM_FRAMES = 200; // ~3.3s per bar at constant velocity
-const EXIT_FRAMES = 180; // ~3.0s — mirror of approach, dive away from last bar
+const EXIT_FRAMES = 180; // ~3.0s — dive away from last bar
 const HOLD_OUTRO = 90; // ~1.5s static outro hold
+
+// Where the camera starts at frame 0 relative to the first bar.
+//   -X = to the LEFT of bar 0 (camera will slide right into it)
+//   +Z = farther BACK than the normal pan distance (camera will dolly in)
+//   +Y = a touch HIGHER than the normal eye-line (camera settles down as it arrives)
+// These three offsets ease independently to zero by the end of the intro,
+// so the bar grows in size, drops into the eye-line, and slides toward
+// center all at once — a single fluid cinematic move.
+const INTRO_X_OFFSET = -22;
+const INTRO_Z_OFFSET = 16;
+const INTRO_Y_OFFSET = 5;
 
 export function totalFrames(items: EpisodeItem[]): number {
   // (N - 1) bar-to-bar transitions at PER_ITEM_FRAMES each, framed by the
-  // approach and exit phases on either side.
+  // intro dive and the exit phase + outro hold.
   const barPanFrames = Math.max(0, items.length - 1) * PER_ITEM_FRAMES;
-  return (
-    HOLD_INTRO + APPROACH_FRAMES + barPanFrames + EXIT_FRAMES + HOLD_OUTRO
-  );
+  return INTRO_FRAMES + barPanFrames + EXIT_FRAMES + HOLD_OUTRO;
 }
 
 function lerp(a: number, b: number, t: number) {
@@ -196,10 +202,10 @@ function smoothstep(t: number) {
 const V_BAR = SPACING_X / PER_ITEM_FRAMES;
 
 // Hermite cubic from rest at offset 0 to V_BAR at offset D over `frames`.
-// Used by the APPROACH phase: camera starts still at titleX (end of intro
-// hold) and matches the constant bar-pan velocity exactly when it reaches
-// the first bar, with peak velocity in the middle of the curve being many
-// × V_BAR — the visible "snappy dive in."
+// Used by the INTRO phase: camera starts still left of the first bar and
+// matches the constant bar-pan velocity exactly when it arrives, with peak
+// velocity in the middle of the curve being many × V_BAR — the visible
+// "cinematic dive in."
 function hermiteAccelerate(u: number, D: number, frames: number): number {
   // p(u) = h01(u)*p1 + h11(u)*v1_norm
   //      = smoothstep(u)*D + (u^3 - u^2)*V_BAR*frames
@@ -220,7 +226,6 @@ type SortedItem = EpisodeItem & { _barH: number };
 type EpisodeRuntime = {
   items: SortedItem[];
   N: number;
-  titleX: number;
   outroX: number;
 };
 
@@ -255,13 +260,11 @@ function buildRuntime(episode: Episode): EpisodeRuntime {
     const _barH = MIN_BAR_H + t * (MAX_BAR_H - MIN_BAR_H);
     return { ...it, _barH };
   });
-  const titleX = barX(0, N) + TITLE_DROP_X;
   const outroX = barX(N - 1, N) + OUTRO_DROP_X;
 
   return {
     items,
     N,
-    titleX,
     outroX,
   };
 }
@@ -285,15 +288,14 @@ function heightAtX(x: number, runtime: EpisodeRuntime): number {
   return lerp(items[i0]._barH, items[i0 + 1]._barH, f);
 }
 
-// How far above the camera's lookAt the title/outro board centers sit.
-// Tuned so the board reads in the upper-middle of the frame, the same
-// position a bar's nameplate would occupy.
+// How far above the camera's lookAt the outro board center sits. Tuned so
+// the board reads in the upper-middle of the frame, the same position a
+// bar's nameplate would occupy.
 const TITLE_OFFSET_FROM_LOOK = 1.5;
 
-// Camera dolly applied during the (now short) intro/outro holds so neither
-// feels static. Smaller magnitudes than before because the holds are only
-// ~0.5–0.8s — the bulk of the visual motion comes from the APPROACH/EXIT
-// phases that follow the intro hold and precede the outro hold.
+// Camera dolly applied during the outro hold so it doesn't feel static.
+// Small magnitude because the hold is only ~1.5s — the bulk of the visual
+// motion comes from the EXIT phase that precedes the outro hold.
 const HOLD_DOLLY_Z = 2.5;
 const HOLD_DOLLY_Y = 0.6;
 
@@ -316,45 +318,49 @@ function CameraRig({
 }) {
   const camera = useThree((s) => s.camera);
 
-  const { N, titleX, outroX } = runtime;
+  const { N, outroX } = runtime;
   const x0 = barX(0, N);
   const xN = barX(N - 1, N);
   const barPanFrames = Math.max(0, N - 1) * PER_ITEM_FRAMES;
-  const approachD = x0 - titleX; // > 0
   const exitD = outroX - xN; // > 0
 
   // Phase boundary frames.
-  const fApproach = HOLD_INTRO;
-  const fBarPan = fApproach + APPROACH_FRAMES;
+  const fBarPan = INTRO_FRAMES;
   const fExit = fBarPan + barPanFrames;
   const fOutroHold = fExit + EXIT_FRAMES;
 
   let x: number;
+  let introZ = 0;
+  let introY = 0;
   let dollyZ = 0;
   let dollyY = 0;
-  if (frame < fApproach) {
-    // Phase 1: intro hold. Subtle settle dolly (back+up → base).
-    x = titleX;
-    const t = smoothstep(frame / HOLD_INTRO);
-    dollyZ = (1 - t) * HOLD_DOLLY_Z;
-    dollyY = (1 - t) * HOLD_DOLLY_Y;
-  } else if (frame < fBarPan) {
-    // Phase 2: fast approach. Hermite curve ramps from rest to V_BAR exactly
-    // as the camera reaches the first bar — peak velocity in the middle is
-    // many × V_BAR, which is what reads as a "snappy dive in."
-    const u = (frame - fApproach) / APPROACH_FRAMES;
-    x = titleX + hermiteAccelerate(u, approachD, APPROACH_FRAMES);
+  let lookAtFirstBar = false;
+  if (frame < fBarPan) {
+    // Phase 0: cinematic intro. X eases from (x0 + INTRO_X_OFFSET) to x0
+    // via a Hermite curve whose end-velocity is exactly V_BAR, so the
+    // transition into the bar pan is seamless. Z/Y dolly in from their
+    // start offsets to 0 with a plain smoothstep — slower at the start,
+    // faster in the middle, settling cleanly at the seam.
+    const u = frame / INTRO_FRAMES;
+    x = x0 + INTRO_X_OFFSET + hermiteAccelerate(u, -INTRO_X_OFFSET, INTRO_FRAMES);
+    const e = smoothstep(u);
+    introZ = (1 - e) * INTRO_Z_OFFSET;
+    introY = (1 - e) * INTRO_Y_OFFSET;
+    // Keep the first bar as the focal point throughout the intro — the
+    // bar slides into screen center as the camera arrives, instead of
+    // appearing in the corner of the frame.
+    lookAtFirstBar = true;
   } else if (frame < fExit) {
-    // Phase 3: constant V_BAR pan through the bar row. Each bar gets the
+    // Phase 1: constant V_BAR pan through the bar row. Each bar gets the
     // same on-screen time.
     x = x0 + V_BAR * (frame - fBarPan);
   } else if (frame < fOutroHold) {
-    // Phase 4: fast exit. Mirror of approach — starts at V_BAR, decelerates
-    // to rest exactly at the outro position.
+    // Phase 2: fast exit. Starts at V_BAR, decelerates to rest exactly at
+    // the outro position.
     const u = (frame - fExit) / EXIT_FRAMES;
     x = xN + hermiteDecelerate(u, exitD, EXIT_FRAMES);
   } else {
-    // Phase 5: outro hold. Subtle pull-back dolly (base → back+up).
+    // Phase 3: outro hold. Subtle pull-back dolly (base → back+up).
     x = outroX;
     const t = smoothstep((frame - fOutroHold) / HOLD_OUTRO);
     dollyZ = t * HOLD_DOLLY_Z;
@@ -364,10 +370,10 @@ function CameraRig({
   const pose = camPoseAt(x, runtime);
   let pos: Vec3 = [
     pose.camPos[0],
-    pose.camPos[1] + dollyY,
-    pose.camPos[2] + dollyZ,
+    pose.camPos[1] + dollyY + introY,
+    pose.camPos[2] + dollyZ + introZ,
   ];
-  const look = pose.lookAt;
+  const look = lookAtFirstBar ? camPoseAt(x0, runtime).lookAt : pose.lookAt;
 
   // Subtle handheld-style sway, kept very small so the pan still reads as
   // smooth tracked motion rather than wobble.
@@ -848,42 +854,29 @@ function TextBoard({
   );
 }
 
-// Title/outro boards are kept OUTSIDE the cover-loading Suspense so the
-// intro hold (frame 0+) renders the title board even on the very first
-// frame, before any logo textures have decoded.
-function TitleBoards({
+// Outro board is kept OUTSIDE the cover-loading Suspense so it renders even
+// if some cover textures are still decoding.
+function OutroBoard({
   episode,
   runtime,
 }: {
   episode: Episode;
   runtime: EpisodeRuntime;
 }) {
-  const titleTex = useMemo(
-    () => makeTitleTex(episode.title[0], episode.title[1]),
-    [episode.title],
-  );
   const outroTex = useMemo(
     () => makeTitleTex(episode.outro[0], episode.outro[1]),
     [episode.outro],
   );
-  // Boards sit at the camera's natural framing for the nearest bar — same
-  // Y a bar's nameplate would occupy from this distance — so the cut from
-  // intro hold into pan (and from pan into outro hold) involves no Y change.
-  const titleBoardY =
-    runtime.items[0]._barH + LOOK_ABOVE_BAR_TOP + TITLE_OFFSET_FROM_LOOK;
+  // Board sits at the camera's natural framing for the last bar — same Y a
+  // bar's nameplate would occupy from this distance — so the cut from pan
+  // into outro hold involves no Y change.
   const outroBoardY =
     runtime.items[runtime.N - 1]._barH + LOOK_ABOVE_BAR_TOP + TITLE_OFFSET_FROM_LOOK;
   return (
-    <>
-      <TextBoard
-        position={[runtime.titleX, titleBoardY, 0]}
-        texture={titleTex}
-      />
-      <TextBoard
-        position={[runtime.outroX, outroBoardY, 0]}
-        texture={outroTex}
-      />
-    </>
+    <TextBoard
+      position={[runtime.outroX, outroBoardY, 0]}
+      texture={outroTex}
+    />
   );
 }
 
@@ -978,7 +971,7 @@ function Scene({
         color="#f5a64a"
       />
 
-      <TitleBoards episode={episode} runtime={runtime} />
+      <OutroBoard episode={episode} runtime={runtime} />
       <Suspense fallback={null}>
         <BarRow frame={frame} episode={episode} runtime={runtime} />
       </Suspense>
