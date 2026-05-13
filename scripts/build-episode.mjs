@@ -29,8 +29,25 @@ if (!slug) {
 const { episode, paths } = await loadEpisode(slug);
 const { root: ROOT, episodeFile: EPISODE_FILE, coversDir: COVERS_DIR } = paths;
 
-const UA = "VideoBuilder/1.0 (offline-render)";
+// Wikimedia's User-Agent policy requires identifying contact info; without
+// it the upload.wikimedia.org CDN aggressively returns HTTP 429.
+const UA =
+  "VideoBuilder/1.0 (https://github.com/Haseeb-WebDeveloper/video; contact via GitHub) Node.js";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Retry-aware fetch. Wikimedia returns 429 with no Retry-After when bursting,
+// so we back off geometrically: 6s, 12s, 24s. If all retries 429, surface
+// the error so the caller marks the item missing.
+async function fetchWithBackoff(url) {
+  const delays = [6000, 12000, 24000];
+  for (let attempt = 0; attempt <= delays.length; attempt++) {
+    const res = await fetch(url, { headers: { "User-Agent": UA } });
+    if (res.status !== 429) return res;
+    if (attempt === delays.length) return res;
+    await sleep(delays[attempt]);
+  }
+  throw new Error("unreachable");
+}
 
 // Per-episode knob:
 //   "inside" (default): preserve cover aspect.
@@ -165,7 +182,7 @@ if (misses > 0) {
 }
 
 async function downloadAndNormalize(url) {
-  const res = await fetch(url, { headers: { "User-Agent": UA } });
+  const res = await fetchWithBackoff(url);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const ab = await res.arrayBuffer();
   if (ab.byteLength < 2000) throw new Error("response too small");
@@ -296,7 +313,7 @@ async function compositeFlag(coverBuf, country) {
 async function tryWikipedia(title) {
   const slug = encodeURIComponent(title.replace(/ /g, "_"));
   const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${slug}`;
-  const res = await fetch(summaryUrl, { headers: { "User-Agent": UA } });
+  const res = await fetchWithBackoff(summaryUrl);
   if (!res.ok) return null;
   const json = await res.json();
   const url = json?.originalimage?.source ?? json?.thumbnail?.source;

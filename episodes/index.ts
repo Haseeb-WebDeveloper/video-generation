@@ -4,10 +4,12 @@ import top15LargestDiamondsEverFound from "./top-15-largest-diamonds-ever-found.
 import top15MostDangerousAnimals from "./top-15-most-dangerous-animals.json";
 import top15MostExpensiveLiquids from "./top-15-most-expensive-liquids.json";
 import top20CountriesWithMostBillionaires from "./top-20-countries-with-most-billionaires.json";
+import top20LargestBlackHolesDiscovered from "./top-20-largest-black-holes-discovered.json";
 
 export const episodes: Episode[] = [
   top15LargestDiamondsEverFound as Episode,
   top15MostDangerousAnimals as Episode,
   top15MostExpensiveLiquids as Episode,
   top20CountriesWithMostBillionaires as Episode,
+  top20LargestBlackHolesDiscovered as Episode,
 ];
