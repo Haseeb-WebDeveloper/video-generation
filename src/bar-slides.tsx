@@ -103,13 +103,16 @@ const HERO_POLE_R = 0.08; // unused while showPole=false, kept for future toggle
 // even as bars get taller.
 //
 // LOOK_ABOVE_BAR_TOP: how far ABOVE the bar's top face the camera aims.
-// Positive lifts the aim into the card area and gives the card real
-// headroom in the frame — without this the cards graze the top edge.
+// Negative values aim BELOW the bar top — used here to drop the camera a
+// touch so the nameplate + value text land in the upper-middle of the
+// frame rather than at the bottom. The YouTube player's seekbar/controls
+// cover the bottom ~12% of the player when visible; this offset keeps
+// the readable text comfortably above that zone.
 // CAM_Y_LIFT is how much higher than lookAt the camera sits (gives a slight
 // downward gaze, like a person walking past a row of pedestals).
 const FOV = 34;
 const CAM_DIST = 30;
-const LOOK_ABOVE_BAR_TOP = 2.0;
+const LOOK_ABOVE_BAR_TOP = 0.0;
 const CAM_Y_LIFT = 1.8;
 
 // Outro board sits beyond the last bar in X. The camera covers this gap in
@@ -654,23 +657,227 @@ function makeTitleTex(line1: string, line2: string): THREE.CanvasTexture {
 // texture to scene.background, which Three.js renders as a fullscreen
 // quad — the image stays fixed regardless of camera position, so it
 // reads as a wallpaper, not a parallaxed plane. Texture loaded via
-// plain TextureLoader (non-suspending) so it never blocks the Scene
-// suspense while bg-0.jpeg decodes.
-export function Backdrop() {
-  const tex = useMemo(() => {
-    const loader = new THREE.TextureLoader();
-    const t = loader.load(
-      staticFile("bg-0.jpeg"),
-      undefined,
-      undefined,
-      () => {
-        // swallow load errors — AbsoluteFill bg shows through
-      },
-    );
-    t.colorSpace = THREE.SRGBColorSpace;
-    return t;
+// 3D scene backdrop — sky gradient + low-poly city silhouette + ground +
+// atmospheric fog. Built entirely from geometry/materials so there's no
+// async texture loading: every frame (video or still) gets the same
+// backdrop without a chance of the bg "popping in" or a still being
+// captured before the image decodes.
+//
+// Why not just bg-0.jpeg? Two reasons:
+//   1. A static image is camera-locked — as the bar pan slides past the
+//      pillars, the sky doesn't parallax. Real-feeling depth requires the
+//      backdrop to live in world space.
+//   2. Stills won't fire the async image-load reliably, so the bg would
+//      appear blank in thumbnails. 3D geometry renders synchronously on
+//      the first frame.
+export function SceneBackdrop() {
+  // ───── Stone-tile floor ─────
+  // A repeating tile pattern drawn into a CanvasTexture (synchronous, no
+  // image-load to wait on), then tiled across a very wide ground plane.
+  // The texture itself is tiny (512×512, 8×8 stone squares) but
+  // texture.repeat.set(N, N) tiles it dozens of times across the plane,
+  // so the pattern stays crisp from close up to the far horizon.
+  const floorTex = useMemo(() => {
+    const SIZE = 512;
+    const TILES = 8;
+    const tileW = SIZE / TILES;
+    const c = document.createElement("canvas");
+    c.width = c.height = SIZE;
+    const ctx = c.getContext("2d")!;
+
+    // Grout base — dark mortar showing through the gaps between tiles.
+    ctx.fillStyle = "#3a3530";
+    ctx.fillRect(0, 0, SIZE, SIZE);
+
+    // Tiles — varied gray-beige with a tiny per-tile brightness shift so
+    // the floor doesn't read as one flat color when tiled at distance.
+    // Deterministic per-tile via a hash of (x, y) so the pattern is
+    // identical across renders.
+    const hash = (x: number, y: number) => {
+      const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+      return h - Math.floor(h);
+    };
+    for (let x = 0; x < TILES; x++) {
+      for (let y = 0; y < TILES; y++) {
+        const variation = hash(x, y) * 0.18 - 0.09; // -9% to +9%
+        const base = 0.66 + variation;
+        const r = Math.floor(base * 184);
+        const g = Math.floor(base * 178);
+        const b = Math.floor(base * 168);
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        // Inset by 1.5px on each side to leave grout visible
+        ctx.fillRect(x * tileW + 1.5, y * tileW + 1.5, tileW - 3, tileW - 3);
+      }
+    }
+
+    // Subtle per-pixel noise grain so the tiles don't look plastic.
+    const img = ctx.getImageData(0, 0, SIZE, SIZE);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const n = (Math.random() - 0.5) * 16;
+      img.data[i] = Math.max(0, Math.min(255, img.data[i] + n));
+      img.data[i + 1] = Math.max(0, Math.min(255, img.data[i + 1] + n));
+      img.data[i + 2] = Math.max(0, Math.min(255, img.data[i + 2] + n));
+    }
+    ctx.putImageData(img, 0, 0);
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(60, 60); // ~60× tiling across the 3000-unit plane
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 16;
+    return tex;
   }, []);
-  return <primitive attach="background" object={tex} />;
+
+  // ───── Star field ─────
+  // A few thousand random points on a half-sphere above the horizon.
+  // BufferGeometry with per-vertex positions + colors → drawn as <points>.
+  // sizeAttenuation=false keeps each star a fixed pixel size at any
+  // distance, mimicking how stars actually look in photographs.
+  const starGeo = useMemo(() => {
+    const COUNT = 3500;
+    const positions = new Float32Array(COUNT * 3);
+    const colors = new Float32Array(COUNT * 3);
+    let s = 0xa5b6c7d8 >>> 0;
+    const rng = () => {
+      s = (s + 0x6d2b79f5) >>> 0;
+      let t = s;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    for (let i = 0; i < COUNT; i++) {
+      // Sample uniformly on a sphere, then keep only the upper
+      // hemisphere (y > -0.1) so stars don't poke through the floor.
+      const theta = rng() * Math.PI * 2;
+      const u = rng() * 1.1 - 0.1; // bias toward upper sphere
+      const phi = Math.acos(u);
+      const r = 700 + rng() * 200; // slight depth variation
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.cos(phi);
+      positions[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+
+      // Most stars are pale white; a few percent get a warm or cool tint
+      // for a touch of variety (real night-sky stars have visible color).
+      const t = rng();
+      const brightness = 0.55 + rng() * 0.45;
+      let r2 = brightness, g2 = brightness, b2 = brightness;
+      if (t < 0.05) {
+        // ~5% warm (orange giants)
+        r2 *= 1.0;
+        g2 *= 0.78;
+        b2 *= 0.62;
+      } else if (t < 0.10) {
+        // ~5% cool (blue-white)
+        r2 *= 0.78;
+        g2 *= 0.86;
+        b2 *= 1.0;
+      }
+      colors[i * 3] = r2;
+      colors[i * 3 + 1] = g2;
+      colors[i * 3 + 2] = b2;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    g.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+    return g;
+  }, []);
+
+  // ───── Nebula glow (the pink cosmic accent in the reference) ─────
+  // A radial-gradient sprite drawn into a CanvasTexture and rendered with
+  // additive blending against the dark sky. Sits high and to the side so
+  // it reads as a distant cosmic feature, not a center of attention.
+  //
+  // Per-pixel noise is added after the gradient is drawn — soft dark
+  // gradients suffer hard color banding in 8-bit output (visible as
+  // concentric "rings" stepping out from the bright center). The noise
+  // dithers neighboring color values so the human eye averages them into
+  // a smooth ramp.
+  const nebulaTex = useMemo(() => {
+    const S = 512;
+    const c = document.createElement("canvas");
+    c.width = c.height = S;
+    const ctx = c.getContext("2d")!;
+    const grd = ctx.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+    grd.addColorStop(0, "rgba(255, 130, 160, 0.55)"); // pink core
+    grd.addColorStop(0.3, "rgba(190, 90, 150, 0.32)"); // magenta mid
+    grd.addColorStop(0.65, "rgba(80, 40, 110, 0.10)"); // dim purple haze
+    grd.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, S, S);
+    // Dither: add small random noise to each pixel's alpha so the soft
+    // ramp doesn't band into visible stripes when additively blended.
+    const img = ctx.getImageData(0, 0, S, S);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const a = img.data[i + 3];
+      if (a > 0 && a < 255) {
+        const n = (Math.random() - 0.5) * 12;
+        img.data[i + 3] = Math.max(0, Math.min(255, a + n));
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }, []);
+
+  return (
+    <>
+      {/* Sky fill — flat near-black via scene.background. Stars and
+          nebulae sit on top of this. Using <color> primitive is
+          synchronous and bulletproof for stills. */}
+      <color attach="background" args={["#040611"]} />
+
+      {/* Star field — points geometry, fixed pixel size, vertex colors.
+          size=2.8 makes individual stars clearly visible at 1080p+; the
+          previous 1.6 disappeared at viewing distance. Brighter stars
+          aren't needed — the per-vertex brightness variation reads better
+          than a higher overall size. */}
+      <points geometry={starGeo}>
+        <pointsMaterial
+          size={2.8}
+          vertexColors
+          sizeAttenuation={false}
+          transparent
+          depthWrite={false}
+        />
+      </points>
+
+      {/* Nebula glow — distinctive pink-magenta cosmic accent, upper
+          left of frame to match the reference image. */}
+      <sprite position={[-380, 240, -600]} scale={[260, 260, 1]}>
+        <spriteMaterial
+          map={nebulaTex}
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </sprite>
+
+      {/* Stone-tile floor — large plane at y=0 (where bars stand). The
+          CanvasTexture tiles across so the grid stays crisp from
+          foreground to horizon. roughness=0.85 picks up cool moonlight
+          highlights from the directional lights without going plastic. */}
+      <mesh position={[0, -0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[3000, 3000]} />
+        <meshStandardMaterial
+          map={floorTex}
+          roughness={0.85}
+          metalness={0.05}
+          color="#bdb5a8"
+        />
+      </mesh>
+
+      {/* Atmospheric fog — blends the far edge of the floor toward the
+          sky color so the horizon doesn't cut hard. */}
+      <fog attach="fog" args={["#080a14", 350, 900]} />
+    </>
+  );
+}
+
+// Legacy texture-based backdrop, kept exported in case existing code
+// imports it. New scenes should use SceneBackdrop instead.
+export function Backdrop() {
+  return <SceneBackdrop />;
 }
 
 function Flag({
@@ -699,35 +906,17 @@ function Flag({
   showPole?: boolean;
 }) {
 
-  // Multi-frequency wave for organic, real-cloth feel. A single sine wave
-  // looks mechanical because its period is perfectly regular; layering a
-  // slow base oscillation with a smaller, faster detail wave breaks the
-  // periodicity the eye can latch onto. Frequencies are deliberately
-  // incommensurate (no simple ratio between them) so the combined motion
-  // never repeats — it always feels like fresh ambient wind.
-  //
-  // Each item is offset by index*0.7s so adjacent flags don't sway in
-  // lockstep (a row of identically-phased flags reads as one rigid object).
-  const t = frame / 60 + index * 0.7;
-
-  // Y rotation around the pivot — the dominant cloth motion (flag
-  // turning edge-on and back as wind shifts). Smaller amplitudes than
-  // the single-sine version (0.18 → 0.10 base) because the layered
-  // motion compounds visually.
-  const sway =
-    Math.sin(t * 0.55) * 0.10 + Math.sin(t * 1.3 + 0.5) * 0.035;
-
-  // Z rotation — slight wind-angle tilt. Very small range; too much
-  // reads as spinning rather than fluttering.
-  const tilt =
-    Math.sin(t * 0.38 + 1.2) * 0.05 + Math.sin(t * 0.95) * 0.02;
-
-  // Subtle position drift on Y and Z — sells the "free-floating cloth in
-  // air" illusion when no pole is shown. With a pole the drift is small
-  // enough to read as the flag tugging on the rope.
-  const bobY =
-    Math.sin(t * 0.5 + 0.7) * 0.06 + Math.cos(t * 1.1 + 0.3) * 0.02;
-  const bobZ = Math.cos(t * 0.42) * 0.04;
+  // Flags are STILL — no wave, no tilt, no bob. Earlier iterations had
+  // multi-frequency cloth motion but it read as wobbly/cheap rather than
+  // organic, so we just freeze the flag facing the camera. Static reads
+  // as a deliberate billboard, which is what we want for a ranking video.
+  // `frame` and `index` are kept in the signature so callers don't change.
+  void frame;
+  void index;
+  const sway = 0;
+  const tilt = 0;
+  const bobY = 0;
+  const bobZ = 0;
 
   return (
     <group position={[baseX, baseY, z]}>
@@ -1036,22 +1225,27 @@ function Scene({
 }) {
   return (
     <>
-      <Backdrop />
+      <SceneBackdrop />
 
-      <ambientLight intensity={0.85} color="#cdd4ee" />
-      {/* Cool key light tinted toward the brand navy/violet so the cream
-          pillars don't read as warm sunlight against the cosmic backdrop. */}
+      {/* Ambient is dim + cool so the night sky reads as night; the
+          directional lights below do most of the work lighting the cream
+          pillars so they pop against the dark backdrop. */}
+      <ambientLight intensity={0.55} color="#9ab0d8" />
+      {/* Cool moonlight key from upper-left. Stronger than before because
+          the starfield sky absorbs more contrast than the old gradient
+          backdrop did, so the cream pillars need extra lift to read
+          clearly without changing the sky brightness. */}
       <directionalLight
         position={[-30, 50, 25]}
-        intensity={0.95}
-        color="#e8eaff"
+        intensity={1.4}
+        color="#dfe6ff"
       />
-      {/* Faint warm rim light from the right — picks up the brand orange
-          and prevents the back side of each pillar from going dead flat. */}
+      {/* Warm rim from front-right — adds a hint of gold to the edges
+          of each pillar so they don't go completely cool/dead. */}
       <directionalLight
-        position={[20, 10, 15]}
-        intensity={0.3}
-        color="#f5a64a"
+        position={[25, 12, 18]}
+        intensity={0.55}
+        color="#f4b06a"
       />
 
       <OutroBoard episode={episode} runtime={runtime} />

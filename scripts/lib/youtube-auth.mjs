@@ -17,11 +17,23 @@ export async function getAccessToken({ clientId, clientSecret, refreshToken }) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
   });
+  const text = await res.text();
   if (!res.ok) {
-    const text = await res.text();
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      parsed = null;
+    }
+    if (parsed?.error === "invalid_grant") {
+      throw new Error(
+        "Token refresh failed: invalid_grant — the refresh token has expired or been revoked. " +
+          "Run `npm run youtube-auth` to reauthorize and update YOUTUBE_REFRESH_TOKEN in .env.",
+      );
+    }
     throw new Error(`Token refresh failed: HTTP ${res.status} — ${text}`);
   }
-  const json = await res.json();
+  const json = JSON.parse(text);
   if (!json.access_token) {
     throw new Error(`Token refresh: no access_token in response: ${JSON.stringify(json)}`);
   }
