@@ -155,15 +155,18 @@ export const barX = (i: number, n: number) =>
 
 export { SPACING_X, BAR_W, MIN_BAR_H, MAX_BAR_H };
 
-// Format the bare numeric value (no unit). The unit label is rendered as a
-// separate line by makeValueTex.
+// Format the bare numeric value (no unit and no currency prefix). The unit
+// label is rendered as a separate line by makeValueTex — if a currency is
+// part of the unit (e.g. "USD per gallon"), put it there. Hardcoding "$"
+// here was a leftover from when this template was money-focused, and broke
+// non-currency rankings like solar masses or population counts.
 function formatValueFull(
   m: number,
   format: "compact" | "raw" = "compact",
 ): string {
   if (format === "raw") return m.toLocaleString("en-US");
-  if (m >= 1000) return `$ ${(m / 1000).toFixed(1)} B`;
-  return `$ ${m.toFixed(0)} M`;
+  if (m >= 1000) return `${(m / 1000).toFixed(1)} B`;
+  return `${m.toFixed(0)} M`;
 }
 
 type Vec3 = [number, number, number];

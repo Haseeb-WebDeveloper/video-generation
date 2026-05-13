@@ -13,6 +13,28 @@ export type EpisodeItem = {
   removeBg?: boolean;
 };
 
+// One "scale primer" card rendered before the ranking, only by the flow
+// template. Used to establish a visual baseline so the audience understands
+// the magnitudes about to be revealed. For example, a "largest black holes by
+// solar mass" episode might show: Sun (1 solar mass) → Milky Way (100 billion
+// stars) → a teaser of #1's scale. The bar template ignores this field.
+export type EpisodeIntroCard = {
+  // Local image path under /public after the build pipeline downloads it,
+  // e.g. "intro/top-20-foo/1.jpg". Set automatically by build-episode when
+  // `imageSource` is present, but can also be pre-populated by hand.
+  image?: string;
+  // URL to download for this card. If both `image` and `imageSource` are set,
+  // a pre-existing local file wins (the URL is not re-downloaded).
+  imageSource?: string;
+  // Top text on the card label — typically a short name like "OUR SUN".
+  // When `caption` is omitted, the label renders vertically centered as a
+  // single block so a one-liner like "OUR SUN = 1 SOLAR MASS" reads cleanly.
+  label: string;
+  // Bottom text — typically a comparison value like "1 solar mass" or a hook
+  // like "but #1 is 100 BILLION times this". Optional; omit for a one-liner.
+  caption?: string;
+};
+
 // title, description, and tags are REQUIRED at publish time. Type stays
 // optional so the studio can load episodes that haven't had SEO authored yet,
 // but `npm run publish-episode <slug>` refuses to upload until they are set.
@@ -63,6 +85,17 @@ export type Episode = {
   // its own flag (e.g. the bar template's flagpole) and a chip on the cover
   // would be redundant or visually noisy.
   compositeFlagOnCover?: boolean;
+  // Flow-template-only. Optional sequence of "scale primer" cards rendered
+  // BEFORE the title board, so the audience sees a visual size baseline
+  // before the countdown starts. See EpisodeIntroCard. Ignored by the bar
+  // template.
+  intro?: EpisodeIntroCard[];
+  // Flow-template-only. When false, the title board (the "TOP 20 …" text
+  // panel between intro and ranking) is hidden, and its segment is removed
+  // from the camera pan so the camera doesn't pause on empty space. Useful
+  // when intro cards already establish the topic and a separate banner
+  // would feel redundant. Defaults to true.
+  showTitleBoard?: boolean;
   // Bar-template-only knob. When true, each pillar renders a single LARGE
   // centered flag on a pole rising from its top — no cover card, no small
   // corner flag. Used for flag-themed ranking episodes (e.g. "countries by

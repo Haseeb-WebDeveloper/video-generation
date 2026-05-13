@@ -20,13 +20,13 @@ export const RemotionRoot: React.FC = () => {
           key={`${ep.slug}-flow`}
           id={`${ep.slug}-flow`}
           component={FlowSlidesComposition}
-          durationInFrames={flowTotalFrames(ep.items)}
+          durationInFrames={flowTotalFrames(ep)}
           fps={60}
           width={1920}
           height={1080}
           defaultProps={{ episode: ep }}
           calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-            durationInFrames: flowTotalFrames(props.episode.items),
+            durationInFrames: flowTotalFrames(props.episode),
           })}
         />
       ))}

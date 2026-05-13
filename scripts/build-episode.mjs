@@ -137,6 +137,55 @@ for (const item of episode.items) {
   await sleep(1500);
 }
 
+// Optional intro cards (flow-template scale primers). Each card downloads
+// to public/intro/<slug>/<n>.jpg using the same normalize pipeline as item
+// covers. Cards without an imageSource OR an existing local file are
+// reported as misses but don't block the build.
+let introMisses = 0;
+const introCount = Array.isArray(episode.intro) ? episode.intro.length : 0;
+if (introCount > 0) {
+  const introDir = path.join(ROOT, "public", "intro", slug);
+  await fs.mkdir(introDir, { recursive: true });
+  for (let i = 0; i < introCount; i++) {
+    const card = episode.intro[i];
+    const localPath = `intro/${slug}/${i + 1}.jpg`;
+    const absLocal = path.join(ROOT, "public", localPath);
+
+    if (card.image && existsSync(path.join(ROOT, "public", card.image))) {
+      console.log(`SKIP  intro #${i + 1} (already at ${card.image})`);
+      continue;
+    }
+
+    let buf = null;
+    if (card.imageSource) {
+      try {
+        buf = await downloadAndNormalize(card.imageSource);
+      } catch (err) {
+        console.warn(
+          `  intro imageSource failed for #${i + 1}: ${err.message}`,
+        );
+      }
+    }
+
+    if (!buf) {
+      console.log(`MISS  intro #${i + 1} ${card.label}`);
+      introMisses++;
+      await sleep(300);
+      continue;
+    }
+
+    await fs.writeFile(absLocal, buf);
+    card.image = localPath;
+    updated = true;
+    console.log(
+      `OK    intro #${i + 1} url:${card.imageSource} → ${localPath} (${(
+        buf.length / 1024
+      ).toFixed(0)}KB)`,
+    );
+    await sleep(1500);
+  }
+}
+
 // Optional thumbnail download. We only fetch when thumbnailSource is set and
 // thumbnailPath isn't already pointing at an existing local file. Re-running
 // build never clobbers a thumbnail you've already authored or upscaled.
@@ -174,6 +223,11 @@ if (updated) {
 console.log(
   `\nDone. ${episode.items.length - misses}/${episode.items.length} items have local images.`,
 );
+if (introCount > 0) {
+  console.log(
+    `      ${introCount - introMisses}/${introCount} intro cards have local images.`,
+  );
+}
 if (misses > 0) {
   console.log(
     `${misses} items still missing — add an "imageSource" URL to those entries in the JSON and re-run.`,

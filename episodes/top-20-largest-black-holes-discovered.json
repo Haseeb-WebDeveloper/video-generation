@@ -13,7 +13,17 @@
   "coverFit": "cover",
   "removeBg": false,
   "compositeFlagOnCover": false,
+  "audioPath": "audio/Level - The Grey Room _ Density & Time.mp3",
   "flagHero": false,
+  "intro": [
+    {
+      "label": "OUR SUN",
+      "caption": "1 SOLAR MASS",
+      "imageSource": "https://res.cloudinary.com/drd4byrmr/image/upload/v1778645332/sun_a33isy.jpg",
+      "image": "intro/top-20-largest-black-holes-discovered/1.jpg"
+    }
+  ],
+  "showTitleBoard": false,
   "youtube": {
     "title": "The Biggest Black Hole Has 100 Billion Suns | Top 20 Largest Black Holes Ever Found",
     "description": "TON 618 swallowed 66 billion suns. But it's not the biggest. The largest black hole ever discovered has the mass of 100 BILLION suns — and it's still growing.\n\nThis is the definitive ranking of the most massive black holes ever found in the observable universe — from supergiant elliptical galaxy cores to ancient quasars billions of light-years away. Every entry is real, measured, and confirmed by modern astronomy. You'll see Phoenix A*, TON 618, IC 1101, the famous M87* imaged by the Event Horizon Telescope, and many more black holes so massive they break the limits of our current physics.\n\nWhich one blew your mind? Drop it in the comments — and let me know which black hole you'd most want to see up close (from a safe distance).",
