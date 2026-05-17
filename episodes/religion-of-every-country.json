@@ -1,0 +1,1820 @@
+{
+  "slug": "religion-of-every-country",
+  "title": [
+    "RELIGION OF",
+    "EVERY COUNTRY"
+  ],
+  "outro": [
+    "DID YOUR COUNTRY SHOCK YOU?",
+    "Drop it in the comments below"
+  ],
+  "unitLabel": "%",
+  "valueFormat": "raw",
+  "valueNoSpace": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "coverFit": "cover",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": false,
+  "youtube": {
+    "title": "The Main Religion of Every Country in the World",
+    "description": "From Christianity to Islam, Hinduism, Buddhism and beyond — the most-followed religion in every country on Earth, and what share of the population follows it.\n\n{{chapters}}",
+    "tags": [
+      "religion",
+      "religion by country",
+      "every country",
+      "world religions",
+      "christianity",
+      "islam",
+      "hinduism",
+      "buddhism",
+      "world facts",
+      "countries",
+      "geography",
+      "religion map",
+      "countdown",
+      "ranking",
+      "fun facts"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "Afghanistan",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "AF",
+      "imageSource": "https://flagcdn.com/w1280/af.png",
+      "imagePath": "covers/religion-of-every-country/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Albania",
+      "unitPrefix": "Islam",
+      "value": 59,
+      "country": "AL",
+      "imageSource": "https://flagcdn.com/w1280/al.png",
+      "imagePath": "covers/religion-of-every-country/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Algeria",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "DZ",
+      "imageSource": "https://flagcdn.com/w1280/dz.png",
+      "imagePath": "covers/religion-of-every-country/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Andorra",
+      "unitPrefix": "Christianity",
+      "value": 89,
+      "country": "AD",
+      "imageSource": "https://flagcdn.com/w1280/ad.png",
+      "imagePath": "covers/religion-of-every-country/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Angola",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "AO",
+      "imageSource": "https://flagcdn.com/w1280/ao.png",
+      "imagePath": "covers/religion-of-every-country/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Antigua & Barbuda",
+      "unitPrefix": "Christianity",
+      "value": 77,
+      "country": "AG",
+      "imageSource": "https://flagcdn.com/w1280/ag.png",
+      "imagePath": "covers/religion-of-every-country/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Argentina",
+      "unitPrefix": "Christianity",
+      "value": 79,
+      "country": "AR",
+      "imageSource": "https://flagcdn.com/w1280/ar.png",
+      "imagePath": "covers/religion-of-every-country/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Armenia",
+      "unitPrefix": "Christianity",
+      "value": 97,
+      "country": "AM",
+      "imageSource": "https://flagcdn.com/w1280/am.png",
+      "imagePath": "covers/religion-of-every-country/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Australia",
+      "unitPrefix": "Christianity",
+      "value": 44,
+      "country": "AU",
+      "imageSource": "https://flagcdn.com/w1280/au.png",
+      "imagePath": "covers/religion-of-every-country/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Austria",
+      "unitPrefix": "Christianity",
+      "value": 68,
+      "country": "AT",
+      "imageSource": "https://flagcdn.com/w1280/at.png",
+      "imagePath": "covers/religion-of-every-country/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "Azerbaijan",
+      "unitPrefix": "Islam",
+      "value": 97,
+      "country": "AZ",
+      "imageSource": "https://flagcdn.com/w1280/az.png",
+      "imagePath": "covers/religion-of-every-country/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "Bahamas",
+      "unitPrefix": "Christianity",
+      "value": 93,
+      "country": "BS",
+      "imageSource": "https://flagcdn.com/w1280/bs.png",
+      "imagePath": "covers/religion-of-every-country/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "Bahrain",
+      "unitPrefix": "Islam",
+      "value": 73,
+      "country": "BH",
+      "imageSource": "https://flagcdn.com/w1280/bh.png",
+      "imagePath": "covers/religion-of-every-country/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Bangladesh",
+      "unitPrefix": "Islam",
+      "value": 91,
+      "country": "BD",
+      "imageSource": "https://flagcdn.com/w1280/bd.png",
+      "imagePath": "covers/religion-of-every-country/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Barbados",
+      "unitPrefix": "Christianity",
+      "value": 76,
+      "country": "BB",
+      "imageSource": "https://flagcdn.com/w1280/bb.png",
+      "imagePath": "covers/religion-of-every-country/15.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Belarus",
+      "unitPrefix": "Christianity",
+      "value": 83,
+      "country": "BY",
+      "imageSource": "https://flagcdn.com/w1280/by.png",
+      "imagePath": "covers/religion-of-every-country/16.jpg"
+    },
+    {
+      "rank": 17,
+      "title": "Belgium",
+      "unitPrefix": "Christianity",
+      "value": 57,
+      "country": "BE",
+      "imageSource": "https://flagcdn.com/w1280/be.png",
+      "imagePath": "covers/religion-of-every-country/17.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "Belize",
+      "unitPrefix": "Christianity",
+      "value": 80,
+      "country": "BZ",
+      "imageSource": "https://flagcdn.com/w1280/bz.png",
+      "imagePath": "covers/religion-of-every-country/18.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "Benin",
+      "unitPrefix": "Christianity",
+      "value": 49,
+      "country": "BJ",
+      "imageSource": "https://flagcdn.com/w1280/bj.png",
+      "imagePath": "covers/religion-of-every-country/19.jpg"
+    },
+    {
+      "rank": 20,
+      "title": "Bhutan",
+      "unitPrefix": "Buddhism",
+      "value": 75,
+      "country": "BT",
+      "imageSource": "https://flagcdn.com/w1280/bt.png",
+      "imagePath": "covers/religion-of-every-country/20.jpg"
+    },
+    {
+      "rank": 21,
+      "title": "Bolivia",
+      "unitPrefix": "Christianity",
+      "value": 88,
+      "country": "BO",
+      "imageSource": "https://flagcdn.com/w1280/bo.png",
+      "imagePath": "covers/religion-of-every-country/21.jpg"
+    },
+    {
+      "rank": 22,
+      "title": "Bosnia & Herz.",
+      "unitPrefix": "Islam",
+      "value": 51,
+      "country": "BA",
+      "imageSource": "https://flagcdn.com/w1280/ba.png",
+      "imagePath": "covers/religion-of-every-country/22.jpg"
+    },
+    {
+      "rank": 23,
+      "title": "Botswana",
+      "unitPrefix": "Christianity",
+      "value": 79,
+      "country": "BW",
+      "imageSource": "https://flagcdn.com/w1280/bw.png",
+      "imagePath": "covers/religion-of-every-country/23.jpg"
+    },
+    {
+      "rank": 24,
+      "title": "Brazil",
+      "unitPrefix": "Christianity",
+      "value": 87,
+      "country": "BR",
+      "imageSource": "https://flagcdn.com/w1280/br.png",
+      "imagePath": "covers/religion-of-every-country/24.jpg"
+    },
+    {
+      "rank": 25,
+      "title": "Brunei",
+      "unitPrefix": "Islam",
+      "value": 78,
+      "country": "BN",
+      "imageSource": "https://flagcdn.com/w1280/bn.png",
+      "imagePath": "covers/religion-of-every-country/25.jpg"
+    },
+    {
+      "rank": 26,
+      "title": "Bulgaria",
+      "unitPrefix": "Christianity",
+      "value": 59,
+      "country": "BG",
+      "imageSource": "https://flagcdn.com/w1280/bg.png",
+      "imagePath": "covers/religion-of-every-country/26.jpg"
+    },
+    {
+      "rank": 27,
+      "title": "Burkina Faso",
+      "unitPrefix": "Islam",
+      "value": 63,
+      "country": "BF",
+      "imageSource": "https://flagcdn.com/w1280/bf.png",
+      "imagePath": "covers/religion-of-every-country/27.jpg"
+    },
+    {
+      "rank": 28,
+      "title": "Burundi",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "BI",
+      "imageSource": "https://flagcdn.com/w1280/bi.png",
+      "imagePath": "covers/religion-of-every-country/28.jpg"
+    },
+    {
+      "rank": 29,
+      "title": "Cambodia",
+      "unitPrefix": "Buddhism",
+      "value": 97,
+      "country": "KH",
+      "imageSource": "https://flagcdn.com/w1280/kh.png",
+      "imagePath": "covers/religion-of-every-country/29.jpg"
+    },
+    {
+      "rank": 30,
+      "title": "Cameroon",
+      "unitPrefix": "Christianity",
+      "value": 70,
+      "country": "CM",
+      "imageSource": "https://flagcdn.com/w1280/cm.png",
+      "imagePath": "covers/religion-of-every-country/30.jpg"
+    },
+    {
+      "rank": 31,
+      "title": "Canada",
+      "unitPrefix": "Christianity",
+      "value": 53,
+      "country": "CA",
+      "imageSource": "https://flagcdn.com/w1280/ca.png",
+      "imagePath": "covers/religion-of-every-country/31.jpg"
+    },
+    {
+      "rank": 32,
+      "title": "Cape Verde",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "CV",
+      "imageSource": "https://flagcdn.com/w1280/cv.png",
+      "imagePath": "covers/religion-of-every-country/32.jpg"
+    },
+    {
+      "rank": 33,
+      "title": "C. African Rep.",
+      "unitPrefix": "Christianity",
+      "value": 75,
+      "country": "CF",
+      "imageSource": "https://flagcdn.com/w1280/cf.png",
+      "imagePath": "covers/religion-of-every-country/33.jpg"
+    },
+    {
+      "rank": 34,
+      "title": "Chad",
+      "unitPrefix": "Islam",
+      "value": 52,
+      "country": "TD",
+      "imageSource": "https://flagcdn.com/w1280/td.png",
+      "imagePath": "covers/religion-of-every-country/34.jpg"
+    },
+    {
+      "rank": 35,
+      "title": "Chile",
+      "unitPrefix": "Christianity",
+      "value": 66,
+      "country": "CL",
+      "imageSource": "https://flagcdn.com/w1280/cl.png",
+      "imagePath": "covers/religion-of-every-country/35.jpg"
+    },
+    {
+      "rank": 36,
+      "title": "China",
+      "unitPrefix": "No Religion",
+      "value": 52,
+      "country": "CN",
+      "imageSource": "https://flagcdn.com/w1280/cn.png",
+      "imagePath": "covers/religion-of-every-country/36.jpg"
+    },
+    {
+      "rank": 37,
+      "title": "Colombia",
+      "unitPrefix": "Christianity",
+      "value": 92,
+      "country": "CO",
+      "imageSource": "https://flagcdn.com/w1280/co.png",
+      "imagePath": "covers/religion-of-every-country/37.jpg"
+    },
+    {
+      "rank": 38,
+      "title": "Comoros",
+      "unitPrefix": "Islam",
+      "value": 98,
+      "country": "KM",
+      "imageSource": "https://flagcdn.com/w1280/km.png",
+      "imagePath": "covers/religion-of-every-country/38.jpg"
+    },
+    {
+      "rank": 39,
+      "title": "Rep. of Congo",
+      "unitPrefix": "Christianity",
+      "value": 86,
+      "country": "CG",
+      "imageSource": "https://flagcdn.com/w1280/cg.png",
+      "imagePath": "covers/religion-of-every-country/39.jpg"
+    },
+    {
+      "rank": 40,
+      "title": "DR Congo",
+      "unitPrefix": "Christianity",
+      "value": 95,
+      "country": "CD",
+      "imageSource": "https://flagcdn.com/w1280/cd.png",
+      "imagePath": "covers/religion-of-every-country/40.jpg"
+    },
+    {
+      "rank": 41,
+      "title": "Costa Rica",
+      "unitPrefix": "Christianity",
+      "value": 84,
+      "country": "CR",
+      "imageSource": "https://flagcdn.com/w1280/cr.png",
+      "imagePath": "covers/religion-of-every-country/41.jpg"
+    },
+    {
+      "rank": 42,
+      "title": "Croatia",
+      "unitPrefix": "Christianity",
+      "value": 86,
+      "country": "HR",
+      "imageSource": "https://flagcdn.com/w1280/hr.png",
+      "imagePath": "covers/religion-of-every-country/42.jpg"
+    },
+    {
+      "rank": 43,
+      "title": "Cuba",
+      "unitPrefix": "Christianity",
+      "value": 59,
+      "country": "CU",
+      "imageSource": "https://flagcdn.com/w1280/cu.png",
+      "imagePath": "covers/religion-of-every-country/43.jpg"
+    },
+    {
+      "rank": 44,
+      "title": "Cyprus",
+      "unitPrefix": "Christianity",
+      "value": 73,
+      "country": "CY",
+      "imageSource": "https://flagcdn.com/w1280/cy.png",
+      "imagePath": "covers/religion-of-every-country/44.jpg"
+    },
+    {
+      "rank": 45,
+      "title": "Czechia",
+      "unitPrefix": "No Religion",
+      "value": 47,
+      "country": "CZ",
+      "imageSource": "https://flagcdn.com/w1280/cz.png",
+      "imagePath": "covers/religion-of-every-country/45.jpg"
+    },
+    {
+      "rank": 46,
+      "title": "Denmark",
+      "unitPrefix": "Christianity",
+      "value": 74,
+      "country": "DK",
+      "imageSource": "https://flagcdn.com/w1280/dk.png",
+      "imagePath": "covers/religion-of-every-country/46.jpg"
+    },
+    {
+      "rank": 47,
+      "title": "Djibouti",
+      "unitPrefix": "Islam",
+      "value": 94,
+      "country": "DJ",
+      "imageSource": "https://flagcdn.com/w1280/dj.png",
+      "imagePath": "covers/religion-of-every-country/47.jpg"
+    },
+    {
+      "rank": 48,
+      "title": "Dominica",
+      "unitPrefix": "Christianity",
+      "value": 94,
+      "country": "DM",
+      "imageSource": "https://flagcdn.com/w1280/dm.png",
+      "imagePath": "covers/religion-of-every-country/48.jpg"
+    },
+    {
+      "rank": 49,
+      "title": "Dominican Rep.",
+      "unitPrefix": "Christianity",
+      "value": 76,
+      "country": "DO",
+      "imageSource": "https://flagcdn.com/w1280/do.png",
+      "imagePath": "covers/religion-of-every-country/49.jpg"
+    },
+    {
+      "rank": 50,
+      "title": "Ecuador",
+      "unitPrefix": "Christianity",
+      "value": 91,
+      "country": "EC",
+      "imageSource": "https://flagcdn.com/w1280/ec.png",
+      "imagePath": "covers/religion-of-every-country/50.jpg"
+    },
+    {
+      "rank": 51,
+      "title": "Egypt",
+      "unitPrefix": "Islam",
+      "value": 90,
+      "country": "EG",
+      "imageSource": "https://flagcdn.com/w1280/eg.png",
+      "imagePath": "covers/religion-of-every-country/51.jpg"
+    },
+    {
+      "rank": 52,
+      "title": "El Salvador",
+      "unitPrefix": "Christianity",
+      "value": 84,
+      "country": "SV",
+      "imageSource": "https://flagcdn.com/w1280/sv.png",
+      "imagePath": "covers/religion-of-every-country/52.jpg"
+    },
+    {
+      "rank": 53,
+      "title": "Equatorial Guinea",
+      "unitPrefix": "Christianity",
+      "value": 88,
+      "country": "GQ",
+      "imageSource": "https://flagcdn.com/w1280/gq.png",
+      "imagePath": "covers/religion-of-every-country/53.jpg"
+    },
+    {
+      "rank": 54,
+      "title": "Eritrea",
+      "unitPrefix": "Christianity",
+      "value": 53,
+      "country": "ER",
+      "imageSource": "https://flagcdn.com/w1280/er.png",
+      "imagePath": "covers/religion-of-every-country/54.jpg"
+    },
+    {
+      "rank": 55,
+      "title": "Estonia",
+      "unitPrefix": "No Religion",
+      "value": 58,
+      "country": "EE",
+      "imageSource": "https://flagcdn.com/w1280/ee.png",
+      "imagePath": "covers/religion-of-every-country/55.jpg"
+    },
+    {
+      "rank": 56,
+      "title": "Eswatini",
+      "unitPrefix": "Christianity",
+      "value": 88,
+      "country": "SZ",
+      "imageSource": "https://flagcdn.com/w1280/sz.png",
+      "imagePath": "covers/religion-of-every-country/56.jpg"
+    },
+    {
+      "rank": 57,
+      "title": "Ethiopia",
+      "unitPrefix": "Christianity",
+      "value": 67,
+      "country": "ET",
+      "imageSource": "https://flagcdn.com/w1280/et.png",
+      "imagePath": "covers/religion-of-every-country/57.jpg"
+    },
+    {
+      "rank": 58,
+      "title": "Fiji",
+      "unitPrefix": "Christianity",
+      "value": 64,
+      "country": "FJ",
+      "imageSource": "https://flagcdn.com/w1280/fj.png",
+      "imagePath": "covers/religion-of-every-country/58.jpg"
+    },
+    {
+      "rank": 59,
+      "title": "Finland",
+      "unitPrefix": "Christianity",
+      "value": 66,
+      "country": "FI",
+      "imageSource": "https://flagcdn.com/w1280/fi.png",
+      "imagePath": "covers/religion-of-every-country/59.jpg"
+    },
+    {
+      "rank": 60,
+      "title": "France",
+      "unitPrefix": "Christianity",
+      "value": 47,
+      "country": "FR",
+      "imageSource": "https://flagcdn.com/w1280/fr.png",
+      "imagePath": "covers/religion-of-every-country/60.jpg"
+    },
+    {
+      "rank": 61,
+      "title": "Gabon",
+      "unitPrefix": "Christianity",
+      "value": 76,
+      "country": "GA",
+      "imageSource": "https://flagcdn.com/w1280/ga.png",
+      "imagePath": "covers/religion-of-every-country/61.jpg"
+    },
+    {
+      "rank": 62,
+      "title": "Gambia",
+      "unitPrefix": "Islam",
+      "value": 96,
+      "country": "GM",
+      "imageSource": "https://flagcdn.com/w1280/gm.png",
+      "imagePath": "covers/religion-of-every-country/62.jpg"
+    },
+    {
+      "rank": 63,
+      "title": "Georgia",
+      "unitPrefix": "Christianity",
+      "value": 84,
+      "country": "GE",
+      "imageSource": "https://flagcdn.com/w1280/ge.png",
+      "imagePath": "covers/religion-of-every-country/63.jpg"
+    },
+    {
+      "rank": 64,
+      "title": "Germany",
+      "unitPrefix": "Christianity",
+      "value": 52,
+      "country": "DE",
+      "imageSource": "https://flagcdn.com/w1280/de.png",
+      "imagePath": "covers/religion-of-every-country/64.jpg"
+    },
+    {
+      "rank": 65,
+      "title": "Ghana",
+      "unitPrefix": "Christianity",
+      "value": 71,
+      "country": "GH",
+      "imageSource": "https://flagcdn.com/w1280/gh.png",
+      "imagePath": "covers/religion-of-every-country/65.jpg"
+    },
+    {
+      "rank": 66,
+      "title": "Greece",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "GR",
+      "imageSource": "https://flagcdn.com/w1280/gr.png",
+      "imagePath": "covers/religion-of-every-country/66.jpg"
+    },
+    {
+      "rank": 67,
+      "title": "Grenada",
+      "unitPrefix": "Christianity",
+      "value": 86,
+      "country": "GD",
+      "imageSource": "https://flagcdn.com/w1280/gd.png",
+      "imagePath": "covers/religion-of-every-country/67.jpg"
+    },
+    {
+      "rank": 68,
+      "title": "Guatemala",
+      "unitPrefix": "Christianity",
+      "value": 88,
+      "country": "GT",
+      "imageSource": "https://flagcdn.com/w1280/gt.png",
+      "imagePath": "covers/religion-of-every-country/68.jpg"
+    },
+    {
+      "rank": 69,
+      "title": "Guinea",
+      "unitPrefix": "Islam",
+      "value": 89,
+      "country": "GN",
+      "imageSource": "https://flagcdn.com/w1280/gn.png",
+      "imagePath": "covers/religion-of-every-country/69.jpg"
+    },
+    {
+      "rank": 70,
+      "title": "Guinea-Bissau",
+      "unitPrefix": "Islam",
+      "value": 46,
+      "country": "GW",
+      "imageSource": "https://flagcdn.com/w1280/gw.png",
+      "imagePath": "covers/religion-of-every-country/70.jpg"
+    },
+    {
+      "rank": 71,
+      "title": "Guyana",
+      "unitPrefix": "Christianity",
+      "value": 64,
+      "country": "GY",
+      "imageSource": "https://flagcdn.com/w1280/gy.png",
+      "imagePath": "covers/religion-of-every-country/71.jpg"
+    },
+    {
+      "rank": 72,
+      "title": "Haiti",
+      "unitPrefix": "Christianity",
+      "value": 87,
+      "country": "HT",
+      "imageSource": "https://flagcdn.com/w1280/ht.png",
+      "imagePath": "covers/religion-of-every-country/72.jpg"
+    },
+    {
+      "rank": 73,
+      "title": "Honduras",
+      "unitPrefix": "Christianity",
+      "value": 87,
+      "country": "HN",
+      "imageSource": "https://flagcdn.com/w1280/hn.png",
+      "imagePath": "covers/religion-of-every-country/73.jpg"
+    },
+    {
+      "rank": 74,
+      "title": "Hungary",
+      "unitPrefix": "Christianity",
+      "value": 53,
+      "country": "HU",
+      "imageSource": "https://flagcdn.com/w1280/hu.png",
+      "imagePath": "covers/religion-of-every-country/74.jpg"
+    },
+    {
+      "rank": 75,
+      "title": "Iceland",
+      "unitPrefix": "Christianity",
+      "value": 73,
+      "country": "IS",
+      "imageSource": "https://flagcdn.com/w1280/is.png",
+      "imagePath": "covers/religion-of-every-country/75.jpg"
+    },
+    {
+      "rank": 76,
+      "title": "India",
+      "unitPrefix": "Hinduism",
+      "value": 80,
+      "country": "IN",
+      "imageSource": "https://flagcdn.com/w1280/in.png",
+      "imagePath": "covers/religion-of-every-country/76.jpg"
+    },
+    {
+      "rank": 77,
+      "title": "Indonesia",
+      "unitPrefix": "Islam",
+      "value": 87,
+      "country": "ID",
+      "imageSource": "https://flagcdn.com/w1280/id.png",
+      "imagePath": "covers/religion-of-every-country/77.jpg"
+    },
+    {
+      "rank": 78,
+      "title": "Iran",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "IR",
+      "imageSource": "https://flagcdn.com/w1280/ir.png",
+      "imagePath": "covers/religion-of-every-country/78.jpg"
+    },
+    {
+      "rank": 79,
+      "title": "Iraq",
+      "unitPrefix": "Islam",
+      "value": 97,
+      "country": "IQ",
+      "imageSource": "https://flagcdn.com/w1280/iq.png",
+      "imagePath": "covers/religion-of-every-country/79.jpg"
+    },
+    {
+      "rank": 80,
+      "title": "Ireland",
+      "unitPrefix": "Christianity",
+      "value": 75,
+      "country": "IE",
+      "imageSource": "https://flagcdn.com/w1280/ie.png",
+      "imagePath": "covers/religion-of-every-country/80.jpg"
+    },
+    {
+      "rank": 81,
+      "title": "Israel",
+      "unitPrefix": "Judaism",
+      "value": 74,
+      "country": "IL",
+      "imageSource": "https://flagcdn.com/w1280/il.png",
+      "imagePath": "covers/religion-of-every-country/81.jpg"
+    },
+    {
+      "rank": 82,
+      "title": "Italy",
+      "unitPrefix": "Christianity",
+      "value": 80,
+      "country": "IT",
+      "imageSource": "https://flagcdn.com/w1280/it.png",
+      "imagePath": "covers/religion-of-every-country/82.jpg"
+    },
+    {
+      "rank": 83,
+      "title": "Ivory Coast",
+      "unitPrefix": "Islam",
+      "value": 42,
+      "country": "CI",
+      "imageSource": "https://flagcdn.com/w1280/ci.png",
+      "imagePath": "covers/religion-of-every-country/83.jpg"
+    },
+    {
+      "rank": 84,
+      "title": "Jamaica",
+      "unitPrefix": "Christianity",
+      "value": 68,
+      "country": "JM",
+      "imageSource": "https://flagcdn.com/w1280/jm.png",
+      "imagePath": "covers/religion-of-every-country/84.jpg"
+    },
+    {
+      "rank": 85,
+      "title": "Japan",
+      "unitPrefix": "Shinto",
+      "value": 70,
+      "country": "JP",
+      "imageSource": "https://flagcdn.com/w1280/jp.png",
+      "imagePath": "covers/religion-of-every-country/85.jpg"
+    },
+    {
+      "rank": 86,
+      "title": "Jordan",
+      "unitPrefix": "Islam",
+      "value": 95,
+      "country": "JO",
+      "imageSource": "https://flagcdn.com/w1280/jo.png",
+      "imagePath": "covers/religion-of-every-country/86.jpg"
+    },
+    {
+      "rank": 87,
+      "title": "Kazakhstan",
+      "unitPrefix": "Islam",
+      "value": 70,
+      "country": "KZ",
+      "imageSource": "https://flagcdn.com/w1280/kz.png",
+      "imagePath": "covers/religion-of-every-country/87.jpg"
+    },
+    {
+      "rank": 88,
+      "title": "Kenya",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "KE",
+      "imageSource": "https://flagcdn.com/w1280/ke.png",
+      "imagePath": "covers/religion-of-every-country/88.jpg"
+    },
+    {
+      "rank": 89,
+      "title": "Kiribati",
+      "unitPrefix": "Christianity",
+      "value": 96,
+      "country": "KI",
+      "imageSource": "https://flagcdn.com/w1280/ki.png",
+      "imagePath": "covers/religion-of-every-country/89.jpg"
+    },
+    {
+      "rank": 90,
+      "title": "Kosovo",
+      "unitPrefix": "Islam",
+      "value": 95,
+      "country": "XK",
+      "imageSource": "https://flagcdn.com/w1280/xk.png",
+      "imagePath": "covers/religion-of-every-country/90.jpg"
+    },
+    {
+      "rank": 91,
+      "title": "Kuwait",
+      "unitPrefix": "Islam",
+      "value": 75,
+      "country": "KW",
+      "imageSource": "https://flagcdn.com/w1280/kw.png",
+      "imagePath": "covers/religion-of-every-country/91.jpg"
+    },
+    {
+      "rank": 92,
+      "title": "Kyrgyzstan",
+      "unitPrefix": "Islam",
+      "value": 90,
+      "country": "KG",
+      "imageSource": "https://flagcdn.com/w1280/kg.png",
+      "imagePath": "covers/religion-of-every-country/92.jpg"
+    },
+    {
+      "rank": 93,
+      "title": "Laos",
+      "unitPrefix": "Buddhism",
+      "value": 66,
+      "country": "LA",
+      "imageSource": "https://flagcdn.com/w1280/la.png",
+      "imagePath": "covers/religion-of-every-country/93.jpg"
+    },
+    {
+      "rank": 94,
+      "title": "Latvia",
+      "unitPrefix": "Christianity",
+      "value": 64,
+      "country": "LV",
+      "imageSource": "https://flagcdn.com/w1280/lv.png",
+      "imagePath": "covers/religion-of-every-country/94.jpg"
+    },
+    {
+      "rank": 95,
+      "title": "Lebanon",
+      "unitPrefix": "Islam",
+      "value": 61,
+      "country": "LB",
+      "imageSource": "https://flagcdn.com/w1280/lb.png",
+      "imagePath": "covers/religion-of-every-country/95.jpg"
+    },
+    {
+      "rank": 96,
+      "title": "Lesotho",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "LS",
+      "imageSource": "https://flagcdn.com/w1280/ls.png",
+      "imagePath": "covers/religion-of-every-country/96.jpg"
+    },
+    {
+      "rank": 97,
+      "title": "Liberia",
+      "unitPrefix": "Christianity",
+      "value": 84,
+      "country": "LR",
+      "imageSource": "https://flagcdn.com/w1280/lr.png",
+      "imagePath": "covers/religion-of-every-country/97.jpg"
+    },
+    {
+      "rank": 98,
+      "title": "Libya",
+      "unitPrefix": "Islam",
+      "value": 97,
+      "country": "LY",
+      "imageSource": "https://flagcdn.com/w1280/ly.png",
+      "imagePath": "covers/religion-of-every-country/98.jpg"
+    },
+    {
+      "rank": 99,
+      "title": "Liechtenstein",
+      "unitPrefix": "Christianity",
+      "value": 73,
+      "country": "LI",
+      "imageSource": "https://flagcdn.com/w1280/li.png",
+      "imagePath": "covers/religion-of-every-country/99.jpg"
+    },
+    {
+      "rank": 100,
+      "title": "Lithuania",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "LT",
+      "imageSource": "https://flagcdn.com/w1280/lt.png",
+      "imagePath": "covers/religion-of-every-country/100.jpg"
+    },
+    {
+      "rank": 101,
+      "title": "Luxembourg",
+      "unitPrefix": "Christianity",
+      "value": 63,
+      "country": "LU",
+      "imageSource": "https://flagcdn.com/w1280/lu.png",
+      "imagePath": "covers/religion-of-every-country/101.jpg"
+    },
+    {
+      "rank": 102,
+      "title": "Madagascar",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "MG",
+      "imageSource": "https://flagcdn.com/w1280/mg.png",
+      "imagePath": "covers/religion-of-every-country/102.jpg"
+    },
+    {
+      "rank": 103,
+      "title": "Malawi",
+      "unitPrefix": "Christianity",
+      "value": 82,
+      "country": "MW",
+      "imageSource": "https://flagcdn.com/w1280/mw.png",
+      "imagePath": "covers/religion-of-every-country/103.jpg"
+    },
+    {
+      "rank": 104,
+      "title": "Malaysia",
+      "unitPrefix": "Islam",
+      "value": 64,
+      "country": "MY",
+      "imageSource": "https://flagcdn.com/w1280/my.png",
+      "imagePath": "covers/religion-of-every-country/104.jpg"
+    },
+    {
+      "rank": 105,
+      "title": "Maldives",
+      "unitPrefix": "Islam",
+      "value": 100,
+      "country": "MV",
+      "imageSource": "https://flagcdn.com/w1280/mv.png",
+      "imagePath": "covers/religion-of-every-country/105.jpg"
+    },
+    {
+      "rank": 106,
+      "title": "Mali",
+      "unitPrefix": "Islam",
+      "value": 94,
+      "country": "ML",
+      "imageSource": "https://flagcdn.com/w1280/ml.png",
+      "imagePath": "covers/religion-of-every-country/106.jpg"
+    },
+    {
+      "rank": 107,
+      "title": "Malta",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "MT",
+      "imageSource": "https://flagcdn.com/w1280/mt.png",
+      "imagePath": "covers/religion-of-every-country/107.jpg"
+    },
+    {
+      "rank": 108,
+      "title": "Marshall Is.",
+      "unitPrefix": "Christianity",
+      "value": 96,
+      "country": "MH",
+      "imageSource": "https://flagcdn.com/w1280/mh.png",
+      "imagePath": "covers/religion-of-every-country/108.jpg"
+    },
+    {
+      "rank": 109,
+      "title": "Mauritania",
+      "unitPrefix": "Islam",
+      "value": 100,
+      "country": "MR",
+      "imageSource": "https://flagcdn.com/w1280/mr.png",
+      "imagePath": "covers/religion-of-every-country/109.jpg"
+    },
+    {
+      "rank": 110,
+      "title": "Mauritius",
+      "unitPrefix": "Hinduism",
+      "value": 48,
+      "country": "MU",
+      "imageSource": "https://flagcdn.com/w1280/mu.png",
+      "imagePath": "covers/religion-of-every-country/110.jpg"
+    },
+    {
+      "rank": 111,
+      "title": "Mexico",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "MX",
+      "imageSource": "https://flagcdn.com/w1280/mx.png",
+      "imagePath": "covers/religion-of-every-country/111.jpg"
+    },
+    {
+      "rank": 112,
+      "title": "Micronesia",
+      "unitPrefix": "Christianity",
+      "value": 97,
+      "country": "FM",
+      "imageSource": "https://flagcdn.com/w1280/fm.png",
+      "imagePath": "covers/religion-of-every-country/112.jpg"
+    },
+    {
+      "rank": 113,
+      "title": "Moldova",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "MD",
+      "imageSource": "https://flagcdn.com/w1280/md.png",
+      "imagePath": "covers/religion-of-every-country/113.jpg"
+    },
+    {
+      "rank": 114,
+      "title": "Monaco",
+      "unitPrefix": "Christianity",
+      "value": 86,
+      "country": "MC",
+      "imageSource": "https://flagcdn.com/w1280/mc.png",
+      "imagePath": "covers/religion-of-every-country/114.jpg"
+    },
+    {
+      "rank": 115,
+      "title": "Mongolia",
+      "unitPrefix": "Buddhism",
+      "value": 52,
+      "country": "MN",
+      "imageSource": "https://flagcdn.com/w1280/mn.png",
+      "imagePath": "covers/religion-of-every-country/115.jpg"
+    },
+    {
+      "rank": 116,
+      "title": "Montenegro",
+      "unitPrefix": "Christianity",
+      "value": 72,
+      "country": "ME",
+      "imageSource": "https://flagcdn.com/w1280/me.png",
+      "imagePath": "covers/religion-of-every-country/116.jpg"
+    },
+    {
+      "rank": 117,
+      "title": "Morocco",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "MA",
+      "imageSource": "https://flagcdn.com/w1280/ma.png",
+      "imagePath": "covers/religion-of-every-country/117.jpg"
+    },
+    {
+      "rank": 118,
+      "title": "Mozambique",
+      "unitPrefix": "Christianity",
+      "value": 59,
+      "country": "MZ",
+      "imageSource": "https://flagcdn.com/w1280/mz.png",
+      "imagePath": "covers/religion-of-every-country/118.jpg"
+    },
+    {
+      "rank": 119,
+      "title": "Myanmar",
+      "unitPrefix": "Buddhism",
+      "value": 88,
+      "country": "MM",
+      "imageSource": "https://flagcdn.com/w1280/mm.png",
+      "imagePath": "covers/religion-of-every-country/119.jpg"
+    },
+    {
+      "rank": 120,
+      "title": "Namibia",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "NA",
+      "imageSource": "https://flagcdn.com/w1280/na.png",
+      "imagePath": "covers/religion-of-every-country/120.jpg"
+    },
+    {
+      "rank": 121,
+      "title": "Nauru",
+      "unitPrefix": "Christianity",
+      "value": 96,
+      "country": "NR",
+      "imageSource": "https://flagcdn.com/w1280/nr.png",
+      "imagePath": "covers/religion-of-every-country/121.jpg"
+    },
+    {
+      "rank": 122,
+      "title": "Nepal",
+      "unitPrefix": "Hinduism",
+      "value": 81,
+      "country": "NP",
+      "imageSource": "https://flagcdn.com/w1280/np.png",
+      "imagePath": "covers/religion-of-every-country/122.jpg"
+    },
+    {
+      "rank": 123,
+      "title": "Netherlands",
+      "unitPrefix": "No Religion",
+      "value": 54,
+      "country": "NL",
+      "imageSource": "https://flagcdn.com/w1280/nl.png",
+      "imagePath": "covers/religion-of-every-country/123.jpg"
+    },
+    {
+      "rank": 124,
+      "title": "New Zealand",
+      "unitPrefix": "No Religion",
+      "value": 49,
+      "country": "NZ",
+      "imageSource": "https://flagcdn.com/w1280/nz.png",
+      "imagePath": "covers/religion-of-every-country/124.jpg"
+    },
+    {
+      "rank": 125,
+      "title": "Nicaragua",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "NI",
+      "imageSource": "https://flagcdn.com/w1280/ni.png",
+      "imagePath": "covers/religion-of-every-country/125.jpg"
+    },
+    {
+      "rank": 126,
+      "title": "Niger",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "NE",
+      "imageSource": "https://flagcdn.com/w1280/ne.png",
+      "imagePath": "covers/religion-of-every-country/126.jpg"
+    },
+    {
+      "rank": 127,
+      "title": "Nigeria",
+      "unitPrefix": "Islam",
+      "value": 51,
+      "country": "NG",
+      "imageSource": "https://flagcdn.com/w1280/ng.png",
+      "imagePath": "covers/religion-of-every-country/127.jpg"
+    },
+    {
+      "rank": 128,
+      "title": "North Korea",
+      "unitPrefix": "No Religion",
+      "value": 71,
+      "country": "KP",
+      "imageSource": "https://flagcdn.com/w1280/kp.png",
+      "imagePath": "covers/religion-of-every-country/128.jpg"
+    },
+    {
+      "rank": 129,
+      "title": "North Macedonia",
+      "unitPrefix": "Christianity",
+      "value": 65,
+      "country": "MK",
+      "imageSource": "https://flagcdn.com/w1280/mk.png",
+      "imagePath": "covers/religion-of-every-country/129.jpg"
+    },
+    {
+      "rank": 130,
+      "title": "Norway",
+      "unitPrefix": "Christianity",
+      "value": 68,
+      "country": "NO",
+      "imageSource": "https://flagcdn.com/w1280/no.png",
+      "imagePath": "covers/religion-of-every-country/130.jpg"
+    },
+    {
+      "rank": 131,
+      "title": "Oman",
+      "unitPrefix": "Islam",
+      "value": 86,
+      "country": "OM",
+      "imageSource": "https://flagcdn.com/w1280/om.png",
+      "imagePath": "covers/religion-of-every-country/131.jpg"
+    },
+    {
+      "rank": 132,
+      "title": "Pakistan",
+      "unitPrefix": "Islam",
+      "value": 96,
+      "country": "PK",
+      "imageSource": "https://flagcdn.com/w1280/pk.png",
+      "imagePath": "covers/religion-of-every-country/132.jpg"
+    },
+    {
+      "rank": 133,
+      "title": "Palau",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "PW",
+      "imageSource": "https://flagcdn.com/w1280/pw.png",
+      "imagePath": "covers/religion-of-every-country/133.jpg"
+    },
+    {
+      "rank": 134,
+      "title": "Palestine",
+      "unitPrefix": "Islam",
+      "value": 93,
+      "country": "PS",
+      "imageSource": "https://flagcdn.com/w1280/ps.png",
+      "imagePath": "covers/religion-of-every-country/134.jpg"
+    },
+    {
+      "rank": 135,
+      "title": "Panama",
+      "unitPrefix": "Christianity",
+      "value": 89,
+      "country": "PA",
+      "imageSource": "https://flagcdn.com/w1280/pa.png",
+      "imagePath": "covers/religion-of-every-country/135.jpg"
+    },
+    {
+      "rank": 136,
+      "title": "Papua New Guinea",
+      "unitPrefix": "Christianity",
+      "value": 95,
+      "country": "PG",
+      "imageSource": "https://flagcdn.com/w1280/pg.png",
+      "imagePath": "covers/religion-of-every-country/136.jpg"
+    },
+    {
+      "rank": 137,
+      "title": "Paraguay",
+      "unitPrefix": "Christianity",
+      "value": 96,
+      "country": "PY",
+      "imageSource": "https://flagcdn.com/w1280/py.png",
+      "imagePath": "covers/religion-of-every-country/137.jpg"
+    },
+    {
+      "rank": 138,
+      "title": "Peru",
+      "unitPrefix": "Christianity",
+      "value": 91,
+      "country": "PE",
+      "imageSource": "https://flagcdn.com/w1280/pe.png",
+      "imagePath": "covers/religion-of-every-country/138.jpg"
+    },
+    {
+      "rank": 139,
+      "title": "Philippines",
+      "unitPrefix": "Christianity",
+      "value": 93,
+      "country": "PH",
+      "imageSource": "https://flagcdn.com/w1280/ph.png",
+      "imagePath": "covers/religion-of-every-country/139.jpg"
+    },
+    {
+      "rank": 140,
+      "title": "Poland",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "PL",
+      "imageSource": "https://flagcdn.com/w1280/pl.png",
+      "imagePath": "covers/religion-of-every-country/140.jpg"
+    },
+    {
+      "rank": 141,
+      "title": "Portugal",
+      "unitPrefix": "Christianity",
+      "value": 81,
+      "country": "PT",
+      "imageSource": "https://flagcdn.com/w1280/pt.png",
+      "imagePath": "covers/religion-of-every-country/141.jpg"
+    },
+    {
+      "rank": 142,
+      "title": "Qatar",
+      "unitPrefix": "Islam",
+      "value": 66,
+      "country": "QA",
+      "imageSource": "https://flagcdn.com/w1280/qa.png",
+      "imagePath": "covers/religion-of-every-country/142.jpg"
+    },
+    {
+      "rank": 143,
+      "title": "Romania",
+      "unitPrefix": "Christianity",
+      "value": 92,
+      "country": "RO",
+      "imageSource": "https://flagcdn.com/w1280/ro.png",
+      "imagePath": "covers/religion-of-every-country/143.jpg"
+    },
+    {
+      "rank": 144,
+      "title": "Russia",
+      "unitPrefix": "Christianity",
+      "value": 63,
+      "country": "RU",
+      "imageSource": "https://flagcdn.com/w1280/ru.png",
+      "imagePath": "covers/religion-of-every-country/144.jpg"
+    },
+    {
+      "rank": 145,
+      "title": "Rwanda",
+      "unitPrefix": "Christianity",
+      "value": 94,
+      "country": "RW",
+      "imageSource": "https://flagcdn.com/w1280/rw.png",
+      "imagePath": "covers/religion-of-every-country/145.jpg"
+    },
+    {
+      "rank": 146,
+      "title": "St Kitts & Nevis",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "KN",
+      "imageSource": "https://flagcdn.com/w1280/kn.png",
+      "imagePath": "covers/religion-of-every-country/146.jpg"
+    },
+    {
+      "rank": 147,
+      "title": "Saint Lucia",
+      "unitPrefix": "Christianity",
+      "value": 90,
+      "country": "LC",
+      "imageSource": "https://flagcdn.com/w1280/lc.png",
+      "imagePath": "covers/religion-of-every-country/147.jpg"
+    },
+    {
+      "rank": 148,
+      "title": "St Vincent",
+      "unitPrefix": "Christianity",
+      "value": 88,
+      "country": "VC",
+      "imageSource": "https://flagcdn.com/w1280/vc.png",
+      "imagePath": "covers/religion-of-every-country/148.jpg"
+    },
+    {
+      "rank": 149,
+      "title": "Samoa",
+      "unitPrefix": "Christianity",
+      "value": 98,
+      "country": "WS",
+      "imageSource": "https://flagcdn.com/w1280/ws.png",
+      "imagePath": "covers/religion-of-every-country/149.jpg"
+    },
+    {
+      "rank": 150,
+      "title": "San Marino",
+      "unitPrefix": "Christianity",
+      "value": 91,
+      "country": "SM",
+      "imageSource": "https://flagcdn.com/w1280/sm.png",
+      "imagePath": "covers/religion-of-every-country/150.jpg"
+    },
+    {
+      "rank": 151,
+      "title": "Sao Tome & P.",
+      "unitPrefix": "Christianity",
+      "value": 82,
+      "country": "ST",
+      "imageSource": "https://flagcdn.com/w1280/st.png",
+      "imagePath": "covers/religion-of-every-country/151.jpg"
+    },
+    {
+      "rank": 152,
+      "title": "Saudi Arabia",
+      "unitPrefix": "Islam",
+      "value": 93,
+      "country": "SA",
+      "imageSource": "https://flagcdn.com/w1280/sa.png",
+      "imagePath": "covers/religion-of-every-country/152.jpg"
+    },
+    {
+      "rank": 153,
+      "title": "Senegal",
+      "unitPrefix": "Islam",
+      "value": 97,
+      "country": "SN",
+      "imageSource": "https://flagcdn.com/w1280/sn.png",
+      "imagePath": "covers/religion-of-every-country/153.jpg"
+    },
+    {
+      "rank": 154,
+      "title": "Serbia",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "RS",
+      "imageSource": "https://flagcdn.com/w1280/rs.png",
+      "imagePath": "covers/religion-of-every-country/154.jpg"
+    },
+    {
+      "rank": 155,
+      "title": "Seychelles",
+      "unitPrefix": "Christianity",
+      "value": 94,
+      "country": "SC",
+      "imageSource": "https://flagcdn.com/w1280/sc.png",
+      "imagePath": "covers/religion-of-every-country/155.jpg"
+    },
+    {
+      "rank": 156,
+      "title": "Sierra Leone",
+      "unitPrefix": "Islam",
+      "value": 78,
+      "country": "SL",
+      "imageSource": "https://flagcdn.com/w1280/sl.png",
+      "imagePath": "covers/religion-of-every-country/156.jpg"
+    },
+    {
+      "rank": 157,
+      "title": "Singapore",
+      "unitPrefix": "Buddhism",
+      "value": 31,
+      "country": "SG",
+      "imageSource": "https://flagcdn.com/w1280/sg.png",
+      "imagePath": "covers/religion-of-every-country/157.jpg"
+    },
+    {
+      "rank": 158,
+      "title": "Slovakia",
+      "unitPrefix": "Christianity",
+      "value": 76,
+      "country": "SK",
+      "imageSource": "https://flagcdn.com/w1280/sk.png",
+      "imagePath": "covers/religion-of-every-country/158.jpg"
+    },
+    {
+      "rank": 159,
+      "title": "Slovenia",
+      "unitPrefix": "Christianity",
+      "value": 66,
+      "country": "SI",
+      "imageSource": "https://flagcdn.com/w1280/si.png",
+      "imagePath": "covers/religion-of-every-country/159.jpg"
+    },
+    {
+      "rank": 160,
+      "title": "Solomon Is.",
+      "unitPrefix": "Christianity",
+      "value": 95,
+      "country": "SB",
+      "imageSource": "https://flagcdn.com/w1280/sb.png",
+      "imagePath": "covers/religion-of-every-country/160.jpg"
+    },
+    {
+      "rank": 161,
+      "title": "Somalia",
+      "unitPrefix": "Islam",
+      "value": 100,
+      "country": "SO",
+      "imageSource": "https://flagcdn.com/w1280/so.png",
+      "imagePath": "covers/religion-of-every-country/161.jpg"
+    },
+    {
+      "rank": 162,
+      "title": "South Africa",
+      "unitPrefix": "Christianity",
+      "value": 85,
+      "country": "ZA",
+      "imageSource": "https://flagcdn.com/w1280/za.png",
+      "imagePath": "covers/religion-of-every-country/162.jpg"
+    },
+    {
+      "rank": 163,
+      "title": "South Korea",
+      "unitPrefix": "No Religion",
+      "value": 56,
+      "country": "KR",
+      "imageSource": "https://flagcdn.com/w1280/kr.png",
+      "imagePath": "covers/religion-of-every-country/163.jpg"
+    },
+    {
+      "rank": 164,
+      "title": "South Sudan",
+      "unitPrefix": "Christianity",
+      "value": 60,
+      "country": "SS",
+      "imageSource": "https://flagcdn.com/w1280/ss.png",
+      "imagePath": "covers/religion-of-every-country/164.jpg"
+    },
+    {
+      "rank": 165,
+      "title": "Spain",
+      "unitPrefix": "Christianity",
+      "value": 58,
+      "country": "ES",
+      "imageSource": "https://flagcdn.com/w1280/es.png",
+      "imagePath": "covers/religion-of-every-country/165.jpg"
+    },
+    {
+      "rank": 166,
+      "title": "Sri Lanka",
+      "unitPrefix": "Buddhism",
+      "value": 70,
+      "country": "LK",
+      "imageSource": "https://flagcdn.com/w1280/lk.png",
+      "imagePath": "covers/religion-of-every-country/166.jpg"
+    },
+    {
+      "rank": 167,
+      "title": "Sudan",
+      "unitPrefix": "Islam",
+      "value": 91,
+      "country": "SD",
+      "imageSource": "https://flagcdn.com/w1280/sd.png",
+      "imagePath": "covers/religion-of-every-country/167.jpg"
+    },
+    {
+      "rank": 168,
+      "title": "Suriname",
+      "unitPrefix": "Christianity",
+      "value": 52,
+      "country": "SR",
+      "imageSource": "https://flagcdn.com/w1280/sr.png",
+      "imagePath": "covers/religion-of-every-country/168.jpg"
+    },
+    {
+      "rank": 169,
+      "title": "Sweden",
+      "unitPrefix": "Christianity",
+      "value": 53,
+      "country": "SE",
+      "imageSource": "https://flagcdn.com/w1280/se.png",
+      "imagePath": "covers/religion-of-every-country/169.jpg"
+    },
+    {
+      "rank": 170,
+      "title": "Switzerland",
+      "unitPrefix": "Christianity",
+      "value": 62,
+      "country": "CH",
+      "imageSource": "https://flagcdn.com/w1280/ch.png",
+      "imagePath": "covers/religion-of-every-country/170.jpg"
+    },
+    {
+      "rank": 171,
+      "title": "Syria",
+      "unitPrefix": "Islam",
+      "value": 87,
+      "country": "SY",
+      "imageSource": "https://flagcdn.com/w1280/sy.png",
+      "imagePath": "covers/religion-of-every-country/171.jpg"
+    },
+    {
+      "rank": 172,
+      "title": "Taiwan",
+      "unitPrefix": "Folk Religion",
+      "value": 44,
+      "country": "TW",
+      "imageSource": "https://flagcdn.com/w1280/tw.png",
+      "imagePath": "covers/religion-of-every-country/172.jpg"
+    },
+    {
+      "rank": 173,
+      "title": "Tajikistan",
+      "unitPrefix": "Islam",
+      "value": 96,
+      "country": "TJ",
+      "imageSource": "https://flagcdn.com/w1280/tj.png",
+      "imagePath": "covers/religion-of-every-country/173.jpg"
+    },
+    {
+      "rank": 174,
+      "title": "Tanzania",
+      "unitPrefix": "Christianity",
+      "value": 63,
+      "country": "TZ",
+      "imageSource": "https://flagcdn.com/w1280/tz.png",
+      "imagePath": "covers/religion-of-every-country/174.jpg"
+    },
+    {
+      "rank": 175,
+      "title": "Thailand",
+      "unitPrefix": "Buddhism",
+      "value": 93,
+      "country": "TH",
+      "imageSource": "https://flagcdn.com/w1280/th.png",
+      "imagePath": "covers/religion-of-every-country/175.jpg"
+    },
+    {
+      "rank": 176,
+      "title": "Timor-Leste",
+      "unitPrefix": "Christianity",
+      "value": 99,
+      "country": "TL",
+      "imageSource": "https://flagcdn.com/w1280/tl.png",
+      "imagePath": "covers/religion-of-every-country/176.jpg"
+    },
+    {
+      "rank": 177,
+      "title": "Togo",
+      "unitPrefix": "Christianity",
+      "value": 48,
+      "country": "TG",
+      "imageSource": "https://flagcdn.com/w1280/tg.png",
+      "imagePath": "covers/religion-of-every-country/177.jpg"
+    },
+    {
+      "rank": 178,
+      "title": "Tonga",
+      "unitPrefix": "Christianity",
+      "value": 98,
+      "country": "TO",
+      "imageSource": "https://flagcdn.com/w1280/to.png",
+      "imagePath": "covers/religion-of-every-country/178.jpg"
+    },
+    {
+      "rank": 179,
+      "title": "Trinidad & Tobago",
+      "unitPrefix": "Christianity",
+      "value": 55,
+      "country": "TT",
+      "imageSource": "https://flagcdn.com/w1280/tt.png",
+      "imagePath": "covers/religion-of-every-country/179.jpg"
+    },
+    {
+      "rank": 180,
+      "title": "Tunisia",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "TN",
+      "imageSource": "https://flagcdn.com/w1280/tn.png",
+      "imagePath": "covers/religion-of-every-country/180.jpg"
+    },
+    {
+      "rank": 181,
+      "title": "Turkey",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "TR",
+      "imageSource": "https://flagcdn.com/w1280/tr.png",
+      "imagePath": "covers/religion-of-every-country/181.jpg"
+    },
+    {
+      "rank": 182,
+      "title": "Turkmenistan",
+      "unitPrefix": "Islam",
+      "value": 93,
+      "country": "TM",
+      "imageSource": "https://flagcdn.com/w1280/tm.png",
+      "imagePath": "covers/religion-of-every-country/182.jpg"
+    },
+    {
+      "rank": 183,
+      "title": "Tuvalu",
+      "unitPrefix": "Christianity",
+      "value": 97,
+      "country": "TV",
+      "imageSource": "https://flagcdn.com/w1280/tv.png",
+      "imagePath": "covers/religion-of-every-country/183.jpg"
+    },
+    {
+      "rank": 184,
+      "title": "Uganda",
+      "unitPrefix": "Christianity",
+      "value": 84,
+      "country": "UG",
+      "imageSource": "https://flagcdn.com/w1280/ug.png",
+      "imagePath": "covers/religion-of-every-country/184.jpg"
+    },
+    {
+      "rank": 185,
+      "title": "Ukraine",
+      "unitPrefix": "Christianity",
+      "value": 87,
+      "country": "UA",
+      "imageSource": "https://flagcdn.com/w1280/ua.png",
+      "imagePath": "covers/religion-of-every-country/185.jpg"
+    },
+    {
+      "rank": 186,
+      "title": "U. Arab Emirates",
+      "unitPrefix": "Islam",
+      "value": 76,
+      "country": "AE",
+      "imageSource": "https://flagcdn.com/w1280/ae.png",
+      "imagePath": "covers/religion-of-every-country/186.jpg"
+    },
+    {
+      "rank": 187,
+      "title": "United Kingdom",
+      "unitPrefix": "Christianity",
+      "value": 46,
+      "country": "GB",
+      "imageSource": "https://flagcdn.com/w1280/gb.png",
+      "imagePath": "covers/religion-of-every-country/187.jpg"
+    },
+    {
+      "rank": 188,
+      "title": "United States",
+      "unitPrefix": "Christianity",
+      "value": 63,
+      "country": "US",
+      "imageSource": "https://flagcdn.com/w1280/us.png",
+      "imagePath": "covers/religion-of-every-country/188.jpg"
+    },
+    {
+      "rank": 189,
+      "title": "Uruguay",
+      "unitPrefix": "Christianity",
+      "value": 58,
+      "country": "UY",
+      "imageSource": "https://flagcdn.com/w1280/uy.png",
+      "imagePath": "covers/religion-of-every-country/189.jpg"
+    },
+    {
+      "rank": 190,
+      "title": "Uzbekistan",
+      "unitPrefix": "Islam",
+      "value": 96,
+      "country": "UZ",
+      "imageSource": "https://flagcdn.com/w1280/uz.png",
+      "imagePath": "covers/religion-of-every-country/190.jpg"
+    },
+    {
+      "rank": 191,
+      "title": "Vanuatu",
+      "unitPrefix": "Christianity",
+      "value": 93,
+      "country": "VU",
+      "imageSource": "https://flagcdn.com/w1280/vu.png",
+      "imagePath": "covers/religion-of-every-country/191.jpg"
+    },
+    {
+      "rank": 192,
+      "title": "Vatican City",
+      "unitPrefix": "Christianity",
+      "value": 100,
+      "country": "VA",
+      "imageSource": "https://flagcdn.com/w1280/va.png",
+      "imagePath": "covers/religion-of-every-country/192.jpg"
+    },
+    {
+      "rank": 193,
+      "title": "Venezuela",
+      "unitPrefix": "Christianity",
+      "value": 88,
+      "country": "VE",
+      "imageSource": "https://flagcdn.com/w1280/ve.png",
+      "imagePath": "covers/religion-of-every-country/193.jpg"
+    },
+    {
+      "rank": 194,
+      "title": "Vietnam",
+      "unitPrefix": "No Religion",
+      "value": 73,
+      "country": "VN",
+      "imageSource": "https://flagcdn.com/w1280/vn.png",
+      "imagePath": "covers/religion-of-every-country/194.jpg"
+    },
+    {
+      "rank": 195,
+      "title": "Yemen",
+      "unitPrefix": "Islam",
+      "value": 99,
+      "country": "YE",
+      "imageSource": "https://flagcdn.com/w1280/ye.png",
+      "imagePath": "covers/religion-of-every-country/195.jpg"
+    },
+    {
+      "rank": 196,
+      "title": "Zambia",
+      "unitPrefix": "Christianity",
+      "value": 95,
+      "country": "ZM",
+      "imageSource": "https://flagcdn.com/w1280/zm.png",
+      "imagePath": "covers/religion-of-every-country/196.jpg"
+    },
+    {
+      "rank": 197,
+      "title": "Zimbabwe",
+      "unitPrefix": "Christianity",
+      "value": 84,
+      "country": "ZW",
+      "imageSource": "https://flagcdn.com/w1280/zw.png",
+      "imagePath": "covers/religion-of-every-country/197.jpg"
+    }
+  ]
+}

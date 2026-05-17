@@ -1,5 +1,5 @@
 export type EpisodeItem = {
-  rank: number;
+  rank?: number;
   title: string;
   value: number;
   imageSource?: string;
@@ -11,6 +11,13 @@ export type EpisodeItem = {
   // most items in an episode share one preference but a few need the
   // opposite (e.g. one item already ships with a clean background).
   removeBg?: boolean;
+  // Flow-template-only. When set, this text is rendered in white right
+  // before the value on the same accent line. Used when each item has its
+  // own per-item subtitle that should sit beside the number rather than
+  // taking a third line (e.g. "Country" in the title, "Religion 96%" on
+  // the value line). The value+unitLabel render in the accent color as
+  // usual; only the prefix is white.
+  unitPrefix?: string;
 };
 
 // One "scale primer" card rendered before the ranking, only by the flow
@@ -65,6 +72,10 @@ export type Episode = {
   // "compact" (default): value treated as millions, displayed as "2.1M" / "14.0B".
   // "raw": value is the literal count, displayed with thousands separators ("2,100,000").
   valueFormat?: "compact" | "raw";
+  // When true, no space is inserted between the formatted value and the
+  // unitLabel — useful for "%" where "96 %" reads as two tokens but "96%"
+  // is one. Defaults to false (existing space behavior preserved).
+  valueNoSpace?: boolean;
   // "inside" (default): preserve cover aspect ratio (existing behavior — wide
   // photos stay wide, tall photos stay tall).
   // "contain": pad each cover to a 1024×1024 square with white background so
@@ -119,4 +130,36 @@ export type Episode = {
   // both are set, an existing local thumbnailPath wins (no re-download).
   thumbnailSource?: string;
   youtube?: EpisodeYouTube;
+
+  // ─── Race template ─────────────────────────────────────────────
+  // The race template is PURELY physics-driven — finish order is whatever
+  // Rapier produces. The `items` rank field is meaningless for this
+  // template; items are just the participant pool. To keep renders
+  // deterministic across machines (and so the YouTube thumbnail/title can
+  // pre-commit to a winner), we bake the simulation once via
+  // `npm run race-roll <slug>` and store the seed + the resulting
+  // trajectory ID + finish/elimination timeline back into the JSON.
+  raceSeed?: number;
+  // Filled by race-roll. Indices reference items[]; frames are 60fps.
+  raceResult?: {
+    // Order in which balls crossed the finish line. First entry = winner.
+    finishOrder: number[];
+    // Absolute frame number (from race start) when each finisher crossed.
+    // Same length as finishOrder.
+    finishFrames: number[];
+    // Items that fell off the track and never finished. Frame is when they
+    // were considered eliminated (left bounds / hit kill plane).
+    eliminations: Array<{ index: number; frame: number }>;
+    // Total race body length in frames (countdown excluded), so the
+    // template doesn't have to recompute from finishFrames.
+    raceFrames: number;
+  };
+  // Pointer to the baked per-frame transforms. Path is relative to /public,
+  // e.g. "race-bakes/<slug>.bin". Populated by race-roll.
+  raceBakePath?: string;
+  // Visual preset. "neon" by default.
+  raceTrackStyle?: "neon" | "sand" | "ice";
+  // For now only "ball" is implemented. Reserved so we can add cars/skaters
+  // later without a schema migration.
+  raceObject?: "ball";
 };

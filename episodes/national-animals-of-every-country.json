@@ -1,0 +1,1518 @@
+{
+  "slug": "national-animals-of-every-country",
+  "title": ["NATIONAL ANIMAL OF", "EVERY COUNTRY"],
+  "outro": ["WHICH ONE SURPRISED YOU?", "Like & subscribe for more"],
+  "unitLabel": "",
+  "valueFormat": "raw",
+  "coverFit": "contain",
+  "removeBg": true,
+  "compositeFlagOnCover": true,
+  "flagHero": false,
+  "youtube": {
+    "title": "Every Country's National Animal — All 195 Countries",
+    "description": "From Pakistan's Markhor to Scotland's Unicorn — every country's official national animal revealed.\n\n{{chapters}}",
+    "tags": ["national animal", "every country", "world facts", "countries ranked", "animals", "geography", "countdown", "ranking", "wildlife", "fun facts"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "Afghanistan",
+      "value": 0,
+      "country": "AF",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/1.jpg"
+    },
+    {
+      "rank": 2,
+      "title": "Albania",
+      "value": 0,
+      "country": "AL",
+      "imageSource": "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/2.jpg"
+    },
+    {
+      "rank": 3,
+      "title": "Algeria",
+      "value": 0,
+      "country": "DZ",
+      "imageSource": "https://cdn.pixabay.com/photo/2018/09/09/09/12/fennec-fox-3664688_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/3.jpg"
+    },
+    {
+      "rank": 4,
+      "title": "Andorra",
+      "value": 0,
+      "country": "AD",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Rupicapra_pyrenaica_pyrenaica.jpg/1280px-Rupicapra_pyrenaica_pyrenaica.jpg",
+      "imagePath": "covers/national-animals-of-every-country/4.jpg"
+    },
+    {
+      "rank": 5,
+      "title": "Angola",
+      "value": 0,
+      "country": "AO",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Sable_antelope_2_%28Hippotragus_niger%29.jpg/1280px-Sable_antelope_2_%28Hippotragus_niger%29.jpg",
+      "imagePath": "covers/national-animals-of-every-country/5.jpg"
+    },
+    {
+      "rank": 6,
+      "title": "Argentina",
+      "value": 0,
+      "country": "AR",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rufous_Hornero4.jpg/1280px-Rufous_Hornero4.jpg",
+      "imagePath": "covers/national-animals-of-every-country/6.jpg"
+    },
+    {
+      "rank": 7,
+      "title": "Armenia",
+      "value": 0,
+      "country": "AM",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/11/01/09/22/golden-eagle-4593484_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/7.jpg"
+    },
+    {
+      "rank": 8,
+      "title": "Australia",
+      "value": 0,
+      "country": "AU",
+      "imageSource": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/8.jpg"
+    },
+    {
+      "rank": 9,
+      "title": "Austria",
+      "value": 0,
+      "country": "AT",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/11/01/09/22/golden-eagle-4593484_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/9.jpg"
+    },
+    {
+      "rank": 10,
+      "title": "Azerbaijan",
+      "value": 0,
+      "country": "AZ",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Karabakh_horse.jpg/1280px-Karabakh_horse.jpg",
+      "imagePath": "covers/national-animals-of-every-country/10.jpg"
+    },
+    {
+      "rank": 11,
+      "title": "Bahamas",
+      "value": 0,
+      "country": "BS",
+      "imageSource": "https://images.unsplash.com/photo-1516689152820-43a7e2d0dc49?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/11.jpg"
+    },
+    {
+      "rank": 12,
+      "title": "Bahrain",
+      "value": 0,
+      "country": "BH",
+      "imageSource": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/12.jpg"
+    },
+    {
+      "rank": 13,
+      "title": "Bangladesh",
+      "value": 0,
+      "country": "BD",
+      "imageSource": "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/13.jpg"
+    },
+    {
+      "rank": 14,
+      "title": "Belarus",
+      "value": 0,
+      "country": "BY",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/03/14/14/40/bison-4931654_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/14.jpg"
+    },
+    {
+      "rank": 15,
+      "title": "Belgium",
+      "value": 0,
+      "country": "BE",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/15.jpg"
+    },
+    {
+      "rank": 16,
+      "title": "Belize",
+      "value": 0,
+      "country": "BZ",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Tapirus_bairdii.jpg/1280px-Tapirus_bairdii.jpg",
+      "imagePath": "covers/national-animals-of-every-country/16.jpg"
+    },
+    {
+      "rank": 17,
+      "title": "Benin",
+      "value": 0,
+      "country": "BJ",
+      "imageSource": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/17.jpg"
+    },
+    {
+      "rank": 18,
+      "title": "Bhutan",
+      "value": 0,
+      "country": "BT",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Takin_in_Thimphu.jpg/1280px-Takin_in_Thimphu.jpg",
+      "imagePath": "covers/national-animals-of-every-country/18.jpg"
+    },
+    {
+      "rank": 19,
+      "title": "Bolivia",
+      "value": 0,
+      "country": "BO",
+      "imageSource": "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/19.jpg"
+    },
+    {
+      "rank": 20,
+      "title": "Bosnia & Herzegovina",
+      "value": 0,
+      "country": "BA",
+      "imageSource": "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/20.jpg"
+    },
+    {
+      "rank": 21,
+      "title": "Botswana",
+      "value": 0,
+      "country": "BW",
+      "imageSource": "https://images.unsplash.com/photo-1509420316987-d27b02f81864?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/21.jpg"
+    },
+    {
+      "rank": 22,
+      "title": "Brazil",
+      "value": 0,
+      "country": "BR",
+      "imageSource": "https://images.unsplash.com/photo-1603459942373-97aaa5b7fde0?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/22.jpg"
+    },
+    {
+      "rank": 23,
+      "title": "Brunei",
+      "value": 0,
+      "country": "BN",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Haliaeetus_leucogaster_-_Goa_-_India.jpg/1280px-Haliaeetus_leucogaster_-_Goa_-_India.jpg",
+      "imagePath": "covers/national-animals-of-every-country/23.jpg"
+    },
+    {
+      "rank": 24,
+      "title": "Bulgaria",
+      "value": 0,
+      "country": "BG",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/24.jpg"
+    },
+    {
+      "rank": 25,
+      "title": "Burkina Faso",
+      "value": 0,
+      "country": "BF",
+      "imageSource": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/25.jpg"
+    },
+    {
+      "rank": 26,
+      "title": "Burundi",
+      "value": 0,
+      "country": "BI",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Kobus_kob_-_Uganda_kob_02.jpg/1280px-Kobus_kob_-_Uganda_kob_02.jpg",
+      "imagePath": "covers/national-animals-of-every-country/26.jpg"
+    },
+    {
+      "rank": 27,
+      "title": "Cambodia",
+      "value": 0,
+      "country": "KH",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Bos_sauveli.jpg/1280px-Bos_sauveli.jpg",
+      "imagePath": "covers/national-animals-of-every-country/27.jpg"
+    },
+    {
+      "rank": 28,
+      "title": "Cameroon",
+      "value": 0,
+      "country": "CM",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/28.jpg"
+    },
+    {
+      "rank": 29,
+      "title": "Canada",
+      "value": 0,
+      "country": "CA",
+      "imageSource": "https://images.unsplash.com/photo-1596272875729-ed2b8a3b6a91?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/29.jpg"
+    },
+    {
+      "rank": 30,
+      "title": "Cape Verde",
+      "value": 0,
+      "country": "CV",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Grey-headed_kingfisher_%28Halcyon_leucocephala%29.jpg/1280px-Grey-headed_kingfisher_%28Halcyon_leucocephala%29.jpg",
+      "imagePath": "covers/national-animals-of-every-country/30.jpg"
+    },
+    {
+      "rank": 31,
+      "title": "Central African Republic",
+      "value": 0,
+      "country": "CF",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Tragelaphus_eurycerus.jpg/1280px-Tragelaphus_eurycerus.jpg",
+      "imagePath": "covers/national-animals-of-every-country/31.jpg"
+    },
+    {
+      "rank": 32,
+      "title": "Chad",
+      "value": 0,
+      "country": "TD",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/05/14/10/52/goat-5170067_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/32.jpg"
+    },
+    {
+      "rank": 33,
+      "title": "Chile",
+      "value": 0,
+      "country": "CL",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Hippocamelus_bisulcus_in_Torres_del_Paine.jpg/1280px-Hippocamelus_bisulcus_in_Torres_del_Paine.jpg",
+      "imagePath": "covers/national-animals-of-every-country/33.jpg"
+    },
+    {
+      "rank": 34,
+      "title": "China",
+      "value": 0,
+      "country": "CN",
+      "imageSource": "https://images.unsplash.com/photo-1527118732049-c88155f2107c?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/34.jpg"
+    },
+    {
+      "rank": 35,
+      "title": "Colombia",
+      "value": 0,
+      "country": "CO",
+      "imageSource": "https://cdn.pixabay.com/photo/2018/01/28/10/26/vulture-3113732_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/35.jpg"
+    },
+    {
+      "rank": 36,
+      "title": "Comoros",
+      "value": 0,
+      "country": "KM",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Latimeria_chalumnae.jpg/1280px-Latimeria_chalumnae.jpg",
+      "imagePath": "covers/national-animals-of-every-country/36.jpg"
+    },
+    {
+      "rank": 37,
+      "title": "Republic of Congo",
+      "value": 0,
+      "country": "CG",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Afropavo_congensis_-_Planckendael_2.jpg/1280px-Afropavo_congensis_-_Planckendael_2.jpg",
+      "imagePath": "covers/national-animals-of-every-country/37.jpg"
+    },
+    {
+      "rank": 38,
+      "title": "DR Congo",
+      "value": 0,
+      "country": "CD",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Okapi2.jpg/1280px-Okapi2.jpg",
+      "imagePath": "covers/national-animals-of-every-country/38.jpg"
+    },
+    {
+      "rank": 39,
+      "title": "Costa Rica",
+      "value": 0,
+      "country": "CR",
+      "imageSource": "https://images.unsplash.com/photo-1484406566174-9da000fda645?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/39.jpg"
+    },
+    {
+      "rank": 40,
+      "title": "Croatia",
+      "value": 0,
+      "country": "HR",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Martes_martes_crop.jpg/1280px-Martes_martes_crop.jpg",
+      "imagePath": "covers/national-animals-of-every-country/40.jpg"
+    },
+    {
+      "rank": 41,
+      "title": "Cuba",
+      "value": 0,
+      "country": "CU",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Crocodylus_rhombifer.jpg/1280px-Crocodylus_rhombifer.jpg",
+      "imagePath": "covers/national-animals-of-every-country/41.jpg"
+    },
+    {
+      "rank": 42,
+      "title": "Cyprus",
+      "value": 0,
+      "country": "CY",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Mouflon_-_Cyprus.jpg/1280px-Mouflon_-_Cyprus.jpg",
+      "imagePath": "covers/national-animals-of-every-country/42.jpg"
+    },
+    {
+      "rank": 43,
+      "title": "Czech Republic",
+      "value": 0,
+      "country": "CZ",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/43.jpg"
+    },
+    {
+      "rank": 44,
+      "title": "Denmark",
+      "value": 0,
+      "country": "DK",
+      "imageSource": "https://images.unsplash.com/photo-1548946526-f69e2424cf45?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/44.jpg"
+    },
+    {
+      "rank": 45,
+      "title": "Djibouti",
+      "value": 0,
+      "country": "DJ",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Equus_africanus_somaliensis.jpg/1280px-Equus_africanus_somaliensis.jpg",
+      "imagePath": "covers/national-animals-of-every-country/45.jpg"
+    },
+    {
+      "rank": 46,
+      "title": "Dominican Republic",
+      "value": 0,
+      "country": "DO",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Dulus_dominicus.jpg/1280px-Dulus_dominicus.jpg",
+      "imagePath": "covers/national-animals-of-every-country/46.jpg"
+    },
+    {
+      "rank": 47,
+      "title": "Ecuador",
+      "value": 0,
+      "country": "EC",
+      "imageSource": "https://cdn.pixabay.com/photo/2018/01/28/10/26/vulture-3113732_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/47.jpg"
+    },
+    {
+      "rank": 48,
+      "title": "Egypt",
+      "value": 0,
+      "country": "EG",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/08/09/08/02/eagle-5475186_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/48.jpg"
+    },
+    {
+      "rank": 49,
+      "title": "El Salvador",
+      "value": 0,
+      "country": "SV",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Eumomota_superciliosa.jpg/1280px-Eumomota_superciliosa.jpg",
+      "imagePath": "covers/national-animals-of-every-country/49.jpg"
+    },
+    {
+      "rank": 50,
+      "title": "Equatorial Guinea",
+      "value": 0,
+      "country": "GQ",
+      "imageSource": "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/50.jpg"
+    },
+    {
+      "rank": 51,
+      "title": "Eritrea",
+      "value": 0,
+      "country": "ER",
+      "imageSource": "https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/51.jpg"
+    },
+    {
+      "rank": 52,
+      "title": "Estonia",
+      "value": 0,
+      "country": "EE",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/05/01/12/13/barn-swallow-4170839_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/52.jpg"
+    },
+    {
+      "rank": 53,
+      "title": "Ethiopia",
+      "value": 0,
+      "country": "ET",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/53.jpg"
+    },
+    {
+      "rank": 54,
+      "title": "Fiji",
+      "value": 0,
+      "country": "FJ",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Phigys_solitarius.jpg/1280px-Phigys_solitarius.jpg",
+      "imagePath": "covers/national-animals-of-every-country/54.jpg"
+    },
+    {
+      "rank": 55,
+      "title": "Finland",
+      "value": 0,
+      "country": "FI",
+      "imageSource": "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/55.jpg"
+    },
+    {
+      "rank": 56,
+      "title": "France",
+      "value": 0,
+      "country": "FR",
+      "imageSource": "https://cdn.pixabay.com/photo/2013/07/12/17/38/rooster-151842_1280.png",
+      "imagePath": "covers/national-animals-of-every-country/56.jpg"
+    },
+    {
+      "rank": 57,
+      "title": "Gabon",
+      "value": 0,
+      "country": "GA",
+      "imageSource": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/57.jpg"
+    },
+    {
+      "rank": 58,
+      "title": "Gambia",
+      "value": 0,
+      "country": "GM",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/09/14/09/46/hyena-5571015_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/58.jpg"
+    },
+    {
+      "rank": 59,
+      "title": "Georgia",
+      "value": 0,
+      "country": "GE",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/59.jpg"
+    },
+    {
+      "rank": 60,
+      "title": "Germany",
+      "value": 0,
+      "country": "DE",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/11/01/09/22/golden-eagle-4593484_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/60.jpg"
+    },
+    {
+      "rank": 61,
+      "title": "Ghana",
+      "value": 0,
+      "country": "GH",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/08/09/08/02/eagle-5475186_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/61.jpg"
+    },
+    {
+      "rank": 62,
+      "title": "Greece",
+      "value": 0,
+      "country": "GR",
+      "imageSource": "https://images.unsplash.com/photo-1607153333879-c174d265f1d2?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/62.jpg"
+    },
+    {
+      "rank": 63,
+      "title": "Guatemala",
+      "value": 0,
+      "country": "GT",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Pharomachrus_mocinno.jpg/1280px-Pharomachrus_mocinno.jpg",
+      "imagePath": "covers/national-animals-of-every-country/63.jpg"
+    },
+    {
+      "rank": 64,
+      "title": "Guinea-Bissau",
+      "value": 0,
+      "country": "GW",
+      "imageSource": "https://images.unsplash.com/photo-1545128485-c400e7702796?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/64.jpg"
+    },
+    {
+      "rank": 65,
+      "title": "Guyana",
+      "value": 0,
+      "country": "GY",
+      "imageSource": "https://images.unsplash.com/photo-1603459942373-97aaa5b7fde0?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/65.jpg"
+    },
+    {
+      "rank": 66,
+      "title": "Haiti",
+      "value": 0,
+      "country": "HT",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Hispaniolan_Trogon.jpg/1280px-Hispaniolan_Trogon.jpg",
+      "imagePath": "covers/national-animals-of-every-country/66.jpg"
+    },
+    {
+      "rank": 67,
+      "title": "Honduras",
+      "value": 0,
+      "country": "HN",
+      "imageSource": "https://images.unsplash.com/photo-1484406566174-9da000fda645?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/67.jpg"
+    },
+    {
+      "rank": 68,
+      "title": "Hungary",
+      "value": 0,
+      "country": "HU",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Turul_Statue_in_Budapest.jpg/1280px-Turul_Statue_in_Budapest.jpg",
+      "imagePath": "covers/national-animals-of-every-country/68.jpg"
+    },
+    {
+      "rank": 69,
+      "title": "Iceland",
+      "value": 0,
+      "country": "IS",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Gyrfalcon_on_glove.jpg/1280px-Gyrfalcon_on_glove.jpg",
+      "imagePath": "covers/national-animals-of-every-country/69.jpg"
+    },
+    {
+      "rank": 70,
+      "title": "India",
+      "value": 0,
+      "country": "IN",
+      "imageSource": "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/70.jpg"
+    },
+    {
+      "rank": 71,
+      "title": "Indonesia",
+      "value": 0,
+      "country": "ID",
+      "imageSource": "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/71.jpg"
+    },
+    {
+      "rank": 72,
+      "title": "Iran",
+      "value": 0,
+      "country": "IR",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Asiatic_Cheetah_in_Iran.jpg/1280px-Asiatic_Cheetah_in_Iran.jpg",
+      "imagePath": "covers/national-animals-of-every-country/72.jpg"
+    },
+    {
+      "rank": 73,
+      "title": "Iraq",
+      "value": 0,
+      "country": "IQ",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Chukar-Partridge-1.jpg/1280px-Chukar-Partridge-1.jpg",
+      "imagePath": "covers/national-animals-of-every-country/73.jpg"
+    },
+    {
+      "rank": 74,
+      "title": "Ireland",
+      "value": 0,
+      "country": "IE",
+      "imageSource": "https://images.unsplash.com/photo-1484450535522-9a31a5c90b25?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/74.jpg"
+    },
+    {
+      "rank": 75,
+      "title": "Israel",
+      "value": 0,
+      "country": "IL",
+      "imageSource": "https://cdn.pixabay.com/photo/2014/11/22/10/21/bird-541546_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/75.jpg"
+    },
+    {
+      "rank": 76,
+      "title": "Italy",
+      "value": 0,
+      "country": "IT",
+      "imageSource": "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/76.jpg"
+    },
+    {
+      "rank": 77,
+      "title": "Ivory Coast",
+      "value": 0,
+      "country": "CI",
+      "imageSource": "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/77.jpg"
+    },
+    {
+      "rank": 78,
+      "title": "Jamaica",
+      "value": 0,
+      "country": "JM",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Red-billed_Streamertail.jpg/1280px-Red-billed_Streamertail.jpg",
+      "imagePath": "covers/national-animals-of-every-country/78.jpg"
+    },
+    {
+      "rank": 79,
+      "title": "Japan",
+      "value": 0,
+      "country": "JP",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Green_Pheasant_male.jpg/1280px-Green_Pheasant_male.jpg",
+      "imagePath": "covers/national-animals-of-every-country/79.jpg"
+    },
+    {
+      "rank": 80,
+      "title": "Jordan",
+      "value": 0,
+      "country": "JO",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/08/01/10/06/oryx-2564503_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/80.jpg"
+    },
+    {
+      "rank": 81,
+      "title": "Kazakhstan",
+      "value": 0,
+      "country": "KZ",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/81.jpg"
+    },
+    {
+      "rank": 82,
+      "title": "Kenya",
+      "value": 0,
+      "country": "KE",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/82.jpg"
+    },
+    {
+      "rank": 83,
+      "title": "Kiribati",
+      "value": 0,
+      "country": "KI",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/03/27/07/49/magnificent-frigatebird-2179034_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/83.jpg"
+    },
+    {
+      "rank": 84,
+      "title": "Kuwait",
+      "value": 0,
+      "country": "KW",
+      "imageSource": "https://cdn.pixabay.com/photo/2016/09/09/10/49/falcon-1655143_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/84.jpg"
+    },
+    {
+      "rank": 85,
+      "title": "Kyrgyzstan",
+      "value": 0,
+      "country": "KG",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/85.jpg"
+    },
+    {
+      "rank": 86,
+      "title": "Laos",
+      "value": 0,
+      "country": "LA",
+      "imageSource": "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/86.jpg"
+    },
+    {
+      "rank": 87,
+      "title": "Latvia",
+      "value": 0,
+      "country": "LV",
+      "imageSource": "https://cdn.pixabay.com/photo/2016/11/23/13/47/white-wagtail-1852897_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/87.jpg"
+    },
+    {
+      "rank": 88,
+      "title": "Lebanon",
+      "value": 0,
+      "country": "LB",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/09/14/09/46/hyena-5571015_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/88.jpg"
+    },
+    {
+      "rank": 89,
+      "title": "Lesotho",
+      "value": 0,
+      "country": "LS",
+      "imageSource": "https://cdn.pixabay.com/photo/2018/05/08/20/23/kudu-3383780_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/89.jpg"
+    },
+    {
+      "rank": 90,
+      "title": "Liberia",
+      "value": 0,
+      "country": "LR",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Pygmy_hippo_san_diego.jpg/1280px-Pygmy_hippo_san_diego.jpg",
+      "imagePath": "covers/national-animals-of-every-country/90.jpg"
+    },
+    {
+      "rank": 91,
+      "title": "Libya",
+      "value": 0,
+      "country": "LY",
+      "imageSource": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/91.jpg"
+    },
+    {
+      "rank": 92,
+      "title": "Liechtenstein",
+      "value": 0,
+      "country": "LI",
+      "imageSource": "https://images.unsplash.com/photo-1484450535522-9a31a5c90b25?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/92.jpg"
+    },
+    {
+      "rank": 93,
+      "title": "Lithuania",
+      "value": 0,
+      "country": "LT",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/06/09/20/55/white-stork-4262854_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/93.jpg"
+    },
+    {
+      "rank": 94,
+      "title": "Luxembourg",
+      "value": 0,
+      "country": "LU",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/94.jpg"
+    },
+    {
+      "rank": 95,
+      "title": "Madagascar",
+      "value": 0,
+      "country": "MG",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/02/11/22/03/zebu-2058469_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/95.jpg"
+    },
+    {
+      "rank": 96,
+      "title": "Malawi",
+      "value": 0,
+      "country": "MW",
+      "imageSource": "https://cdn.pixabay.com/photo/2021/09/11/12/26/fish-eagle-6615937_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/96.jpg"
+    },
+    {
+      "rank": 97,
+      "title": "Malaysia",
+      "value": 0,
+      "country": "MY",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Malayan_tiger_2009.jpg/1280px-Malayan_tiger_2009.jpg",
+      "imagePath": "covers/national-animals-of-every-country/97.jpg"
+    },
+    {
+      "rank": 98,
+      "title": "Maldives",
+      "value": 0,
+      "country": "MV",
+      "imageSource": "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/98.jpg"
+    },
+    {
+      "rank": 99,
+      "title": "Mali",
+      "value": 0,
+      "country": "ML",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/99.jpg"
+    },
+    {
+      "rank": 100,
+      "title": "Malta",
+      "value": 0,
+      "country": "MT",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Pharaoh_Hound_Malta.jpg/1280px-Pharaoh_Hound_Malta.jpg",
+      "imagePath": "covers/national-animals-of-every-country/100.jpg"
+    },
+    {
+      "rank": 101,
+      "title": "Mauritania",
+      "value": 0,
+      "country": "MR",
+      "imageSource": "https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/101.jpg"
+    },
+    {
+      "rank": 102,
+      "title": "Mauritius",
+      "value": 0,
+      "country": "MU",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Dodo_%28Oxford%29.jpg/1280px-Dodo_%28Oxford%29.jpg",
+      "imagePath": "covers/national-animals-of-every-country/102.jpg"
+    },
+    {
+      "rank": 103,
+      "title": "Mexico",
+      "value": 0,
+      "country": "MX",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/11/01/09/22/golden-eagle-4593484_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/103.jpg"
+    },
+    {
+      "rank": 104,
+      "title": "Moldova",
+      "value": 0,
+      "country": "MD",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/03/14/14/40/bison-4931654_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/104.jpg"
+    },
+    {
+      "rank": 105,
+      "title": "Monaco",
+      "value": 0,
+      "country": "MC",
+      "imageSource": "https://cdn.pixabay.com/photo/2014/10/01/10/44/hedgehog-468228_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/105.jpg"
+    },
+    {
+      "rank": 106,
+      "title": "Mongolia",
+      "value": 0,
+      "country": "MN",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/106.jpg"
+    },
+    {
+      "rank": 107,
+      "title": "Montenegro",
+      "value": 0,
+      "country": "ME",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/11/01/09/22/golden-eagle-4593484_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/107.jpg"
+    },
+    {
+      "rank": 108,
+      "title": "Morocco",
+      "value": 0,
+      "country": "MA",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/108.jpg"
+    },
+    {
+      "rank": 109,
+      "title": "Mozambique",
+      "value": 0,
+      "country": "MZ",
+      "imageSource": "https://cdn.pixabay.com/photo/2021/09/11/12/26/fish-eagle-6615937_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/109.jpg"
+    },
+    {
+      "rank": 110,
+      "title": "Myanmar",
+      "value": 0,
+      "country": "MM",
+      "imageSource": "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/110.jpg"
+    },
+    {
+      "rank": 111,
+      "title": "Namibia",
+      "value": 0,
+      "country": "NA",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/08/01/10/06/oryx-2564503_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/111.jpg"
+    },
+    {
+      "rank": 112,
+      "title": "Nepal",
+      "value": 0,
+      "country": "NP",
+      "imageSource": "https://cdn.pixabay.com/photo/2016/07/29/11/41/cow-1552095_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/112.jpg"
+    },
+    {
+      "rank": 113,
+      "title": "Netherlands",
+      "value": 0,
+      "country": "NL",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/113.jpg"
+    },
+    {
+      "rank": 114,
+      "title": "New Zealand",
+      "value": 0,
+      "country": "NZ",
+      "imageSource": "https://cdn.pixabay.com/photo/2014/11/09/09/52/kiwi-524268_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/114.jpg"
+    },
+    {
+      "rank": 115,
+      "title": "Nicaragua",
+      "value": 0,
+      "country": "NI",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Eumomota_superciliosa.jpg/1280px-Eumomota_superciliosa.jpg",
+      "imagePath": "covers/national-animals-of-every-country/115.jpg"
+    },
+    {
+      "rank": 116,
+      "title": "Niger",
+      "value": 0,
+      "country": "NE",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Addax_nasomaculatus.jpg/1280px-Addax_nasomaculatus.jpg",
+      "imagePath": "covers/national-animals-of-every-country/116.jpg"
+    },
+    {
+      "rank": 117,
+      "title": "Nigeria",
+      "value": 0,
+      "country": "NG",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/08/09/08/02/eagle-5475186_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/117.jpg"
+    },
+    {
+      "rank": 118,
+      "title": "North Korea",
+      "value": 0,
+      "country": "KP",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Chollima_statue_pyongyang.jpg/1280px-Chollima_statue_pyongyang.jpg",
+      "imagePath": "covers/national-animals-of-every-country/118.jpg"
+    },
+    {
+      "rank": 119,
+      "title": "North Macedonia",
+      "value": 0,
+      "country": "MK",
+      "imageSource": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/119.jpg"
+    },
+    {
+      "rank": 120,
+      "title": "Norway",
+      "value": 0,
+      "country": "NO",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/120.jpg"
+    },
+    {
+      "rank": 121,
+      "title": "Oman",
+      "value": 0,
+      "country": "OM",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/08/01/10/06/oryx-2564503_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/121.jpg"
+    },
+    {
+      "rank": 122,
+      "title": "Pakistan",
+      "value": 0,
+      "country": "PK",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/07/26/18/34/markhor-5440330_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/122.jpg"
+    },
+    {
+      "rank": 123,
+      "title": "Panama",
+      "value": 0,
+      "country": "PA",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Harpia_harpyja_-Belize_Zoo-6a.jpg/1280px-Harpia_harpyja_-Belize_Zoo-6a.jpg",
+      "imagePath": "covers/national-animals-of-every-country/123.jpg"
+    },
+    {
+      "rank": 124,
+      "title": "Papua New Guinea",
+      "value": 0,
+      "country": "PG",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/08/03/17/30/bird-of-paradise-2577086_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/124.jpg"
+    },
+    {
+      "rank": 125,
+      "title": "Paraguay",
+      "value": 0,
+      "country": "PY",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lycalopex_gymnocercus.jpg/1280px-Lycalopex_gymnocercus.jpg",
+      "imagePath": "covers/national-animals-of-every-country/125.jpg"
+    },
+    {
+      "rank": 126,
+      "title": "Peru",
+      "value": 0,
+      "country": "PE",
+      "imageSource": "https://cdn.pixabay.com/photo/2016/09/15/19/12/vicuna-1671822_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/126.jpg"
+    },
+    {
+      "rank": 127,
+      "title": "Philippines",
+      "value": 0,
+      "country": "PH",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Philippine_Eagle_-_Mindanao.jpg/1280px-Philippine_Eagle_-_Mindanao.jpg",
+      "imagePath": "covers/national-animals-of-every-country/127.jpg"
+    },
+    {
+      "rank": 128,
+      "title": "Poland",
+      "value": 0,
+      "country": "PL",
+      "imageSource": "https://cdn.pixabay.com/photo/2021/10/16/17/06/white-tailed-eagle-6715289_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/128.jpg"
+    },
+    {
+      "rank": 129,
+      "title": "Portugal",
+      "value": 0,
+      "country": "PT",
+      "imageSource": "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/129.jpg"
+    },
+    {
+      "rank": 130,
+      "title": "Qatar",
+      "value": 0,
+      "country": "QA",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/08/01/10/06/oryx-2564503_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/130.jpg"
+    },
+    {
+      "rank": 131,
+      "title": "Romania",
+      "value": 0,
+      "country": "RO",
+      "imageSource": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/131.jpg"
+    },
+    {
+      "rank": 132,
+      "title": "Russia",
+      "value": 0,
+      "country": "RU",
+      "imageSource": "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/132.jpg"
+    },
+    {
+      "rank": 133,
+      "title": "Rwanda",
+      "value": 0,
+      "country": "RW",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Colobus_guereza_kikuyuensis.jpg/1280px-Colobus_guereza_kikuyuensis.jpg",
+      "imagePath": "covers/national-animals-of-every-country/133.jpg"
+    },
+    {
+      "rank": 134,
+      "title": "Saudi Arabia",
+      "value": 0,
+      "country": "SA",
+      "imageSource": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/134.jpg"
+    },
+    {
+      "rank": 135,
+      "title": "Senegal",
+      "value": 0,
+      "country": "SN",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/135.jpg"
+    },
+    {
+      "rank": 136,
+      "title": "Serbia",
+      "value": 0,
+      "country": "RS",
+      "imageSource": "https://cdn.pixabay.com/photo/2021/10/16/17/06/white-tailed-eagle-6715289_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/136.jpg"
+    },
+    {
+      "rank": 137,
+      "title": "Seychelles",
+      "value": 0,
+      "country": "SC",
+      "imageSource": "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/137.jpg"
+    },
+    {
+      "rank": 138,
+      "title": "Sierra Leone",
+      "value": 0,
+      "country": "SL",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/138.jpg"
+    },
+    {
+      "rank": 139,
+      "title": "Singapore",
+      "value": 0,
+      "country": "SG",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/139.jpg"
+    },
+    {
+      "rank": 140,
+      "title": "Slovakia",
+      "value": 0,
+      "country": "SK",
+      "imageSource": "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/140.jpg"
+    },
+    {
+      "rank": 141,
+      "title": "Slovenia",
+      "value": 0,
+      "country": "SI",
+      "imageSource": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/141.jpg"
+    },
+    {
+      "rank": 142,
+      "title": "Somalia",
+      "value": 0,
+      "country": "SO",
+      "imageSource": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/142.jpg"
+    },
+    {
+      "rank": 143,
+      "title": "South Africa",
+      "value": 0,
+      "country": "ZA",
+      "imageSource": "https://cdn.pixabay.com/photo/2016/12/13/00/08/springbok-1903898_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/143.jpg"
+    },
+    {
+      "rank": 144,
+      "title": "South Korea",
+      "value": 0,
+      "country": "KR",
+      "imageSource": "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/144.jpg"
+    },
+    {
+      "rank": 145,
+      "title": "South Sudan",
+      "value": 0,
+      "country": "SS",
+      "imageSource": "https://cdn.pixabay.com/photo/2021/09/11/12/26/fish-eagle-6615937_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/145.jpg"
+    },
+    {
+      "rank": 146,
+      "title": "Spain",
+      "value": 0,
+      "country": "ES",
+      "imageSource": "https://images.unsplash.com/photo-1548445929-4f60a497f851?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/146.jpg"
+    },
+    {
+      "rank": 147,
+      "title": "Sri Lanka",
+      "value": 0,
+      "country": "LK",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Gallus_lafayettii_Male_I2.jpg/1280px-Gallus_lafayettii_Male_I2.jpg",
+      "imagePath": "covers/national-animals-of-every-country/147.jpg"
+    },
+    {
+      "rank": 148,
+      "title": "Sudan",
+      "value": 0,
+      "country": "SD",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sagittarius_serpentarius_-San_Diego_Zoo-8a.jpg/1280px-Sagittarius_serpentarius_-San_Diego_Zoo-8a.jpg",
+      "imagePath": "covers/national-animals-of-every-country/148.jpg"
+    },
+    {
+      "rank": 149,
+      "title": "Suriname",
+      "value": 0,
+      "country": "SR",
+      "imageSource": "https://images.unsplash.com/photo-1603459942373-97aaa5b7fde0?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/149.jpg"
+    },
+    {
+      "rank": 150,
+      "title": "Sweden",
+      "value": 0,
+      "country": "SE",
+      "imageSource": "https://images.unsplash.com/photo-1484406566174-9da000fda645?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/150.jpg"
+    },
+    {
+      "rank": 151,
+      "title": "Switzerland",
+      "value": 0,
+      "country": "CH",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/02/07/10/00/ibex-4827836_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/151.jpg"
+    },
+    {
+      "rank": 152,
+      "title": "Syria",
+      "value": 0,
+      "country": "SY",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/08/09/08/02/eagle-5475186_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/152.jpg"
+    },
+    {
+      "rank": 153,
+      "title": "Taiwan",
+      "value": 0,
+      "country": "TW",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Ursus_thibetanus.jpg/1280px-Ursus_thibetanus.jpg",
+      "imagePath": "covers/national-animals-of-every-country/153.jpg"
+    },
+    {
+      "rank": 154,
+      "title": "Tajikistan",
+      "value": 0,
+      "country": "TJ",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/154.jpg"
+    },
+    {
+      "rank": 155,
+      "title": "Tanzania",
+      "value": 0,
+      "country": "TZ",
+      "imageSource": "https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/155.jpg"
+    },
+    {
+      "rank": 156,
+      "title": "Thailand",
+      "value": 0,
+      "country": "TH",
+      "imageSource": "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/156.jpg"
+    },
+    {
+      "rank": 157,
+      "title": "Timor-Leste",
+      "value": 0,
+      "country": "TL",
+      "imageSource": "https://images.unsplash.com/photo-1610098882118-ce50c7e0e8bc?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/157.jpg"
+    },
+    {
+      "rank": 158,
+      "title": "Togo",
+      "value": 0,
+      "country": "TG",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/158.jpg"
+    },
+    {
+      "rank": 159,
+      "title": "Trinidad & Tobago",
+      "value": 0,
+      "country": "TT",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Eudocimus_ruber_-Asa_Wright_Nature_Centre%2C_Trinidad-8.jpg/1280px-Eudocimus_ruber_-Asa_Wright_Nature_Centre%2C_Trinidad-8.jpg",
+      "imagePath": "covers/national-animals-of-every-country/159.jpg"
+    },
+    {
+      "rank": 160,
+      "title": "Tunisia",
+      "value": 0,
+      "country": "TN",
+      "imageSource": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/160.jpg"
+    },
+    {
+      "rank": 161,
+      "title": "Turkey",
+      "value": 0,
+      "country": "TR",
+      "imageSource": "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/161.jpg"
+    },
+    {
+      "rank": 162,
+      "title": "Turkmenistan",
+      "value": 0,
+      "country": "TM",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Akhal-Teke_horse.jpg/1280px-Akhal-Teke_horse.jpg",
+      "imagePath": "covers/national-animals-of-every-country/162.jpg"
+    },
+    {
+      "rank": 163,
+      "title": "Uganda",
+      "value": 0,
+      "country": "UG",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/10/02/13/11/grey-crowned-crane-4521043_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/163.jpg"
+    },
+    {
+      "rank": 164,
+      "title": "Ukraine",
+      "value": 0,
+      "country": "UA",
+      "imageSource": "https://cdn.pixabay.com/photo/2019/05/13/12/56/nightingale-4200994_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/164.jpg"
+    },
+    {
+      "rank": 165,
+      "title": "United Arab Emirates",
+      "value": 0,
+      "country": "AE",
+      "imageSource": "https://cdn.pixabay.com/photo/2016/09/09/10/49/falcon-1655143_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/165.jpg"
+    },
+    {
+      "rank": 166,
+      "title": "United Kingdom",
+      "value": 0,
+      "country": "GB",
+      "imageSource": "https://images.unsplash.com/photo-1546182208-6561bfd78498?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/166.jpg"
+    },
+    {
+      "rank": 167,
+      "title": "United States",
+      "value": 0,
+      "country": "US",
+      "imageSource": "https://images.unsplash.com/photo-1611689342806-0863700b71b9?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/167.jpg"
+    },
+    {
+      "rank": 168,
+      "title": "Uruguay",
+      "value": 0,
+      "country": "UY",
+      "imageSource": "https://cdn.pixabay.com/photo/2020/06/17/09/24/lapwing-5309174_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/168.jpg"
+    },
+    {
+      "rank": 169,
+      "title": "Uzbekistan",
+      "value": 0,
+      "country": "UZ",
+      "imageSource": "https://images.unsplash.com/photo-1615952739265-d5a1a4e547ed?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/169.jpg"
+    },
+    {
+      "rank": 170,
+      "title": "Venezuela",
+      "value": 0,
+      "country": "VE",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Icterus_icterus_-_Troupial.jpg/1280px-Icterus_icterus_-_Troupial.jpg",
+      "imagePath": "covers/national-animals-of-every-country/170.jpg"
+    },
+    {
+      "rank": 171,
+      "title": "Vietnam",
+      "value": 0,
+      "country": "VN",
+      "imageSource": "https://cdn.pixabay.com/photo/2018/07/02/08/29/water-buffalo-3510371_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/171.jpg"
+    },
+    {
+      "rank": 172,
+      "title": "Yemen",
+      "value": 0,
+      "country": "YE",
+      "imageSource": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/172.jpg"
+    },
+    {
+      "rank": 173,
+      "title": "Zambia",
+      "value": 0,
+      "country": "ZM",
+      "imageSource": "https://cdn.pixabay.com/photo/2021/09/11/12/26/fish-eagle-6615937_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/173.jpg"
+    },
+    {
+      "rank": 174,
+      "title": "Zimbabwe",
+      "value": 0,
+      "country": "ZW",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Sable_antelope_2_%28Hippotragus_niger%29.jpg/1280px-Sable_antelope_2_%28Hippotragus_niger%29.jpg",
+      "imagePath": "covers/national-animals-of-every-country/174.jpg"
+    },
+    {
+      "rank": 175,
+      "title": "Scotland",
+      "value": 0,
+      "country": "GB",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Unicorn_Statue_Edinburgh.jpg/1280px-Unicorn_Statue_Edinburgh.jpg",
+      "imagePath": "covers/national-animals-of-every-country/175.jpg"
+    },
+    {
+      "rank": 176,
+      "title": "Wales",
+      "value": 0,
+      "country": "GB",
+      "imageSource": "https://cdn.pixabay.com/photo/2012/04/11/17/55/red-29445_1280.png",
+      "imagePath": "covers/national-animals-of-every-country/176.jpg"
+    },
+    {
+      "rank": 177,
+      "title": "Barbados",
+      "value": 0,
+      "country": "BB",
+      "imageSource": "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?w=1200&q=85",
+      "imagePath": "covers/national-animals-of-every-country/177.jpg"
+    },
+    {
+      "rank": 178,
+      "title": "Dominica",
+      "value": 0,
+      "country": "DM",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Amazona_imperialis.jpg/1280px-Amazona_imperialis.jpg",
+      "imagePath": "covers/national-animals-of-every-country/178.jpg"
+    },
+    {
+      "rank": 179,
+      "title": "Grenada",
+      "value": 0,
+      "country": "GD",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Leptotila_wellsi.jpg/1280px-Leptotila_wellsi.jpg",
+      "imagePath": "covers/national-animals-of-every-country/179.jpg"
+    },
+    {
+      "rank": 180,
+      "title": "Saint Lucia",
+      "value": 0,
+      "country": "LC",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Amazona_versicolor.jpg/1280px-Amazona_versicolor.jpg",
+      "imagePath": "covers/national-animals-of-every-country/180.jpg"
+    },
+    {
+      "rank": 181,
+      "title": "Samoa",
+      "value": 0,
+      "country": "WS",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Didunculus_strigirostris.jpg/1280px-Didunculus_strigirostris.jpg",
+      "imagePath": "covers/national-animals-of-every-country/181.jpg"
+    },
+    {
+      "rank": 182,
+      "title": "Tonga",
+      "value": 0,
+      "country": "TO",
+      "imageSource": "https://cdn.pixabay.com/photo/2018/09/14/17/58/dove-3677671_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/182.jpg"
+    },
+    {
+      "rank": 183,
+      "title": "Vanuatu",
+      "value": 0,
+      "country": "VU",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Dugongugon.jpg/1280px-Dugongugon.jpg",
+      "imagePath": "covers/national-animals-of-every-country/183.jpg"
+    },
+    {
+      "rank": 184,
+      "title": "Micronesia",
+      "value": 0,
+      "country": "FM",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/08/03/17/30/bird-of-paradise-2577086_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/184.jpg"
+    },
+    {
+      "rank": 185,
+      "title": "Palau",
+      "value": 0,
+      "country": "PW",
+      "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Dugongugon.jpg/1280px-Dugongugon.jpg",
+      "imagePath": "covers/national-animals-of-every-country/185.jpg"
+    },
+    {
+      "rank": 186,
+      "title": "Nauru",
+      "value": 0,
+      "country": "NR",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/03/27/07/49/magnificent-frigatebird-2179034_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/186.jpg"
+    },
+    {
+      "rank": 187,
+      "title": "Tuvalu",
+      "value": 0,
+      "country": "TV",
+      "imageSource": "https://cdn.pixabay.com/photo/2017/03/27/07/49/magnificent-frigatebird-2179034_1280.jpg",
+      "imagePath": "covers/national-animals-of-every-country/187.jpg"
+    }
+  ]
+}

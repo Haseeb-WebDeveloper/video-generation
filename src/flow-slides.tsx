@@ -32,7 +32,9 @@ function fitCoverDims(imgW: number, imgH: number): { w: number; h: number } {
 }
 
 const LABEL_PLANE_W = 11.5;
-const LABEL_PLANE_H = (LABEL_PLANE_W * 760) / 2048;
+// Aspect must match the LABEL canvas (LABEL_H / LABEL_W defined below).
+// LABEL_W/H are declared later so we hardcode the same ratio here.
+const LABEL_PLANE_H = (LABEL_PLANE_W * 380) / 1024;
 const LABEL_GAP = 0.45;
 
 // Fixed EDGE-TO-EDGE gap between adjacent cards. Card center positions are
@@ -314,8 +316,14 @@ function CameraRig({
 }
 
 // ───── Cover label texture ─────
-const LABEL_W = 2048;
-const LABEL_H = 760;
+// Sized for ~1080p output. The label plane occupies ~700–900 display pixels,
+// so 1024×380 is already ~1.3× oversampled — going larger only burned GPU
+// memory (the prior 2048×760 OOM'd long compositions at concurrency=6).
+// All other label sizes (font, gaps, padding) derive from these via ratios,
+// so adjusting them here scales the whole label proportionally — keep the
+// LABEL_PLANE_H aspect at the top of this file in sync.
+const LABEL_W = 1024;
+const LABEL_H = 380;
 
 // Pick a single font size for the whole episode: the largest size where the
 // longest value text still fits in the label width. Every card then renders
@@ -329,6 +337,7 @@ function chooseLabelFontSize(
   items: EpisodeItem[],
   unitLabel: string,
   valueFormat: "compact" | "raw" = "compact",
+  valueNoSpace: boolean = false,
 ): number {
   const c = document.createElement("canvas");
   const ctx = c.getContext("2d")!;
@@ -336,11 +345,22 @@ function chooseLabelFontSize(
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
   const maxW = LABEL_W * 0.94;
 
+  // Inline gap between the (white) unitPrefix and the (orange) value when an
+  // item supplies a prefix. Has to be reflected here too so the sizing pass
+  // doesn't pick a font that overflows once the prefix is composited inline.
+  const PREFIX_GAP_FRAC = 0.25;
+
+  const valueJoin = valueNoSpace ? "" : " ";
   ctx.font = `600 ${LABEL_FONT_BASE}px ${FONT}`;
   let widestValue = 0;
   for (const it of items) {
-    const text = `${formatValue(it.value, valueFormat)} ${unitLabel}`;
-    const w = ctx.measureText(text).width;
+    const valueText = `${formatValue(it.value, valueFormat)}${valueJoin}${unitLabel}`;
+    ctx.font = `600 ${LABEL_FONT_BASE}px ${FONT}`;
+    let w = ctx.measureText(valueText).width;
+    if (it.unitPrefix) {
+      ctx.font = `700 ${LABEL_FONT_BASE}px ${FONT}`;
+      w += ctx.measureText(it.unitPrefix).width + LABEL_FONT_BASE * PREFIX_GAP_FRAC;
+    }
     if (w > widestValue) widestValue = w;
   }
   let candidate =
@@ -353,8 +373,13 @@ function chooseLabelFontSize(
   // (topY=0.08H, lineH=1.08F, valueGap=0.05H, descender≈0.25F):
   //   0.13H + 3.16F + 0.25F ≤ H  →  F ≤ 0.255H
   ctx.font = `700 ${candidate}px ${FONT}`;
+  // An explicit "\n" in a title forces a 2-line layout regardless of width,
+  // so it counts as a wrap for sizing purposes (otherwise a short pair like
+  // "Iran\nIslam" would render at the single-line base size and overlap the
+  // value below).
   const anyWraps = items.some(
-    (it) => ctx.measureText(it.title).width > maxW,
+    (it) =>
+      it.title.includes("\n") || ctx.measureText(it.title).width > maxW,
   );
   if (anyWraps) {
     candidate = Math.min(candidate, Math.floor(LABEL_H * 0.25));
@@ -368,6 +393,7 @@ function makeLabel(
   unitLabel: string,
   fontSize: number,
   valueFormat: "compact" | "raw" = "compact",
+  valueNoSpace: boolean = false,
 ): THREE.CanvasTexture {
   const c = document.createElement("canvas");
   c.width = LABEL_W;
@@ -378,15 +404,24 @@ function makeLabel(
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
-  const valueText = `${formatValue(item.value, valueFormat)} ${unitLabel}`;
+  const valueJoin = valueNoSpace ? "" : " ";
+  const valueText = `${formatValue(item.value, valueFormat)}${valueJoin}${unitLabel}`;
   const maxW = LABEL_W * 0.94;
+  const PREFIX_GAP_FRAC = 0.25;
 
   // Title may need to wrap to 2 lines at the fixed size. Value stays single
   // line — its size already drove the episode-wide font size selection so
   // it's guaranteed to fit.
+  //
+  // Authors can also force a specific line break by putting "\n" in the
+  // title (e.g. "Country\nReligion" for the religion-by-country episode).
+  // Explicit breaks beat the word-wrap heuristic so multi-word countries
+  // don't get split in the wrong place.
   let titleLines: string[];
   ctx.font = `700 ${fontSize}px ${FONT}`;
-  if (ctx.measureText(item.title).width <= maxW) {
+  if (item.title.includes("\n")) {
+    titleLines = item.title.split("\n");
+  } else if (ctx.measureText(item.title).width <= maxW) {
     titleLines = [item.title];
   } else {
     const words = item.title.split(" ");
@@ -419,10 +454,36 @@ function makeLabel(
     ctx.fillText(titleLines[i], LABEL_W / 2, y);
   }
 
-  ctx.fillStyle = ACCENT_ORANGE;
-  ctx.font = `600 ${fontSize}px ${FONT}`;
   const valueY = topY + titleLines.length * lineH + valueGap + fontSize;
-  ctx.fillText(valueText, LABEL_W / 2, valueY);
+
+  if (item.unitPrefix) {
+    // Mixed-color single line: prefix in white (700) + value+unit in orange
+    // (600), centered together as one block. Used for "Country" title + a
+    // per-item "Religion 96%" line, so the religion stays beside the
+    // number instead of consuming a separate line above it.
+    ctx.font = `700 ${fontSize}px ${FONT}`;
+    const prefixW = ctx.measureText(item.unitPrefix).width;
+    ctx.font = `600 ${fontSize}px ${FONT}`;
+    const valueW = ctx.measureText(valueText).width;
+    const innerGap = fontSize * PREFIX_GAP_FRAC;
+    const totalW = prefixW + innerGap + valueW;
+    const startX = (LABEL_W - totalW) / 2;
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `700 ${fontSize}px ${FONT}`;
+    ctx.fillText(item.unitPrefix, startX, valueY);
+
+    ctx.fillStyle = ACCENT_ORANGE;
+    ctx.font = `600 ${fontSize}px ${FONT}`;
+    ctx.fillText(valueText, startX + prefixW + innerGap, valueY);
+
+    ctx.textAlign = "center";
+  } else {
+    ctx.fillStyle = ACCENT_ORANGE;
+    ctx.font = `600 ${fontSize}px ${FONT}`;
+    ctx.fillText(valueText, LABEL_W / 2, valueY);
+  }
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -544,8 +605,12 @@ function makeIntroLabel(
 }
 
 // ───── Rank badge texture ─────
-const RANK_W = 1024;
-const RANK_H = 512;
+// Same reasoning as LABEL_W/H above — the rank plane (~3.4 world units wide)
+// renders at well under 256 display pixels at 1080p, so 512×256 is already
+// generous oversampling. Internal layout is ratio-based on RANK_H, so this
+// scales cleanly.
+const RANK_W = 512;
+const RANK_H = 256;
 
 function makeRankTex(rank: number): THREE.CanvasTexture {
   const c = document.createElement("canvas");
@@ -666,7 +731,7 @@ function FloatingCover({
   x: number;
   coverTex: THREE.Texture;
   labelTex: THREE.Texture;
-  rankTex: THREE.Texture;
+  rankTex?: THREE.Texture;
   coverW: number;
   coverH: number;
 }) {
@@ -678,10 +743,12 @@ function FloatingCover({
 
   return (
     <group position={[x, ROW_Y, ROW_Z]}>
-      <mesh position={[0, rankY, 0.02]}>
-        <planeGeometry args={[RANK_PLANE_W, RANK_PLANE_H]} />
-        <meshBasicMaterial map={rankTex} transparent depthWrite={false} />
-      </mesh>
+      {rankTex && (
+        <mesh position={[0, rankY, 0.02]}>
+          <planeGeometry args={[RANK_PLANE_W, RANK_PLANE_H]} />
+          <meshBasicMaterial map={rankTex} transparent depthWrite={false} />
+        </mesh>
+      )}
 
       <mesh position={[0, 0, -COVER_BORDER_DEPTH]}>
         <boxGeometry
@@ -883,8 +950,9 @@ function Scene({
         items,
         episode.unitLabel,
         episode.valueFormat ?? "compact",
+        episode.valueNoSpace ?? false,
       ),
-    [items, episode.unitLabel, episode.valueFormat],
+    [items, episode.unitLabel, episode.valueFormat, episode.valueNoSpace],
   );
   const labels = useMemo(
     () =>
@@ -894,9 +962,16 @@ function Scene({
           episode.unitLabel,
           labelFontSize,
           episode.valueFormat ?? "compact",
+          episode.valueNoSpace ?? false,
         ),
       ),
-    [items, episode.unitLabel, labelFontSize, episode.valueFormat],
+    [
+      items,
+      episode.unitLabel,
+      labelFontSize,
+      episode.valueFormat,
+      episode.valueNoSpace,
+    ],
   );
   const introLabels = useMemo(
     () =>
@@ -906,7 +981,7 @@ function Scene({
     [validIntro, labelFontSize],
   );
   const ranks = useMemo(
-    () => items.map((it) => makeRankTex(it.rank)),
+    () => items.map((it) => (it.rank ? makeRankTex(it.rank) : undefined)),
     [items],
   );
   const titleTex = useMemo(
@@ -997,7 +1072,11 @@ export const FlowSlidesComposition: React.FC<{ episode: Episode }> = ({
         </Suspense>
       </ThreeCanvas>
       {episode.audioPath && (
-        <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} />
+        // `loop` so a short music bed (~5 min) repeats across a long
+        // composition (~15+ min for many-item episodes). Remotion treats
+        // it as a no-op when the clip is already at least as long as the
+        // composition, so this is safe across every episode.
+        <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
       )}
     </AbsoluteFill>
   );

@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.19.3",
     "@imgly/background-removal-node": "^1.4.5",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "9.6.0",
@@ -40,6 +41,7 @@
     "upscale": "node scripts/upscale-image.mjs",
     "remove-bg": "node scripts/remove-bg.mjs",
     "render": "node scripts/render-episode.mjs",
+    "race-roll": "node scripts/race-roll.mjs",
     "youtube-auth": "node scripts/youtube-auth.mjs",
     "publish-episode": "node scripts/publish-episode.mjs"
   },

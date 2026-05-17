@@ -183,10 +183,12 @@ type FocusPose = { camPos: Vec3; lookAt: Vec3 };
 // bar. Peak velocity inside each curve is several × V_BAR — the visible
 // "cinematic dive in/out." The math links the seams so there are no
 // velocity jolts.
-const INTRO_FRAMES = 150; // ~2.5s cinematic dive into the first bar
-const PER_ITEM_FRAMES = 200; // ~3.3s per bar at constant velocity
-const EXIT_FRAMES = 180; // ~3.0s — dive away from last bar
-const HOLD_OUTRO = 90; // ~1.5s static outro hold
+// Frame counts at 30 fps — halve/double in lockstep if the root fps
+// changes (see Root.tsx). Seconds in the comments are authoritative.
+const INTRO_FRAMES = 75; // ~2.5s cinematic dive into the first bar
+const PER_ITEM_FRAMES = 100; // ~3.3s per bar at constant velocity
+const EXIT_FRAMES = 90; // ~3.0s — dive away from last bar
+const HOLD_OUTRO = 45; // ~1.5s static outro hold
 
 // Where the camera starts at frame 0 relative to the first bar.
 //   -X = to the LEFT of bar 0 (camera will slide right into it)
@@ -1293,7 +1295,9 @@ export const BarSlidesComposition: React.FC<{ episode: Episode }> = ({
         <CameraRig frame={frame} runtime={runtime} />
       </ThreeCanvas>
       {episode.audioPath && (
-        <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} />
+        // `loop` so a short music bed repeats across long compositions.
+        // No-op when the clip is already at least the composition length.
+        <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
       )}
     </AbsoluteFill>
   );
