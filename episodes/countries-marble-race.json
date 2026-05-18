@@ -1,0 +1,196 @@
+{
+  "slug": "countries-marble-race",
+  "title": [
+    "MARBLE RACE",
+    "WHO WILL WIN?"
+  ],
+  "outro": [
+    "WHICH COUNTRY DID YOU BET ON?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "",
+  "valueFormat": "raw",
+  "coverFit": "cover",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.3,
+  "raceObject": "ball",
+  "raceTrackStyle": "neon",
+  "items": [
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/1.jpg"
+    },
+    {
+      "title": "China",
+      "value": 1,
+      "country": "CN",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/2.jpg"
+    },
+    {
+      "title": "India",
+      "value": 1,
+      "country": "IN",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/3.jpg"
+    },
+    {
+      "title": "Germany",
+      "value": 1,
+      "country": "DE",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/4.jpg"
+    },
+    {
+      "title": "Russia",
+      "value": 1,
+      "country": "RU",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/5.jpg"
+    },
+    {
+      "title": "Italy",
+      "value": 1,
+      "country": "IT",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/6.jpg"
+    },
+    {
+      "title": "Canada",
+      "value": 1,
+      "country": "CA",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/7.jpg"
+    },
+    {
+      "title": "Hong Kong",
+      "value": 1,
+      "country": "HK",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/8.jpg"
+    },
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/9.jpg"
+    },
+    {
+      "title": "Taiwan",
+      "value": 1,
+      "country": "TW",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/10.jpg"
+    },
+    {
+      "title": "United Kingdom",
+      "value": 1,
+      "country": "GB",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/11.jpg"
+    },
+    {
+      "title": "Singapore",
+      "value": 1,
+      "country": "SG",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/12.jpg"
+    },
+    {
+      "title": "France",
+      "value": 1,
+      "country": "FR",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/13.jpg"
+    },
+    {
+      "title": "Sweden",
+      "value": 1,
+      "country": "SE",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/14.jpg"
+    },
+    {
+      "title": "South Korea",
+      "value": 1,
+      "country": "KR",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/15.jpg"
+    },
+    {
+      "title": "Australia",
+      "value": 1,
+      "country": "AU",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/16.jpg"
+    },
+    {
+      "title": "Switzerland",
+      "value": 1,
+      "country": "CH",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/17.jpg"
+    },
+    {
+      "title": "Israel",
+      "value": 1,
+      "country": "IL",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/18.jpg"
+    },
+    {
+      "title": "Japan",
+      "value": 1,
+      "country": "JP",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/19.jpg"
+    },
+    {
+      "title": "Spain",
+      "value": 1,
+      "country": "ES",
+      "imagePath": "covers/top-20-countries-with-most-billionaires/20.jpg"
+    }
+  ],
+  "raceSeed": 580408075,
+  "raceBakePath": "race-bakes/countries-marble-race.bin",
+  "raceResult": {
+    "finishOrder": [
+      18,
+      12,
+      6,
+      0,
+      14,
+      17,
+      2,
+      16,
+      1,
+      13,
+      5,
+      9,
+      19,
+      3,
+      10,
+      15,
+      7,
+      8,
+      4
+    ],
+    "finishFrames": [
+      977,
+      986,
+      1012,
+      1038,
+      1432,
+      1844,
+      1896,
+      2010,
+      2034,
+      2054,
+      2152,
+      2257,
+      2271,
+      2381,
+      2569,
+      2607,
+      2908,
+      2955,
+      3068
+    ],
+    "eliminations": [
+      {
+        "index": 11,
+        "frame": 7199
+      }
+    ],
+    "raceFrames": 7200
+  }
+}

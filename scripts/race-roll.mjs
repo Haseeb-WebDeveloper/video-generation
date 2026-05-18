@@ -31,31 +31,56 @@ import { loadEpisode, writeEpisode } from "./lib/episode-loader.mjs";
 
 // ───── Track constants (match values consumed by src/race-slides.tsx) ─────
 // Any change here invalidates existing bakes; bump RACE_TRACK_VERSION too.
-export const RACE_TRACK_VERSION = 1;
+export const RACE_TRACK_VERSION = 3;
 
 // World gravity: tilted so +X is downhill. TRACK_TILT_DEG = 22 gives an
-// effective downslope acceleration of g*sin(22°) ≈ 3.67 m/s², which after
-// peg drag produces a ~18-22-second race over a 140-unit alley. Steeper =
-// faster = less time for drama; shallower = the back of the pack lags too
-// long and viewers drop. 14° tested too slow (hit the 50s cap).
-const TRACK_TILT_DEG = 30;
+// effective downslope acceleration of g*sin(22°) ≈ 3.67 m/s². On a 350-unit
+// track with the multi-section obstacle field, this produces a ~80-100s
+// race — slow enough for a multi-shot edit, fast enough that no section
+// drags. Steeper = race finishes too quickly to cover with cuts; shallower
+// = trailing balls get stuck in the funnel section forever.
+const TRACK_TILT_DEG = 16;
 const GRAVITY_MAG = 9.81;
 
-const TRACK_LEN = 110; // x in [0, TRACK_LEN]
-const TRACK_HALF_Z = 12; // z in [-TRACK_HALF_Z, +TRACK_HALF_Z]
+const TRACK_LEN = 200; // x in [0, TRACK_LEN] — short straight run
+const TRACK_HALF_Z = 11; // z in [-TRACK_HALF_Z, +TRACK_HALF_Z]
 const FLOOR_Y = 0;
-const WALL_HEIGHT = 4;
-const FINISH_X = TRACK_LEN - 5; // x value that counts as crossing the line
+// Platform-edge lip height. The reference (ref.jpeg) has just a low
+// marble edge around the lane, not a tall wall — the COLLIDER is still
+// 4 units tall though, so balls launched by collisions can't fly off
+// the side. Only the VISUAL is the low lip.
+const WALL_HEIGHT_COLLIDER = 4;
+const FINISH_X = TRACK_LEN - 6; // x value that counts as crossing the line
 const KILL_Y = -5; // y below this = ball is gone (eliminated)
 
 const BALL_R = 0.7;
-const PEG_R = 0.45;
+const PEG_R = 0.5;
 const PEG_H = 2.0;
+const PIN_R = 0.35;
+const PIN_H = 1.8;
+const WALL_THICKNESS = 0.8;
+
+// ───── Section spec — MUST mirror src/race-slides.tsx ─────
+// Each section has a start/end x-coordinate and a kind. The obstacle
+// generators below consume rand() in a fixed order per kind, so the same
+// seed reproduces identical layouts between this script and the renderer.
+// To add a new kind: update SECTIONS here AND in race-slides.tsx, then
+// add matching generator functions in both. Bump RACE_TRACK_VERSION.
+const SECTIONS = [
+  // Four DIFFERENT obstacle kinds across the 200-unit straight run.
+  // Earlier "wedges + pins repeated" looked monotonous; now each section
+  // has a visually distinct kind so the race has texture.
+  { kind: "pillars", x0: 14,  x1: 55  }, // tall thin marble pillars
+  { kind: "plinths", x0: 55,  x1: 100 }, // low landscape marble plinths
+  { kind: "cones",   x0: 100, x1: 140 }, // marble cone bumpers
+  { kind: "spheres", x0: 140, x1: 180 }, // fixed marble spheres
+  // 180 → 194 open final stretch to the finish line.
+];
 
 // Race timing.
 const FPS = 60;
-const MAX_RACE_SECONDS = 35; // safety cap; balls that haven't finished by now
-//                              are recorded as eliminations at MAX.
+const MAX_RACE_SECONDS = 120; // safety cap; with the longer track, balls
+// stuck in funnel sections can take a while — generous cap so they finish.
 const MAX_FRAMES = MAX_RACE_SECONDS * FPS;
 
 // ───── CLI parsing ─────
@@ -244,6 +269,25 @@ function simulateRace({ items, seed }) {
     raceFrames * N * 7,
   ).slice(); // .slice() detaches from the oversize buffer
 
+  // Debug: how far did the stuck balls actually get? Helps tune obstacle
+  // tightness — bottlenecked balls cluster at one section boundary.
+  const stuckXs = [];
+  for (let i = 0; i < N; i++) {
+    if (!finished.has(i)) {
+      const off = ((raceFrames - 1) * N + i) * 7;
+      stuckXs.push({ i, x: Math.round(bake[off]), y: Math.round(bake[off + 1]) });
+    }
+  }
+  if (stuckXs.length > 0) {
+    console.log(
+      `  stuck @ ` +
+        stuckXs
+          .sort((a, b) => a.x - b.x)
+          .map((s) => `i${s.i}:${s.x}`)
+          .join(" "),
+    );
+  }
+
   return {
     bake: trimmed,
     finishOrder,
@@ -271,12 +315,12 @@ function buildTrack({ world, rand }) {
     const wall = world.createRigidBody(
       RAPIER.RigidBodyDesc.fixed().setTranslation(
         TRACK_LEN / 2,
-        FLOOR_Y + WALL_HEIGHT / 2,
+        FLOOR_Y + WALL_HEIGHT_COLLIDER / 2,
         zSign * (TRACK_HALF_Z + 0.5),
       ),
     );
     world.createCollider(
-      RAPIER.ColliderDesc.cuboid(TRACK_LEN / 2, WALL_HEIGHT / 2, 0.5)
+      RAPIER.ColliderDesc.cuboid(TRACK_LEN / 2, WALL_HEIGHT_COLLIDER / 2, 0.5)
         .setFriction(0.3)
         .setRestitution(0.2),
       wall,
@@ -286,10 +330,10 @@ function buildTrack({ world, rand }) {
   // Back wall (start gate) at x = -1, so balls placed at x ∈ [0, 6] can't
   // roll uphill out of bounds during the initial settle.
   const back = world.createRigidBody(
-    RAPIER.RigidBodyDesc.fixed().setTranslation(-1, FLOOR_Y + WALL_HEIGHT / 2, 0),
+    RAPIER.RigidBodyDesc.fixed().setTranslation(-1, FLOOR_Y + WALL_HEIGHT_COLLIDER / 2, 0),
   );
   world.createCollider(
-    RAPIER.ColliderDesc.cuboid(0.5, WALL_HEIGHT / 2, TRACK_HALF_Z)
+    RAPIER.ColliderDesc.cuboid(0.5, WALL_HEIGHT_COLLIDER / 2, TRACK_HALF_Z)
       .setFriction(0.2)
       .setRestitution(0.4),
     back,
@@ -300,38 +344,180 @@ function buildTrack({ world, rand }) {
   const front = world.createRigidBody(
     RAPIER.RigidBodyDesc.fixed().setTranslation(
       TRACK_LEN + 0.5,
-      FLOOR_Y + WALL_HEIGHT / 2,
+      FLOOR_Y + WALL_HEIGHT_COLLIDER / 2,
       0,
     ),
   );
   world.createCollider(
-    RAPIER.ColliderDesc.cuboid(0.5, WALL_HEIGHT / 2, TRACK_HALF_Z)
+    RAPIER.ColliderDesc.cuboid(0.5, WALL_HEIGHT_COLLIDER / 2, TRACK_HALF_Z)
       .setFriction(0.3)
       .setRestitution(0.15),
     front,
   );
 
-  // Peg field. Pegs are vertical cylinders standing up out of the floor.
-  // They live mostly in the middle 60% of the track so the start and
-  // finish stretches stay clean.
-  const PEG_X_MIN = 15;
-  const PEG_X_MAX = TRACK_LEN - 18;
-  const PEG_ROW_DX = 9;
-  const PEG_ROW_DZ = 6;
-  const numRows = Math.floor((PEG_X_MAX - PEG_X_MIN) / PEG_ROW_DX);
-  for (let row = 0; row < numRows; row++) {
-    const x = PEG_X_MIN + row * PEG_ROW_DX;
-    const offset = row % 2 === 0 ? 0 : PEG_ROW_DZ / 2;
+  // Dispatch to per-section obstacle generators. Order matters — each
+  // generator consumes rand() in a fixed sequence so the renderer (which
+  // re-runs the same RNG with the same seed) places its visual meshes
+  // exactly on top of the physics colliders.
+  for (const section of SECTIONS) {
+    if (section.kind === "pillars") buildPillars(world, rand, section);
+    else if (section.kind === "plinths") buildPlinths(world, rand, section);
+    else if (section.kind === "cones") buildCones(world, rand, section);
+    else if (section.kind === "spheres") buildSpheres(world, rand, section);
+  }
+}
+
+// Pillars: vertical thin marble columns. Physics collider is a cylinder
+// (radius PEG_R, height PEG_H), visual on the slides side draws a tall
+// thin marble cuboid in the same spot.
+function buildPillars(world, rand, section) {
+  const ROW_DX = 7;
+  const ROW_DZ = 5;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 2.5; z <= TRACK_HALF_Z - 2.5; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.55) continue;
+      const body = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed().setTranslation(
+          x,
+          FLOOR_Y + PEG_H / 2,
+          z + zOffset,
+        ),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.cylinder(PEG_H / 2, PEG_R)
+          .setFriction(0.18)
+          .setRestitution(0.55),
+        body,
+      );
+    }
+  }
+}
+
+// Plinths: low marble bars laid flat, oriented LANDSCAPE along x (long
+// edge along the lane). Physics collider is a wide short cuboid; balls
+// roll OVER the short ones near the edges but bounce off the taller
+// centerline ones.
+function buildPlinths(world, rand, section) {
+  const ROW_DX = 11;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + ROW_DX / 2 + row * ROW_DX;
+    // Two plinths per row, randomly placed at different z positions.
+    const slots = [-TRACK_HALF_Z + 3, -2, 3, TRACK_HALF_Z - 3];
+    const used = new Set();
+    const count = 2 + (rand() < 0.5 ? 0 : 1);
+    for (let n = 0; n < count; n++) {
+      let slot;
+      do {
+        slot = Math.floor(rand() * slots.length);
+      } while (used.has(slot));
+      used.add(slot);
+      const z = slots[slot] + (rand() - 0.5) * 1.2;
+      const halfW = 1.6;
+      const halfH = 0.6;
+      const halfD = 0.6;
+      const body = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed().setTranslation(x, FLOOR_Y + halfH, z),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.cuboid(halfW, halfH, halfD)
+          .setFriction(0.2)
+          .setRestitution(0.4),
+        body,
+      );
+    }
+  }
+}
+
+// Cones: short marble cones (rendered as cones on slides side). Physics
+// collider is approximated by a small cylinder at the base — close enough
+// since balls only collide with the lower portion of the cone in
+// practice.
+function buildCones(world, rand, section) {
+  const ROW_DX = 6;
+  const ROW_DZ = 4.5;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 2.5; z <= TRACK_HALF_Z - 2.5; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.5) continue;
+      const radius = PEG_R * 0.9;
+      const height = 1.6;
+      const body = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed().setTranslation(
+          x,
+          FLOOR_Y + height / 2,
+          z + zOffset,
+        ),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.cylinder(height / 2, radius)
+          .setFriction(0.2)
+          .setRestitution(0.6),
+        body,
+      );
+    }
+  }
+}
+
+// Spheres: fixed marble spheres acting as bumpers. Physics collider is
+// a sphere of the same radius. Sphere bumpers redirect balls in clean
+// arcs (no flat faces to stick to) so this section "feels" different
+// from the cylindrical-peg sections.
+function buildSpheres(world, rand, section) {
+  const ROW_DX = 7;
+  const ROW_DZ = 5;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 3; z <= TRACK_HALF_Z - 3; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.55) continue;
+      const radius = 0.85;
+      const body = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed().setTranslation(
+          x,
+          FLOOR_Y + radius,
+          z + zOffset,
+        ),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.ball(radius)
+          .setFriction(0.15)
+          .setRestitution(0.7),
+        body,
+      );
+    }
+  }
+}
+
+// Wedge field: sparse triangular-prism pegs (physics is still a cylinder
+// — the triangle is purely a render thing). Loose spacing so balls
+// accelerate freely.
+function buildWedges(world, rand, section) {
+  const ROW_DX = 9;
+  const ROW_DZ = 6;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
     const zJitter = (rand() - 0.5) * 1.5;
-    for (let z = -TRACK_HALF_Z + 3; z <= TRACK_HALF_Z - 3; z += PEG_ROW_DZ) {
-      // ~60% of grid cells get a peg; the gaps make the chaos uneven
-      // and stop balls from getting permanently wedged into a peg row.
-      if (rand() > 0.6) continue;
+    for (let z = -TRACK_HALF_Z + 3; z <= TRACK_HALF_Z - 3; z += ROW_DZ) {
+      const skip = rand();
+      const xJitter = (rand() - 0.5) * 1.2;
+      if (skip > 0.6) continue;
       const peg = world.createRigidBody(
         RAPIER.RigidBodyDesc.fixed().setTranslation(
-          x + (rand() - 0.5) * 1.2,
+          x + xJitter,
           FLOOR_Y + PEG_H / 2,
-          z + offset + zJitter,
+          z + zOffset + zJitter,
         ),
       );
       world.createCollider(
@@ -344,14 +530,123 @@ function buildTrack({ world, rand }) {
   }
 }
 
+// Pin field: dense smaller pegs in a tight grid. More collisions per
+// second so the field really shuffles here.
+function buildPins(world, rand, section) {
+  const ROW_DX = 5;
+  const ROW_DZ = 4;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 2.5; z <= TRACK_HALF_Z - 2.5; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.55) continue;
+      const pin = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed().setTranslation(
+          x,
+          FLOOR_Y + PIN_H / 2,
+          z + zOffset,
+        ),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.cylinder(PIN_H / 2, PIN_R)
+          .setFriction(0.15)
+          .setRestitution(0.65),
+        pin,
+      );
+    }
+  }
+}
+
+// Zigzag walls: short partial walls protruding alternately from +Z and -Z
+// sides, forcing balls to weave. Each wall is shorter than the track
+// half-width so there's always a passage on one side.
+function buildZigzag(world, rand, section) {
+  const STEP = 13;
+  const count = Math.floor((section.x1 - section.x0) / STEP);
+  for (let i = 0; i < count; i++) {
+    const x = section.x0 + STEP / 2 + i * STEP;
+    const zSign = i % 2 === 0 ? -1 : 1;
+    const protrude = 6 + rand() * 3; // 6–9 units into the 24-wide lane;
+    //                                   passage stays ≥ 15 units wide so
+    //                                   the field can squeeze through.
+    const wallCenterZ =
+      zSign * (TRACK_HALF_Z - protrude / 2);
+    const wall = world.createRigidBody(
+      RAPIER.RigidBodyDesc.fixed().setTranslation(
+        x,
+        FLOOR_Y + WALL_HEIGHT_COLLIDER / 3,
+        wallCenterZ,
+      ),
+    );
+    // Low friction + low restitution = balls hitting the wall face slide
+    // along it toward the opening instead of getting stuck or pinging
+    // backward against gravity. This was the main jam in the v2 track.
+    world.createCollider(
+      RAPIER.ColliderDesc.cuboid(WALL_THICKNESS / 2, WALL_HEIGHT_COLLIDER / 3, protrude / 2)
+        .setFriction(0.06)
+        .setRestitution(0.1),
+      wall,
+    );
+  }
+}
+
+// V-funnels: pairs of angled walls forming a V whose narrow end faces
+// downhill. Balls pile up at the narrow gap, then squeeze through, which
+// produces dramatic lead changes.
+function buildFunnels(world, rand, section) {
+  const SPACING = 18;
+  const count = Math.floor((section.x1 - section.x0) / SPACING);
+  for (let i = 0; i < count; i++) {
+    const cx = section.x0 + SPACING / 2 + i * SPACING;
+    const gap = 6 + rand() * 2; // 6–8 unit gap (vs 3–4.5 before; balls were
+    //                           jamming the narrow opening en masse)
+    const armLen = 8;
+    const armAngle = 0.4; // ~23° from track-axis (gentler angle)
+    for (const sign of [-1, 1]) {
+      // Wall goes from (cx, ±halfZ) inward toward (cx + delta, ±gap/2).
+      // Place a cuboid at the midpoint with rotation around Y.
+      const midX = cx + (armLen / 2) * Math.sin(armAngle);
+      const midZ = sign * (TRACK_HALF_Z - (armLen / 2) * Math.cos(armAngle));
+      const targetZ = sign * (gap / 2);
+      // Compute rotation so the wall extends from outer-side to inner-gap.
+      const dx = midX - cx;
+      const dz = midZ - targetZ;
+      const rotY = Math.atan2(dx, dz);
+      const wall = world.createRigidBody(
+        RAPIER.RigidBodyDesc.fixed()
+          .setTranslation(midX, FLOOR_Y + WALL_HEIGHT_COLLIDER / 3, midZ)
+          .setRotation({ x: 0, y: Math.sin(rotY / 2), z: 0, w: Math.cos(rotY / 2) }),
+      );
+      world.createCollider(
+        RAPIER.ColliderDesc.cuboid(WALL_THICKNESS / 2, WALL_HEIGHT_COLLIDER / 3, armLen / 2)
+          .setFriction(0.06)
+          .setRestitution(0.1),
+        wall,
+      );
+    }
+  }
+}
+
+// Mixed: a sparser wedge field with a few interspersed pins. Last section
+// before the finish — meant to feel like the chaos winding down.
+function buildMixed(world, rand, section) {
+  buildWedges(world, rand, { ...section, x1: section.x0 + (section.x1 - section.x0) * 0.6 });
+  buildPins(world, rand, { ...section, x0: section.x0 + (section.x1 - section.x0) * 0.5 });
+}
+
 function spawnGrid({ world, count, rand }) {
   const balls = [];
-  const ROW_COUNT = Math.ceil(count / 5);
+  // 6 balls per row keeps the field tightly packed across the lane's z
+  // width (24 units), so even 24-ball fields fit in four rows entirely
+  // within the open start stretch (x < 10).
+  const PER_ROW = 6;
   for (let i = 0; i < count; i++) {
-    const row = Math.floor(i / 5);
-    const col = i % 5;
-    const x = 2 + row * 2.2;
-    const z = -10 + col * 5 + (rand() - 0.5) * 0.4;
+    const row = Math.floor(i / PER_ROW);
+    const col = i % PER_ROW;
+    const x = 1.5 + row * 1.9;
+    const z = -10 + col * 4 + (rand() - 0.5) * 0.4;
     const body = world.createRigidBody(
       RAPIER.RigidBodyDesc.dynamic()
         .setTranslation(x, FLOOR_Y + BALL_R + 0.5 + row * 0.1, z)
@@ -370,7 +665,6 @@ function spawnGrid({ world, count, rand }) {
       body,
     );
     balls.push(body);
-    void ROW_COUNT;
   }
   return balls;
 }

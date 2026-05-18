@@ -8,6 +8,7 @@ import top20LargestBlackHolesDiscovered from "./top-20-largest-black-holes-disco
 import top15MostExpensiveSneakersEverSold from "./top-15-most-expensive-sneakers-ever-sold.json";
 import top20MostExpensiveCelebrityDivorces from "./top-20-most-expensive-celebrity-divorces.json";
 import religionOfEveryCountry from "./religion-of-every-country.json";
+import countriesMarbleRace from "./countries-marble-race.json";
 
 export const episodes: Episode[] = [
   top15LargestDiamondsEverFound as Episode,
@@ -18,4 +19,5 @@ export const episodes: Episode[] = [
   top15MostExpensiveSneakersEverSold as unknown as Episode,
   top20MostExpensiveCelebrityDivorces as Episode,
   religionOfEveryCountry as Episode,
+  countriesMarbleRace as unknown as Episode,
 ];

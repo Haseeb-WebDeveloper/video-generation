@@ -22,26 +22,37 @@ const { fontFamily: INTER } = loadFont();
 // ─── Track constants. MUST stay in sync with scripts/race-roll.mjs.
 // If you change either side the existing bakes are invalidated. We don't
 // import from race-roll because it's a Node script (.mjs); the cost of
-// duplication is small for ~15 constants. TRACK_TILT_DEG only matters in
+// duplication is small for ~20 constants. TRACK_TILT_DEG only matters in
 // the simulator (it sets the gravity vector); the visual scene leaves the
 // floor flat, so we don't store it here.
-const TRACK_LEN = 110;
-const TRACK_HALF_Z = 12;
+const TRACK_LEN = 200;
+const TRACK_HALF_Z = 11;
 const FLOOR_Y = 0;
-const WALL_HEIGHT = 4;
-const FINISH_X = TRACK_LEN - 5;
+const WALL_HEIGHT = 0.9; // platform-edge lip — see ref.jpeg, not a "wall"
+const FINISH_X = TRACK_LEN - 6;
 const BALL_R = 0.7;
-const PEG_R = 0.45;
-const PEG_H = 2.0;
-const PEG_X_MIN = 15;
-const PEG_X_MAX = TRACK_LEN - 18;
-const PEG_ROW_DX = 9;
-const PEG_ROW_DZ = 6;
+// PEG_R / PIN_R / PEG_H / PIN_H are still set in scripts/race-roll.mjs
+// for the physics colliders. Visual sizes are decided per obstacle kind
+// in the Track component.
+
+// ─── Section spec — MUST mirror scripts/race-roll.mjs ─────
+// Order, kinds, and rand() consumption inside each generator must match
+// the simulator exactly. Adding a new section here without the matching
+// physics generator (or vice versa) breaks the visual/collider alignment.
+type SectionKind = "pillars" | "plinths" | "cones" | "spheres";
+type Section = { kind: SectionKind; x0: number; x1: number };
+const SECTIONS: Section[] = [
+  { kind: "pillars", x0: 14, x1: 55 },
+  { kind: "plinths", x0: 55, x1: 100 },
+  { kind: "cones", x0: 100, x1: 140 },
+  { kind: "spheres", x0: 140, x1: 180 },
+];
 
 const FPS = 60;
-const COUNTDOWN_FRAMES = 3 * FPS; // 3s pre-race grid hold + 3-2-1-GO
-const PODIUM_FRAMES = 6 * FPS; // 6s podium hold after last ball settles
-const POST_FINISH_HOLD_FRAMES = 2 * FPS; // 2s after #1 crosses before podium camera
+const COUNTDOWN_FRAMES = 10 * FPS; // 10s — title flyby + 3-2-1-GO
+const PODIUM_FRAMES = 8 * FPS; // 8s podium hero shot — short, just reveal
+const MIN_FINISH_WINDOW = 4 * FPS; // race body holds at least 4s past
+// the winner so #2 and #3 visibly cross before the camera cuts to podium.
 const AUDIO_FADE_FRAMES = 90; // matches flow/bar templates so post-mux fade is identical
 
 // Per-ball palette. Used only as a fallback when an item has no imagePath
@@ -84,32 +95,43 @@ const BALL_PALETTE = [
 ];
 
 // ─── Arena palette ─────────────────────────────────────────────
-// Light "modern product render" look — see reference screenshot.
-// Background is a calm cool grey; floor is bright off-white; rails are
-// muted teal metal. Avoid any single-channel neons; this is meant to read
-// as a real space, not a sci-fi corridor.
-const COLOR_BG = "#cfdde0";
-const COLOR_FLOOR = "#ececee";
-const COLOR_FLOOR_OUTSIDE = "#b6c6c9";
-const COLOR_RAIL = "#7fa5ad";
-const COLOR_RAIL_TOP = "#cf5050";
-const COLOR_PEG = "#dadddf";
-const COLOR_BACK_WALL = "#445e63";
+// Brushed-steel arena look. Surfaces are a polished silver-grey metal
+// with fine perpendicular brushing lines. Surround is a deep neutral
+// grey so the metallic floor catches the key light and reads as
+// highly reflective. Flag-textured spheres pop hard against the cool
+// metal.
+const COLOR_BG = "#b8bdc2";
+const COLOR_STEEL_BASE = "#c2c6cc";
+const COLOR_STEEL_HIGHLIGHT = "#dde0e3";
+const COLOR_STEEL_SHADOW = "#8e9298";
+const COLOR_OUTSIDE = "#7a7d82";
 
-const RAIL_POST_SPACING = 1.6;
-const RAIL_POST_R = 0.13;
-const RAIL_TOP_THICKNESS = 0.35;
-const RAIL_TOP_HEIGHT = WALL_HEIGHT;
+// Cartoon obstacle palette — bright primary/secondary colors so the
+// course reads as a kid's toy/playset rather than a serious industrial
+// surface. One color per obstacle kind keeps the four sections clearly
+// distinct.
+const COLOR_OBS_PILLAR = "#ef4444"; // red
+const COLOR_OBS_PLINTH = "#3b82f6"; // blue
+const COLOR_OBS_CONE = "#f59e0b"; // orange
+const COLOR_OBS_SPHERE = "#facc15"; // yellow
 
 // ─── Public API ────────────────────────────────────────────────
+// raceEndFrame returns the LAST frame of the race body the composition
+// uses — i.e. when we cut to podium. We don't wait for all 20 balls to
+// finish (some take 30s+ past the winner); we hold just long enough for
+// the front of the pack (top ~3) to visibly cross, plus a small buffer.
+export function raceEndFrame(episode: Episode): number {
+  const result = episode.raceResult;
+  if (!result || result.finishFrames.length === 0) return result?.raceFrames ?? 0;
+  const winner = result.finishFrames[0];
+  const third = result.finishFrames[Math.min(2, result.finishFrames.length - 1)];
+  const minHold = winner + MIN_FINISH_WINDOW;
+  return Math.min(result.raceFrames, Math.max(third + FPS, minHold));
+}
+
 export function totalFrames(episode: Episode): number {
   if (!episode.raceResult) return COUNTDOWN_FRAMES + PODIUM_FRAMES;
-  return (
-    COUNTDOWN_FRAMES +
-    episode.raceResult.raceFrames +
-    POST_FINISH_HOLD_FRAMES +
-    PODIUM_FRAMES
-  );
+  return COUNTDOWN_FRAMES + raceEndFrame(episode) + PODIUM_FRAMES;
 }
 
 export const RaceSlidesComposition: React.FC<{ episode: Episode }> = ({
@@ -147,12 +169,20 @@ export const RaceSlidesComposition: React.FC<{ episode: Episode }> = ({
 const bakeCache = new Map<string, Float32Array>();
 const bakeLoaders = new Map<string, Promise<Float32Array>>();
 
-function loadBake(path: string): Float32Array | null {
+function loadBake(path: string): Float32Array {
+  // Throws a Promise on the first call to suspend React (caught by the
+  // outer <Suspense> above ThreeCanvas). Second call after the promise
+  // resolves returns the cached Float32Array synchronously. Returning
+  // `null` and "trying again next frame" did not work — Remotion's still
+  // capture snapshots the current React tree even after delayRender
+  // releases, so balls rendered at fallback grid positions and were off-
+  // screen for most camera shots.
   const cached = bakeCache.get(path);
   if (cached) return cached;
-  if (!bakeLoaders.has(path)) {
+  let promise = bakeLoaders.get(path);
+  if (!promise) {
     const handle = delayRender(`race-bake:${path}`);
-    const promise = fetch(staticFile(path))
+    promise = fetch(staticFile(path))
       .then((r) => r.arrayBuffer())
       .then((buf) => {
         const arr = new Float32Array(buf);
@@ -167,24 +197,22 @@ function loadBake(path: string): Float32Array | null {
       });
     bakeLoaders.set(path, promise);
   }
-  return null;
+  throw promise;
 }
 
 
 // ─── Three.js scene ────────────────────────────────────────────
 const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
   const frame = useCurrentFrame();
-  // loadBake returns null on the first call (kicking off a delayRender'd
-  // fetch); the second pass — after the fetch completes and Remotion
-  // re-runs the frame — returns the cached Float32Array. The fallback
-  // grid in <Ball/> renders the meantime, but with delayRender holding
-  // the capture, the user never sees that frame.
+  // loadBake suspends via a thrown Promise on the first call; the outer
+  // <Suspense> at AbsoluteFill catches it. By the time control reaches
+  // this line, the cache is populated and we get a real Float32Array.
   const bake = episode.raceBakePath ? loadBake(episode.raceBakePath) : null;
   const N = episode.items.length;
   const result = episode.raceResult;
 
-  const pegs = useMemo(
-    () => computePegs(episode.raceSeed ?? 0),
+  const obstacles = useMemo(
+    () => computeObstacles(episode.raceSeed ?? 0),
     [episode.raceSeed],
   );
 
@@ -208,7 +236,7 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
       <CameraRig episode={episode} bake={bake} numBalls={N} />
 
-      <Track pegs={pegs} />
+      <Track obstacles={obstacles} />
 
       <BallField
         episode={episode}
@@ -273,128 +301,305 @@ const BallField: React.FC<{
 };
 
 const ArenaLights: React.FC = () => {
-  // Soft, even, "overcast" arena lighting. The hemisphere light gives the
-  // floor and the underside of the balls a subtle blue-grey ambient (so
-  // they don't go pitch-black on bottom); the key directional adds a single
-  // gentle highlight from camera-left, kept low intensity so nothing in the
-  // shot has a hard-edged shadow.
+  // Studio lighting for the brushed-steel look. Stronger key + brighter
+  // hemisphere than the marble version so the metal reads as polished
+  // (not dark). Without an env-map IBL the metalness mostly mirrors the
+  // hemisphere, so keep the upper sky tint bright and cool.
   return (
     <>
-      <hemisphereLight args={["#f4f7f8", "#8aa1a6", 1.05]} />
-      <directionalLight position={[40, 50, 20]} intensity={0.55} />
-      <directionalLight position={[-25, 30, -15]} intensity={0.22} />
+      <hemisphereLight args={["#e0e4e8", "#7c8088", 1.2]} />
+      <directionalLight position={[70, 60, -20]} intensity={1.3} />
+      <directionalLight position={[-50, 40, 35]} intensity={0.6} />
+      <directionalLight position={[0, 25, 55]} intensity={0.35} />
     </>
   );
 };
 
-const Track: React.FC<{ pegs: Array<[number, number]> }> = ({ pegs }) => {
-  // Pre-compute railing post X positions. Posts are dense enough that the
-  // gap between them is smaller than a ball diameter, so visually the
-  // railing reads as "solid wall of bars" rather than "gappy fence."
-  const postXs = useMemo(() => {
-    const out: number[] = [];
-    for (let x = 0; x <= TRACK_LEN; x += RAIL_POST_SPACING) out.push(x);
-    return out;
-  }, []);
+const Track: React.FC<{ obstacles: Obstacle[] }> = ({ obstacles }) => {
+  // Carrara textures for the three marble surfaces. Each surface gets its
+  // own seed/repeat so the veining doesn't tile obviously — the floor
+  // shows large slow veins (wide repeat), walls show medium ones, and
+  // each obstacle gets a tight pattern via a shared texture (sharing one
+  // texture instance across all obstacles keeps GPU memory low).
+  // Sandblasted steel — fine speckle grain, no directional pattern.
+  // Higher repeat values are fine here because the speckle is
+  // self-similar at any scale (unlike brushed steel where repeating
+  // lines would tile obviously).
+  const floorTex = useMemo(
+    () =>
+      makeSteelTexture({
+        size: 1024,
+        repeatX: 10,
+        repeatY: 2,
+        seed: 0x9c7e1131,
+      }),
+    [],
+  );
+  const wallTex = useMemo(
+    () =>
+      makeSteelTexture({
+        size: 512,
+        repeatX: 12,
+        repeatY: 1,
+        seed: 0x33f57921,
+      }),
+    [],
+  );
+  // (blockTex removed — obstacles now use solid cartoon colors instead
+  // of the sandblasted steel map.)
 
+  // Deterministic random rotation per peg so triangles point in varied
+  // directions. The seed is irrelevant here (visual only — the physics
+  // collider is a circle in race-roll), so we just hash by index.
   return (
     <>
-      {/* Outer apron — a very wide plane underneath the rails, painted a
-          slightly darker shade than the lane. This grounds the track in
-          a "floor of the arena" rather than letting it float in space. */}
+      {/* Dark studio floor beyond the steel platform. Matte (rough 1.0)
+          and dark so the polished steel of the lane reads as the
+          brightest thing in frame. */}
       <mesh
-        position={[TRACK_LEN / 2, FLOOR_Y - 0.55, 0]}
+        position={[TRACK_LEN / 2, FLOOR_Y - 1.2, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
       >
-        <planeGeometry args={[TRACK_LEN * 2.5, TRACK_HALF_Z * 12]} />
+        <planeGeometry args={[TRACK_LEN * 4, TRACK_HALF_Z * 16]} />
+        <meshStandardMaterial color={COLOR_OUTSIDE} roughness={1.0} />
+      </mesh>
+
+      {/* Sandblasted steel floor — high roughness (matte), low metalness
+          so the surface reads as "industrially textured silver" instead
+          of a shiny mirror. Matches the reference image at
+          public/sandblasted-stainless-steel-sheet-matte-finish.webp. */}
+      <mesh position={[TRACK_LEN / 2, FLOOR_Y - 0.5, 0]}>
+        <boxGeometry args={[TRACK_LEN, 1, TRACK_HALF_Z * 2]} />
         <meshStandardMaterial
-          color={COLOR_FLOOR_OUTSIDE}
-          roughness={0.95}
-          metalness={0.0}
+          map={floorTex}
+          roughness={0.78}
+          metalness={0.25}
+          color={COLOR_STEEL_BASE}
         />
       </mesh>
 
-      {/* Floor — bright off-white with low roughness for soft reflections. */}
-      <mesh position={[TRACK_LEN / 2, FLOOR_Y - 0.5, 0]}>
-        <boxGeometry args={[TRACK_LEN, 1, TRACK_HALF_Z * 2]} />
-        <meshStandardMaterial color={COLOR_FLOOR} roughness={0.45} metalness={0.05} />
-      </mesh>
-
-      {/* Vertical-bar railings on both sides. Each side has N posts + a
-          continuous top rail running their full length. */}
+      {/* Steel platform edge lip on both sides. */}
       {[-1, 1].map((sign) => (
-        <group key={sign}>
-          {postXs.map((x) => (
-            <mesh
-              key={x}
-              position={[
-                x,
-                FLOOR_Y + RAIL_TOP_HEIGHT / 2,
-                sign * (TRACK_HALF_Z + RAIL_POST_R),
-              ]}
-            >
-              <cylinderGeometry
-                args={[RAIL_POST_R, RAIL_POST_R, RAIL_TOP_HEIGHT, 12]}
-              />
-              <meshStandardMaterial
-                color={COLOR_RAIL}
-                roughness={0.35}
-                metalness={0.55}
-              />
-            </mesh>
-          ))}
-          {/* Top rail cap. Sits flush with the top of the posts, slightly
-              wider than them so it visually "caps" the row. */}
-          <mesh
-            position={[
-              TRACK_LEN / 2,
-              FLOOR_Y + RAIL_TOP_HEIGHT + RAIL_TOP_THICKNESS / 2,
-              sign * (TRACK_HALF_Z + RAIL_POST_R),
-            ]}
-          >
-            <boxGeometry
-              args={[TRACK_LEN, RAIL_TOP_THICKNESS, RAIL_TOP_THICKNESS * 1.5]}
-            />
-            <meshStandardMaterial
-              color={COLOR_RAIL_TOP}
-              roughness={0.4}
-              metalness={0.35}
-            />
-          </mesh>
-        </group>
-      ))}
-
-      {/* Back wall (start gate). Solid panel — no rails — so the eye
-          reads "this is where the race starts." */}
-      <mesh position={[-1, FLOOR_Y + WALL_HEIGHT / 2, 0]}>
-        <boxGeometry args={[1.2, WALL_HEIGHT + 0.3, TRACK_HALF_Z * 2 + 1]} />
-        <meshStandardMaterial color={COLOR_BACK_WALL} roughness={0.55} />
-      </mesh>
-
-      {/* Front wall (finish backstop). Same material as the back wall so
-          the two ends of the track read as bookends. */}
-      <mesh position={[TRACK_LEN + 0.5, FLOOR_Y + WALL_HEIGHT / 2, 0]}>
-        <boxGeometry args={[1.2, WALL_HEIGHT + 0.3, TRACK_HALF_Z * 2 + 1]} />
-        <meshStandardMaterial color={COLOR_BACK_WALL} roughness={0.55} />
-      </mesh>
-
-      {/* Finish-line stripe — thin painted line, not a glowing strip. */}
-      <mesh position={[FINISH_X, FLOOR_Y + 0.03, 0]}>
-        <boxGeometry args={[0.35, 0.04, TRACK_HALF_Z * 2]} />
-        <meshStandardMaterial color="#222" roughness={0.7} />
-      </mesh>
-
-      {/* Pegs — muted matte cylinders that read as obstacles, not
-          decorations. */}
-      {pegs.map(([x, z], i) => (
-        <mesh key={i} position={[x, FLOOR_Y + PEG_H / 2, z]}>
-          <cylinderGeometry args={[PEG_R, PEG_R, PEG_H, 16]} />
-          <meshStandardMaterial color={COLOR_PEG} roughness={0.6} metalness={0.1} />
+        <mesh
+          key={sign}
+          position={[
+            TRACK_LEN / 2,
+            FLOOR_Y + WALL_HEIGHT / 2,
+            sign * (TRACK_HALF_Z + 0.35),
+          ]}
+        >
+          <boxGeometry args={[TRACK_LEN, WALL_HEIGHT, 0.7]} />
+          <meshStandardMaterial
+            map={wallTex}
+            roughness={0.8}
+            metalness={0.22}
+            color={COLOR_STEEL_BASE}
+          />
         </mesh>
       ))}
+
+      {/* Start and finish lips. */}
+      <mesh position={[-0.5, FLOOR_Y + WALL_HEIGHT / 2, 0]}>
+        <boxGeometry args={[0.7, WALL_HEIGHT, TRACK_HALF_Z * 2 + 1.4]} />
+        <meshStandardMaterial
+          map={wallTex}
+          roughness={0.8}
+          metalness={0.22}
+          color={COLOR_STEEL_BASE}
+        />
+      </mesh>
+      <mesh position={[TRACK_LEN + 0.5, FLOOR_Y + WALL_HEIGHT / 2, 0]}>
+        <boxGeometry args={[0.7, WALL_HEIGHT, TRACK_HALF_Z * 2 + 1.4]} />
+        <meshStandardMaterial
+          map={wallTex}
+          roughness={0.8}
+          metalness={0.22}
+          color={COLOR_STEEL_BASE}
+        />
+      </mesh>
+
+      {/* Finish-line stripe — B&W checkerboard banner inset into the floor. */}
+      <FinishLineStripe />
+
+      {/* Section obstacles — bright cartoon plastic-toy colors. Each
+          kind gets its own primary/secondary so the four sections read
+          as distinctly different territory as the camera moves through.
+          Slightly glossy material (roughness 0.35, no metalness) so the
+          plastic catches light highlights cleanly without going chrome. */}
+      {obstacles.map((o, i) => {
+        if (o.kind === "pillar") {
+          const h = 2.0;
+          const w = 1.0;
+          return (
+            <mesh key={i} position={[o.x, FLOOR_Y + h / 2, o.z]}>
+              <boxGeometry args={[w, h, w]} />
+              <meshStandardMaterial
+                color={COLOR_OBS_PILLAR}
+                roughness={0.35}
+                metalness={0.05}
+              />
+            </mesh>
+          );
+        }
+        if (o.kind === "plinth") {
+          return (
+            <mesh key={i} position={[o.x, FLOOR_Y + 0.6, o.z]}>
+              <boxGeometry args={[3.2, 1.2, 1.2]} />
+              <meshStandardMaterial
+                color={COLOR_OBS_PLINTH}
+                roughness={0.35}
+                metalness={0.05}
+              />
+            </mesh>
+          );
+        }
+        if (o.kind === "cone") {
+          return (
+            <mesh key={i} position={[o.x, FLOOR_Y + 0.85, o.z]}>
+              <coneGeometry args={[0.7, 1.7, 24]} />
+              <meshStandardMaterial
+                color={COLOR_OBS_CONE}
+                roughness={0.32}
+                metalness={0.05}
+              />
+            </mesh>
+          );
+        }
+        // sphere
+        return (
+          <mesh key={i} position={[o.x, FLOOR_Y + 0.85, o.z]}>
+            <sphereGeometry args={[0.85, 32, 20]} />
+            <meshStandardMaterial
+              color={COLOR_OBS_SPHERE}
+              roughness={0.28}
+              metalness={0.05}
+            />
+          </mesh>
+        );
+      })}
     </>
   );
 };
+
+const FinishLineStripe: React.FC = () => {
+  const tex = useMemo(() => makeCheckerTexture(8, 2), []);
+  return (
+    <mesh
+      position={[FINISH_X, FLOOR_Y + 0.025, 0]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
+      <planeGeometry args={[1.6, TRACK_HALF_Z * 2]} />
+      <meshStandardMaterial map={tex} roughness={0.7} />
+    </mesh>
+  );
+};
+
+// ─── Procedural textures ───────────────────────────────────────
+// Sandblasted stainless-steel matte finish — see the reference image at
+// public/sandblasted-stainless-steel-sheet-matte-finish.webp. The
+// surface is a uniformly light silver covered in a FINE SPECKLE GRAIN
+// (no directional brushing). We layer a base grey, soft tonal blotches
+// for non-uniformity, then thousands of single-pixel speckles in
+// alternating lighter / darker shades. The matte look comes from
+// meshStandardMaterial having higher roughness (set in Track below).
+function makeSteelTexture(opts: {
+  size: number;
+  repeatX?: number;
+  repeatY?: number;
+  seed: number;
+}): THREE.CanvasTexture {
+  const { size: SIZE, seed } = opts;
+  const canvas = document.createElement("canvas");
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+  const ctx = canvas.getContext("2d")!;
+
+  ctx.fillStyle = COLOR_STEEL_BASE;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  const rand = mulberry32(seed);
+  const highlight = hexToRgb(COLOR_STEEL_HIGHLIGHT);
+  const shadow = hexToRgb(COLOR_STEEL_SHADOW);
+
+  // Soft tonal blotches for non-uniformity — keeps the surface from
+  // tiling visibly. Larger than the speckle, lower contrast.
+  for (let i = 0; i < 14; i++) {
+    const cx = rand() * SIZE;
+    const cy = rand() * SIZE;
+    const r = SIZE * (0.15 + rand() * 0.25);
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    const tint = rand() < 0.5 ? highlight : shadow;
+    grad.addColorStop(0, `rgba(${tint.r},${tint.g},${tint.b},${0.06 + rand() * 0.08})`);
+    grad.addColorStop(1, `rgba(${tint.r},${tint.g},${tint.b},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, SIZE, SIZE);
+  }
+
+  // Fine speckle grain — thousands of single-pixel dots. Density is
+  // proportional to texture area so 256/512/1024 textures look the same
+  // visual coarseness at render distance.
+  const speckles = Math.floor((SIZE * SIZE) / 6);
+  for (let i = 0; i < speckles; i++) {
+    const x = Math.floor(rand() * SIZE);
+    const y = Math.floor(rand() * SIZE);
+    const lighter = rand() < 0.5;
+    const tint = lighter ? highlight : shadow;
+    const alpha = 0.08 + rand() * 0.28;
+    ctx.fillStyle = `rgba(${tint.r},${tint.g},${tint.b},${alpha})`;
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  // A handful of slightly larger pits (2-3px) for incident character —
+  // makes the sandblasted surface look like real metal, not pure noise.
+  for (let i = 0; i < SIZE / 4; i++) {
+    const x = rand() * SIZE;
+    const y = rand() * SIZE;
+    const r = 1 + rand() * 1.5;
+    ctx.fillStyle = `rgba(${shadow.r},${shadow.g},${shadow.b},${0.15 + rand() * 0.2})`;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  if (opts.repeatX) tex.repeat.x = opts.repeatX;
+  if (opts.repeatY) tex.repeat.y = opts.repeatY;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return tex;
+}
+
+function makeCheckerTexture(
+  cellsX: number,
+  cellsY: number,
+): THREE.CanvasTexture {
+  const SIZE = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+  const ctx = canvas.getContext("2d")!;
+  const cw = SIZE / cellsX;
+  const ch = SIZE / cellsY;
+  for (let cy = 0; cy < cellsY; cy++) {
+    for (let cx = 0; cx < cellsX; cx++) {
+      ctx.fillStyle = (cx + cy) % 2 === 0 ? "#0a0a0a" : "#ffffff";
+      ctx.fillRect(cx * cw, cy * ch, cw, ch);
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function hexToRgb(hex: string) {
+  return {
+    r: parseInt(hex.slice(1, 3), 16),
+    g: parseInt(hex.slice(3, 5), 16),
+    b: parseInt(hex.slice(5, 7), 16),
+  };
+}
 
 const Ball: React.FC<{
   index: number;
@@ -441,21 +646,22 @@ const Ball: React.FC<{
       <mesh>
         <sphereGeometry args={[BALL_R, 48, 32]} />
         {texture ? (
-          // Glossier, more "vinyl-painted" material so the cover read
-          // stays strong against the bright lane. Roughness 0.18 picks
-          // up a visible highlight from the key light; a touch of
-          // metalness gives the surface a polished, premium feel
-          // without going chrome.
+          // Glassy-marble material — roughness 0.12 + a touch of metalness
+          // gives a clear specular highlight from the key light, matching
+          // the polished spheres in the reference image. Higher reflection
+          // than the wood-aesthetic version because marble surfaces
+          // bounce light back; the balls should look like wet glazed
+          // stone, not vinyl.
           <meshStandardMaterial
             map={texture}
-            roughness={0.18}
-            metalness={0.18}
+            roughness={0.12}
+            metalness={0.15}
           />
         ) : (
           <meshStandardMaterial
             color={color}
-            roughness={0.2}
-            metalness={0.2}
+            roughness={0.15}
+            metalness={0.15}
           />
         )}
       </mesh>
@@ -481,104 +687,67 @@ const CameraRig: React.FC<{
   const winnerFinishFrame =
     finishFrames.length > 0 ? finishFrames[0] : raceFrames;
 
+  // End of the race-body window (when we cut to podium). See
+  // raceEndFrame — it's a tight cutoff a few seconds after the third
+  // ball finishes, not "wait for everyone".
+  const endFrame = result ? raceEndFrame(episode) : raceFrames;
   const raceFrame = Math.max(
     0,
-    Math.min(raceFrames > 0 ? raceFrames - 1 : 0, frame - COUNTDOWN_FRAMES),
+    Math.min(endFrame > 0 ? endFrame - 1 : 0, frame - COUNTDOWN_FRAMES),
   );
 
-  // Sample the actual field every frame. We want the camera to follow the
-  // BACK of the pack ("trailX") so the entire field is always ahead of the
-  // lens. Reference video sets the camera behind everyone, low to the
-  // ground, looking forward as balls roll away — that's what reads as a
-  // chase cam. meanLeadX is kept for the photo-finish framing.
-  const trailX = bake
-    ? trailingX(bake, raceFrame, numBalls)
-    : 2;
+  // Front-most ball x — the entire camera follows this one number now.
   const leaderX = bake
-    ? meanLeadX(bake, raceFrame, numBalls, 3)
-    : 4 + (raceFrames > 0 ? raceFrame / raceFrames : 0) * (FINISH_X - 4);
+    ? maxLiveX(bake, raceFrame, numBalls)
+    : 4 + (endFrame > 0 ? raceFrame / endFrame : 0) * (FINISH_X - 4);
 
-  // Phase weights (0..1).
   const inCountdown = frame < COUNTDOWN_FRAMES;
-  const postFinish = result && raceFrame >= winnerFinishFrame;
-  const podiumPhase =
-    result && raceFrame >= winnerFinishFrame + POST_FINISH_HOLD_FRAMES;
-
-  // ─── Camera waypoints ───
-  // GRID: low oblique view of the starting grid, slightly above ball
-  // height, sweeping in from the side. Matches the reference's "we see the
-  // race as a participant, not from above" framing.
-  const grid = {
-    pos: [-2, 5, 14] as [number, number, number],
-    look: [10, 1, 0] as [number, number, number],
-  };
-  // CHASE: low chase cam from BEHIND the trailing ball, on the centerline,
-  // looking forward down the lane. Mid-distance look-at (between trail and
-  // leader) keeps the bulk of the field in the middle third of the frame.
-  //
-  // Camera x is clamped to a minimum of 2 so it never sits inside (or
-  // behind) the start wall at x=-1; at race start the trailing ball is
-  // around x=2 and a literal "trail - 8" would put the lens INSIDE the
-  // back gate, filling the frame with dark teal.
-  const chaseX = Math.max(2, trailX - 9);
-  const chase = {
-    pos: [chaseX, 3.2, 0] as [number, number, number],
-    look: [
-      Math.min(FINISH_X - 6, Math.max(chaseX + 10, (trailX + leaderX) / 2 + 4)),
-      1.0,
-      0,
-    ] as [number, number, number],
-  };
-  // FINISH: hold the chase camera but lower it and look at the line.
-  const finish = {
-    pos: [FINISH_X - 14, 2.6, 0] as [number, number, number],
-    look: [FINISH_X - 2, 0.9, 0] as [number, number, number],
-  };
-  // PODIUM: elevated past-the-finish-line camera. Y is set high enough to
-  // clear the front backstop wall (WALL_HEIGHT + 0.3), so the lens has a
-  // clean line of sight back into the lane where finished balls collect.
-  // Looking down at slight angle gives the cluster of winners a hero
-  // composition without revealing the empty back half of the track.
-  const podium = {
-    pos: [FINISH_X + 4, 7.5, 5] as [number, number, number],
-    look: [FINISH_X - 6, 0.8, 0] as [number, number, number],
-  };
+  const podiumPhase = result != null && frame >= COUNTDOWN_FRAMES + endFrame;
+  // The last MIN_FINISH_WINDOW frames of race body slide the camera in
+  // toward the finish line — same phase, different anchor.
+  const postFinish = result != null && raceFrame >= winnerFinishFrame;
 
   let pos: [number, number, number];
   let look: [number, number, number];
+  let fov = 48;
+
   if (inCountdown) {
-    // Slow drift on the grid: gentle x slide so the static phase has motion.
+    // Low 3/4 establishing shot of the starting grid. Slow drift gives
+    // the otherwise-static countdown a sense of motion. y=3.2 puts the
+    // lens just above ball height; z=14 angles in from the side for the
+    // reference's 3/4 perspective.
     const t = Easing.inOut(Easing.ease)(frame / COUNTDOWN_FRAMES);
-    pos = [
-      lerp(grid.pos[0], grid.pos[0] + 3, t),
-      grid.pos[1],
-      lerp(grid.pos[2], grid.pos[2] - 2, t),
-    ];
-    look = grid.look;
+    pos = [lerp(-2, 1, t), 3.2, lerp(14, 11, t)];
+    look = [6, 0.7, 0];
+    fov = 55;
   } else if (podiumPhase) {
-    pos = podium.pos;
-    look = podium.look;
+    // Hero shot of the front of the field at the finish line. Camera
+    // sits INSIDE the platform, just before the finish lip, off to one
+    // side. Frames the top finishers cleanly.
+    pos = [FINISH_X - 11, 3.0, 8];
+    look = [FINISH_X + 1, 0.7, 0];
+    fov = 46;
   } else if (postFinish) {
-    // 2s zoom from chase into the finish frame.
-    const t = Easing.inOut(Easing.ease)(
-      (raceFrame - winnerFinishFrame) / POST_FINISH_HOLD_FRAMES,
-    );
-    pos = lerp3(chase.pos, finish.pos, t);
-    look = lerp3(chase.look, finish.look, t);
+    // Photo-finish window — camera stays AHEAD of the line at all times.
+    // We anchor to FINISH_X so the lens points back as #2/#3 cross the
+    // checkered stripe in front of it.
+    pos = [FINISH_X + 14, 3.5, 5];
+    look = [FINISH_X - 4, 0.7, 0];
+    fov = 56;
   } else {
-    // Race body: blend out of grid into chase over the first ~1s, then
-    // pure chase for the rest of the race.
-    const blendFrames = 60;
-    const t = Math.min(1, (frame - COUNTDOWN_FRAMES) / blendFrames);
-    const ease = Easing.inOut(Easing.ease)(t);
-    pos = lerp3(grid.pos, chase.pos, ease);
-    look = lerp3(grid.look, chase.look, ease);
+    // RACE BODY — REVERSE chase: camera sits AHEAD of the leader and
+    // looks BACK at the approaching field. Balls roll TOWARD the lens
+    // (the user's explicit request). Slight elevation (y=3.6) reads as
+    // "broadcast handheld" rather than ball-level.
+    pos = [leaderX + 14, 3.6, 4.5];
+    look = [Math.max(0, leaderX - 6), 0.7, 0];
+    fov = 56;
   }
 
   camera.position.set(pos[0], pos[1], pos[2]);
   camera.lookAt(look[0], look[1], look[2]);
   if (camera instanceof THREE.PerspectiveCamera) {
-    camera.fov = 48;
+    camera.fov = fov;
     camera.updateProjectionMatrix();
   }
   return null;
@@ -715,27 +884,91 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
 };
 
 // ─── Helpers ───────────────────────────────────────────────────
-function computePegs(seed: number): Array<[number, number]> {
+type Obstacle =
+  | { kind: "pillar"; x: number; z: number }
+  | { kind: "plinth"; x: number; z: number }
+  | { kind: "cone"; x: number; z: number }
+  | { kind: "sphere"; x: number; z: number };
+
+function computeObstacles(seed: number): Obstacle[] {
   const rand = mulberry32(seed);
-  // The order of rand() calls MUST exactly match scripts/race-roll.mjs's
-  // buildTrack so peg positions visually align with their physics counter-
-  // parts. Specifically: the simulator consumes zJitter and then per-cell
-  // (skip-roll, x-jitter) for every cell in the row, and only places a peg
-  // if skip-roll <= 0.6.
-  const out: Array<[number, number]> = [];
-  const numRows = Math.floor((PEG_X_MAX - PEG_X_MIN) / PEG_ROW_DX);
-  for (let row = 0; row < numRows; row++) {
-    const x = PEG_X_MIN + row * PEG_ROW_DX;
-    const offset = row % 2 === 0 ? 0 : PEG_ROW_DZ / 2;
-    const zJitter = (rand() - 0.5) * 1.5;
-    for (let z = -TRACK_HALF_Z + 3; z <= TRACK_HALF_Z - 3; z += PEG_ROW_DZ) {
-      const skip = rand();
-      const xJitter = (rand() - 0.5) * 1.2;
-      if (skip > 0.6) continue;
-      out.push([x + xJitter, z + offset + zJitter]);
-    }
+  const out: Obstacle[] = [];
+  // CRITICAL: the order of rand() calls inside each section MUST match
+  // scripts/race-roll.mjs's corresponding builder function exactly. If
+  // they desync, visual obstacles will float in space disconnected from
+  // their physics colliders.
+  for (const section of SECTIONS) {
+    if (section.kind === "pillars") genPillars(rand, section, out);
+    else if (section.kind === "plinths") genPlinths(rand, section, out);
+    else if (section.kind === "cones") genCones(rand, section, out);
+    else if (section.kind === "spheres") genSpheres(rand, section, out);
   }
   return out;
+}
+
+function genPillars(rand: () => number, section: Section, out: Obstacle[]) {
+  const ROW_DX = 7;
+  const ROW_DZ = 5;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 2.5; z <= TRACK_HALF_Z - 2.5; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.55) continue;
+      out.push({ kind: "pillar", x, z: z + zOffset });
+    }
+  }
+}
+
+function genPlinths(rand: () => number, section: Section, out: Obstacle[]) {
+  const ROW_DX = 11;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + ROW_DX / 2 + row * ROW_DX;
+    const slots = [-TRACK_HALF_Z + 3, -2, 3, TRACK_HALF_Z - 3];
+    const used = new Set<number>();
+    const count = 2 + (rand() < 0.5 ? 0 : 1);
+    for (let n = 0; n < count; n++) {
+      let slot;
+      do {
+        slot = Math.floor(rand() * slots.length);
+      } while (used.has(slot));
+      used.add(slot);
+      const z = slots[slot] + (rand() - 0.5) * 1.2;
+      out.push({ kind: "plinth", x, z });
+    }
+  }
+}
+
+function genCones(rand: () => number, section: Section, out: Obstacle[]) {
+  const ROW_DX = 6;
+  const ROW_DZ = 4.5;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 2.5; z <= TRACK_HALF_Z - 2.5; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.5) continue;
+      out.push({ kind: "cone", x, z: z + zOffset });
+    }
+  }
+}
+
+function genSpheres(rand: () => number, section: Section, out: Obstacle[]) {
+  const ROW_DX = 7;
+  const ROW_DZ = 5;
+  const rows = Math.floor((section.x1 - section.x0) / ROW_DX);
+  for (let row = 0; row < rows; row++) {
+    const x = section.x0 + row * ROW_DX;
+    const zOffset = row % 2 === 0 ? 0 : ROW_DZ / 2;
+    for (let z = -TRACK_HALF_Z + 3; z <= TRACK_HALF_Z - 3; z += ROW_DZ) {
+      const skip = rand();
+      if (skip > 0.55) continue;
+      out.push({ kind: "sphere", x, z: z + zOffset });
+    }
+  }
 }
 
 function mulberry32(seed: number) {
@@ -749,48 +982,24 @@ function mulberry32(seed: number) {
   };
 }
 
-function meanLeadX(
-  bake: Float32Array,
-  frame: number,
-  N: number,
-  k: number,
-): number {
-  // Pluck this frame's x-positions and average the top k. Reading directly
-  // from the typed array avoids allocating an Array() every frame.
-  const xs = new Array<number>(N);
-  const base = frame * N * 7;
-  for (let i = 0; i < N; i++) xs[i] = bake[base + i * 7];
-  xs.sort((a, b) => b - a);
-  let sum = 0;
-  const cap = Math.min(k, N);
-  for (let i = 0; i < cap; i++) sum += xs[i];
-  return sum / cap;
-}
-
-function trailingX(bake: Float32Array, frame: number, N: number): number {
-  // Smallest x among balls that are still on the track (y > -1 filters out
-  // eliminations parked far below). Falls back to start of track if every
-  // remaining ball has been eliminated.
-  let min = Infinity;
+function maxLiveX(bake: Float32Array, frame: number, N: number): number {
+  // x of the front-most still-on-the-track ball at this frame. Eliminated
+  // balls (parked far below the kill plane) are skipped so the camera
+  // doesn't snap to a stale position somewhere off the lane. Capped at the
+  // finish so the camera stops advancing once the winner has crossed.
+  let max = -Infinity;
   const base = frame * N * 7;
   for (let i = 0; i < N; i++) {
     const x = bake[base + i * 7];
     const y = bake[base + i * 7 + 1];
-    if (y > -1 && x < min) min = x;
+    if (y > -1 && x > max) max = x;
   }
-  return Number.isFinite(min) ? min : 0;
+  return Number.isFinite(max) ? Math.min(max, FINISH_X) : 0;
 }
+
 
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
-}
-
-function lerp3(
-  a: [number, number, number],
-  b: [number, number, number],
-  t: number,
-): [number, number, number] {
-  return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
 }
 
 function countdownPulseOpacity(frame: number, fps: number): number {
