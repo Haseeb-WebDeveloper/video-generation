@@ -1,0 +1,462 @@
+{
+  "slug": "countries-tournament",
+  "title": [
+    "SPINNING TOP",
+    "WORLD CUP"
+  ],
+  "outro": [
+    "",
+    ""
+  ],
+  "unitLabel": "",
+  "coverFit": "cover",
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/Level - The Grey Room _ Density & Time.mp3",
+  "audioVolume": 0.35,
+  "tournamentGroupSize": 10,
+  "items": [
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "flags/us.png"
+    },
+    {
+      "title": "United Kingdom",
+      "value": 1,
+      "country": "GB",
+      "imagePath": "flags/gb.png"
+    },
+    {
+      "title": "Japan",
+      "value": 1,
+      "country": "JP",
+      "imagePath": "flags/jp.png"
+    },
+    {
+      "title": "Germany",
+      "value": 1,
+      "country": "DE",
+      "imagePath": "flags/de.png"
+    },
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "flags/br.png"
+    },
+    {
+      "title": "France",
+      "value": 1,
+      "country": "FR",
+      "imagePath": "flags/fr.png"
+    },
+    {
+      "title": "India",
+      "value": 1,
+      "country": "IN",
+      "imagePath": "flags/in.png"
+    },
+    {
+      "title": "China",
+      "value": 1,
+      "country": "CN",
+      "imagePath": "flags/cn.png"
+    },
+    {
+      "title": "Italy",
+      "value": 1,
+      "country": "IT",
+      "imagePath": "flags/it.png"
+    },
+    {
+      "title": "Canada",
+      "value": 1,
+      "country": "CA",
+      "imagePath": "flags/ca.png"
+    },
+    {
+      "title": "Spain",
+      "value": 1,
+      "country": "ES",
+      "imagePath": "flags/es.png"
+    },
+    {
+      "title": "Australia",
+      "value": 1,
+      "country": "AU",
+      "imagePath": "flags/au.png"
+    },
+    {
+      "title": "Mexico",
+      "value": 1,
+      "country": "MX",
+      "imagePath": "flags/mx.png"
+    },
+    {
+      "title": "South Korea",
+      "value": 1,
+      "country": "KR",
+      "imagePath": "flags/kr.png"
+    },
+    {
+      "title": "Russia",
+      "value": 1,
+      "country": "RU",
+      "imagePath": "flags/ru.png"
+    },
+    {
+      "title": "Netherlands",
+      "value": 1,
+      "country": "NL",
+      "imagePath": "flags/nl.png"
+    },
+    {
+      "title": "Sweden",
+      "value": 1,
+      "country": "SE",
+      "imagePath": "flags/se.png"
+    },
+    {
+      "title": "Switzerland",
+      "value": 1,
+      "country": "CH",
+      "imagePath": "flags/ch.png"
+    },
+    {
+      "title": "Argentina",
+      "value": 1,
+      "country": "AR",
+      "imagePath": "flags/ar.png"
+    },
+    {
+      "title": "South Africa",
+      "value": 1,
+      "country": "ZA",
+      "imagePath": "flags/za.png"
+    },
+    {
+      "title": "Nigeria",
+      "value": 1,
+      "country": "NG",
+      "imagePath": "flags/ng.png"
+    },
+    {
+      "title": "Egypt",
+      "value": 1,
+      "country": "EG",
+      "imagePath": "flags/eg.png"
+    },
+    {
+      "title": "Saudi Arabia",
+      "value": 1,
+      "country": "SA",
+      "imagePath": "flags/sa.png"
+    },
+    {
+      "title": "Turkey",
+      "value": 1,
+      "country": "TR",
+      "imagePath": "flags/tr.png"
+    },
+    {
+      "title": "Indonesia",
+      "value": 1,
+      "country": "ID",
+      "imagePath": "flags/id.png"
+    },
+    {
+      "title": "Poland",
+      "value": 1,
+      "country": "PL",
+      "imagePath": "flags/pl.png"
+    },
+    {
+      "title": "Belgium",
+      "value": 1,
+      "country": "BE",
+      "imagePath": "flags/be.png"
+    },
+    {
+      "title": "Austria",
+      "value": 1,
+      "country": "AT",
+      "imagePath": "flags/at.png"
+    },
+    {
+      "title": "Portugal",
+      "value": 1,
+      "country": "PT",
+      "imagePath": "flags/pt.png"
+    },
+    {
+      "title": "Greece",
+      "value": 1,
+      "country": "GR",
+      "imagePath": "flags/gr.png"
+    },
+    {
+      "title": "Norway",
+      "value": 1,
+      "country": "NO",
+      "imagePath": "flags/no.png"
+    },
+    {
+      "title": "Denmark",
+      "value": 1,
+      "country": "DK",
+      "imagePath": "flags/dk.png"
+    },
+    {
+      "title": "Finland",
+      "value": 1,
+      "country": "FI",
+      "imagePath": "flags/fi.png"
+    },
+    {
+      "title": "Ireland",
+      "value": 1,
+      "country": "IE",
+      "imagePath": "flags/ie.png"
+    },
+    {
+      "title": "New Zealand",
+      "value": 1,
+      "country": "NZ",
+      "imagePath": "flags/nz.png"
+    },
+    {
+      "title": "Thailand",
+      "value": 1,
+      "country": "TH",
+      "imagePath": "flags/th.png"
+    },
+    {
+      "title": "Vietnam",
+      "value": 1,
+      "country": "VN",
+      "imagePath": "flags/vn.png"
+    },
+    {
+      "title": "Philippines",
+      "value": 1,
+      "country": "PH",
+      "imagePath": "flags/ph.png"
+    },
+    {
+      "title": "Malaysia",
+      "value": 1,
+      "country": "MY",
+      "imagePath": "flags/my.png"
+    },
+    {
+      "title": "Singapore",
+      "value": 1,
+      "country": "SG",
+      "imagePath": "flags/sg.png"
+    }
+  ],
+  "tournamentSeed": 12345,
+  "tournamentResult": {
+    "rounds": [
+      {
+        "kind": "group",
+        "label": "ROUND 1",
+        "itemIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "bakePath": "battle-bakes/countries-tournament-r0.bin",
+        "survivorOrder": [
+          4,
+          9,
+          7,
+          1,
+          6,
+          2,
+          0,
+          3,
+          5,
+          8
+        ],
+        "eliminationFrames": [
+          1569,
+          2088,
+          1739,
+          1485,
+          2276,
+          1227,
+          1921,
+          2268,
+          1193,
+          2275
+        ],
+        "battleFrames": 2276,
+        "winnerIndex": 4
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 2",
+        "itemIndices": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "bakePath": "battle-bakes/countries-tournament-r1.bin",
+        "survivorOrder": [
+          8,
+          1,
+          0,
+          2,
+          3,
+          9,
+          6,
+          5,
+          4,
+          7
+        ],
+        "eliminationFrames": [
+          1926,
+          2178,
+          1820,
+          1635,
+          1419,
+          1465,
+          1550,
+          1355,
+          2179,
+          1619
+        ],
+        "battleFrames": 2179,
+        "winnerIndex": 18
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 3",
+        "itemIndices": [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "bakePath": "battle-bakes/countries-tournament-r2.bin",
+        "survivorOrder": [
+          9,
+          6,
+          2,
+          0,
+          5,
+          1,
+          3,
+          8,
+          7,
+          4
+        ],
+        "eliminationFrames": [
+          1685,
+          1540,
+          1783,
+          1489,
+          1206,
+          1671,
+          1992,
+          1263,
+          1307,
+          1993
+        ],
+        "battleFrames": 1993,
+        "winnerIndex": 29
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 4",
+        "itemIndices": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "bakePath": "battle-bakes/countries-tournament-r3.bin",
+        "survivorOrder": [
+          6,
+          0,
+          5,
+          3,
+          9,
+          1,
+          2,
+          8,
+          4,
+          7
+        ],
+        "eliminationFrames": [
+          1946,
+          1637,
+          1480,
+          1689,
+          1351,
+          1839,
+          1947,
+          1163,
+          1437,
+          1638
+        ],
+        "battleFrames": 1947,
+        "winnerIndex": 36
+      },
+      {
+        "kind": "final",
+        "label": "FINAL",
+        "itemIndices": [
+          4,
+          18,
+          29,
+          36
+        ],
+        "bakePath": "battle-bakes/countries-tournament-r4.bin",
+        "survivorOrder": [
+          1,
+          2,
+          0,
+          3
+        ],
+        "eliminationFrames": [
+          1593,
+          1712,
+          1711,
+          1578
+        ],
+        "battleFrames": 1712,
+        "winnerIndex": 18
+      }
+    ],
+    "championIndex": 18
+  }
+}

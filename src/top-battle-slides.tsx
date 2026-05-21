@@ -27,8 +27,8 @@ const TOP_RADIUS = 0.85;
 const TOP_HEIGHT = 1.0;
 
 const FPS = 60;
-const COUNTDOWN_FRAMES = 10 * FPS;
-const PODIUM_FRAMES = 6 * FPS;
+const COUNTDOWN_FRAMES = 3 * FPS;  // snappy 3-2-1 (round cards build the hype)
+const PODIUM_FRAMES = 4 * FPS;
 const AUDIO_FADE_FRAMES = 90;
 
 // Per-top accent palette — drives the colored equator band on each top
@@ -61,9 +61,10 @@ export function totalFrames(episode: Episode): number {
   return COUNTDOWN_FRAMES + episode.battleResult.battleFrames + PODIUM_FRAMES;
 }
 
-export const TopBattleSlidesComposition: React.FC<{ episode: Episode }> = ({
-  episode,
-}) => {
+export const TopBattleSlidesComposition: React.FC<{
+  episode: Episode;
+  hideAudio?: boolean;
+}> = ({ episode, hideAudio }) => {
   const { durationInFrames } = useVideoConfig();
   const baseVolume = episode.audioVolume ?? 0.35;
   const fadeVolume = (f: number) => {
@@ -83,7 +84,7 @@ export const TopBattleSlidesComposition: React.FC<{ episode: Episode }> = ({
         </ThreeCanvas>
       </Suspense>
       <HUD episode={episode} />
-      {episode.audioPath && (
+      {!hideAudio && episode.audioPath && (
         <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
       )}
     </AbsoluteFill>

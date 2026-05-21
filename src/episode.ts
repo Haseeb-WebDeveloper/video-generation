@@ -193,4 +193,32 @@ export type Episode = {
   // per top (xyz, qx-qw, energy 0-1), one more than race's 7 — the
   // energy channel drives the visual wobble + leaderboard bar.
   battleBakePath?: string;
+
+  // ─── Tournament template ───────────────────────────────────────
+  // Bracket of spinning-top battles: items[] holds all participants (e.g. 40
+  // countries) split into N groups of equal size by index. Each group battles
+  // (a "round"); the group winners then battle in a final. Baked by
+  // `npm run tournament-roll <slug>`, deterministic from one seed.
+  tournamentSeed?: number;
+  tournamentGroupSize?: number; // default 10
+  tournamentResult?: {
+    rounds: TournamentRound[]; // group rounds first, final last
+    championIndex: number;     // index into items[]
+  };
+};
+
+export type TournamentRound = {
+  kind: "group" | "final";
+  label: string; // "ROUND 1", "FINAL"
+  // Indices into episode.items[] for the tops in this round.
+  itemIndices: number[];
+  // battle-bakes/<slug>-r<n>.bin — same 8-float-per-top layout as battleBakePath.
+  bakePath: string;
+  // Indices into itemIndices[] (NOT episode.items[]). survivorOrder[0] = winner.
+  survivorOrder: number[];
+  // Parallel to itemIndices[]: frame each top was eliminated.
+  eliminationFrames: number[];
+  battleFrames: number;
+  // Index into episode.items[] of this round's winner.
+  winnerIndex: number;
 };

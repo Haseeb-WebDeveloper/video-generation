@@ -17,6 +17,10 @@ import {
   TopBattleSlidesComposition,
   totalFrames as battleTotalFrames,
 } from "./top-battle-slides";
+import {
+  TournamentComposition,
+  tournamentTotalFrames,
+} from "./tournament-slides";
 import { BarThumbnailComposition } from "./thumbnail-bar";
 import type { Episode } from "./episode";
 
@@ -91,6 +95,25 @@ export const RemotionRoot: React.FC = () => {
             defaultProps={{ episode: ep }}
             calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
               durationInFrames: battleTotalFrames(props.episode),
+            })}
+          />
+        ))}
+      {/* Tournament template — bracket of battles. Registered only when a
+          tournamentResult exists (run `npm run tournament-roll <slug>`). */}
+      {episodes
+        .filter((ep) => !!ep.tournamentResult)
+        .map((ep) => (
+          <Composition
+            key={`${ep.slug}-tournament`}
+            id={`${ep.slug}-tournament`}
+            component={TournamentComposition}
+            durationInFrames={tournamentTotalFrames(ep)}
+            fps={60}
+            width={1920}
+            height={1080}
+            defaultProps={{ episode: ep }}
+            calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
+              durationInFrames: tournamentTotalFrames(props.episode),
             })}
           />
         ))}

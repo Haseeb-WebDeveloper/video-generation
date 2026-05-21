@@ -10,6 +10,7 @@ import top20MostExpensiveCelebrityDivorces from "./top-20-most-expensive-celebri
 import religionOfEveryCountry from "./religion-of-every-country.json";
 import countriesMarbleRace from "./countries-marble-race.json";
 import countriesTopBattle from "./countries-top-battle.json";
+import countriesTournament from "./countries-tournament.json";
 
 export const episodes: Episode[] = [
   top15LargestDiamondsEverFound as Episode,
@@ -22,4 +23,5 @@ export const episodes: Episode[] = [
   religionOfEveryCountry as Episode,
   countriesMarbleRace as unknown as Episode,
   countriesTopBattle as unknown as Episode,
+  countriesTournament as unknown as Episode,
 ];
