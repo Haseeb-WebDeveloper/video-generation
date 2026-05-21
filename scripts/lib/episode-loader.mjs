@@ -14,7 +14,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { existsSync } from "node:fs";
 
-export const TEMPLATE_SUFFIXES = ["-flow", "-bars", "-race"];
+export const TEMPLATE_SUFFIXES = ["-flow", "-bars", "-race", "-battle"];
 
 export function parseCompositionId(input) {
   for (const suf of TEMPLATE_SUFFIXES) {

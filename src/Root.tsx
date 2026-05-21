@@ -13,6 +13,10 @@ import {
   RaceSlidesComposition,
   totalFrames as raceTotalFrames,
 } from "./race-slides";
+import {
+  TopBattleSlidesComposition,
+  totalFrames as battleTotalFrames,
+} from "./top-battle-slides";
 import { BarThumbnailComposition } from "./thumbnail-bar";
 import type { Episode } from "./episode";
 
@@ -67,6 +71,26 @@ export const RemotionRoot: React.FC = () => {
             defaultProps={{ episode: ep }}
             calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
               durationInFrames: raceTotalFrames(props.episode),
+            })}
+          />
+        ))}
+      {/* Top-battle template — registered only when a battle bake exists
+          (battleResult + battleBakePath both set). Same gating pattern as
+          race above so non-battle episodes don't show an empty entry. */}
+      {episodes
+        .filter((ep) => !!ep.battleResult && !!ep.battleBakePath)
+        .map((ep) => (
+          <Composition
+            key={`${ep.slug}-battle`}
+            id={`${ep.slug}-battle`}
+            component={TopBattleSlidesComposition}
+            durationInFrames={battleTotalFrames(ep)}
+            fps={60}
+            width={1920}
+            height={1080}
+            defaultProps={{ episode: ep }}
+            calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
+              durationInFrames: battleTotalFrames(props.episode),
             })}
           />
         ))}

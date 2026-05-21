@@ -25,19 +25,20 @@ import { loadEpisode, parseCompositionId } from "./lib/episode-loader.mjs";
 const [, , compositionId] = process.argv;
 if (!compositionId) {
   console.error(
-    "Usage: node scripts/render-episode.mjs <slug>-flow|-bars",
+    "Usage: node scripts/render-episode.mjs <slug>-flow|-bars|-race|-battle",
   );
   process.exit(1);
 }
 
-// Composition ids are <slug>-flow, <slug>-bars, or <slug>-race (one per
-// template). The episode JSON lives at episodes/<slug>.json — strip the
-// template suffix to find it. A bare slug (no suffix) is rejected so the
-// user explicitly chooses which template to render.
+// Composition ids are <slug>-flow, <slug>-bars, <slug>-race, or
+// <slug>-battle (one per template). The episode JSON lives at
+// episodes/<slug>.json — strip the template suffix to find it. A bare
+// slug (no suffix) is rejected so the user explicitly chooses which
+// template to render.
 const { slug, variantSuffix } = parseCompositionId(compositionId);
 if (!variantSuffix) {
   console.error(
-    `Composition id must end in -flow, -bars, or -race. Got: ${compositionId}`,
+    `Composition id must end in -flow, -bars, -race, or -battle. Got: ${compositionId}`,
   );
   console.error(`  Try: npm run render ${compositionId}-bars`);
   process.exit(1);
@@ -46,9 +47,10 @@ if (!variantSuffix) {
 const { episode, paths } = await loadEpisode(slug, variantSuffix);
 const { root: ROOT, outDir: OUT_DIR, outFile: OUT_FILE } = paths;
 
-// The race template uses solid-colored balls + numeric labels, so it
-// doesn't require per-item cover images the way flow/bar do. It DOES
-// require a baked physics result, though, so check that instead.
+// The race & top-battle templates are physics-driven and require a
+// baked simulation result instead of per-item cover validation. (The
+// top-battle template DOES use cover images on the top face, so we still
+// check covers separately for it.) Flow/bars only need covers.
 if (variantSuffix === "-race") {
   if (!episode.raceResult || !episode.raceBakePath) {
     console.error(
@@ -62,6 +64,34 @@ if (variantSuffix === "-race") {
       `Race bake file referenced by episode JSON not found: ${bakeFile}`,
     );
     console.error(`  Re-run: npm run race-roll ${slug}`);
+    process.exit(1);
+  }
+} else if (variantSuffix === "-battle") {
+  if (!episode.battleResult || !episode.battleBakePath) {
+    console.error(
+      `Battle bake missing. Run: npm run battle-roll ${slug}`,
+    );
+    process.exit(1);
+  }
+  const bakeFile = path.join(ROOT, "public", episode.battleBakePath);
+  if (!existsSync(bakeFile)) {
+    console.error(
+      `Battle bake file referenced by episode JSON not found: ${bakeFile}`,
+    );
+    console.error(`  Re-run: npm run battle-roll ${slug}`);
+    process.exit(1);
+  }
+  // Top-battle also paints covers on each top's top face — verify they
+  // exist so the renderer doesn't suspend forever on missing textures.
+  const missing = episode.items.filter(
+    (it) =>
+      !it.imagePath || !existsSync(path.join(ROOT, "public", it.imagePath)),
+  );
+  if (missing.length > 0) {
+    console.error(
+      `${missing.length} item(s) missing local images. Run: npm run build-episode ${slug}`,
+    );
+    for (const it of missing) console.error(`  #${it.rank} ${it.title}`);
     process.exit(1);
   }
 } else {

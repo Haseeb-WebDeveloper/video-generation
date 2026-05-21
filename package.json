@@ -42,6 +42,7 @@
     "remove-bg": "node scripts/remove-bg.mjs",
     "render": "node scripts/render-episode.mjs",
     "race-roll": "node scripts/race-roll.mjs",
+    "battle-roll": "node scripts/battle-roll.mjs",
     "youtube-auth": "node scripts/youtube-auth.mjs",
     "publish-episode": "node scripts/publish-episode.mjs"
   },

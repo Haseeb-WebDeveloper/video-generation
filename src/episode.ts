@@ -162,4 +162,35 @@ export type Episode = {
   // For now only "ball" is implemented. Reserved so we can add cars/skaters
   // later without a schema migration.
   raceObject?: "ball";
+
+  // ─── Top-battle template ───────────────────────────────────────
+  // Beyblade-style spinning-top elimination game. All tops start with the
+  // same initial angular velocity in a circular wooden arena; whichever
+  // top is still spinning last wins. Like the race template, it's purely
+  // physics-driven — items[] is just the participant pool and rank is
+  // ignored. Bake the sim once via `npm run battle-roll <slug>` and store
+  // seed + outcome timeline so renders are deterministic across machines.
+  battleSeed?: number;
+  // Filled by battle-roll. Indices reference items[]; frames are 60fps.
+  battleResult?: {
+    // Reverse elimination order — final survivor first, first-eliminated
+    // last. survivorOrder[0] is the winner.
+    survivorOrder: number[];
+    // Per top index, the frame the top was eliminated (or battleFrames
+    // for the lone survivor). Same length as items[].
+    eliminationFrames: number[];
+    // Per top index, parallel to eliminationFrames. "stopped" = spin fell
+    // below threshold for the dwell window; "knockout" = pushed past the
+    // arena lip; "fell" = below kill plane (safety net, shouldn't fire
+    // with the bowl shape).
+    eliminationReasons: ("stopped" | "knockout" | "fell")[];
+    // Total battle body length in frames (countdown excluded). The
+    // composition uses this to compute the winner-podium hold window.
+    battleFrames: number;
+  };
+  // Pointer to the baked per-frame transforms. Path is relative to
+  // /public, e.g. "battle-bakes/<slug>.bin". Each frame stores 8 floats
+  // per top (xyz, qx-qw, energy 0-1), one more than race's 7 — the
+  // energy channel drives the visual wobble + leaderboard bar.
+  battleBakePath?: string;
 };

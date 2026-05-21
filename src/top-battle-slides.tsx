@@ -1,0 +1,1136 @@
+import { ThreeCanvas } from "@remotion/three";
+import { useThree } from "@react-three/fiber";
+import { useTexture, Environment, Lightformer } from "@react-three/drei";
+import * as THREE from "three";
+import { Suspense, useMemo } from "react";
+import {
+  AbsoluteFill,
+  Audio,
+  continueRender,
+  delayRender,
+  Easing,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
+import { loadFont } from "@remotion/google-fonts/Inter";
+import { Episode } from "./episode";
+
+const { fontFamily: INTER } = loadFont();
+
+// ─── Arena constants. MUST stay in sync with scripts/battle-roll.mjs.
+const FLOOR_Y = 0;
+const ARENA_HALF_X = 10.0;       // visible play area spans x ∈ [-10, +10]
+const ARENA_HALF_Z = 5.625;      // visible play area spans z ∈ [-5.625, +5.625]
+const TOP_RADIUS = 0.85;
+const TOP_HEIGHT = 1.0;
+
+const FPS = 60;
+const COUNTDOWN_FRAMES = 10 * FPS;
+const PODIUM_FRAMES = 6 * FPS;
+const AUDIO_FADE_FRAMES = 90;
+
+// Per-top accent palette — drives the colored equator band on each top
+// and the leaderboard rank pill. Mid-saturated so they read as distinct
+// without competing with the flag textures on the top face.
+// Rich, saturated jewel tones rendered as polished metal (not pastel plastic).
+const ACCENT_PALETTE = [
+  "#c1121f", "#1d4ed8", "#059669", "#d97706", "#7c3aed", "#be185d",
+  "#0d9488", "#b45309", "#dc2626", "#0891b2", "#ea580c", "#4f46e5",
+  "#65a30d", "#e11d48", "#0e7490", "#a21caf", "#0369a1", "#ca8a04",
+  "#16a34a", "#9333ea", "#b91c1c", "#c2410c", "#3730a3", "#15803d",
+  "#155e75", "#92400e", "#6b21a8", "#4d7c0f", "#9f1239", "#db2777",
+  "#1e40af", "#86198f",
+];
+
+// ─── Scene palette ─────────────────────────────────────────────
+// Brushed steel arena. Backdrop barely matters since the rectangular
+// floor fills the frame, but kept here in case the camera ever pulls
+// back enough to show it.
+const COLOR_BG = "#0a0c10";
+const COLOR_STEEL_BASE = "#c2c6cc";
+const COLOR_STEEL_HIGHLIGHT = "#e4e7eb";
+const COLOR_STEEL_SHADOW = "#7c8088";
+const COLOR_TOP_WOOD = "#7a4825";
+const COLOR_TIP = "#cfcfcf";
+
+// ─── Public API ────────────────────────────────────────────────
+export function totalFrames(episode: Episode): number {
+  if (!episode.battleResult) return COUNTDOWN_FRAMES + PODIUM_FRAMES;
+  return COUNTDOWN_FRAMES + episode.battleResult.battleFrames + PODIUM_FRAMES;
+}
+
+export const TopBattleSlidesComposition: React.FC<{ episode: Episode }> = ({
+  episode,
+}) => {
+  const { durationInFrames } = useVideoConfig();
+  const baseVolume = episode.audioVolume ?? 0.35;
+  const fadeVolume = (f: number) => {
+    const fadeIn = Math.min(1, f / AUDIO_FADE_FRAMES);
+    const fadeOut = Math.min(1, (durationInFrames - f) / AUDIO_FADE_FRAMES);
+    return baseVolume * Math.max(0, Math.min(fadeIn, fadeOut));
+  };
+  return (
+    <AbsoluteFill style={{ background: COLOR_BG, fontFamily: INTER }}>
+      <Suspense fallback={<AbsoluteFill style={{ background: COLOR_BG }} />}>
+        <ThreeCanvas
+          width={1920}
+          height={1080}
+          gl={{ toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.18 }}
+        >
+          <Scene episode={episode} />
+        </ThreeCanvas>
+      </Suspense>
+      <HUD episode={episode} />
+      {episode.audioPath && (
+        <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
+      )}
+    </AbsoluteFill>
+  );
+};
+
+// ─── Bake loader ──────────────────────────────────────────────
+const bakeCache = new Map<string, Float32Array>();
+const bakeLoaders = new Map<string, Promise<Float32Array>>();
+
+function loadBake(path: string): Float32Array {
+  const cached = bakeCache.get(path);
+  if (cached) return cached;
+  let promise = bakeLoaders.get(path);
+  if (!promise) {
+    const handle = delayRender(`battle-bake:${path}`);
+    promise = fetch(staticFile(path))
+      .then((r) => r.arrayBuffer())
+      .then((buf) => {
+        const arr = new Float32Array(buf);
+        bakeCache.set(path, arr);
+        continueRender(handle);
+        return arr;
+      })
+      .catch((err) => {
+        console.error("Battle bake fetch failed", err);
+        continueRender(handle);
+        throw err;
+      });
+    bakeLoaders.set(path, promise);
+  }
+  throw promise;
+}
+
+const STRIDE = 8;
+
+function readTop(bake: Float32Array, frame: number, idx: number, N: number) {
+  const off = (frame * N + idx) * STRIDE;
+  return {
+    x: bake[off + 0],
+    y: bake[off + 1],
+    z: bake[off + 2],
+    qx: bake[off + 3],
+    qy: bake[off + 4],
+    qz: bake[off + 5],
+    qw: bake[off + 6],
+    energy: bake[off + 7],
+  };
+}
+
+// ─── Three.js scene ────────────────────────────────────────────
+const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
+  const frame = useCurrentFrame();
+  const bake = episode.battleBakePath ? loadBake(episode.battleBakePath) : null;
+  const N = episode.items.length;
+  const result = episode.battleResult;
+
+  const battleFrame = result
+    ? Math.max(0, Math.min(result.battleFrames - 1, frame - COUNTDOWN_FRAMES))
+    : 0;
+
+  return (
+    <>
+      <color attach="background" args={[COLOR_BG]} />
+      <fog attach="fog" args={[COLOR_BG, 28, 70]} />
+      <StudioEnvironment />
+      <ArenaLights />
+      <CameraRig episode={episode} bake={bake} numTops={N} />
+      <Arena />
+      <TopField episode={episode} bake={bake} frame={battleFrame} N={N} />
+    </>
+  );
+};
+
+// Studio HDRI-style environment built from emissive light panels (no external
+// files — works in headless render). Gives the chrome tops + metal arena
+// something premium to reflect, which is what sells the "modern game" look.
+const StudioEnvironment: React.FC = () => {
+  return (
+    <Environment resolution={256} frames={1}>
+      <color attach="background" args={["#15171c"]} />
+      {/* Big soft key panel overhead-front */}
+      <Lightformer
+        intensity={3.0}
+        position={[0, 6, 8]}
+        scale={[18, 10, 1]}
+        color="#fff4e0"
+      />
+      {/* Cool fill from behind-left */}
+      <Lightformer
+        intensity={1.2}
+        position={[-10, 4, -8]}
+        scale={[12, 8, 1]}
+        color="#9fb8ff"
+      />
+      {/* Warm rim from behind-right */}
+      <Lightformer
+        intensity={1.6}
+        position={[10, 3, -6]}
+        scale={[10, 6, 1]}
+        color="#ffd9a0"
+      />
+      {/* Thin bright streaks for crisp chrome highlights */}
+      <Lightformer intensity={2.5} position={[0, 8, 2]} scale={[1.5, 14, 1]} color="#ffffff" />
+      <Lightformer intensity={2.0} position={[-4, 8, 2]} scale={[0.8, 12, 1]} color="#ffffff" />
+      <Lightformer intensity={2.0} position={[4, 8, 2]} scale={[0.8, 12, 1]} color="#ffffff" />
+    </Environment>
+  );
+};
+
+const TopField: React.FC<{
+  episode: Episode;
+  bake: Float32Array | null;
+  frame: number;
+  N: number;
+}> = ({ episode, bake, frame, N }) => {
+  const coverPaths = useMemo(
+    () =>
+      episode.items.map((it) =>
+        it.imagePath ? staticFile(it.imagePath) : staticFile("bg-0.jpeg"),
+      ),
+    [episode.items],
+  );
+  const coverTextures = useTexture(coverPaths);
+  useMemo(() => {
+    const list = Array.isArray(coverTextures) ? coverTextures : [coverTextures];
+    for (const t of list) {
+      if (t) {
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.anisotropy = 8;
+      }
+    }
+  }, [coverTextures]);
+
+  return (
+    <>
+      {Array.from({ length: N }).map((_, i) => {
+        const tex = episode.items[i].imagePath
+          ? (Array.isArray(coverTextures) ? coverTextures[i] : coverTextures) ?? null
+          : null;
+        // Eliminated tops are NOT hidden — they stay on the table as stopped
+        // obstacles (their baked position is wherever they came to rest, and
+        // live tops keep bumping them). Only the rare fell-through-floor case
+        // is culled, handled inside <Top> via the y<-5 guard.
+        return (
+          <Top
+            key={i}
+            index={i}
+            accent={ACCENT_PALETTE[i % ACCENT_PALETTE.length]}
+            texture={tex}
+            bake={bake}
+            frame={frame}
+            numTops={N}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+const ArenaLights: React.FC = () => {
+  // Top-down spotlight to mimic a studio shoot — the marble catches a
+  // bright highlight directly below the key light, and the polished
+  // wooden rim gets a soft secondary from the rim of the spotlight cone.
+  return (
+    <>
+      <hemisphereLight args={["#fdf6e8", "#14161c", 0.8]} />
+      {/* Key — strong warm light from above-front for bright tops + highlights */}
+      <directionalLight position={[2, 22, 10]} intensity={4.2} color="#fff4e0" />
+      {/* Fills */}
+      <directionalLight position={[14, 14, 12]} intensity={1.4} color="#fff0d8" />
+      <directionalLight position={[-12, 12, -10]} intensity={0.9} color="#a8b8d8" />
+      {/* Camera-side low fill — lifts the lower/front of each top so the
+          conical underside doesn't read black. */}
+      <directionalLight position={[0, 3, 18]} intensity={1.1} color="#dfe6f0" />
+      {/* Studio spotlight pool on the arena center — decay 1.5 so it actually
+          reaches the floor ~18 units away. */}
+      <spotLight
+        position={[0, 18, 4]}
+        target-position={[0, 0, 0]}
+        angle={0.7}
+        penumbra={0.7}
+        intensity={5000}
+        distance={60}
+        decay={1.5}
+        color="#fff6e6"
+      />
+    </>
+  );
+};
+
+// ─── Arena ────────────────────────────────────────────────────
+// Wall geometry — inner face aligned with the physics walls (at ±ARENA_HALF)
+// in battle-roll.mjs so the visible wall is exactly where tops bounce.
+const WALL_VIS_HEIGHT = 0.7;
+const WALL_VIS_THICK = 0.45;
+const BOARD_DROP = 0.7; // how far the board slab extends down onto the ground
+const GROUND_Y = FLOOR_Y - BOARD_DROP;
+
+const Arena: React.FC = () => {
+  const steelTex = useMemo(
+    () => makeBrushedSteelTexture({ size: 1024, seed: 0x9c7e1131 }),
+    [],
+  );
+  const groundTex = useMemo(
+    () => makeSurfaceTexture({ size: 1024, seed: 0x51af33d1 }),
+    [],
+  );
+
+  return (
+    <>
+      {/* OUTER SURFACE — a big real-feeling tabletop the board sits on. */}
+      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[120, 120]} />
+        <meshStandardMaterial
+          map={groundTex}
+          color={"#5a4632"}
+          roughness={0.72}
+          metalness={0.0}
+          envMapIntensity={0.5}
+        />
+      </mesh>
+
+      {/* BOARD SLAB — raised platform sitting on the surface. Top face at
+          y=0 (matches physics floor); extends down BOARD_DROP onto the
+          ground so it reads as a thick board, not a floating sheet. */}
+      <mesh position={[0, FLOOR_Y - BOARD_DROP / 2, 0]}>
+        <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2 + 0.3, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2 + 0.3]} />
+        <meshStandardMaterial color={"#1c2026"} roughness={0.5} metalness={0.5} envMapIntensity={1.0} />
+      </mesh>
+
+      {/* PLAY SURFACE — the brushed-steel floor the tops spin on. */}
+      <mesh position={[0, FLOOR_Y - 0.02, 0]}>
+        <boxGeometry args={[ARENA_HALF_X * 2, 0.06, ARENA_HALF_Z * 2]} />
+        <meshStandardMaterial
+          map={steelTex}
+          color={"#39404c"}
+          roughness={0.3}
+          metalness={0.8}
+          envMapIntensity={1.8}
+        />
+      </mesh>
+
+      {/* CONTAINING WALLS — a low rim that keeps tops in and reads as the
+          board's edge. Inner face at ±ARENA_HALF (matches physics). */}
+      <ArenaWalls />
+    </>
+  );
+};
+
+const ArenaWalls: React.FC = () => {
+  const cy = FLOOR_Y + WALL_VIS_HEIGHT / 2;
+  const off = WALL_VIS_THICK / 2;
+  // Dark brushed gunmetal rim — premium, not cheap white plastic.
+  const wallMat = (
+    <meshStandardMaterial color={"#2a2e36"} roughness={0.34} metalness={0.95} envMapIntensity={1.5} />
+  );
+  return (
+    <>
+      {/* ±Z long walls (run along X) */}
+      {[1, -1].map((s) => (
+        <mesh key={`wz${s}`} position={[0, cy, s * (ARENA_HALF_Z + off)]}>
+          <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2, WALL_VIS_HEIGHT, WALL_VIS_THICK]} />
+          {wallMat}
+        </mesh>
+      ))}
+      {/* ±X short walls (run along Z) */}
+      {[1, -1].map((s) => (
+        <mesh key={`wx${s}`} position={[s * (ARENA_HALF_X + off), cy, 0]}>
+          <boxGeometry args={[WALL_VIS_THICK, WALL_VIS_HEIGHT, ARENA_HALF_Z * 2]} />
+          {wallMat}
+        </mesh>
+      ))}
+    </>
+  );
+};
+
+// ─── Procedural textures ──────────────────────────────────────
+// Brushed steel — directional grain lines (horizontal in UV) plus fine
+// speckle. Reads as a polished but lined metal surface under the key
+// light. Modeled on race-slides.tsx's makeSteelTexture but with
+// stronger directional brushing.
+function makeBrushedSteelTexture(opts: {
+  size: number;
+  seed: number;
+}): THREE.CanvasTexture {
+  const { size: SIZE, seed } = opts;
+  const canvas = document.createElement("canvas");
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+  const ctx = canvas.getContext("2d")!;
+
+  const rand = mulberry32(seed);
+  const highlight = hexToRgb(COLOR_STEEL_HIGHLIGHT);
+  const shadow = hexToRgb(COLOR_STEEL_SHADOW);
+
+  ctx.fillStyle = COLOR_STEEL_BASE;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // Soft tonal blotches.
+  for (let i = 0; i < 18; i++) {
+    const cx = rand() * SIZE;
+    const cy = rand() * SIZE;
+    const r = SIZE * (0.15 + rand() * 0.3);
+    const tint = rand() < 0.5 ? highlight : shadow;
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    grad.addColorStop(0, `rgba(${tint.r},${tint.g},${tint.b},${0.04 + rand() * 0.07})`);
+    grad.addColorStop(1, `rgba(${tint.r},${tint.g},${tint.b},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, SIZE, SIZE);
+  }
+
+  // Directional brushing — many horizontal hairlines of varying alpha.
+  // These give brushed steel its characteristic linear sheen.
+  for (let i = 0; i < SIZE * 2.2; i++) {
+    const y = rand() * SIZE;
+    const lighter = rand() < 0.5;
+    const tint = lighter ? highlight : shadow;
+    const alpha = 0.04 + rand() * 0.14;
+    ctx.strokeStyle = `rgba(${tint.r},${tint.g},${tint.b},${alpha})`;
+    ctx.lineWidth = 0.5 + rand() * 0.8;
+    // Lines aren't perfectly horizontal — slight wobble so the grain
+    // looks hand-brushed, not laser-etched.
+    ctx.beginPath();
+    let x = 0;
+    let yy = y;
+    ctx.moveTo(x, yy);
+    while (x < SIZE) {
+      x += 20 + rand() * 40;
+      yy = y + (rand() - 0.5) * 0.6;
+      ctx.lineTo(x, yy);
+    }
+    ctx.stroke();
+  }
+
+  // Speckle for surface tooth.
+  const speckles = Math.floor((SIZE * SIZE) / 14);
+  for (let i = 0; i < speckles; i++) {
+    const x = Math.floor(rand() * SIZE);
+    const y = Math.floor(rand() * SIZE);
+    const lighter = rand() < 0.5;
+    const tint = lighter ? highlight : shadow;
+    const alpha = 0.06 + rand() * 0.16;
+    ctx.fillStyle = `rgba(${tint.r},${tint.g},${tint.b},${alpha})`;
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(2, 1.2);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return tex;
+}
+
+// Warm matte tabletop — soft wood-grain-ish streaks + grain so the outer
+// surface reads as a real desk the board sits on (not a flat void).
+function makeSurfaceTexture(opts: { size: number; seed: number }): THREE.CanvasTexture {
+  const { size: SIZE, seed } = opts;
+  const canvas = document.createElement("canvas");
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+  const ctx = canvas.getContext("2d")!;
+  const rand = mulberry32(seed);
+
+  ctx.fillStyle = "#4a3a2a";
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // Broad tonal bands (plank-ish variation).
+  for (let i = 0; i < 26; i++) {
+    const y = rand() * SIZE;
+    const h = SIZE * (0.02 + rand() * 0.06);
+    const dark = rand() < 0.5;
+    ctx.fillStyle = dark
+      ? `rgba(30,22,14,${0.06 + rand() * 0.1})`
+      : `rgba(120,95,66,${0.05 + rand() * 0.1})`;
+    ctx.fillRect(0, y, SIZE, h);
+  }
+  // Fine horizontal grain lines.
+  for (let i = 0; i < SIZE * 1.5; i++) {
+    const y = rand() * SIZE;
+    const dark = rand() < 0.5;
+    ctx.strokeStyle = dark
+      ? `rgba(25,18,10,${0.04 + rand() * 0.08})`
+      : `rgba(130,105,72,${0.03 + rand() * 0.07})`;
+    ctx.lineWidth = 0.5 + rand() * 1.0;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(SIZE, y + (rand() - 0.5) * 2);
+    ctx.stroke();
+  }
+  // Speckle.
+  const speckles = Math.floor((SIZE * SIZE) / 20);
+  for (let i = 0; i < speckles; i++) {
+    const x = Math.floor(rand() * SIZE);
+    const y = Math.floor(rand() * SIZE);
+    const a = 0.04 + rand() * 0.1;
+    ctx.fillStyle = rand() < 0.5 ? `rgba(20,14,8,${a})` : `rgba(140,112,78,${a})`;
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(8, 8);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return tex;
+}
+
+// Soft round contact-shadow blob (radial gradient, transparent edges) painted
+// on the floor under each top so they read as grounded, not floating.
+let _shadowTexSingleton: THREE.CanvasTexture | null = null;
+function getShadowTexture(): THREE.CanvasTexture {
+  if (_shadowTexSingleton) return _shadowTexSingleton;
+  const S = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = S;
+  canvas.height = S;
+  const ctx = canvas.getContext("2d")!;
+  const g = ctx.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+  g.addColorStop(0, "rgba(0,0,0,0.55)");
+  g.addColorStop(0.55, "rgba(0,0,0,0.28)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, S, S);
+  _shadowTexSingleton = new THREE.CanvasTexture(canvas);
+  return _shadowTexSingleton;
+}
+
+
+// ─── Spinning top ──────────────────────────────────────────────
+const Top: React.FC<{
+  index: number;
+  accent: string;
+  texture: THREE.Texture | null;
+  bake: Float32Array | null;
+  frame: number;
+  numTops: number;
+}> = ({ index, accent, texture, bake, frame, numTops }) => {
+  let x = 0,
+    y = TOP_HEIGHT / 2,
+    z = 0;
+  let qx = 0,
+    qy = 0,
+    qz = 0,
+    qw = 1;
+  let energy = 1;
+  if (bake) {
+    const t = readTop(bake, frame, index, numTops);
+    x = t.x;
+    y = t.y;
+    z = t.z;
+    qx = t.qx;
+    qy = t.qy;
+    qz = t.qz;
+    qw = t.qw;
+    energy = t.energy;
+  } else {
+    // Pre-bake fallback layout — a small ring at the arena center so
+    // the studio thumbnail renders with the tops in roughly sensible
+    // positions. Real positions come from the bake once it loads.
+    const theta = (index / numTops) * Math.PI * 2;
+    x = Math.cos(theta) * 2.0;
+    z = Math.sin(theta) * 2.0;
+  }
+
+  // Safety: a top that somehow fell through the floor isn't rendered.
+  if (y < -5) return null;
+
+  // The physics quaternion drives everything: a live top spins (Y rotation
+  // changes each frame); a stopped top sits upright and still. No artificial
+  // wobble — stopped tops simply rest in place as obstacles.
+  const composedQuat = useMemo(
+    () => new THREE.Quaternion(qx, qy, qz, qw),
+    [qx, qy, qz, qw],
+  );
+
+  // Visual top = a lathed chrome body (classic spinning-top silhouette:
+  // pointed tip → wide disc → flag face), a thin accent ring at the rim for
+  // per-top identity, the flag disc on the flat top, and a small gold stem
+  // knob. The collider stays a plain cylinder (physics only) — the visual is
+  // free to be this nicer shape.
+  const shellGeo = useTopShellGeometry();
+  const shadowTex = getShadowTexture();
+  // Spin blur: while a top still has spin, overlay a couple of faint flag
+  // copies at trailing angles so it reads as fast-spinning motion (the flag
+  // smears into a ring) rather than a frozen disc.
+  const spinning = energy > 0.22;
+  return (
+    <>
+      {/* Contact shadow on the floor (kept flat, follows x/z only). */}
+      <mesh position={[x, 0.03, z]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[TOP_RADIUS * 2.6, TOP_RADIUS * 2.6]} />
+        <meshBasicMaterial map={shadowTex} transparent depthWrite={false} opacity={0.9} />
+      </mesh>
+
+      <group position={[x, y, z]}>
+        <group quaternion={composedQuat}>
+          {/* Satin metal lathed body — reads as a clear 3D cone with an even
+              light tone top-to-bottom (small self-color emissive lifts the tip). */}
+          <mesh geometry={shellGeo}>
+            <meshStandardMaterial
+              color={"#aab0b8"}
+              roughness={0.3}
+              metalness={0.9}
+              envMapIntensity={1.5}
+              emissive={"#5a6068"}
+              emissiveIntensity={0.12}
+            />
+          </mesh>
+
+          {/* Polished colored-metal accent ring at the rim. */}
+          <mesh position={[0, TOP_DISC_Y - 0.02, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[TOP_RADIUS * 0.92, TOP_HEIGHT * 0.055, 14, 72]} />
+            <meshStandardMaterial color={accent} roughness={0.22} metalness={0.9} envMapIntensity={1.4} />
+          </mesh>
+
+          {/* Flat flag disc — unlit + non-tonemapped so it stays vivid. */}
+          <mesh position={[0, TOP_DISC_Y + 0.02, 0]}>
+            <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
+            {texture ? (
+              <meshBasicMaterial map={texture} toneMapped={false} />
+            ) : (
+              <meshBasicMaterial color={accent} toneMapped={false} />
+            )}
+          </mesh>
+
+          {/* Spin-blur ghosts (only while spinning). */}
+          {spinning && texture && [0.22, 0.44].map((a, k) => (
+            <mesh key={k} position={[0, TOP_DISC_Y + 0.021 + k * 0.001, 0]} rotation={[0, -a, 0]}>
+              <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
+              <meshBasicMaterial
+                map={texture}
+                toneMapped={false}
+                transparent
+                opacity={k === 0 ? 0.32 : 0.18}
+                depthWrite={false}
+              />
+            </mesh>
+          ))}
+
+          {/* Gold stem knob at center top. */}
+          <mesh position={[0, TOP_DISC_Y + 0.13, 0]}>
+            <cylinderGeometry args={[TOP_RADIUS * 0.1, TOP_RADIUS * 0.12, 0.22, 24]} />
+            <meshStandardMaterial color={"#e6b54a"} roughness={0.22} metalness={1.0} />
+          </mesh>
+          <mesh position={[0, TOP_DISC_Y + 0.25, 0]}>
+            <sphereGeometry args={[TOP_RADIUS * 0.11, 20, 16]} />
+            <meshStandardMaterial color={"#e6b54a"} roughness={0.22} metalness={1.0} />
+          </mesh>
+        </group>
+      </group>
+    </>
+  );
+};
+
+// Vertical layout (local Y). The point sits at the collider bottom
+// (-TOP_HEIGHT/2) so it rests on the floor; the disc/flag sit higher up so the
+// body is a tall, clearly-3D cone rather than a flat coin.
+const POINT_Y = -TOP_HEIGHT * 0.5;     // floor contact (matches physics)
+const TOP_DISC_Y = 0.44;               // disc / flag / accent plane
+
+// Shared lathed shell geometry for every top (one allocation, reused).
+let _shellGeoSingleton: THREE.LatheGeometry | null = null;
+function useTopShellGeometry(): THREE.LatheGeometry {
+  return useMemo(() => {
+    if (_shellGeoSingleton) return _shellGeoSingleton;
+    const R = TOP_RADIUS;
+    // (radius, y): a squat, FAT body (like a real wooden top) — widens quickly
+    // from the floor point to the broad disc, so it reads as one solid mass,
+    // not a thin stemmed glass.
+    const pts: THREE.Vector2[] = [
+      new THREE.Vector2(0.0, POINT_Y),
+      new THREE.Vector2(0.34 * R, POINT_Y + 0.14),
+      new THREE.Vector2(0.62 * R, POINT_Y + 0.32),
+      new THREE.Vector2(0.86 * R, POINT_Y + 0.52),
+      new THREE.Vector2(R, TOP_DISC_Y - 0.14),    // approaching widest
+      new THREE.Vector2(R, TOP_DISC_Y - 0.03),    // crisp vertical rim
+      new THREE.Vector2(R * 0.82, TOP_DISC_Y + 0.02),
+      new THREE.Vector2(0.0, TOP_DISC_Y + 0.02),  // flat cap
+    ];
+    _shellGeoSingleton = new THREE.LatheGeometry(pts, 72);
+    _shellGeoSingleton.computeVertexNormals();
+    return _shellGeoSingleton;
+  }, []);
+}
+
+// ─── Camera ────────────────────────────────────────────────────
+const CameraRig: React.FC<{
+  episode: Episode;
+  bake: Float32Array | null;
+  numTops: number;
+}> = ({ episode, bake, numTops }) => {
+  const frame = useCurrentFrame();
+  const { camera } = useThree();
+  const result = episode.battleResult;
+  const battleFrames = result?.battleFrames ?? 0;
+
+  // Note: no per-frame battle position read — tops are stationary after
+  // the initial collision phase, so the battle-body camera is fixed and
+  // doesn't need to track a centroid.
+
+  const inCountdown = frame < COUNTDOWN_FRAMES;
+  const inPodium = result != null && frame >= COUNTDOWN_FRAMES + battleFrames;
+  const winnerIdx = result?.survivorOrder[0] ?? 0;
+
+  let pos: [number, number, number];
+  let look: [number, number, number];
+  let fov = 50;
+  // The "up" vector matters for the near-top-down view — we want world
+  // +X to be the screen's horizontal axis (long side of the arena
+  // along the screen's long side). Setting camera.up = (0,0,-1) makes
+  // world -Z appear at the top of the screen, so the rectangle reads
+  // landscape-oriented (20 wide × 11.25 tall in screen space).
+  // Cinematic 3/4 view (normal Y-up) for countdown + battle so the tops
+  // read as 3D objects, not flat discs. Only the podium uses its own up.
+  const useTopDownUp = false;
+
+  if (inCountdown) {
+    // Slow push-in. Far + telephoto so perspective is compressed and every
+    // top reads a similar size regardless of depth.
+    const t = Easing.inOut(Easing.ease)(frame / COUNTDOWN_FRAMES);
+    pos = [0, lerp(19, 17.5, t), lerp(26, 24, t)];
+    look = [0, 0.3, 0];
+    fov = lerp(25, 24, t);
+  } else if (inPodium && bake) {
+    // Hero shot on the surviving top — closer angle, slight orbit.
+    // Reset camera.up to the default Y for this shot so the orbit
+    // reads as a side-on view, not top-down.
+    const w = readTop(bake, battleFrames - 1, winnerIdx, numTops);
+    const t = (frame - COUNTDOWN_FRAMES - battleFrames) / PODIUM_FRAMES;
+    const orbit = t * Math.PI * 0.4;
+    pos = [w.x + Math.cos(orbit) * 3.5, 2.6, w.z + Math.sin(orbit) * 3.5];
+    look = [w.x, 0.4, w.z];
+    fov = 32;
+  } else {
+    // Battle body — fixed cinematic 3/4 view (~42° above horizontal) that
+    // frames the whole rectangular arena while showing each top's 3D
+    // silhouette. Camera sits in front (+Z) and above, looking at center.
+    // Subtle cinematic drift so the shot breathes instead of sitting dead
+    // still — gentle sway in X/Z and a slow height bob, all under ~1 unit.
+    // Far + telephoto (low fov) compresses perspective so near and far tops
+    // render close to the same size — fixes the lopsided look. ~37° above
+    // horizontal still shows each top's 3D form. Subtle drift to breathe.
+    const t = frame / 60;
+    pos = [
+      Math.sin(t * 0.22) * 1.0,
+      17.5 + Math.sin(t * 0.16) * 0.4,
+      24 + Math.cos(t * 0.19) * 0.8,
+    ];
+    look = [Math.sin(t * 0.13) * 0.4, 0.2, 0];
+    fov = 24 + Math.sin(t * 0.1) * 0.4;
+  }
+
+  if (useTopDownUp) {
+    camera.up.set(0, 0, -1);
+  } else {
+    camera.up.set(0, 1, 0);
+  }
+  camera.position.set(pos[0], pos[1], pos[2]);
+  camera.lookAt(look[0], look[1], look[2]);
+  if (camera instanceof THREE.PerspectiveCamera) {
+    camera.fov = fov;
+    camera.updateProjectionMatrix();
+  }
+  return null;
+};
+
+// ─── HUD ───────────────────────────────────────────────────────
+const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const result = episode.battleResult;
+  const N = episode.items.length;
+
+  const countdownActive = frame < COUNTDOWN_FRAMES;
+  const secondsLeft = Math.ceil((COUNTDOWN_FRAMES - frame) / fps);
+  const goLabel = frame < COUNTDOWN_FRAMES - fps * 0.2 ? `${secondsLeft}` : "GO!";
+
+  const battleFrame = Math.max(0, frame - COUNTDOWN_FRAMES);
+
+  // Build current leaderboard: alive tops first (sorted by current
+  // energy desc → highest score on top), then dead tops in reverse-
+  // elimination order. Each row carries a "score" = round(energy * 2000)
+  // which matches the integer-style scores in the reference image.
+  const rows = useMemo(() => {
+    if (!result) return [];
+    type Row = { idx: number; energy: number; alive: boolean; score: number };
+    const alive: Row[] = [];
+    const dead: Array<Row & { elimFrame: number }> = [];
+    for (let i = 0; i < N; i++) {
+      const ef = result.eliminationFrames[i];
+      const isAlive = ef < 0 || battleFrame < ef;
+      const energy = sampleEnergy(episode.battleBakePath, battleFrame, i, N);
+      const score = Math.max(0, Math.round(energy * 2000));
+      if (isAlive) {
+        alive.push({ idx: i, energy, alive: true, score });
+      } else {
+        dead.push({ idx: i, energy: 0, alive: false, score: 0, elimFrame: ef });
+      }
+    }
+    alive.sort((a, b) => b.energy - a.energy);
+    dead.sort((a, b) => b.elimFrame - a.elimFrame);
+    return [...alive, ...dead.map(({ elimFrame: _e, ...r }) => r)];
+  }, [result, N, battleFrame, episode.battleBakePath]);
+
+  const aliveCount = result
+    ? result.eliminationFrames.filter((f) => f < 0 || battleFrame < f).length
+    : N;
+  const round = Math.max(1, N - aliveCount + 1);
+
+  const winnerIdx = result?.survivorOrder[0];
+  const lastElimFrame = useMemo(() => {
+    if (!result) return Number.MAX_SAFE_INTEGER;
+    let max = 0;
+    for (let i = 0; i < result.eliminationFrames.length; i++) {
+      if (i === winnerIdx) continue;
+      if (result.eliminationFrames[i] > max) max = result.eliminationFrames[i];
+    }
+    return max;
+  }, [result, winnerIdx]);
+  const winnerVisible =
+    result != null && winnerIdx != null && battleFrame >= lastElimFrame + fps * 0.5;
+  const winnerOpacity = winnerVisible
+    ? Math.min(1, (battleFrame - lastElimFrame - fps * 0.5) / (fps * 0.6))
+    : 0;
+
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      {/* Title during countdown only — single line, title-case, medium weight. */}
+      {countdownActive && (
+        <div
+          style={{
+            position: "absolute",
+            top: 64,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            color: "#ffffff",
+            textShadow: "0 4px 24px rgba(0,0,0,0.85)",
+            opacity: interpolate(frame, [0, 20], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }),
+          }}
+        >
+          <div
+            style={{
+              fontSize: 60,
+              fontWeight: 500,
+              letterSpacing: 1,
+              textTransform: "capitalize",
+            }}
+          >
+            {(episode.title[1] ?? "").toLowerCase()}
+          </div>
+        </div>
+      )}
+
+      {countdownActive && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: 0,
+            right: 0,
+            transform: "translateY(-50%)",
+            textAlign: "center",
+            color: "#f5b35a",
+            fontSize: 300,
+            fontWeight: 600,
+            letterSpacing: -8,
+            textShadow: "0 8px 48px rgba(0,0,0,0.9)",
+            opacity: countdownPulseOpacity(frame, fps),
+          }}
+        >
+          {goLabel}
+        </div>
+      )}
+
+      {/* Leaderboard intentionally removed — showing live standings lets
+          viewers predict the outcome, which kills engagement. */}
+
+      {winnerOpacity > 0 && winnerIdx != null && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 96,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            color: "#ffffff",
+            opacity: winnerOpacity,
+            textShadow: "0 6px 32px rgba(0,0,0,0.95)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 26,
+              letterSpacing: 6,
+              opacity: 0.8,
+              textTransform: "capitalize",
+              fontWeight: 500,
+            }}
+          >
+            last top spinning
+          </div>
+          <div style={{ fontSize: 80, fontWeight: 600, color: "#f5b35a", marginTop: 6 }}>
+            {episode.items[winnerIdx].title}
+          </div>
+        </div>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+// ─── Leaderboard ──────────────────────────────────────────────
+const Leaderboard: React.FC<{
+  rows: Array<{ idx: number; energy: number; alive: boolean; score: number }>;
+  round: number;
+  items: Episode["items"];
+}> = ({ rows, round, items }) => {
+  // Cap at 6 rows — user explicitly asked for this and the reference
+  // image shows exactly 5 entries with no overflow.
+  const visible = rows.slice(0, 6);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 36,
+        left: 36,
+        width: 320,
+        padding: "0 0 8px",
+        background: "linear-gradient(180deg, #fafaf6 0%, #ebe6dc 100%)",
+        border: "3px solid #2a1408",
+        borderRadius: 10,
+        boxShadow: "0 14px 40px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.6)",
+        color: "#1a1410",
+        fontFamily: INTER,
+      }}
+    >
+      <div
+        style={{
+          padding: "10px 14px 8px",
+          borderBottom: "2px solid #2a1408",
+          background: "linear-gradient(180deg, #f5f0e4 0%, #e2dac9 100%)",
+          borderRadius: "7px 7px 0 0",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 15,
+            letterSpacing: 2.5,
+            fontWeight: 800,
+            textTransform: "uppercase",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <span>Leaderboard</span>
+          <span style={{ fontSize: 12, opacity: 0.65, fontWeight: 700 }}>
+            ROUND {round}
+          </span>
+        </div>
+      </div>
+      <div style={{ padding: "4px 12px" }}>
+        {visible.map((row, place) => (
+          <LeaderboardRow
+            key={row.idx}
+            place={place + 1}
+            item={items[row.idx]}
+            score={row.score}
+            alive={row.alive}
+            isLast={place === visible.length - 1}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const LeaderboardRow: React.FC<{
+  place: number;
+  item: Episode["items"][number];
+  score: number;
+  alive: boolean;
+  isLast: boolean;
+}> = ({ place, item, score, alive, isLast }) => {
+  const rankColors: Record<number, string> = {
+    1: "#d4a534",
+    2: "#a8a8a8",
+    3: "#b87333",
+  };
+  const rankColor = rankColors[place] ?? "#3a2a1a";
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        padding: "7px 0",
+        borderBottom: isLast ? "none" : "1px solid rgba(42,20,8,0.18)",
+        opacity: alive ? 1 : 0.5,
+      }}
+    >
+      <div
+        style={{
+          width: 28,
+          height: 28,
+          borderRadius: 6,
+          background: rankColor,
+          color: "#fff",
+          fontSize: 13,
+          fontWeight: 800,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          textShadow: "0 1px 2px rgba(0,0,0,0.4)",
+        }}
+      >
+        {place}
+      </div>
+      {item.country ? (
+        <img
+          src={`https://flagcdn.com/w40/${item.country.toLowerCase()}.png`}
+          alt=""
+          width={28}
+          height={20}
+          style={{
+            borderRadius: 2,
+            border: "1px solid rgba(0,0,0,0.25)",
+            flexShrink: 0,
+          }}
+        />
+      ) : (
+        <div style={{ width: 28, height: 20, flexShrink: 0 }} />
+      )}
+      <div
+        style={{
+          flex: 1,
+          minWidth: 0,
+          fontSize: 15,
+          fontWeight: 800,
+          letterSpacing: 1,
+          textTransform: "uppercase",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          textDecoration: alive ? "none" : "line-through",
+        }}
+      >
+        {countryCode(item) ?? item.title}
+      </div>
+      <div
+        style={{
+          fontSize: 15,
+          fontWeight: 700,
+          color: "#1a1410",
+          fontVariantNumeric: "tabular-nums",
+          minWidth: 56,
+          textAlign: "right",
+        }}
+      >
+        {score}
+      </div>
+    </div>
+  );
+};
+
+// Display label for a country — use the 2-letter ISO code in the
+// reference image but show a slightly longer abbreviation when it
+// reads cleaner (USA vs US, UK vs GB). Falls back to whatever
+// shortened country code is on the item.
+function countryCode(item: Episode["items"][number]): string | null {
+  if (!item.country) return null;
+  const overrides: Record<string, string> = {
+    US: "USA",
+    GB: "UK",
+    DE: "GERMANY",
+    JP: "JAPAN",
+    BR: "BRAZIL",
+    FR: "FRANCE",
+    CN: "CHINA",
+    IN: "INDIA",
+    RU: "RUSSIA",
+    IT: "ITALY",
+    CA: "CANADA",
+    HK: "HONG KONG",
+    TW: "TAIWAN",
+    SG: "SINGAPORE",
+    SE: "SWEDEN",
+    KR: "S. KOREA",
+    AU: "AUSTRALIA",
+    CH: "SWISS",
+    IL: "ISRAEL",
+    ES: "SPAIN",
+  };
+  return overrides[item.country.toUpperCase()] ?? item.country.toUpperCase();
+}
+
+// ─── Helpers ──────────────────────────────────────────────────
+function sampleEnergy(
+  bakePath: string | undefined,
+  frame: number,
+  idx: number,
+  N: number,
+): number {
+  if (!bakePath) return 1;
+  const bake = bakeCache.get(bakePath);
+  if (!bake) return 1;
+  const off = (frame * N + idx) * STRIDE + 7;
+  if (off >= bake.length) return 0;
+  return bake[off];
+}
+
+function hexToRgb(hex: string) {
+  return {
+    r: parseInt(hex.slice(1, 3), 16),
+    g: parseInt(hex.slice(3, 5), 16),
+    b: parseInt(hex.slice(5, 7), 16),
+  };
+}
+
+function mulberry32(seed: number) {
+  let s = seed >>> 0;
+  return function () {
+    s = (s + 0x6d2b79f5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), 1 | t);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+function countdownPulseOpacity(frame: number, fps: number): number {
+  const phaseFrame = frame % fps;
+  if (phaseFrame < fps * 0.2)
+    return interpolate(phaseFrame, [0, fps * 0.2], [0, 1]);
+  if (phaseFrame > fps * 0.8)
+    return interpolate(phaseFrame, [fps * 0.8, fps], [1, 0]);
+  return 1;
+}
