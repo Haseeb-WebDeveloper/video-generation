@@ -221,4 +221,6 @@ export type TournamentRound = {
   battleFrames: number;
   // Index into episode.items[] of this round's winner.
   winnerIndex: number;
+  // Collision events for sound-effect syncing. frame is battle-local.
+  collisions?: Array<{ frame: number; type: "top" | "wall"; strength: number }>;
 };

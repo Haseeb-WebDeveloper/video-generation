@@ -58,6 +58,7 @@ async function runRound(kind, label, itemIndices, seed, roundFileIdx) {
     eliminationFrames: res.eliminationFrames,
     battleFrames: res.battleFrames,
     winnerIndex,
+    collisions: res.collisions,
   });
   console.log(
     `${label}: ${itemIndices.length} tops, ${res.battleFrames}f (${(res.battleFrames / FPS).toFixed(1)}s) ` +

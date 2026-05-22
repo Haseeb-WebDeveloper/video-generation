@@ -25,8 +25,8 @@ const SPAWN_Y = TOP_HEIGHT / 2 + 0.25;
 const SLEEP_LINVEL_THRESHOLD = 0.015;
 
 // ── Spin / damping model ──
-export const INIT_SPIN = 60;
-const SPIN_JITTER = 18;
+export const INIT_SPIN = 120;  // much faster launch (~114°/frame visual spin)
+const SPIN_JITTER = 6;         // near-uniform start; outcome decided by clashes
 const STOP_THRESHOLD = 4;
 const STOP_DWELL_FRAMES = 20;
 const ANGULAR_DAMPING = 0.010;
@@ -46,6 +46,8 @@ const NUDGE_STRENGTH = 3.2;
 export const FPS = 60;
 const MAX_BATTLE_SECONDS = 70;
 const MAX_FRAMES = MAX_BATTLE_SECONDS * FPS;
+// Beat where the lone winner spins alone before the battle ends / reveal.
+export const VICTORY_HOLD = 150; // ~2.5s @ 60fps
 
 let _rapierReady = false;
 export async function initRapier() {
@@ -53,6 +55,34 @@ export async function initRapier() {
   await RAPIER.init();
   _rapierReady = true;
 }
+
+function quatFromAxisAngle(ax, ay, az, angle) {
+  const h = angle / 2, s = Math.sin(h);
+  return { x: ax * s, y: ay * s, z: az * s, w: Math.cos(h) };
+}
+function quatMul(a, b) {
+  return {
+    x: a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+    y: a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+    z: a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+    w: a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
+  };
+}
+function rotateVec(q, v) {
+  // v' = q * v * q^-1  (q unit)
+  const ix = q.w * v.x + q.y * v.z - q.z * v.y;
+  const iy = q.w * v.y + q.z * v.x - q.x * v.z;
+  const iz = q.w * v.z + q.x * v.y - q.y * v.x;
+  const iw = -q.x * v.x - q.y * v.y - q.z * v.z;
+  return {
+    x: ix * q.w + iw * -q.x + iy * -q.z - iz * -q.y,
+    y: iy * q.w + iw * -q.y + iz * -q.x - ix * -q.z,
+    z: iz * q.w + iw * -q.z + ix * -q.y - iy * -q.x,
+  };
+}
+// Distance from the body center to the floor tip (matches POINT_Y in the
+// renderer: the visual point is at local y = -TOP_HEIGHT/2).
+const PIVOT_OFFSET = TOP_HEIGHT * 0.5;
 
 export function mulberry32(seed) {
   let s = seed >>> 0;
@@ -96,6 +126,7 @@ function buildArena(world) {
 
 function spawnRing(world, count, rand) {
   const tops = [];
+  const handleToIndex = new Map();
   for (let i = 0; i < count; i++) {
     const theta = (i / count) * Math.PI * 2 + (rand() - 0.5) * 0.12;
     const r = SPAWN_RADIUS + (rand() - 0.5) * 0.2;
@@ -121,26 +152,41 @@ function spawnRing(world, count, rand) {
         .setLinearDamping(LINEAR_DAMPING)
         .setCcdEnabled(true),
     );
-    world.createCollider(
+    const col = world.createCollider(
       RAPIER.ColliderDesc.cylinder(TOP_HEIGHT / 2, TOP_RADIUS)
         .setDensity(1.0)
         .setFriction(TOP_FRICTION)
-        .setRestitution(TOP_RESTITUTION),
+        .setRestitution(TOP_RESTITUTION)
+        .setActiveEvents(RAPIER.ActiveEvents.COLLISION_EVENTS),
       body,
     );
+    handleToIndex.set(col.handle, i);
     tops.push(body);
   }
-  return tops;
+  return { tops, handleToIndex };
 }
 
-function killTop(i, frame, reason, body, eliminated, eliminationFrames, eliminationReasons, elimOrder) {
+const LEAN_ANGLE = 0.62;   // ~35° rest lean for a stopped top
+const LEAN_FRAMES = 26;    // how long the topple-lean takes
+
+function killTop(i, frame, reason, body, ctx, rand) {
+  const { eliminated, eliminationFrames, eliminationReasons, elimOrder, leanAxis, leanStart } = ctx;
   eliminated.add(i);
   eliminationFrames[i] = frame;
   eliminationReasons[i] = reason;
   elimOrder.push(i);
-  // Leave the body in place & dynamic — a stopped top stays as a collidable
-  // obstacle. Just kill its spin.
   body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+  // Record a lean: the top tilts onto its rim like a real top that ran out of
+  // spin (flag still visible). The visual tilt is composited in the bake; the
+  // collider stays an upright cylinder so the dead top remains a bumpable
+  // obstacle that slides realistically when a live top hits it.
+  const a = rand() * Math.PI * 2;
+  leanAxis[i] = { x: Math.cos(a), z: Math.sin(a) };
+  leanStart[i] = frame;
+}
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
 }
 
 // Simulate one battle. `items` is only used for its length (participant count).
@@ -150,7 +196,8 @@ export function simulateBattle({ count, seed }) {
   const rand = mulberry32(seed);
   const world = new RAPIER.World({ x: 0, y: -9.81, z: 0 });
   buildArena(world);
-  const tops = spawnRing(world, N, rand);
+  const { tops, handleToIndex } = spawnRing(world, N, rand);
+  const eventQueue = new RAPIER.EventQueue(true);
 
   const bake = new Float32Array(MAX_FRAMES * N * 8);
   const eliminationFrames = new Array(N).fill(-1);
@@ -158,23 +205,61 @@ export function simulateBattle({ count, seed }) {
   const eliminated = new Set();
   const slowStreak = new Array(N).fill(0);
   const elimOrder = [];
+  const leanAxis = new Array(N).fill(null);
+  const leanStart = new Array(N).fill(-1);
+  const ctx = { eliminated, eliminationFrames, eliminationReasons, elimOrder, leanAxis, leanStart };
+  const collisions = []; // { frame, type:"top"|"wall", strength } for SFX
+
+  // Per-collision spin loss: a clash bleeds spin from both tops, scaled by
+  // impact strength, so hits clearly MATTER (a hard clash visibly slows a top;
+  // gang-ups kill fast). Base + strength term.
+  const SPIN_LOSS_BASE = 0.18;
+  const SPIN_LOSS_STR = 0.27;
 
   let frame = 0;
+  let winnerLockFrame = -1;
   for (; frame < MAX_FRAMES; frame++) {
-    world.step();
+    world.step(eventQueue);
+
+    // ── Collision events → spin loss + record for SFX ──
+    eventQueue.drainCollisionEvents((h1, h2, started) => {
+      if (!started) return;
+      const i1 = handleToIndex.get(h1);
+      const i2 = handleToIndex.get(h2);
+      const topTop = i1 !== undefined && i2 !== undefined;
+      let strength = 0;
+      for (const idx of [i1, i2]) {
+        if (idx === undefined || eliminated.has(idx)) continue;
+        const b = tops[idx];
+        strength = Math.max(strength, Math.hypot(b.linvel().x, b.linvel().z));
+      }
+      const strNorm = Math.min(1, strength / 8);
+      if (topTop) {
+        const loss = SPIN_LOSS_BASE + SPIN_LOSS_STR * strNorm;
+        for (const idx of [i1, i2]) {
+          if (idx === undefined || eliminated.has(idx)) continue;
+          const b = tops[idx];
+          const av = b.angvel();
+          b.setAngvel({ x: av.x, y: av.y * (1 - loss), z: av.z }, true);
+        }
+      }
+      collisions.push({ frame, type: topTop ? "top" : "wall", strength: strNorm });
+    });
 
     const doNudge = frame > 30 && frame % NUDGE_INTERVAL === 0;
     for (let i = 0; i < N; i++) {
       const body = tops[i];
       const lv = body.linvel();
       const av = body.angvel();
-      const vx = lv.x, vz = lv.z;
+      // Both alive AND eliminated tops are kept physically upright (the collider
+      // is a bumpable cylinder); the dead-top LEAN is purely visual (in the
+      // bake). Alive tops also get the stir nudge + keep their Y spin.
       if (eliminated.has(i)) {
-        body.setLinvel({ x: vx, y: 0, z: vz }, true);
+        body.setLinvel({ x: lv.x, y: 0, z: lv.z }, true);
         body.setAngvel({ x: 0, y: 0, z: 0 }, true);
         continue;
       }
-      let nx = vx, nz = vz;
+      let nx = lv.x, nz = lv.z;
       if (doNudge) {
         const energy = Math.max(0, Math.min(1, Math.abs(av.y) / INIT_SPIN));
         const ang = rand() * Math.PI * 2;
@@ -194,28 +279,55 @@ export function simulateBattle({ count, seed }) {
       const r = body.rotation();
       const av = body.angvel();
       const spinMag = Math.abs(av.y);
-      const energy = Math.max(0, Math.min(1, spinMag / INIT_SPIN));
+      const isElim = eliminated.has(i);
+      const energy = isElim ? 0 : Math.max(0, Math.min(1, spinMag / INIT_SPIN));
+
+      // Visual transform. Alive = physics. Eliminated = tilt onto the rim,
+      // pivoting about the floor tip so the flag stays visible and nothing
+      // clips through the table.
+      let qx = r.x, qy = r.y, qz = r.z, qw = r.w;
+      let px = t.x, py = t.y, pz = t.z;
+      if (isElim && leanAxis[i]) {
+        const tt = Math.min(1, (frame - leanStart[i]) / LEAN_FRAMES);
+        const angle = easeOutCubic(tt) * LEAN_ANGLE;
+        const lq = quatFromAxisAngle(leanAxis[i].x, 0, leanAxis[i].z, angle);
+        const out = quatMul(lq, { x: qx, y: qy, z: qz, w: qw });
+        qx = out.x; qy = out.y; qz = out.z; qw = out.w;
+        // Pivot about the tip: tip = center - (0, PIVOT_OFFSET, 0); leaned
+        // center = tip + lean·(0, PIVOT_OFFSET, 0).
+        const off2 = rotateVec(lq, { x: 0, y: PIVOT_OFFSET, z: 0 });
+        px = t.x + off2.x;
+        py = (t.y - PIVOT_OFFSET) + off2.y;
+        pz = t.z + off2.z;
+      }
+
       const off = (frame * N + i) * 8;
-      bake[off + 0] = t.x; bake[off + 1] = t.y; bake[off + 2] = t.z;
-      bake[off + 3] = r.x; bake[off + 4] = r.y; bake[off + 5] = r.z; bake[off + 6] = r.w;
+      bake[off + 0] = px; bake[off + 1] = py; bake[off + 2] = pz;
+      bake[off + 3] = qx; bake[off + 4] = qy; bake[off + 5] = qz; bake[off + 6] = qw;
       bake[off + 7] = energy;
 
-      if (eliminated.has(i)) continue;
+      if (isElim) continue;
       if (t.y < KILL_Y) {
-        killTop(i, frame, "fell", body, eliminated, eliminationFrames, eliminationReasons, elimOrder);
+        killTop(i, frame, "fell", body, ctx, rand);
         continue;
       }
       if (spinMag < STOP_THRESHOLD) {
         slowStreak[i] += 1;
         if (slowStreak[i] >= STOP_DWELL_FRAMES) {
-          killTop(i, frame, "stopped", body, eliminated, eliminationFrames, eliminationReasons, elimOrder);
+          killTop(i, frame, "stopped", body, ctx, rand);
         }
       } else {
         slowStreak[i] = 0;
       }
     }
 
-    if (eliminated.size >= N - 1) { frame++; break; }
+    // Once only the winner is left, keep simulating for a VICTORY_HOLD beat so
+    // the lone champion is seen spinning alone among the fallen tops before the
+    // reveal — instead of cutting to the winner the instant #2 stops.
+    if (eliminated.size >= N - 1) {
+      if (winnerLockFrame < 0) winnerLockFrame = frame;
+      if (frame - winnerLockFrame >= VICTORY_HOLD) { frame++; break; }
+    }
   }
 
   for (let i = 0; i < N; i++) {
@@ -227,5 +339,5 @@ export function simulateBattle({ count, seed }) {
   const battleFrames = frame;
   const trimmed = new Float32Array(bake.buffer, 0, battleFrames * N * 8).slice();
 
-  return { bake: trimmed, survivorOrder, eliminationFrames, eliminationReasons, battleFrames };
+  return { bake: trimmed, survivorOrder, eliminationFrames, eliminationReasons, battleFrames, collisions };
 }

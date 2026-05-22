@@ -21,11 +21,12 @@ const { fontFamily: INTER } = loadFont();
 const COLOR_BG = "#0a0c10";
 const GOLD = "#f5b35a";
 
-// Segment durations (frames @ 60fps).
-const INTRO_FRAMES = 3.5 * 60;
-const ROUND_CARD_FRAMES = 2.5 * 60;
-const FINALISTS_CARD_FRAMES = 4 * 60;
-const CHAMPION_FRAMES = 5 * 60;
+// Segment durations (frames @ 60fps). Cards held long enough to comfortably
+// read every country before the battle starts.
+const INTRO_FRAMES = 5 * 60;
+const ROUND_CARD_FRAMES = 5.5 * 60;
+const FINALISTS_CARD_FRAMES = 6 * 60;
+const CHAMPION_FRAMES = 6 * 60;
 
 // ─── A round rendered as a self-contained "battle episode" ─────────
 function roundEpisode(episode: Episode, round: TournamentRound): Episode {
@@ -100,7 +101,11 @@ export const TournamentComposition: React.FC<{ episode: Episode }> = ({
         key={`battle-${idx}`}
         durationInFrames={battleTotalFrames(roundEpisode(episode, r))}
       >
-        <TopBattleSlidesComposition episode={roundEpisode(episode, r)} hideAudio />
+        <TopBattleSlidesComposition
+          episode={roundEpisode(episode, r)}
+          hideAudio
+          collisions={r.collisions}
+        />
       </Series.Sequence>,
     );
   });

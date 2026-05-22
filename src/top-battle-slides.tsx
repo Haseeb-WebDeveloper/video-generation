@@ -10,6 +10,7 @@ import {
   delayRender,
   Easing,
   interpolate,
+  Sequence,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
@@ -30,6 +31,9 @@ const FPS = 60;
 const COUNTDOWN_FRAMES = 3 * FPS;  // snappy 3-2-1 (round cards build the hype)
 const PODIUM_FRAMES = 4 * FPS;
 const AUDIO_FADE_FRAMES = 90;
+// Must match VICTORY_HOLD in scripts/lib/battle-sim.mjs — the beat at the end
+// of the battle where the lone winner spins alone before the reveal.
+const VICTORY_HOLD = 150;
 
 // Per-top accent palette — drives the colored equator band on each top
 // and the leaderboard rank pill. Mid-saturated so they read as distinct
@@ -61,10 +65,24 @@ export function totalFrames(episode: Episode): number {
   return COUNTDOWN_FRAMES + episode.battleResult.battleFrames + PODIUM_FRAMES;
 }
 
+// Flip to true once the SFX files exist in public/audio/sfx/ (see SFX_FILES).
+// Kept false by default so renders don't break on missing audio.
+const SFX_ENABLED = true;
+// whir.mp3 (looping spin ambience) is optional — only enable once it exists.
+const SFX_WHIR_ENABLED = false;
+const SFX_FILES = {
+  hit: "audio/sfx/hit.mp3", // short top-on-top clink/clack
+  wall: "audio/sfx/wall.mp3", // short wall thud
+  whir: "audio/sfx/whir.mp3", // looping spin ambience bed
+};
+const SFX_MIN_GAP = 5; // frames between hit sounds (anti machine-gun)
+const SFX_STRENGTH_MIN = 0.25; // ignore weak grazes
+
 export const TopBattleSlidesComposition: React.FC<{
   episode: Episode;
   hideAudio?: boolean;
-}> = ({ episode, hideAudio }) => {
+  collisions?: Array<{ frame: number; type: "top" | "wall"; strength: number }>;
+}> = ({ episode, hideAudio, collisions }) => {
   const { durationInFrames } = useVideoConfig();
   const baseVolume = episode.audioVolume ?? 0.35;
   const fadeVolume = (f: number) => {
@@ -87,7 +105,46 @@ export const TopBattleSlidesComposition: React.FC<{
       {!hideAudio && episode.audioPath && (
         <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
       )}
+      {SFX_ENABLED && <BattleSfx collisions={collisions} battleFrames={episode.battleResult?.battleFrames ?? 0} />}
     </AbsoluteFill>
+  );
+};
+
+// Sound-effect layer: a spin-ambience bed during the battle + one short hit
+// sound per (throttled) collision, synced to the frames recorded in the bake.
+const BattleSfx: React.FC<{
+  collisions?: Array<{ frame: number; type: "top" | "wall"; strength: number }>;
+  battleFrames: number;
+}> = ({ collisions, battleFrames }) => {
+  const hits = useMemo(() => {
+    if (!collisions) return [];
+    const out: Array<{ frame: number; type: "top" | "wall"; strength: number }> = [];
+    let last = -100;
+    for (const c of collisions) {
+      if (c.strength < SFX_STRENGTH_MIN) continue;
+      if (c.frame - last < SFX_MIN_GAP) continue;
+      out.push(c);
+      last = c.frame;
+    }
+    return out;
+  }, [collisions]);
+  return (
+    <>
+      {/* Spin ambience across the battle body (optional). */}
+      {SFX_WHIR_ENABLED && (
+        <Sequence from={COUNTDOWN_FRAMES} durationInFrames={Math.max(1, battleFrames)}>
+          <Audio src={staticFile(SFX_FILES.whir)} volume={0.18} loop />
+        </Sequence>
+      )}
+      {hits.map((c, i) => (
+        <Sequence key={i} from={COUNTDOWN_FRAMES + c.frame} durationInFrames={30}>
+          <Audio
+            src={staticFile(c.type === "wall" ? SFX_FILES.wall : SFX_FILES.hit)}
+            volume={0.35 + c.strength * 0.5}
+          />
+        </Sequence>
+      ))}
+    </>
   );
 };
 
@@ -614,15 +671,16 @@ const Top: React.FC<{
             )}
           </mesh>
 
-          {/* Spin-blur ghosts (only while spinning). */}
-          {spinning && texture && [0.22, 0.44].map((a, k) => (
+          {/* Spin-blur ghosts (only while spinning) — wider arc of trailing
+              copies so the fast spin reads as a smooth motion blur. */}
+          {spinning && texture && [0.4, 0.8, 1.2, 1.6].map((a, k) => (
             <mesh key={k} position={[0, TOP_DISC_Y + 0.021 + k * 0.001, 0]} rotation={[0, -a, 0]}>
               <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
               <meshBasicMaterial
                 map={texture}
                 toneMapped={false}
                 transparent
-                opacity={k === 0 ? 0.32 : 0.18}
+                opacity={0.3 - k * 0.06}
                 depthWrite={false}
               />
             </mesh>
@@ -713,32 +771,53 @@ const CameraRig: React.FC<{
     look = [0, 0.3, 0];
     fov = lerp(25, 24, t);
   } else if (inPodium && bake) {
-    // Hero shot on the surviving top — closer angle, slight orbit.
-    // Reset camera.up to the default Y for this shot so the orbit
-    // reads as a side-on view, not top-down.
+    // Hero hold on the champion — continues smoothly from where the in-battle
+    // victory zoom ended, with a gentle orbit/push.
     const w = readTop(bake, battleFrames - 1, winnerIdx, numTops);
-    const t = (frame - COUNTDOWN_FRAMES - battleFrames) / PODIUM_FRAMES;
-    const orbit = t * Math.PI * 0.4;
-    pos = [w.x + Math.cos(orbit) * 3.5, 2.6, w.z + Math.sin(orbit) * 3.5];
-    look = [w.x, 0.4, w.z];
-    fov = 32;
+    const t = Math.min(1, (frame - COUNTDOWN_FRAMES - battleFrames) / PODIUM_FRAMES);
+    const orbit = t * 0.5;
+    const rad = lerp(5.0, 4.2, t);
+    pos = [w.x + Math.sin(orbit) * 1.5, lerp(4.0, 3.2, t), w.z + Math.cos(orbit) * rad];
+    look = [w.x, 0.5, w.z];
+    fov = 30;
   } else {
-    // Battle body — fixed cinematic 3/4 view (~42° above horizontal) that
-    // frames the whole rectangular arena while showing each top's 3D
-    // silhouette. Camera sits in front (+Z) and above, looking at center.
-    // Subtle cinematic drift so the shot breathes instead of sitting dead
-    // still — gentle sway in X/Z and a slow height bob, all under ~1 unit.
-    // Far + telephoto (low fov) compresses perspective so near and far tops
-    // render close to the same size — fixes the lopsided look. ~37° above
-    // horizontal still shows each top's 3D form. Subtle drift to breathe.
+    // Battle body — far + telephoto 3/4 view that frames the whole arena with
+    // even top sizes. For the final VICTORY_HOLD beat (lone winner spinning),
+    // smoothly ZOOM in on the champion so the reveal feels earned, not abrupt.
     const t = frame / 60;
-    pos = [
+    const widePos: [number, number, number] = [
       Math.sin(t * 0.22) * 1.0,
       17.5 + Math.sin(t * 0.16) * 0.4,
       24 + Math.cos(t * 0.19) * 0.8,
     ];
-    look = [Math.sin(t * 0.13) * 0.4, 0.2, 0];
-    fov = 24 + Math.sin(t * 0.1) * 0.4;
+    const wideLook: [number, number, number] = [Math.sin(t * 0.13) * 0.4, 0.2, 0];
+    const wideFov = 24 + Math.sin(t * 0.1) * 0.4;
+
+    const battleLocal = frame - COUNTDOWN_FRAMES;
+    const victoryStart = battleFrames - VICTORY_HOLD;
+    if (bake && battleFrames > 0 && battleLocal >= victoryStart) {
+      const w = readTop(bake, Math.min(battleFrames - 1, battleLocal), winnerIdx, numTops);
+      const zt = Easing.inOut(Easing.ease)(
+        Math.min(1, (battleLocal - victoryStart) / VICTORY_HOLD),
+      );
+      const closePos: [number, number, number] = [w.x, 4.0, w.z + 5.0];
+      const closeLook: [number, number, number] = [w.x, 0.6, w.z];
+      pos = [
+        lerp(widePos[0], closePos[0], zt),
+        lerp(widePos[1], closePos[1], zt),
+        lerp(widePos[2], closePos[2], zt),
+      ];
+      look = [
+        lerp(wideLook[0], closeLook[0], zt),
+        lerp(wideLook[1], closeLook[1], zt),
+        lerp(wideLook[2], closeLook[2], zt),
+      ];
+      fov = lerp(wideFov, 30, zt);
+    } else {
+      pos = widePos;
+      look = wideLook;
+      fov = wideFov;
+    }
   }
 
   if (useTopDownUp) {
@@ -799,19 +878,15 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
   const round = Math.max(1, N - aliveCount + 1);
 
   const winnerIdx = result?.survivorOrder[0];
-  const lastElimFrame = useMemo(() => {
-    if (!result) return Number.MAX_SAFE_INTEGER;
-    let max = 0;
-    for (let i = 0; i < result.eliminationFrames.length; i++) {
-      if (i === winnerIdx) continue;
-      if (result.eliminationFrames[i] > max) max = result.eliminationFrames[i];
-    }
-    return max;
-  }, [result, winnerIdx]);
+  const battleFramesTotal = result?.battleFrames ?? 0;
+  // Reveal as the victory zoom completes — i.e. near the END of the battle body
+  // (after the lone winner has spun alone for a beat), then hold through the
+  // podium. Not the instant the runner-up stops.
+  const revealStart = battleFramesTotal - fps * 0.55;
   const winnerVisible =
-    result != null && winnerIdx != null && battleFrame >= lastElimFrame + fps * 0.5;
+    result != null && winnerIdx != null && battleFrame >= revealStart;
   const winnerOpacity = winnerVisible
-    ? Math.min(1, (battleFrame - lastElimFrame - fps * 0.5) / (fps * 0.6))
+    ? Math.min(1, (battleFrame - revealStart) / (fps * 0.5))
     : 0;
 
   return (
