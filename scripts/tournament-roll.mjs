@@ -84,7 +84,58 @@ const patched = {
   tournamentSeed: baseSeed,
   tournamentResult: { rounds, championIndex },
 };
+// Auto-generate YouTube SEO metadata if the episode doesn't already have a
+// hand-authored `youtube` block (never reveals the winner — no spoilers).
+if (!patched.youtube || !patched.youtube.title) {
+  patched.youtube = { ...(patched.youtube ?? {}), ...generateYoutubeMeta(items) };
+  console.log("Generated youtube metadata block (title/description/tags).");
+}
 await writeEpisode(slug, patched);
+
+function generateYoutubeMeta(items) {
+  const names = items.map((it) => it.title);
+  const n = names.length;
+  const feature = names.slice(0, 4).join(", ");
+  const title = `Spinning Top Battle 🌍 ${n} Countries — Last One Spinning Wins!`;
+  const description = [
+    `${n} countries enter the arena as spinning tops. They clash, knock each other's spin out, and fall one by one. The LAST top still spinning is the champion. Who will it be? 🏆`,
+    ``,
+    `Featuring ${feature} and ${n - 4} more nations battling across ${
+      patched.tournamentResult.rounds.length - 1
+    } groups and a grand final.`,
+    ``,
+    `👇 Comment which country you're rooting for!`,
+    ``,
+    `Chapters:`,
+    `{{chapters}}`,
+    ``,
+    `#spinningtop #marblerace #countrybattle #satisfying`,
+  ].join("\n");
+  const tags = [
+    "spinning top battle",
+    "marble race",
+    "country battle",
+    "countries battle",
+    "last one standing",
+    "tournament",
+    "satisfying",
+    "physics simulation",
+    "beyblade battle",
+    "flag battle",
+    "elimination",
+    "who will win",
+    ...names.slice(0, 12),
+  ];
+  return {
+    title: title.slice(0, 100),
+    description,
+    tags,
+    categoryId: "24",
+    privacyStatus: "private",
+    madeForKids: false,
+    defaultLanguage: "en",
+  };
+}
 
 console.log(
   `\n🏆 CHAMPION: items[${championIndex}] = ${items[championIndex].title}` +

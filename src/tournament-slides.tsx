@@ -21,12 +21,13 @@ const { fontFamily: INTER } = loadFont();
 const COLOR_BG = "#0a0c10";
 const GOLD = "#f5b35a";
 
-// Segment durations (frames @ 60fps). Cards held long enough to comfortably
-// read every country before the battle starts.
-const INTRO_FRAMES = 5 * 60;
-const ROUND_CARD_FRAMES = 5.5 * 60;
-const FINALISTS_CARD_FRAMES = 6 * 60;
-const CHAMPION_FRAMES = 6 * 60;
+// Segment durations @ 30fps. Cards held long enough to comfortably read every
+// country before the battle starts.
+const FPS = 30;
+const INTRO_FRAMES = 5 * FPS;
+const ROUND_CARD_FRAMES = 5.5 * FPS;
+const FINALISTS_CARD_FRAMES = 6 * FPS;
+const CHAMPION_FRAMES = 6 * FPS;
 
 // ─── A round rendered as a self-contained "battle episode" ─────────
 function roundEpisode(episode: Episode, round: TournamentRound): Episode {

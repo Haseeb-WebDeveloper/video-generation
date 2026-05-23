@@ -27,13 +27,15 @@ const ARENA_HALF_Z = 5.625;      // visible play area spans z ∈ [-5.625, +5.62
 const TOP_RADIUS = 0.85;
 const TOP_HEIGHT = 1.0;
 
-const FPS = 60;
+// 30fps output (bakes are also 30fps from battle-sim.mjs) — half the frames to
+// render. Physics still simulated at 1/60 internally.
+const FPS = 30;
 const COUNTDOWN_FRAMES = 3 * FPS;  // snappy 3-2-1 (round cards build the hype)
 const PODIUM_FRAMES = 4 * FPS;
-const AUDIO_FADE_FRAMES = 90;
+const AUDIO_FADE_FRAMES = 1.5 * FPS;
 // Must match VICTORY_HOLD in scripts/lib/battle-sim.mjs — the beat at the end
 // of the battle where the lone winner spins alone before the reveal.
-const VICTORY_HOLD = 150;
+const VICTORY_HOLD = 75;
 
 // Per-top accent palette — drives the colored equator band on each top
 // and the leaderboard rank pill. Mid-saturated so they read as distinct
@@ -56,8 +58,6 @@ const COLOR_BG = "#0a0c10";
 const COLOR_STEEL_BASE = "#c2c6cc";
 const COLOR_STEEL_HIGHLIGHT = "#e4e7eb";
 const COLOR_STEEL_SHADOW = "#7c8088";
-const COLOR_TOP_WOOD = "#7a4825";
-const COLOR_TIP = "#cfcfcf";
 
 // ─── Public API ────────────────────────────────────────────────
 export function totalFrames(episode: Episode): number {
@@ -221,7 +221,7 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 // something premium to reflect, which is what sells the "modern game" look.
 const StudioEnvironment: React.FC = () => {
   return (
-    <Environment resolution={256} frames={1}>
+    <Environment resolution={128} frames={1}>
       <color attach="background" args={["#15171c"]} />
       {/* Big soft key panel overhead-front */}
       <Lightformer
@@ -839,43 +839,12 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const result = episode.battleResult;
-  const N = episode.items.length;
 
   const countdownActive = frame < COUNTDOWN_FRAMES;
   const secondsLeft = Math.ceil((COUNTDOWN_FRAMES - frame) / fps);
   const goLabel = frame < COUNTDOWN_FRAMES - fps * 0.2 ? `${secondsLeft}` : "GO!";
 
   const battleFrame = Math.max(0, frame - COUNTDOWN_FRAMES);
-
-  // Build current leaderboard: alive tops first (sorted by current
-  // energy desc → highest score on top), then dead tops in reverse-
-  // elimination order. Each row carries a "score" = round(energy * 2000)
-  // which matches the integer-style scores in the reference image.
-  const rows = useMemo(() => {
-    if (!result) return [];
-    type Row = { idx: number; energy: number; alive: boolean; score: number };
-    const alive: Row[] = [];
-    const dead: Array<Row & { elimFrame: number }> = [];
-    for (let i = 0; i < N; i++) {
-      const ef = result.eliminationFrames[i];
-      const isAlive = ef < 0 || battleFrame < ef;
-      const energy = sampleEnergy(episode.battleBakePath, battleFrame, i, N);
-      const score = Math.max(0, Math.round(energy * 2000));
-      if (isAlive) {
-        alive.push({ idx: i, energy, alive: true, score });
-      } else {
-        dead.push({ idx: i, energy: 0, alive: false, score: 0, elimFrame: ef });
-      }
-    }
-    alive.sort((a, b) => b.energy - a.energy);
-    dead.sort((a, b) => b.elimFrame - a.elimFrame);
-    return [...alive, ...dead.map(({ elimFrame: _e, ...r }) => r)];
-  }, [result, N, battleFrame, episode.battleBakePath]);
-
-  const aliveCount = result
-    ? result.eliminationFrames.filter((f) => f < 0 || battleFrame < f).length
-    : N;
-  const round = Math.max(1, N - aliveCount + 1);
 
   const winnerIdx = result?.survivorOrder[0];
   const battleFramesTotal = result?.battleFrames ?? 0;
@@ -978,207 +947,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
   );
 };
 
-// ─── Leaderboard ──────────────────────────────────────────────
-const Leaderboard: React.FC<{
-  rows: Array<{ idx: number; energy: number; alive: boolean; score: number }>;
-  round: number;
-  items: Episode["items"];
-}> = ({ rows, round, items }) => {
-  // Cap at 6 rows — user explicitly asked for this and the reference
-  // image shows exactly 5 entries with no overflow.
-  const visible = rows.slice(0, 6);
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 36,
-        left: 36,
-        width: 320,
-        padding: "0 0 8px",
-        background: "linear-gradient(180deg, #fafaf6 0%, #ebe6dc 100%)",
-        border: "3px solid #2a1408",
-        borderRadius: 10,
-        boxShadow: "0 14px 40px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.6)",
-        color: "#1a1410",
-        fontFamily: INTER,
-      }}
-    >
-      <div
-        style={{
-          padding: "10px 14px 8px",
-          borderBottom: "2px solid #2a1408",
-          background: "linear-gradient(180deg, #f5f0e4 0%, #e2dac9 100%)",
-          borderRadius: "7px 7px 0 0",
-        }}
-      >
-        <div
-          style={{
-            fontSize: 15,
-            letterSpacing: 2.5,
-            fontWeight: 800,
-            textTransform: "uppercase",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-          }}
-        >
-          <span>Leaderboard</span>
-          <span style={{ fontSize: 12, opacity: 0.65, fontWeight: 700 }}>
-            ROUND {round}
-          </span>
-        </div>
-      </div>
-      <div style={{ padding: "4px 12px" }}>
-        {visible.map((row, place) => (
-          <LeaderboardRow
-            key={row.idx}
-            place={place + 1}
-            item={items[row.idx]}
-            score={row.score}
-            alive={row.alive}
-            isLast={place === visible.length - 1}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const LeaderboardRow: React.FC<{
-  place: number;
-  item: Episode["items"][number];
-  score: number;
-  alive: boolean;
-  isLast: boolean;
-}> = ({ place, item, score, alive, isLast }) => {
-  const rankColors: Record<number, string> = {
-    1: "#d4a534",
-    2: "#a8a8a8",
-    3: "#b87333",
-  };
-  const rankColor = rankColors[place] ?? "#3a2a1a";
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        padding: "7px 0",
-        borderBottom: isLast ? "none" : "1px solid rgba(42,20,8,0.18)",
-        opacity: alive ? 1 : 0.5,
-      }}
-    >
-      <div
-        style={{
-          width: 28,
-          height: 28,
-          borderRadius: 6,
-          background: rankColor,
-          color: "#fff",
-          fontSize: 13,
-          fontWeight: 800,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          textShadow: "0 1px 2px rgba(0,0,0,0.4)",
-        }}
-      >
-        {place}
-      </div>
-      {item.country ? (
-        <img
-          src={`https://flagcdn.com/w40/${item.country.toLowerCase()}.png`}
-          alt=""
-          width={28}
-          height={20}
-          style={{
-            borderRadius: 2,
-            border: "1px solid rgba(0,0,0,0.25)",
-            flexShrink: 0,
-          }}
-        />
-      ) : (
-        <div style={{ width: 28, height: 20, flexShrink: 0 }} />
-      )}
-      <div
-        style={{
-          flex: 1,
-          minWidth: 0,
-          fontSize: 15,
-          fontWeight: 800,
-          letterSpacing: 1,
-          textTransform: "uppercase",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          textDecoration: alive ? "none" : "line-through",
-        }}
-      >
-        {countryCode(item) ?? item.title}
-      </div>
-      <div
-        style={{
-          fontSize: 15,
-          fontWeight: 700,
-          color: "#1a1410",
-          fontVariantNumeric: "tabular-nums",
-          minWidth: 56,
-          textAlign: "right",
-        }}
-      >
-        {score}
-      </div>
-    </div>
-  );
-};
-
-// Display label for a country — use the 2-letter ISO code in the
-// reference image but show a slightly longer abbreviation when it
-// reads cleaner (USA vs US, UK vs GB). Falls back to whatever
-// shortened country code is on the item.
-function countryCode(item: Episode["items"][number]): string | null {
-  if (!item.country) return null;
-  const overrides: Record<string, string> = {
-    US: "USA",
-    GB: "UK",
-    DE: "GERMANY",
-    JP: "JAPAN",
-    BR: "BRAZIL",
-    FR: "FRANCE",
-    CN: "CHINA",
-    IN: "INDIA",
-    RU: "RUSSIA",
-    IT: "ITALY",
-    CA: "CANADA",
-    HK: "HONG KONG",
-    TW: "TAIWAN",
-    SG: "SINGAPORE",
-    SE: "SWEDEN",
-    KR: "S. KOREA",
-    AU: "AUSTRALIA",
-    CH: "SWISS",
-    IL: "ISRAEL",
-    ES: "SPAIN",
-  };
-  return overrides[item.country.toUpperCase()] ?? item.country.toUpperCase();
-}
-
-// ─── Helpers ──────────────────────────────────────────────────
-function sampleEnergy(
-  bakePath: string | undefined,
-  frame: number,
-  idx: number,
-  N: number,
-): number {
-  if (!bakePath) return 1;
-  const bake = bakeCache.get(bakePath);
-  if (!bake) return 1;
-  const off = (frame * N + idx) * STRIDE + 7;
-  if (off >= bake.length) return 0;
-  return bake[off];
-}
-
+// ─── Helpers ───────────────────────
 function hexToRgb(hex: string) {
   return {
     r: parseInt(hex.slice(1, 3), 16),

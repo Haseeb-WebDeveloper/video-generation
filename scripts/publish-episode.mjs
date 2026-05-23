@@ -14,6 +14,9 @@
 //   --update          PATCH the existing video's metadata in place. No re-upload.
 //                     Requires a lockfile from a prior successful upload.
 //   --privacy=<v>     Override privacyStatus for this run (private|unlisted|public).
+//   --no-schedule     Ignore the episode's publishAt for this run (upload stays
+//                     at the chosen privacy instead of being scheduled). Handy
+//                     for a private end-to-end test you intend to delete.
 //
 // On success, writes episodes/<slug>-<variant>.published.json (the publish
 // ledger). On mid-upload failure, writes out/<slug>-<variant>.upload-state.json
@@ -47,7 +50,7 @@ const opts = Object.fromEntries(
 
 if (!compositionId) {
   console.error(
-    "Usage: node scripts/publish-episode.mjs <slug>-flow|-bars [--dry-run] [--force] [--update] [--privacy=<v>]",
+    "Usage: node scripts/publish-episode.mjs <slug>-<flow|bars|race|battle|tournament> [--dry-run] [--force] [--update] [--privacy=<v>] [--no-schedule]",
   );
   process.exit(1);
 }
@@ -55,9 +58,9 @@ if (!compositionId) {
 const { slug, variantSuffix } = parseCompositionId(compositionId);
 if (!variantSuffix) {
   console.error(
-    `Composition id must end in -flow or -bars. Got: ${compositionId}`,
+    `Composition id must end in a template suffix (-flow, -bars, -race, -battle, -tournament). Got: ${compositionId}`,
   );
-  console.error(`  Try: npm run publish-episode ${compositionId}-bars`);
+  console.error(`  Try: npm run publish-episode ${compositionId}-tournament`);
   process.exit(1);
 }
 
@@ -72,6 +75,7 @@ if (force && update) {
 const { episode, paths } = await loadEpisode(slug, variantSuffix);
 const meta = buildMetadata(episode);
 if (opts.privacy) meta.privacyStatus = opts.privacy;
+if (flags.has("--no-schedule")) meta.publishAt = undefined;
 
 const errors = validateMetadata(meta);
 if (errors.length > 0) {

@@ -1,0 +1,99 @@
+name: Render videos
+
+# Free cloud rendering. Each episode renders on its own parallel runner, off
+# your PC. On a PUBLIC repo this uses unlimited free Linux minutes; on a private
+# repo it draws from your 2,000 free min/month.
+#
+# Trigger from the GitHub UI: Actions → "Render videos" → Run workflow →
+# enter one or more episode slugs (comma-separated). The finished MP4s are
+# uploaded as downloadable artifacts.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: "Comma-separated episode slugs (tournament template)"
+        required: true
+        default: "countries-tournament"
+      publish:
+        description: "Upload to YouTube after rendering (scheduled via each episode's publishAt)"
+        type: boolean
+        default: false
+
+jobs:
+  # Turn the comma-separated slugs into a JSON matrix so each renders in parallel.
+  plan:
+    runs-on: ubuntu-22.04
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - id: set
+        run: |
+          json=$(printf '%s' "${{ github.event.inputs.slugs }}" \
+            | tr ',' '\n' | sed 's/[[:space:]]//g' | grep . | jq -R . | jq -cs .)
+          echo "matrix={\"slug\":$json}" >> "$GITHUB_OUTPUT"
+
+  render:
+    needs: plan
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Headless-Chrome / WebGL system libraries Remotion needs on Linux.
+      - name: Install Chrome dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2 \
+            libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 \
+            libxdamage1 libatk-bridge2.0-0 libpango-1.0-0 libcairo2 libcups2
+
+      - run: npm ci
+
+      # Regenerate the physics bake deterministically from the committed seed
+      # (episode must have tournamentSeed set, which --keep reuses).
+      - name: Bake physics
+        run: node scripts/tournament-roll.mjs ${{ matrix.slug }} --keep
+
+      # Output filename MUST be out/<slug>-tournament.mp4 — that's the path
+      # publish-episode.mjs (variant "-tournament") looks for.
+      - name: Render
+        run: |
+          mkdir -p out
+          npx remotion render ${{ matrix.slug }}-tournament \
+            out/${{ matrix.slug }}-tournament.mp4 \
+            --concurrency=4 --timeout=180000 --gl=angle
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.slug }}-mp4
+          path: out/${{ matrix.slug }}-tournament.mp4
+          retention-days: 14
+
+      # Scheduled upload to YouTube. The episode's youtube.publishAt (set by
+      # scripts/schedule-batch.mjs) makes YouTube auto-release it at that time.
+      # Requires the 3 YouTube secrets in the repo's Settings → Secrets.
+      - name: Publish to YouTube (scheduled)
+        if: ${{ inputs.publish }}
+        env:
+          YT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YT_REFRESH: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          if [ -z "$YT_ID" ] || [ -z "$YT_SECRET" ] || [ -z "$YT_REFRESH" ]; then
+            echo "::error::Missing YouTube secrets (YOUTUBE_CLIENT_ID/SECRET/REFRESH_TOKEN)."
+            exit 1
+          fi
+          printf 'YOUTUBE_CLIENT_ID=%s\nYOUTUBE_CLIENT_SECRET=%s\nYOUTUBE_REFRESH_TOKEN=%s\n' \
+            "$YT_ID" "$YT_SECRET" "$YT_REFRESH" > .env
+          node scripts/publish-episode.mjs ${{ matrix.slug }}-tournament
+          rm -f .env
