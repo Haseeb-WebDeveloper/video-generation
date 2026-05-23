@@ -1,0 +1,1765 @@
+{
+  "slug": "football-giants",
+  "title": [
+    "SPINNING TOP",
+    "FOOTBALL NATIONS"
+  ],
+  "outro": [
+    "",
+    ""
+  ],
+  "unitLabel": "",
+  "coverFit": "cover",
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/Level - The Grey Room _ Density & Time.mp3",
+  "audioVolume": 0.1,
+  "tournamentGroupSize": 10,
+  "items": [
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "flags/br.png"
+    },
+    {
+      "title": "Argentina",
+      "value": 1,
+      "country": "AR",
+      "imagePath": "flags/ar.png"
+    },
+    {
+      "title": "France",
+      "value": 1,
+      "country": "FR",
+      "imagePath": "flags/fr.png"
+    },
+    {
+      "title": "Germany",
+      "value": 1,
+      "country": "DE",
+      "imagePath": "flags/de.png"
+    },
+    {
+      "title": "Spain",
+      "value": 1,
+      "country": "ES",
+      "imagePath": "flags/es.png"
+    },
+    {
+      "title": "Italy",
+      "value": 1,
+      "country": "IT",
+      "imagePath": "flags/it.png"
+    },
+    {
+      "title": "Portugal",
+      "value": 1,
+      "country": "PT",
+      "imagePath": "flags/pt.png"
+    },
+    {
+      "title": "Netherlands",
+      "value": 1,
+      "country": "NL",
+      "imagePath": "flags/nl.png"
+    },
+    {
+      "title": "Belgium",
+      "value": 1,
+      "country": "BE",
+      "imagePath": "flags/be.png"
+    },
+    {
+      "title": "Croatia",
+      "value": 1,
+      "country": "HR",
+      "imagePath": "flags/hr.png"
+    },
+    {
+      "title": "United Kingdom",
+      "value": 1,
+      "country": "GB",
+      "imagePath": "flags/gb.png"
+    },
+    {
+      "title": "Uruguay",
+      "value": 1,
+      "country": "UY",
+      "imagePath": "flags/uy.png"
+    },
+    {
+      "title": "Colombia",
+      "value": 1,
+      "country": "CO",
+      "imagePath": "flags/co.png"
+    },
+    {
+      "title": "Mexico",
+      "value": 1,
+      "country": "MX",
+      "imagePath": "flags/mx.png"
+    },
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "flags/us.png"
+    },
+    {
+      "title": "Japan",
+      "value": 1,
+      "country": "JP",
+      "imagePath": "flags/jp.png"
+    },
+    {
+      "title": "South Korea",
+      "value": 1,
+      "country": "KR",
+      "imagePath": "flags/kr.png"
+    },
+    {
+      "title": "Senegal",
+      "value": 1,
+      "country": "SN",
+      "imagePath": "flags/sn.png"
+    },
+    {
+      "title": "Morocco",
+      "value": 1,
+      "country": "MA",
+      "imagePath": "flags/ma.png"
+    },
+    {
+      "title": "Ghana",
+      "value": 1,
+      "country": "GH",
+      "imagePath": "flags/gh.png"
+    },
+    {
+      "title": "Nigeria",
+      "value": 1,
+      "country": "NG",
+      "imagePath": "flags/ng.png"
+    },
+    {
+      "title": "Cameroon",
+      "value": 1,
+      "country": "CM",
+      "imagePath": "flags/cm.png"
+    },
+    {
+      "title": "Côte d'Ivoire",
+      "value": 1,
+      "country": "CI",
+      "imagePath": "flags/ci.png"
+    },
+    {
+      "title": "Algeria",
+      "value": 1,
+      "country": "DZ",
+      "imagePath": "flags/dz.png"
+    },
+    {
+      "title": "Egypt",
+      "value": 1,
+      "country": "EG",
+      "imagePath": "flags/eg.png"
+    },
+    {
+      "title": "Tunisia",
+      "value": 1,
+      "country": "TN",
+      "imagePath": "flags/tn.png"
+    },
+    {
+      "title": "Australia",
+      "value": 1,
+      "country": "AU",
+      "imagePath": "flags/au.png"
+    },
+    {
+      "title": "Iran",
+      "value": 1,
+      "country": "IR",
+      "imagePath": "flags/ir.png"
+    },
+    {
+      "title": "Saudi Arabia",
+      "value": 1,
+      "country": "SA",
+      "imagePath": "flags/sa.png"
+    },
+    {
+      "title": "Qatar",
+      "value": 1,
+      "country": "QA",
+      "imagePath": "flags/qa.png"
+    },
+    {
+      "title": "Ecuador",
+      "value": 1,
+      "country": "EC",
+      "imagePath": "flags/ec.png"
+    },
+    {
+      "title": "Paraguay",
+      "value": 1,
+      "country": "PY",
+      "imagePath": "flags/py.png"
+    },
+    {
+      "title": "Chile",
+      "value": 1,
+      "country": "CL",
+      "imagePath": "flags/cl.png"
+    },
+    {
+      "title": "Peru",
+      "value": 1,
+      "country": "PE",
+      "imagePath": "flags/pe.png"
+    },
+    {
+      "title": "Serbia",
+      "value": 1,
+      "country": "RS",
+      "imagePath": "flags/rs.png"
+    },
+    {
+      "title": "Switzerland",
+      "value": 1,
+      "country": "CH",
+      "imagePath": "flags/ch.png"
+    },
+    {
+      "title": "Denmark",
+      "value": 1,
+      "country": "DK",
+      "imagePath": "flags/dk.png"
+    },
+    {
+      "title": "Sweden",
+      "value": 1,
+      "country": "SE",
+      "imagePath": "flags/se.png"
+    },
+    {
+      "title": "Poland",
+      "value": 1,
+      "country": "PL",
+      "imagePath": "flags/pl.png"
+    },
+    {
+      "title": "Czechia",
+      "value": 1,
+      "country": "CZ",
+      "imagePath": "flags/cz.png"
+    }
+  ],
+  "youtube": {
+    "title": "Football Nations Spinning Top Battle ⚽ 40 Countries — Last One Wins!",
+    "description": "40 football nations enter the arena as spinning tops. They clash, knock each other's spin out, and fall one by one — the LAST top still spinning is the champion. Who will it be? 🏆\n\nFeaturing Brazil, Argentina, France, Germany and 36 more, battling across 4 groups and a grand final.\n\n👇 Comment which one you're rooting for!\n\nChapters:\n{{chapters}}\n\n#spinningtop #football #soccer #marblerace",
+    "tags": [
+      "spinning top battle",
+      "marble race",
+      "country battle",
+      "last one standing",
+      "tournament",
+      "satisfying",
+      "physics simulation",
+      "beyblade battle",
+      "flag battle",
+      "elimination",
+      "who will win",
+      "football",
+      "soccer",
+      "world cup",
+      "football nations",
+      "Brazil",
+      "Argentina",
+      "France",
+      "Germany",
+      "Spain",
+      "Italy",
+      "Portugal",
+      "Netherlands",
+      "Belgium",
+      "Croatia",
+      "United Kingdom",
+      "Uruguay"
+    ],
+    "categoryId": "24",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en",
+    "publishAt": "2026-06-05T17:00:00.000Z"
+  },
+  "tournamentSeed": 1008,
+  "tournamentResult": {
+    "rounds": [
+      {
+        "kind": "group",
+        "label": "ROUND 1",
+        "itemIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "bakePath": "battle-bakes/football-giants-r0.bin",
+        "survivorOrder": [
+          5,
+          3,
+          4,
+          7,
+          6,
+          2,
+          8,
+          1,
+          9,
+          0
+        ],
+        "eliminationFrames": [
+          224,
+          282,
+          316,
+          489,
+          480,
+          565,
+          404,
+          430,
+          314,
+          265
+        ],
+        "battleFrames": 565,
+        "winnerIndex": 5,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6250375877471805
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4630491831844901
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4070401345673555
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.29712058305487954
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5460130987452277
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6730993517084546
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4070401345673555
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6250375877471805
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6420370111150469
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.653599953876523
+          },
+          {
+            "frame": 15,
+            "type": "wall",
+            "strength": 0.4646406019127114
+          },
+          {
+            "frame": 15,
+            "type": "top",
+            "strength": 0.5311400300846107
+          },
+          {
+            "frame": 18,
+            "type": "wall",
+            "strength": 0.38310091601174123
+          },
+          {
+            "frame": 26,
+            "type": "top",
+            "strength": 0.3359716035078355
+          },
+          {
+            "frame": 28,
+            "type": "top",
+            "strength": 0.4581191251143885
+          },
+          {
+            "frame": 40,
+            "type": "top",
+            "strength": 0.4783233038244458
+          },
+          {
+            "frame": 44,
+            "type": "wall",
+            "strength": 0.43443078985215594
+          },
+          {
+            "frame": 44,
+            "type": "top",
+            "strength": 0.5698926015416732
+          },
+          {
+            "frame": 48,
+            "type": "top",
+            "strength": 0.1858679480391167
+          },
+          {
+            "frame": 49,
+            "type": "wall",
+            "strength": 0.34890448824158776
+          },
+          {
+            "frame": 50,
+            "type": "wall",
+            "strength": 0.4208261773640766
+          },
+          {
+            "frame": 58,
+            "type": "wall",
+            "strength": 0.5262104843859688
+          },
+          {
+            "frame": 64,
+            "type": "wall",
+            "strength": 0.3499703286968735
+          },
+          {
+            "frame": 65,
+            "type": "wall",
+            "strength": 0.38883295409197094
+          },
+          {
+            "frame": 66,
+            "type": "wall",
+            "strength": 0.391979071650112
+          },
+          {
+            "frame": 66,
+            "type": "wall",
+            "strength": 0.39078464593220946
+          },
+          {
+            "frame": 68,
+            "type": "wall",
+            "strength": 0.3400680140768843
+          },
+          {
+            "frame": 68,
+            "type": "top",
+            "strength": 0.29100509394467633
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.37328317269940675
+          },
+          {
+            "frame": 71,
+            "type": "top",
+            "strength": 0.40072237783666625
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.1936460274555487
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.39907511588665207
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.3182680401129009
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.0841787938501596
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.3026214605771062
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.5271221759885367
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.2536879171218813
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.2389457106348517
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.3502861077077316
+          },
+          {
+            "frame": 73,
+            "type": "top",
+            "strength": 0.32382414968984236
+          },
+          {
+            "frame": 74,
+            "type": "wall",
+            "strength": 0.22264029097861543
+          },
+          {
+            "frame": 76,
+            "type": "wall",
+            "strength": 0.3745649672925584
+          },
+          {
+            "frame": 77,
+            "type": "wall",
+            "strength": 0.30881449941097516
+          },
+          {
+            "frame": 78,
+            "type": "top",
+            "strength": 0.36762681029922806
+          },
+          {
+            "frame": 79,
+            "type": "top",
+            "strength": 0.3140345150215062
+          },
+          {
+            "frame": 82,
+            "type": "top",
+            "strength": 0.23452081582368348
+          },
+          {
+            "frame": 82,
+            "type": "wall",
+            "strength": 0.1358230890473554
+          },
+          {
+            "frame": 83,
+            "type": "wall",
+            "strength": 0.36476867741548596
+          },
+          {
+            "frame": 84,
+            "type": "wall",
+            "strength": 0.3040698311143766
+          },
+          {
+            "frame": 87,
+            "type": "wall",
+            "strength": 0.2785600323748715
+          },
+          {
+            "frame": 90,
+            "type": "wall",
+            "strength": 0.38326214659854235
+          },
+          {
+            "frame": 112,
+            "type": "top",
+            "strength": 0.28583459782133114
+          },
+          {
+            "frame": 152,
+            "type": "top",
+            "strength": 0.10782907701092612
+          },
+          {
+            "frame": 159,
+            "type": "wall",
+            "strength": 0.016507236365807833
+          },
+          {
+            "frame": 171,
+            "type": "top",
+            "strength": 0.1851279770383775
+          },
+          {
+            "frame": 172,
+            "type": "top",
+            "strength": 0.14235104847829555
+          },
+          {
+            "frame": 176,
+            "type": "top",
+            "strength": 0.09295206144671775
+          },
+          {
+            "frame": 264,
+            "type": "top",
+            "strength": 0.10161044647522716
+          }
+        ]
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 2",
+        "itemIndices": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "bakePath": "battle-bakes/football-giants-r1.bin",
+        "survivorOrder": [
+          3,
+          2,
+          5,
+          0,
+          4,
+          6,
+          1,
+          7,
+          9,
+          8
+        ],
+        "eliminationFrames": [
+          567,
+          475,
+          586,
+          662,
+          556,
+          575,
+          481,
+          460,
+          202,
+          446
+        ],
+        "battleFrames": 662,
+        "winnerIndex": 13,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5234222391268207
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5411508239817256
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.39893802590701954
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.38827287650097586
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.39893802590701954
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6133744951853695
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6133744951853695
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3827118881465226
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4004647059588174
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7081683723911301
+          },
+          {
+            "frame": 16,
+            "type": "wall",
+            "strength": 0.5669428501838623
+          },
+          {
+            "frame": 25,
+            "type": "top",
+            "strength": 0.5971517460083483
+          },
+          {
+            "frame": 31,
+            "type": "top",
+            "strength": 0.21496323413930343
+          },
+          {
+            "frame": 32,
+            "type": "wall",
+            "strength": 0.2885580313127381
+          },
+          {
+            "frame": 38,
+            "type": "top",
+            "strength": 0.4858111423841884
+          },
+          {
+            "frame": 39,
+            "type": "top",
+            "strength": 0.27018052678656207
+          },
+          {
+            "frame": 56,
+            "type": "wall",
+            "strength": 0.356470664786162
+          },
+          {
+            "frame": 57,
+            "type": "wall",
+            "strength": 0.38809494914834514
+          },
+          {
+            "frame": 57,
+            "type": "wall",
+            "strength": 0.4791524499391405
+          },
+          {
+            "frame": 57,
+            "type": "wall",
+            "strength": 0.16845491850899147
+          },
+          {
+            "frame": 66,
+            "type": "wall",
+            "strength": 0.41369461649741196
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.3452397259184747
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.2608742517545456
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.1859150887943912
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.36021604944981234
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.08757041675496215
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.33199267375530667
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.42928453644959835
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.2203730075803977
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.3776880690585758
+          },
+          {
+            "frame": 73,
+            "type": "top",
+            "strength": 0.17957867932407381
+          },
+          {
+            "frame": 75,
+            "type": "wall",
+            "strength": 0.25782132081110887
+          },
+          {
+            "frame": 86,
+            "type": "wall",
+            "strength": 0.19973961521119646
+          },
+          {
+            "frame": 129,
+            "type": "wall",
+            "strength": 0.32410144876500596
+          },
+          {
+            "frame": 138,
+            "type": "top",
+            "strength": 0.4330555209983755
+          },
+          {
+            "frame": 148,
+            "type": "top",
+            "strength": 0.24981980166492515
+          },
+          {
+            "frame": 152,
+            "type": "wall",
+            "strength": 0.3451907784745227
+          },
+          {
+            "frame": 160,
+            "type": "top",
+            "strength": 0.5450407859774452
+          },
+          {
+            "frame": 163,
+            "type": "top",
+            "strength": 0.1874510753560333
+          },
+          {
+            "frame": 164,
+            "type": "wall",
+            "strength": 0.34036975191877233
+          },
+          {
+            "frame": 179,
+            "type": "top",
+            "strength": 0.31565661468995976
+          },
+          {
+            "frame": 179,
+            "type": "top",
+            "strength": 0.24115608347746292
+          },
+          {
+            "frame": 192,
+            "type": "top",
+            "strength": 0.23275943850274472
+          },
+          {
+            "frame": 206,
+            "type": "top",
+            "strength": 0.09813496947367227
+          },
+          {
+            "frame": 236,
+            "type": "top",
+            "strength": 0.13477796677141096
+          }
+        ]
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 3",
+        "itemIndices": [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "bakePath": "battle-bakes/football-giants-r2.bin",
+        "survivorOrder": [
+          7,
+          8,
+          5,
+          0,
+          9,
+          4,
+          6,
+          3,
+          1,
+          2
+        ],
+        "eliminationFrames": [
+          628,
+          432,
+          415,
+          471,
+          546,
+          657,
+          540,
+          706,
+          660,
+          602
+        ],
+        "battleFrames": 736,
+        "winnerIndex": 27,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3371536202332752
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4553009570382343
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5630915886126469
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5954102832703632
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.47402390945905604
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5954102832703632
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.33275708325053976
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3549666828420367
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5630915886126469
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4553009570382343
+          },
+          {
+            "frame": 17,
+            "type": "wall",
+            "strength": 0.42504956755253176
+          },
+          {
+            "frame": 18,
+            "type": "top",
+            "strength": 0.25214414476010233
+          },
+          {
+            "frame": 22,
+            "type": "wall",
+            "strength": 0.45177444764741165
+          },
+          {
+            "frame": 27,
+            "type": "wall",
+            "strength": 0.4128590436160796
+          },
+          {
+            "frame": 28,
+            "type": "wall",
+            "strength": 0.2776491236293932
+          },
+          {
+            "frame": 29,
+            "type": "wall",
+            "strength": 0.5464501655139631
+          },
+          {
+            "frame": 33,
+            "type": "top",
+            "strength": 0.3830346231297503
+          },
+          {
+            "frame": 55,
+            "type": "top",
+            "strength": 0.7309362813348359
+          },
+          {
+            "frame": 56,
+            "type": "wall",
+            "strength": 0.40374182564615907
+          },
+          {
+            "frame": 59,
+            "type": "wall",
+            "strength": 0.3280155674549978
+          },
+          {
+            "frame": 68,
+            "type": "wall",
+            "strength": 0.2448636453250321
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.17423052123683086
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.26907993478931436
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.06436514290692615
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.3233437772043058
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.2435840321693081
+          },
+          {
+            "frame": 70,
+            "type": "top",
+            "strength": 0.28149373116575316
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.03918914277845822
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.2796127147979916
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.6408512292731361
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.518218563457525
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.1993116147665605
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.5774557089595448
+          },
+          {
+            "frame": 76,
+            "type": "top",
+            "strength": 0.28811298843825567
+          },
+          {
+            "frame": 78,
+            "type": "wall",
+            "strength": 0.22620260174131543
+          },
+          {
+            "frame": 80,
+            "type": "wall",
+            "strength": 0.4840044771490929
+          },
+          {
+            "frame": 86,
+            "type": "wall",
+            "strength": 0.3589026953277922
+          },
+          {
+            "frame": 90,
+            "type": "wall",
+            "strength": 0.1440683528375428
+          },
+          {
+            "frame": 98,
+            "type": "top",
+            "strength": 0.14291092742233918
+          },
+          {
+            "frame": 143,
+            "type": "wall",
+            "strength": 0.10711386159035864
+          },
+          {
+            "frame": 158,
+            "type": "top",
+            "strength": 0.2593064656338399
+          },
+          {
+            "frame": 161,
+            "type": "wall",
+            "strength": 0.1588340680588319
+          },
+          {
+            "frame": 170,
+            "type": "wall",
+            "strength": 0.2048299027519175
+          },
+          {
+            "frame": 172,
+            "type": "wall",
+            "strength": 0.2812677089667822
+          },
+          {
+            "frame": 173,
+            "type": "top",
+            "strength": 0.2066482807374008
+          },
+          {
+            "frame": 179,
+            "type": "wall",
+            "strength": 0.15858372997107612
+          },
+          {
+            "frame": 183,
+            "type": "top",
+            "strength": 0.1765297269662798
+          },
+          {
+            "frame": 190,
+            "type": "top",
+            "strength": 0.15637893685313578
+          },
+          {
+            "frame": 257,
+            "type": "wall",
+            "strength": 0.068895862246316
+          },
+          {
+            "frame": 257,
+            "type": "wall",
+            "strength": 0.11246972245797322
+          },
+          {
+            "frame": 281,
+            "type": "wall",
+            "strength": 0.20678867503494192
+          },
+          {
+            "frame": 310,
+            "type": "wall",
+            "strength": 0.029625256842397137
+          },
+          {
+            "frame": 334,
+            "type": "wall",
+            "strength": 0.0745623062275032
+          },
+          {
+            "frame": 370,
+            "type": "top",
+            "strength": 0.07465972308735859
+          },
+          {
+            "frame": 407,
+            "type": "top",
+            "strength": 0.10289942640127427
+          }
+        ]
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 4",
+        "itemIndices": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "bakePath": "battle-bakes/football-giants-r3.bin",
+        "survivorOrder": [
+          4,
+          2,
+          5,
+          7,
+          6,
+          3,
+          1,
+          8,
+          9,
+          0
+        ],
+        "eliminationFrames": [
+          129,
+          337,
+          618,
+          441,
+          694,
+          492,
+          442,
+          442,
+          302,
+          244
+        ],
+        "battleFrames": 694,
+        "winnerIndex": 34,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7754824399873993
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5979408977666195
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.40980651679019053
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3756180973255226
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5630867427859294
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3756180973255226
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3409841958782149
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.37268342768579704
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4432052023411875
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7941575719255826
+          },
+          {
+            "frame": 14,
+            "type": "wall",
+            "strength": 0.6455476372272115
+          },
+          {
+            "frame": 37,
+            "type": "top",
+            "strength": 0.5620432421948757
+          },
+          {
+            "frame": 40,
+            "type": "wall",
+            "strength": 0.2151963665830955
+          },
+          {
+            "frame": 55,
+            "type": "top",
+            "strength": 0.5835836054383619
+          },
+          {
+            "frame": 59,
+            "type": "top",
+            "strength": 0.45512050143802496
+          },
+          {
+            "frame": 62,
+            "type": "wall",
+            "strength": 0.3206567767035483
+          },
+          {
+            "frame": 67,
+            "type": "wall",
+            "strength": 0.8176565121783628
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.31875220224579487
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.4270099524702935
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.2609387365156007
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.25753596624591457
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.7942029683706011
+          },
+          {
+            "frame": 71,
+            "type": "top",
+            "strength": 0.5540147764622999
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.29028378469166993
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.1984216240392648
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.3861934496427637
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.2895235457942253
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.345552268069327
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.1767358128838044
+          },
+          {
+            "frame": 72,
+            "type": "top",
+            "strength": 0.4580075509191195
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.8896467575243688
+          },
+          {
+            "frame": 77,
+            "type": "wall",
+            "strength": 0.13637615133937298
+          },
+          {
+            "frame": 80,
+            "type": "wall",
+            "strength": 0.27696968219553936
+          },
+          {
+            "frame": 86,
+            "type": "top",
+            "strength": 0.25690339134273366
+          },
+          {
+            "frame": 90,
+            "type": "wall",
+            "strength": 0.07199054847541145
+          },
+          {
+            "frame": 90,
+            "type": "top",
+            "strength": 0.40925150988440157
+          },
+          {
+            "frame": 91,
+            "type": "wall",
+            "strength": 0.062096667740657044
+          },
+          {
+            "frame": 93,
+            "type": "wall",
+            "strength": 0.3995705834462902
+          },
+          {
+            "frame": 100,
+            "type": "wall",
+            "strength": 0.18944625799733983
+          },
+          {
+            "frame": 108,
+            "type": "top",
+            "strength": 0.5782511761479496
+          },
+          {
+            "frame": 111,
+            "type": "top",
+            "strength": 0.40798126266525286
+          },
+          {
+            "frame": 117,
+            "type": "wall",
+            "strength": 0.10611856668149285
+          },
+          {
+            "frame": 118,
+            "type": "top",
+            "strength": 0.4341261262664171
+          },
+          {
+            "frame": 118,
+            "type": "wall",
+            "strength": 0.2569592528002353
+          },
+          {
+            "frame": 120,
+            "type": "top",
+            "strength": 0.43047040334815445
+          },
+          {
+            "frame": 125,
+            "type": "top",
+            "strength": 0.206679899372765
+          },
+          {
+            "frame": 129,
+            "type": "wall",
+            "strength": 0.17169153114034605
+          },
+          {
+            "frame": 130,
+            "type": "wall",
+            "strength": 0
+          },
+          {
+            "frame": 131,
+            "type": "wall",
+            "strength": 0.27054032972863395
+          },
+          {
+            "frame": 170,
+            "type": "wall",
+            "strength": 0.1199290159132303
+          },
+          {
+            "frame": 195,
+            "type": "top",
+            "strength": 0.2213109706659446
+          },
+          {
+            "frame": 196,
+            "type": "top",
+            "strength": 0.22386280236165418
+          },
+          {
+            "frame": 219,
+            "type": "top",
+            "strength": 0.12187002319269094
+          },
+          {
+            "frame": 220,
+            "type": "top",
+            "strength": 0.08515741485335286
+          },
+          {
+            "frame": 234,
+            "type": "top",
+            "strength": 0.07372308498493302
+          },
+          {
+            "frame": 285,
+            "type": "top",
+            "strength": 0.11068412411307801
+          },
+          {
+            "frame": 344,
+            "type": "top",
+            "strength": 0.036316400767951264
+          },
+          {
+            "frame": 350,
+            "type": "wall",
+            "strength": 0.21331097897826662
+          },
+          {
+            "frame": 355,
+            "type": "wall",
+            "strength": 0.23655653512739985
+          },
+          {
+            "frame": 449,
+            "type": "top",
+            "strength": 0.06967397760506204
+          }
+        ]
+      },
+      {
+        "kind": "final",
+        "label": "FINAL",
+        "itemIndices": [
+          5,
+          13,
+          27,
+          34
+        ],
+        "bakePath": "battle-bakes/football-giants-r4.bin",
+        "survivorOrder": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "eliminationFrames": [
+          586,
+          713,
+          789,
+          392
+        ],
+        "battleFrames": 789,
+        "winnerIndex": 27,
+        "collisions": [
+          {
+            "frame": 10,
+            "type": "top",
+            "strength": 0.5284668771457397
+          },
+          {
+            "frame": 30,
+            "type": "top",
+            "strength": 0.539041243787036
+          },
+          {
+            "frame": 42,
+            "type": "wall",
+            "strength": 0.4697980974418406
+          },
+          {
+            "frame": 44,
+            "type": "wall",
+            "strength": 0.4859536654501326
+          },
+          {
+            "frame": 48,
+            "type": "wall",
+            "strength": 0.5657531882852156
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.17061185490752645
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.2825400293202071
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.05702484787372961
+          },
+          {
+            "frame": 76,
+            "type": "wall",
+            "strength": 0.8829034989370275
+          },
+          {
+            "frame": 77,
+            "type": "wall",
+            "strength": 0.8764347823703474
+          },
+          {
+            "frame": 78,
+            "type": "wall",
+            "strength": 0.8126023450868317
+          },
+          {
+            "frame": 104,
+            "type": "wall",
+            "strength": 0.4198832218386418
+          },
+          {
+            "frame": 121,
+            "type": "wall",
+            "strength": 0.7246447071731088
+          },
+          {
+            "frame": 136,
+            "type": "wall",
+            "strength": 0.3385344649803954
+          },
+          {
+            "frame": 137,
+            "type": "wall",
+            "strength": 0.4735757386567373
+          },
+          {
+            "frame": 142,
+            "type": "top",
+            "strength": 0.5054546925634972
+          },
+          {
+            "frame": 148,
+            "type": "top",
+            "strength": 0.5308528975115824
+          },
+          {
+            "frame": 151,
+            "type": "top",
+            "strength": 0.48341171977401454
+          },
+          {
+            "frame": 185,
+            "type": "wall",
+            "strength": 0.48361138202346987
+          },
+          {
+            "frame": 194,
+            "type": "top",
+            "strength": 0.49969370182030853
+          },
+          {
+            "frame": 204,
+            "type": "wall",
+            "strength": 0.033280110120155026
+          },
+          {
+            "frame": 209,
+            "type": "wall",
+            "strength": 0.362877997369123
+          },
+          {
+            "frame": 231,
+            "type": "wall",
+            "strength": 0.1310425988918188
+          },
+          {
+            "frame": 249,
+            "type": "wall",
+            "strength": 0.343037112567998
+          },
+          {
+            "frame": 334,
+            "type": "wall",
+            "strength": 0.020922462680204573
+          },
+          {
+            "frame": 357,
+            "type": "wall",
+            "strength": 0.09089600173730676
+          },
+          {
+            "frame": 365,
+            "type": "wall",
+            "strength": 0.1773120329643179
+          },
+          {
+            "frame": 372,
+            "type": "wall",
+            "strength": 0.008187636967562039
+          },
+          {
+            "frame": 411,
+            "type": "wall",
+            "strength": 0.0851175763418531
+          },
+          {
+            "frame": 433,
+            "type": "top",
+            "strength": 0.09810297912197043
+          },
+          {
+            "frame": 521,
+            "type": "wall",
+            "strength": 0.12266254641096792
+          },
+          {
+            "frame": 698,
+            "type": "wall",
+            "strength": 0.1725395479585945
+          }
+        ]
+      }
+    ],
+    "championIndex": 27
+  }
+}

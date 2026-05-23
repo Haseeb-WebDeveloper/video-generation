@@ -1,0 +1,1919 @@
+{
+  "slug": "top-economies",
+  "title": [
+    "SPINNING TOP",
+    "TOP ECONOMIES"
+  ],
+  "outro": [
+    "",
+    ""
+  ],
+  "unitLabel": "",
+  "coverFit": "cover",
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/Level - The Grey Room _ Density & Time.mp3",
+  "audioVolume": 0.1,
+  "tournamentGroupSize": 10,
+  "items": [
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "flags/us.png"
+    },
+    {
+      "title": "China",
+      "value": 1,
+      "country": "CN",
+      "imagePath": "flags/cn.png"
+    },
+    {
+      "title": "Germany",
+      "value": 1,
+      "country": "DE",
+      "imagePath": "flags/de.png"
+    },
+    {
+      "title": "Japan",
+      "value": 1,
+      "country": "JP",
+      "imagePath": "flags/jp.png"
+    },
+    {
+      "title": "India",
+      "value": 1,
+      "country": "IN",
+      "imagePath": "flags/in.png"
+    },
+    {
+      "title": "United Kingdom",
+      "value": 1,
+      "country": "GB",
+      "imagePath": "flags/gb.png"
+    },
+    {
+      "title": "France",
+      "value": 1,
+      "country": "FR",
+      "imagePath": "flags/fr.png"
+    },
+    {
+      "title": "Italy",
+      "value": 1,
+      "country": "IT",
+      "imagePath": "flags/it.png"
+    },
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "flags/br.png"
+    },
+    {
+      "title": "Canada",
+      "value": 1,
+      "country": "CA",
+      "imagePath": "flags/ca.png"
+    },
+    {
+      "title": "Russia",
+      "value": 1,
+      "country": "RU",
+      "imagePath": "flags/ru.png"
+    },
+    {
+      "title": "Mexico",
+      "value": 1,
+      "country": "MX",
+      "imagePath": "flags/mx.png"
+    },
+    {
+      "title": "Australia",
+      "value": 1,
+      "country": "AU",
+      "imagePath": "flags/au.png"
+    },
+    {
+      "title": "South Korea",
+      "value": 1,
+      "country": "KR",
+      "imagePath": "flags/kr.png"
+    },
+    {
+      "title": "Spain",
+      "value": 1,
+      "country": "ES",
+      "imagePath": "flags/es.png"
+    },
+    {
+      "title": "Indonesia",
+      "value": 1,
+      "country": "ID",
+      "imagePath": "flags/id.png"
+    },
+    {
+      "title": "Netherlands",
+      "value": 1,
+      "country": "NL",
+      "imagePath": "flags/nl.png"
+    },
+    {
+      "title": "Turkey",
+      "value": 1,
+      "country": "TR",
+      "imagePath": "flags/tr.png"
+    },
+    {
+      "title": "Saudi Arabia",
+      "value": 1,
+      "country": "SA",
+      "imagePath": "flags/sa.png"
+    },
+    {
+      "title": "Switzerland",
+      "value": 1,
+      "country": "CH",
+      "imagePath": "flags/ch.png"
+    },
+    {
+      "title": "Poland",
+      "value": 1,
+      "country": "PL",
+      "imagePath": "flags/pl.png"
+    },
+    {
+      "title": "Taiwan",
+      "value": 1,
+      "country": "TW",
+      "imagePath": "flags/tw.png"
+    },
+    {
+      "title": "Belgium",
+      "value": 1,
+      "country": "BE",
+      "imagePath": "flags/be.png"
+    },
+    {
+      "title": "Argentina",
+      "value": 1,
+      "country": "AR",
+      "imagePath": "flags/ar.png"
+    },
+    {
+      "title": "Sweden",
+      "value": 1,
+      "country": "SE",
+      "imagePath": "flags/se.png"
+    },
+    {
+      "title": "Ireland",
+      "value": 1,
+      "country": "IE",
+      "imagePath": "flags/ie.png"
+    },
+    {
+      "title": "Thailand",
+      "value": 1,
+      "country": "TH",
+      "imagePath": "flags/th.png"
+    },
+    {
+      "title": "Norway",
+      "value": 1,
+      "country": "NO",
+      "imagePath": "flags/no.png"
+    },
+    {
+      "title": "United Arab Emirates",
+      "value": 1,
+      "country": "AE",
+      "imagePath": "flags/ae.png"
+    },
+    {
+      "title": "Israel",
+      "value": 1,
+      "country": "IL",
+      "imagePath": "flags/il.png"
+    },
+    {
+      "title": "Singapore",
+      "value": 1,
+      "country": "SG",
+      "imagePath": "flags/sg.png"
+    },
+    {
+      "title": "Nigeria",
+      "value": 1,
+      "country": "NG",
+      "imagePath": "flags/ng.png"
+    },
+    {
+      "title": "Egypt",
+      "value": 1,
+      "country": "EG",
+      "imagePath": "flags/eg.png"
+    },
+    {
+      "title": "South Africa",
+      "value": 1,
+      "country": "ZA",
+      "imagePath": "flags/za.png"
+    },
+    {
+      "title": "Philippines",
+      "value": 1,
+      "country": "PH",
+      "imagePath": "flags/ph.png"
+    },
+    {
+      "title": "Denmark",
+      "value": 1,
+      "country": "DK",
+      "imagePath": "flags/dk.png"
+    },
+    {
+      "title": "Malaysia",
+      "value": 1,
+      "country": "MY",
+      "imagePath": "flags/my.png"
+    },
+    {
+      "title": "Vietnam",
+      "value": 1,
+      "country": "VN",
+      "imagePath": "flags/vn.png"
+    },
+    {
+      "title": "Bangladesh",
+      "value": 1,
+      "country": "BD",
+      "imagePath": "flags/bd.png"
+    },
+    {
+      "title": "Austria",
+      "value": 1,
+      "country": "AT",
+      "imagePath": "flags/at.png"
+    }
+  ],
+  "youtube": {
+    "title": "Biggest Economies Spinning Top Battle 💰 40 Countries — Last One Wins!",
+    "description": "40 of the world's biggest economies enter the arena as spinning tops. They clash, knock each other's spin out, and fall one by one — the LAST top still spinning is the champion. Who will it be? 🏆\n\nFeaturing United States, China, Germany, Japan and 36 more, battling across 4 groups and a grand final.\n\n👇 Comment which one you're rooting for!\n\nChapters:\n{{chapters}}\n\n#spinningtop #economy #marblerace #satisfying",
+    "tags": [
+      "spinning top battle",
+      "marble race",
+      "country battle",
+      "last one standing",
+      "tournament",
+      "satisfying",
+      "physics simulation",
+      "beyblade battle",
+      "flag battle",
+      "elimination",
+      "who will win",
+      "biggest economies",
+      "gdp",
+      "richest countries",
+      "United States",
+      "China",
+      "Germany",
+      "Japan",
+      "India",
+      "United Kingdom",
+      "France",
+      "Italy",
+      "Brazil",
+      "Canada",
+      "Russia",
+      "Mexico"
+    ],
+    "categoryId": "24",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en",
+    "publishAt": "2026-06-23T17:00:00.000Z"
+  },
+  "tournamentSeed": 1007,
+  "tournamentResult": {
+    "rounds": [
+      {
+        "kind": "group",
+        "label": "ROUND 1",
+        "itemIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "bakePath": "battle-bakes/top-economies-r0.bin",
+        "survivorOrder": [
+          2,
+          7,
+          5,
+          3,
+          9,
+          4,
+          1,
+          0,
+          6,
+          8
+        ],
+        "eliminationFrames": [
+          326,
+          329,
+          608,
+          487,
+          394,
+          525,
+          232,
+          599,
+          211,
+          470
+        ],
+        "battleFrames": 675,
+        "winnerIndex": 2,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.8811206528835885
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6956492910246829
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.9034280953775135
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5028182374923658
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5546218438942185
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6874080292586223
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6874080292586223
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.9034280953775135
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5624271226742505
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5144450957880831
+          },
+          {
+            "frame": 14,
+            "type": "wall",
+            "strength": 0.7516985791337648
+          },
+          {
+            "frame": 15,
+            "type": "wall",
+            "strength": 0.41276644388620576
+          },
+          {
+            "frame": 21,
+            "type": "wall",
+            "strength": 0.209161925434203
+          },
+          {
+            "frame": 25,
+            "type": "wall",
+            "strength": 0.6676897269060231
+          },
+          {
+            "frame": 39,
+            "type": "wall",
+            "strength": 0.460844763986172
+          },
+          {
+            "frame": 43,
+            "type": "top",
+            "strength": 0.5841591830025781
+          },
+          {
+            "frame": 43,
+            "type": "wall",
+            "strength": 0.4854024823094705
+          },
+          {
+            "frame": 45,
+            "type": "wall",
+            "strength": 0.29276648773799513
+          },
+          {
+            "frame": 49,
+            "type": "wall",
+            "strength": 0.41434416712007255
+          },
+          {
+            "frame": 49,
+            "type": "wall",
+            "strength": 0.7907180872076353
+          },
+          {
+            "frame": 51,
+            "type": "wall",
+            "strength": 0.6858788048359802
+          },
+          {
+            "frame": 52,
+            "type": "wall",
+            "strength": 0.6144038649753677
+          },
+          {
+            "frame": 53,
+            "type": "top",
+            "strength": 0.5627708109842412
+          },
+          {
+            "frame": 62,
+            "type": "wall",
+            "strength": 0.25989450545190174
+          },
+          {
+            "frame": 64,
+            "type": "wall",
+            "strength": 0.23774307684872686
+          },
+          {
+            "frame": 65,
+            "type": "wall",
+            "strength": 0.243119115960292
+          },
+          {
+            "frame": 66,
+            "type": "top",
+            "strength": 0.7013832993983445
+          },
+          {
+            "frame": 68,
+            "type": "wall",
+            "strength": 0.2375604608771942
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.1633420180992572
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.6883859727466672
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.43642104928451586
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.3025418456490693
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.11374680334487497
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.7028458063844841
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.24908529549124422
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.42056529285301525
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.30029602967612085
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.7849195976204928
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.6532766176679894
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.2947224649191711
+          },
+          {
+            "frame": 74,
+            "type": "wall",
+            "strength": 0.6690217204835721
+          },
+          {
+            "frame": 75,
+            "type": "top",
+            "strength": 0.49023122333782637
+          },
+          {
+            "frame": 77,
+            "type": "top",
+            "strength": 0.48242938599716206
+          },
+          {
+            "frame": 84,
+            "type": "wall",
+            "strength": 0.1697583277293383
+          },
+          {
+            "frame": 85,
+            "type": "wall",
+            "strength": 0.2443399808809392
+          },
+          {
+            "frame": 91,
+            "type": "top",
+            "strength": 0.2521782026330955
+          },
+          {
+            "frame": 97,
+            "type": "wall",
+            "strength": 0.18739799387613476
+          },
+          {
+            "frame": 114,
+            "type": "top",
+            "strength": 0.2554604150187439
+          },
+          {
+            "frame": 135,
+            "type": "wall",
+            "strength": 0.14512135509308094
+          },
+          {
+            "frame": 137,
+            "type": "top",
+            "strength": 0.07310256136715185
+          },
+          {
+            "frame": 139,
+            "type": "top",
+            "strength": 0.34875010841800447
+          },
+          {
+            "frame": 156,
+            "type": "wall",
+            "strength": 0.037263296442127614
+          },
+          {
+            "frame": 168,
+            "type": "wall",
+            "strength": 0.030030174928551655
+          },
+          {
+            "frame": 168,
+            "type": "top",
+            "strength": 0.26407526164056927
+          },
+          {
+            "frame": 172,
+            "type": "wall",
+            "strength": 0.07349975202553016
+          },
+          {
+            "frame": 180,
+            "type": "wall",
+            "strength": 0.2290738411432624
+          },
+          {
+            "frame": 184,
+            "type": "wall",
+            "strength": 0.023852940977335608
+          },
+          {
+            "frame": 191,
+            "type": "top",
+            "strength": 0.3156880393283428
+          },
+          {
+            "frame": 195,
+            "type": "wall",
+            "strength": 0.018446013262484746
+          },
+          {
+            "frame": 198,
+            "type": "wall",
+            "strength": 0.07974340404129165
+          },
+          {
+            "frame": 208,
+            "type": "wall",
+            "strength": 0.025530414326981016
+          },
+          {
+            "frame": 226,
+            "type": "wall",
+            "strength": 0.20416968793022217
+          },
+          {
+            "frame": 241,
+            "type": "top",
+            "strength": 0.008678111532137532
+          },
+          {
+            "frame": 257,
+            "type": "wall",
+            "strength": 0.15838792752091135
+          },
+          {
+            "frame": 275,
+            "type": "top",
+            "strength": 0.15167495802579825
+          },
+          {
+            "frame": 283,
+            "type": "top",
+            "strength": 0.1433592030101719
+          },
+          {
+            "frame": 289,
+            "type": "top",
+            "strength": 0.09007547473533926
+          },
+          {
+            "frame": 297,
+            "type": "wall",
+            "strength": 0
+          },
+          {
+            "frame": 302,
+            "type": "top",
+            "strength": 0.1354734295215974
+          }
+        ]
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 2",
+        "itemIndices": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "bakePath": "battle-bakes/top-economies-r1.bin",
+        "survivorOrder": [
+          8,
+          5,
+          2,
+          4,
+          3,
+          7,
+          6,
+          0,
+          1,
+          9
+        ],
+        "eliminationFrames": [
+          252,
+          239,
+          550,
+          377,
+          514,
+          554,
+          334,
+          334,
+          630,
+          176
+        ],
+        "battleFrames": 630,
+        "winnerIndex": 18,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7466324129139972
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.26412730615157975
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.24214429293875422
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7116320630624419
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.47986660808215226
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5586219901459428
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.9245935200925627
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3442733731567805
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7753420531573973
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6355210756531202
+          },
+          {
+            "frame": 14,
+            "type": "wall",
+            "strength": 0.5081333911176279
+          },
+          {
+            "frame": 31,
+            "type": "wall",
+            "strength": 0.48427400852655705
+          },
+          {
+            "frame": 34,
+            "type": "wall",
+            "strength": 0.3822883987107114
+          },
+          {
+            "frame": 41,
+            "type": "wall",
+            "strength": 0.4559459959689594
+          },
+          {
+            "frame": 42,
+            "type": "top",
+            "strength": 0.5929839523395883
+          },
+          {
+            "frame": 43,
+            "type": "wall",
+            "strength": 0.5573010125120401
+          },
+          {
+            "frame": 44,
+            "type": "wall",
+            "strength": 0.5257312251657805
+          },
+          {
+            "frame": 45,
+            "type": "top",
+            "strength": 0.43300859007262843
+          },
+          {
+            "frame": 45,
+            "type": "wall",
+            "strength": 0.38935146493164213
+          },
+          {
+            "frame": 50,
+            "type": "top",
+            "strength": 0.4451323701712409
+          },
+          {
+            "frame": 55,
+            "type": "wall",
+            "strength": 0.4686509811252562
+          },
+          {
+            "frame": 56,
+            "type": "top",
+            "strength": 0.653898562005676
+          },
+          {
+            "frame": 56,
+            "type": "wall",
+            "strength": 0.5559918449057184
+          },
+          {
+            "frame": 60,
+            "type": "wall",
+            "strength": 0.45192300031844135
+          },
+          {
+            "frame": 60,
+            "type": "top",
+            "strength": 0.4490688348721777
+          },
+          {
+            "frame": 65,
+            "type": "top",
+            "strength": 0.36215094056918434
+          },
+          {
+            "frame": 66,
+            "type": "wall",
+            "strength": 0.18080198252888766
+          },
+          {
+            "frame": 67,
+            "type": "wall",
+            "strength": 0.4543902441956423
+          },
+          {
+            "frame": 68,
+            "type": "wall",
+            "strength": 0.17829262059761855
+          },
+          {
+            "frame": 68,
+            "type": "wall",
+            "strength": 0.40957118004932336
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.40017230187484537
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.2953694838974688
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.09871335494501753
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.3654879509481977
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.4322415850436526
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.40255843135749647
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.48218527254363996
+          },
+          {
+            "frame": 80,
+            "type": "wall",
+            "strength": 0.3133367988122395
+          },
+          {
+            "frame": 93,
+            "type": "top",
+            "strength": 0.6058516890396454
+          },
+          {
+            "frame": 96,
+            "type": "wall",
+            "strength": 0.27484899125142365
+          },
+          {
+            "frame": 105,
+            "type": "wall",
+            "strength": 0.3488352431351987
+          },
+          {
+            "frame": 106,
+            "type": "top",
+            "strength": 0.4889472244381252
+          },
+          {
+            "frame": 110,
+            "type": "wall",
+            "strength": 0.5617991021283013
+          },
+          {
+            "frame": 111,
+            "type": "top",
+            "strength": 0.2981027330038898
+          },
+          {
+            "frame": 118,
+            "type": "wall",
+            "strength": 0.24717789837469548
+          },
+          {
+            "frame": 129,
+            "type": "top",
+            "strength": 0.3178658766405443
+          },
+          {
+            "frame": 129,
+            "type": "wall",
+            "strength": 0.22576240127759828
+          },
+          {
+            "frame": 131,
+            "type": "wall",
+            "strength": 0.20195656940650927
+          },
+          {
+            "frame": 132,
+            "type": "wall",
+            "strength": 0.21244235603498485
+          },
+          {
+            "frame": 140,
+            "type": "wall",
+            "strength": 0.14536483363800645
+          },
+          {
+            "frame": 154,
+            "type": "top",
+            "strength": 0.33295311046013004
+          },
+          {
+            "frame": 157,
+            "type": "wall",
+            "strength": 0.13731816015781204
+          },
+          {
+            "frame": 159,
+            "type": "top",
+            "strength": 0.33185050799530075
+          },
+          {
+            "frame": 163,
+            "type": "wall",
+            "strength": 0.20169971550916754
+          },
+          {
+            "frame": 207,
+            "type": "top",
+            "strength": 0.17879030587157166
+          },
+          {
+            "frame": 217,
+            "type": "wall",
+            "strength": 0.09487938941785577
+          },
+          {
+            "frame": 256,
+            "type": "wall",
+            "strength": 0.07140874753393997
+          },
+          {
+            "frame": 257,
+            "type": "top",
+            "strength": 0.09082690019815584
+          },
+          {
+            "frame": 262,
+            "type": "top",
+            "strength": 0.05064711351860914
+          },
+          {
+            "frame": 276,
+            "type": "wall",
+            "strength": 0.03825358728003916
+          },
+          {
+            "frame": 290,
+            "type": "wall",
+            "strength": 0.030569466304560727
+          },
+          {
+            "frame": 295,
+            "type": "top",
+            "strength": 0.03406106918316637
+          },
+          {
+            "frame": 314,
+            "type": "wall",
+            "strength": 0.011486030754697006
+          },
+          {
+            "frame": 320,
+            "type": "top",
+            "strength": 0.008192329613997835
+          },
+          {
+            "frame": 325,
+            "type": "top",
+            "strength": 0.012837248548479393
+          },
+          {
+            "frame": 352,
+            "type": "wall",
+            "strength": 0.049557815449488785
+          }
+        ]
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 3",
+        "itemIndices": [
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "bakePath": "battle-bakes/top-economies-r2.bin",
+        "survivorOrder": [
+          5,
+          0,
+          7,
+          8,
+          2,
+          3,
+          6,
+          4,
+          9,
+          1
+        ],
+        "eliminationFrames": [
+          636,
+          341,
+          529,
+          525,
+          422,
+          712,
+          463,
+          559,
+          542,
+          341
+        ],
+        "battleFrames": 712,
+        "winnerIndex": 25,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.8242075887822581
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.8242075887822581
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.24196915210957815
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3779387171115611
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5163637945426919
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.5163637945426919
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3779387171115611
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.45769599199523897
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.740206967764629
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.4988078340370871
+          },
+          {
+            "frame": 29,
+            "type": "top",
+            "strength": 0.5681576186848414
+          },
+          {
+            "frame": 35,
+            "type": "wall",
+            "strength": 0.3200267598709794
+          },
+          {
+            "frame": 39,
+            "type": "wall",
+            "strength": 0.5241173920545895
+          },
+          {
+            "frame": 53,
+            "type": "wall",
+            "strength": 0.40338334659783776
+          },
+          {
+            "frame": 56,
+            "type": "wall",
+            "strength": 0.45408030859981524
+          },
+          {
+            "frame": 56,
+            "type": "top",
+            "strength": 0.40370933766816436
+          },
+          {
+            "frame": 61,
+            "type": "top",
+            "strength": 0.36602825989005733
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.3157532265258912
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.11970793271828178
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.2838989357426816
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.3831873925310863
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.040951924374527396
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.3403566076858746
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.3582813438060365
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.35418805313425544
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.5454953590980687
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.5645486432699728
+          },
+          {
+            "frame": 75,
+            "type": "wall",
+            "strength": 0.4874043444174574
+          },
+          {
+            "frame": 77,
+            "type": "wall",
+            "strength": 0.17601572320069422
+          },
+          {
+            "frame": 79,
+            "type": "wall",
+            "strength": 0.34561294340215576
+          },
+          {
+            "frame": 81,
+            "type": "wall",
+            "strength": 0.14355118197081562
+          },
+          {
+            "frame": 84,
+            "type": "wall",
+            "strength": 0.19277253272723757
+          },
+          {
+            "frame": 89,
+            "type": "wall",
+            "strength": 0.11590703929075123
+          },
+          {
+            "frame": 89,
+            "type": "wall",
+            "strength": 0.44654781444657127
+          },
+          {
+            "frame": 98,
+            "type": "wall",
+            "strength": 0.17953346657941374
+          },
+          {
+            "frame": 98,
+            "type": "wall",
+            "strength": 0.316622498128881
+          },
+          {
+            "frame": 131,
+            "type": "wall",
+            "strength": 0.052735998658417126
+          },
+          {
+            "frame": 134,
+            "type": "top",
+            "strength": 0.13211295737023948
+          },
+          {
+            "frame": 137,
+            "type": "wall",
+            "strength": 0.1017910021580323
+          },
+          {
+            "frame": 138,
+            "type": "wall",
+            "strength": 0.4723100925338196
+          },
+          {
+            "frame": 150,
+            "type": "wall",
+            "strength": 0.16795766908824894
+          },
+          {
+            "frame": 158,
+            "type": "wall",
+            "strength": 0.08954195929065681
+          },
+          {
+            "frame": 161,
+            "type": "wall",
+            "strength": 0.36766126836531365
+          },
+          {
+            "frame": 171,
+            "type": "top",
+            "strength": 0.38915845381701303
+          },
+          {
+            "frame": 179,
+            "type": "top",
+            "strength": 0.26587714318326044
+          },
+          {
+            "frame": 184,
+            "type": "wall",
+            "strength": 0.21068194668431217
+          },
+          {
+            "frame": 188,
+            "type": "top",
+            "strength": 0.35937958685158455
+          },
+          {
+            "frame": 189,
+            "type": "top",
+            "strength": 0.25472033284756396
+          },
+          {
+            "frame": 190,
+            "type": "top",
+            "strength": 0.2009005992532665
+          },
+          {
+            "frame": 193,
+            "type": "top",
+            "strength": 0.3506367442541608
+          },
+          {
+            "frame": 201,
+            "type": "top",
+            "strength": 0.19383349911965816
+          },
+          {
+            "frame": 207,
+            "type": "top",
+            "strength": 0.3751628254470606
+          },
+          {
+            "frame": 210,
+            "type": "wall",
+            "strength": 0.16741168239740595
+          },
+          {
+            "frame": 220,
+            "type": "top",
+            "strength": 0.07505838439444529
+          },
+          {
+            "frame": 239,
+            "type": "wall",
+            "strength": 0.2862564586917004
+          },
+          {
+            "frame": 275,
+            "type": "wall",
+            "strength": 0.08977434433719483
+          },
+          {
+            "frame": 285,
+            "type": "wall",
+            "strength": 0.3422361918827889
+          },
+          {
+            "frame": 384,
+            "type": "top",
+            "strength": 0.033805248917905775
+          },
+          {
+            "frame": 399,
+            "type": "wall",
+            "strength": 0.17305804451333248
+          },
+          {
+            "frame": 473,
+            "type": "top",
+            "strength": 0.08866603268404413
+          }
+        ]
+      },
+      {
+        "kind": "group",
+        "label": "ROUND 4",
+        "itemIndices": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "bakePath": "battle-bakes/top-economies-r3.bin",
+        "survivorOrder": [
+          3,
+          4,
+          1,
+          8,
+          9,
+          6,
+          5,
+          0,
+          2,
+          7
+        ],
+        "eliminationFrames": [
+          326,
+          619,
+          218,
+          871,
+          795,
+          366,
+          459,
+          189,
+          557,
+          462
+        ],
+        "battleFrames": 871,
+        "winnerIndex": 33,
+        "collisions": [
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3665488863335926
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.3665488863335926
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.2922827954311655
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.41938821438615276
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.24134752085948535
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.30139608821826325
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6984773815995861
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.6972946484494597
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.2922827954311655
+          },
+          {
+            "frame": 0,
+            "type": "top",
+            "strength": 0.7832460259152741
+          },
+          {
+            "frame": 18,
+            "type": "wall",
+            "strength": 0.6344257409335644
+          },
+          {
+            "frame": 21,
+            "type": "wall",
+            "strength": 0.5028579127094991
+          },
+          {
+            "frame": 25,
+            "type": "top",
+            "strength": 0.4767266260872533
+          },
+          {
+            "frame": 38,
+            "type": "top",
+            "strength": 0.5378164749218305
+          },
+          {
+            "frame": 41,
+            "type": "wall",
+            "strength": 0.5890600949761188
+          },
+          {
+            "frame": 48,
+            "type": "top",
+            "strength": 0.5660672406312452
+          },
+          {
+            "frame": 58,
+            "type": "top",
+            "strength": 0.4777836932969663
+          },
+          {
+            "frame": 61,
+            "type": "top",
+            "strength": 0.5080567556383375
+          },
+          {
+            "frame": 62,
+            "type": "wall",
+            "strength": 0.05699954340130141
+          },
+          {
+            "frame": 64,
+            "type": "top",
+            "strength": 0.4167474446118417
+          },
+          {
+            "frame": 65,
+            "type": "top",
+            "strength": 0.4181772071429101
+          },
+          {
+            "frame": 65,
+            "type": "wall",
+            "strength": 0.24705565975321808
+          },
+          {
+            "frame": 67,
+            "type": "wall",
+            "strength": 0.41201438604091456
+          },
+          {
+            "frame": 68,
+            "type": "wall",
+            "strength": 0.30275082894062383
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.2400546744286602
+          },
+          {
+            "frame": 70,
+            "type": "wall",
+            "strength": 0.2531316036761451
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.25123163286838096
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.32182315942401263
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.5049647006151469
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.4280410439482602
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.044244181835252645
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.4280410439482602
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.49031571505460425
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.05999052287985274
+          },
+          {
+            "frame": 79,
+            "type": "wall",
+            "strength": 0.4217345991922478
+          },
+          {
+            "frame": 80,
+            "type": "top",
+            "strength": 0.30135785369930546
+          },
+          {
+            "frame": 89,
+            "type": "top",
+            "strength": 0.3818870672737776
+          },
+          {
+            "frame": 91,
+            "type": "wall",
+            "strength": 0.3117868492032884
+          },
+          {
+            "frame": 92,
+            "type": "wall",
+            "strength": 0.36417309301394307
+          },
+          {
+            "frame": 94,
+            "type": "top",
+            "strength": 0.20759602910873792
+          },
+          {
+            "frame": 99,
+            "type": "wall",
+            "strength": 0.24352667557650545
+          },
+          {
+            "frame": 102,
+            "type": "wall",
+            "strength": 0.18339152774728956
+          },
+          {
+            "frame": 105,
+            "type": "wall",
+            "strength": 0.46137552585489794
+          },
+          {
+            "frame": 108,
+            "type": "top",
+            "strength": 0.46439489077471285
+          },
+          {
+            "frame": 111,
+            "type": "wall",
+            "strength": 0.2484416720238046
+          },
+          {
+            "frame": 117,
+            "type": "wall",
+            "strength": 0.08651402725168796
+          },
+          {
+            "frame": 134,
+            "type": "wall",
+            "strength": 0.1666838549432617
+          },
+          {
+            "frame": 146,
+            "type": "wall",
+            "strength": 0.05096138601420108
+          },
+          {
+            "frame": 167,
+            "type": "wall",
+            "strength": 0.25395546227677634
+          },
+          {
+            "frame": 172,
+            "type": "wall",
+            "strength": 0.36117119579437035
+          },
+          {
+            "frame": 184,
+            "type": "top",
+            "strength": 0.3270896494843565
+          },
+          {
+            "frame": 280,
+            "type": "wall",
+            "strength": 0.10513538135186386
+          },
+          {
+            "frame": 310,
+            "type": "top",
+            "strength": 0.05428408490752607
+          },
+          {
+            "frame": 450,
+            "type": "wall",
+            "strength": 0.16326630136161074
+          },
+          {
+            "frame": 467,
+            "type": "top",
+            "strength": 0.08188504513870508
+          },
+          {
+            "frame": 527,
+            "type": "wall",
+            "strength": 0.12101677131491242
+          },
+          {
+            "frame": 584,
+            "type": "wall",
+            "strength": 0.06413889486892096
+          },
+          {
+            "frame": 633,
+            "type": "wall",
+            "strength": 0.03323907215988202
+          }
+        ]
+      },
+      {
+        "kind": "final",
+        "label": "FINAL",
+        "itemIndices": [
+          2,
+          18,
+          25,
+          33
+        ],
+        "bakePath": "battle-bakes/top-economies-r4.bin",
+        "survivorOrder": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "eliminationFrames": [
+          575,
+          499,
+          334,
+          380
+        ],
+        "battleFrames": 575,
+        "winnerIndex": 2,
+        "collisions": [
+          {
+            "frame": 8,
+            "type": "top",
+            "strength": 0.476916047247271
+          },
+          {
+            "frame": 25,
+            "type": "wall",
+            "strength": 0.5968281764017438
+          },
+          {
+            "frame": 38,
+            "type": "top",
+            "strength": 0.5986098038529027
+          },
+          {
+            "frame": 49,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.06599093712735254
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.6489816726834999
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.4211470388567258
+          },
+          {
+            "frame": 80,
+            "type": "wall",
+            "strength": 0.6095911165286096
+          },
+          {
+            "frame": 84,
+            "type": "wall",
+            "strength": 0.1403196054998076
+          },
+          {
+            "frame": 84,
+            "type": "wall",
+            "strength": 0.42462998458407186
+          },
+          {
+            "frame": 93,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 93,
+            "type": "wall",
+            "strength": 0.5873084989192783
+          },
+          {
+            "frame": 112,
+            "type": "top",
+            "strength": 0.6714555855923207
+          },
+          {
+            "frame": 114,
+            "type": "top",
+            "strength": 0.40727803067553825
+          },
+          {
+            "frame": 141,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 143,
+            "type": "top",
+            "strength": 0.9593078335616583
+          },
+          {
+            "frame": 145,
+            "type": "wall",
+            "strength": 0.7078737066994587
+          },
+          {
+            "frame": 147,
+            "type": "wall",
+            "strength": 0.3188627452415341
+          },
+          {
+            "frame": 172,
+            "type": "top",
+            "strength": 0.6786021365612903
+          },
+          {
+            "frame": 179,
+            "type": "wall",
+            "strength": 0.35799805594734474
+          },
+          {
+            "frame": 181,
+            "type": "wall",
+            "strength": 0.21848209406663838
+          },
+          {
+            "frame": 185,
+            "type": "top",
+            "strength": 0.6089833458322926
+          },
+          {
+            "frame": 187,
+            "type": "wall",
+            "strength": 0.2631904705036092
+          },
+          {
+            "frame": 246,
+            "type": "wall",
+            "strength": 0.13133529313452777
+          },
+          {
+            "frame": 250,
+            "type": "top",
+            "strength": 0.24121017091753558
+          },
+          {
+            "frame": 253,
+            "type": "wall",
+            "strength": 0.24791173173686987
+          },
+          {
+            "frame": 281,
+            "type": "top",
+            "strength": 0.18044256605240772
+          }
+        ]
+      }
+    ],
+    "championIndex": 2
+  }
+}

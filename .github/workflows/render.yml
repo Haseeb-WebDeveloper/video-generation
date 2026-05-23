@@ -14,7 +14,7 @@ on:
       slugs:
         description: "Comma-separated episode slugs (tournament template)"
         required: true
-        default: "countries-tournament"
+        default: "football-giants,world-powers,most-populous,flags-of-the-world,europe-cup,asia-cup,top-economies,americas-cup,africa-cup,island-nations"
       publish:
         description: "Upload to YouTube after rendering (scheduled via each episode's publishAt)"
         type: boolean
