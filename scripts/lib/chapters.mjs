@@ -13,7 +13,53 @@ const PER_ITEM_FRAMES = 330;
 const TITLE_WEIGHT = 2.6;
 const OUTRO_WEIGHT = 2.6;
 
+// ── Tournament chapters ──────────────────────────────────────────
+// Keep these in sync with the segment durations in src/tournament-slides.tsx
+// and the countdown/podium in src/top-battle-slides.tsx (all @ 30fps).
+const T_FPS = 30;
+const T_INTRO = 5 * T_FPS;
+const T_ROUND_CARD = 5.5 * T_FPS;
+const T_FINALISTS_CARD = 6 * T_FPS;
+const T_CHAMPION = 6 * T_FPS;
+const T_COUNTDOWN = 3 * T_FPS;
+const T_PODIUM = 4 * T_FPS;
+
+function tFramesToTime(frame) {
+  const sec = Math.round(frame / T_FPS);
+  const mm = Math.floor(sec / 60);
+  const ss = String(sec % 60).padStart(2, "0");
+  return `${mm}:${ss}`;
+}
+
+function computeTournamentChapters(episode) {
+  const rounds = episode.tournamentResult.rounds;
+  // First chapter pinned to 0:00 and labelled "Round 1" (it absorbs the short
+  // intro), so every gap clears YouTube's 10s minimum and the chapters render
+  // as clickable segments.
+  const chapters = [];
+  let cursor = T_INTRO;
+  let groupNum = 0;
+  for (const r of rounds) {
+    const isFinal = r.kind === "final";
+    const card = isFinal ? T_FINALISTS_CARD : T_ROUND_CARD;
+    const label = isFinal ? "Final" : `Round ${++groupNum}`;
+    const frame = chapters.length === 0 ? 0 : cursor;
+    chapters.push({ frame, time: tFramesToTime(frame), label });
+    cursor += card + (T_COUNTDOWN + r.battleFrames + T_PODIUM);
+  }
+  chapters.push({ frame: cursor, time: tFramesToTime(cursor), label: "Champion" });
+  // Guarantee strictly-increasing whole-second times.
+  for (let i = 1; i < chapters.length; i++) {
+    if (chapters[i].frame <= chapters[i - 1].frame) {
+      chapters[i].frame = chapters[i - 1].frame + T_FPS;
+      chapters[i].time = tFramesToTime(chapters[i].frame);
+    }
+  }
+  return chapters;
+}
+
 export function computeChapters(episode) {
+  if (episode.tournamentResult) return computeTournamentChapters(episode);
   const sorted = [...episode.items].sort((a, b) => b.rank - a.rank);
   const N = sorted.length;
   const maxValue = Math.max(...sorted.map((i) => i.value));

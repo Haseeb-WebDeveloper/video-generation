@@ -11,6 +11,16 @@ import religionOfEveryCountry from "./religion-of-every-country.json";
 import countriesMarbleRace from "./countries-marble-race.json";
 import countriesTopBattle from "./countries-top-battle.json";
 import countriesTournament from "./countries-tournament.json";
+import europeCup from "./europe-cup.json";
+import asiaCup from "./asia-cup.json";
+import africaCup from "./africa-cup.json";
+import americasCup from "./americas-cup.json";
+import islandNations from "./island-nations.json";
+import mostPopulous from "./most-populous.json";
+import topEconomies from "./top-economies.json";
+import footballGiants from "./football-giants.json";
+import worldPowers from "./world-powers.json";
+import flagsOfTheWorld from "./flags-of-the-world.json";
 
 export const episodes: Episode[] = [
   top15LargestDiamondsEverFound as Episode,
@@ -24,4 +34,14 @@ export const episodes: Episode[] = [
   countriesMarbleRace as unknown as Episode,
   countriesTopBattle as unknown as Episode,
   countriesTournament as unknown as Episode,
+  europeCup as unknown as Episode,
+  asiaCup as unknown as Episode,
+  africaCup as unknown as Episode,
+  americasCup as unknown as Episode,
+  islandNations as unknown as Episode,
+  mostPopulous as unknown as Episode,
+  topEconomies as unknown as Episode,
+  footballGiants as unknown as Episode,
+  worldPowers as unknown as Episode,
+  flagsOfTheWorld as unknown as Episode,
 ];

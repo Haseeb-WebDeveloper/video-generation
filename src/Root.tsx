@@ -89,7 +89,7 @@ export const RemotionRoot: React.FC = () => {
             id={`${ep.slug}-battle`}
             component={TopBattleSlidesComposition}
             durationInFrames={battleTotalFrames(ep)}
-            fps={60}
+            fps={30}
             width={1920}
             height={1080}
             defaultProps={{ episode: ep }}
@@ -108,7 +108,7 @@ export const RemotionRoot: React.FC = () => {
             id={`${ep.slug}-tournament`}
             component={TournamentComposition}
             durationInFrames={tournamentTotalFrames(ep)}
-            fps={60}
+            fps={30}
             width={1920}
             height={1080}
             defaultProps={{ episode: ep }}

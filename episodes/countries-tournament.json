@@ -288,18 +288,18 @@
           8
         ],
         "eliminationFrames": [
-          859,
-          1295,
-          1276,
-          830,
-          1118,
-          419,
-          742,
-          1148,
-          312,
-          1301
+          429,
+          647,
+          637,
+          415,
+          558,
+          209,
+          370,
+          573,
+          155,
+          650
         ],
-        "battleFrames": 1446,
+        "battleFrames": 723,
         "winnerIndex": 9,
         "collisions": [
           {
@@ -343,302 +343,302 @@
             "strength": 0.448632818316703
           },
           {
-            "frame": 1,
+            "frame": 0,
             "type": "top",
             "strength": 0.8120813033422747
           },
           {
-            "frame": 1,
+            "frame": 0,
             "type": "top",
             "strength": 0.6863430553900918
           },
           {
-            "frame": 25,
+            "frame": 12,
             "type": "wall",
             "strength": 0.6505644622874432
           },
           {
-            "frame": 28,
+            "frame": 14,
             "type": "wall",
             "strength": 0.5449778059959954
           },
           {
-            "frame": 66,
+            "frame": 33,
             "type": "wall",
             "strength": 0.23983116480470745
           },
           {
-            "frame": 68,
+            "frame": 34,
             "type": "top",
             "strength": 0.46291099567558514
           },
           {
-            "frame": 77,
+            "frame": 38,
             "type": "top",
             "strength": 0.4303353558243196
           },
           {
-            "frame": 80,
+            "frame": 40,
             "type": "wall",
             "strength": 0.25144505119569543
           },
           {
-            "frame": 106,
+            "frame": 53,
             "type": "wall",
             "strength": 0.26516373513378766
           },
           {
-            "frame": 114,
+            "frame": 57,
             "type": "top",
             "strength": 0.36420919274325003
           },
           {
-            "frame": 117,
+            "frame": 58,
             "type": "wall",
             "strength": 0.2466517987406317
           },
           {
-            "frame": 121,
+            "frame": 60,
             "type": "top",
             "strength": 0.21582727156076112
           },
           {
-            "frame": 124,
+            "frame": 62,
             "type": "wall",
             "strength": 0.2198263923608779
           },
           {
-            "frame": 128,
+            "frame": 64,
             "type": "wall",
             "strength": 0.06211927823504648
           },
           {
-            "frame": 132,
+            "frame": 66,
             "type": "wall",
             "strength": 0.3346749561101567
           },
           {
-            "frame": 137,
+            "frame": 68,
             "type": "wall",
             "strength": 0.40412833248882973
           },
           {
-            "frame": 139,
+            "frame": 69,
             "type": "wall",
             "strength": 0.6804264431647955
           },
           {
-            "frame": 141,
+            "frame": 70,
             "type": "wall",
             "strength": 0.22789972489395466
           },
           {
-            "frame": 142,
+            "frame": 71,
             "type": "wall",
             "strength": 0.20969255311215515
           },
           {
-            "frame": 142,
+            "frame": 71,
             "type": "wall",
             "strength": 0.139947788974772
           },
           {
-            "frame": 144,
+            "frame": 72,
             "type": "wall",
             "strength": 0.18459072567919604
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.42720421808453224
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.09930479577503327
           },
           {
-            "frame": 146,
+            "frame": 73,
             "type": "wall",
             "strength": 0.5300081699217294
           },
           {
-            "frame": 148,
+            "frame": 74,
             "type": "wall",
             "strength": 0.08546039178674134
           },
           {
-            "frame": 153,
+            "frame": 76,
             "type": "wall",
             "strength": 0.26718261412223804
           },
           {
-            "frame": 162,
+            "frame": 81,
             "type": "top",
             "strength": 0.21205544850141136
           },
           {
-            "frame": 183,
+            "frame": 91,
             "type": "wall",
             "strength": 0.8684125079342476
           },
           {
-            "frame": 186,
+            "frame": 93,
             "type": "wall",
             "strength": 0.459252810124887
           },
           {
-            "frame": 189,
+            "frame": 94,
             "type": "top",
             "strength": 0.8132633012037078
           },
           {
-            "frame": 193,
+            "frame": 96,
             "type": "top",
             "strength": 0.23752267892045206
           },
           {
-            "frame": 195,
+            "frame": 97,
             "type": "wall",
             "strength": 0.3834643239340314
           },
           {
-            "frame": 199,
+            "frame": 99,
             "type": "top",
             "strength": 0.7566447192329787
           },
           {
-            "frame": 205,
+            "frame": 102,
             "type": "wall",
             "strength": 0.222867847305294
           },
           {
-            "frame": 208,
+            "frame": 104,
             "type": "wall",
             "strength": 0.7026692995216656
           },
           {
-            "frame": 213,
+            "frame": 106,
             "type": "top",
             "strength": 0.5954121358166317
           },
           {
-            "frame": 223,
+            "frame": 111,
             "type": "wall",
             "strength": 0.5820276847414356
           },
           {
-            "frame": 225,
+            "frame": 112,
             "type": "top",
             "strength": 0.36037813738840563
           },
           {
-            "frame": 240,
+            "frame": 120,
             "type": "wall",
             "strength": 0.17448681605169614
           },
           {
-            "frame": 251,
+            "frame": 125,
             "type": "wall",
             "strength": 0.05661628496440685
           },
           {
-            "frame": 255,
+            "frame": 127,
             "type": "wall",
             "strength": 0.03265443607868938
           },
           {
-            "frame": 258,
+            "frame": 129,
             "type": "top",
             "strength": 0.22155878224900458
           },
           {
-            "frame": 305,
+            "frame": 152,
             "type": "wall",
             "strength": 0.19458127558620125
           },
           {
-            "frame": 450,
+            "frame": 225,
             "type": "wall",
             "strength": 0.3153633638363049
           },
           {
-            "frame": 462,
+            "frame": 231,
             "type": "wall",
             "strength": 0.12761885195081427
           },
           {
-            "frame": 504,
+            "frame": 252,
             "type": "wall",
             "strength": 0.13510078588681182
           },
           {
-            "frame": 513,
+            "frame": 256,
             "type": "top",
             "strength": 0.16144470859209203
           },
           {
-            "frame": 528,
+            "frame": 264,
             "type": "wall",
             "strength": 0.07327089989242183
           },
           {
-            "frame": 597,
+            "frame": 298,
             "type": "top",
             "strength": 0.4127020775121672
           },
           {
-            "frame": 653,
+            "frame": 326,
             "type": "top",
-            "strength": 0.0055171291529702215
+            "strength": 0.004834030269486543
           },
           {
-            "frame": 689,
+            "frame": 344,
             "type": "wall",
             "strength": 0.0873255522983316
           },
           {
-            "frame": 701,
+            "frame": 350,
             "type": "wall",
             "strength": 0.20078108369556605
           },
           {
-            "frame": 714,
+            "frame": 357,
             "type": "top",
             "strength": 0.16036918621242524
           },
           {
-            "frame": 745,
+            "frame": 372,
             "type": "wall",
             "strength": 0.2797042237233301
           },
           {
-            "frame": 781,
+            "frame": 390,
             "type": "top",
             "strength": 0.2610215878684315
           },
           {
-            "frame": 783,
+            "frame": 391,
             "type": "wall",
             "strength": 0.10550170300304289
           },
           {
-            "frame": 840,
+            "frame": 420,
             "type": "top",
             "strength": 0.12972074441847994
           },
           {
-            "frame": 878,
+            "frame": 439,
             "type": "wall",
             "strength": 0.0871971649033822
           },
           {
-            "frame": 1015,
+            "frame": 507,
             "type": "wall",
             "strength": 0.021548892886685815
           },
           {
-            "frame": 1028,
+            "frame": 514,
             "type": "wall",
             "strength": 0.014421616479153502
           }
@@ -673,18 +673,18 @@
           0
         ],
         "eliminationFrames": [
+          290,
           581,
-          1164,
-          914,
-          672,
-          617,
-          813,
-          1336,
-          1079,
-          1124,
-          1185
+          456,
+          335,
+          308,
+          406,
+          668,
+          539,
+          561,
+          592
         ],
-        "battleFrames": 1336,
+        "battleFrames": 668,
         "winnerIndex": 16,
         "collisions": [
           {
@@ -733,272 +733,272 @@
             "strength": 0.31558076950427666
           },
           {
-            "frame": 1,
+            "frame": 0,
             "type": "top",
             "strength": 0.39968515760103485
           },
           {
-            "frame": 66,
+            "frame": 33,
             "type": "wall",
             "strength": 0.3265789042118969
           },
           {
-            "frame": 72,
+            "frame": 36,
             "type": "wall",
             "strength": 0.4751245397026802
           },
           {
-            "frame": 72,
+            "frame": 36,
             "type": "wall",
             "strength": 0.22373256000488922
           },
           {
-            "frame": 78,
+            "frame": 39,
             "type": "wall",
             "strength": 0.3210836285248125
           },
           {
-            "frame": 82,
+            "frame": 41,
             "type": "wall",
             "strength": 0.46495311261600997
           },
           {
-            "frame": 104,
+            "frame": 52,
             "type": "wall",
             "strength": 0.343617776790389
           },
           {
-            "frame": 122,
+            "frame": 61,
             "type": "top",
             "strength": 0.48746061893288545
           },
           {
-            "frame": 127,
+            "frame": 63,
             "type": "wall",
             "strength": 0.45029738051463775
           },
           {
-            "frame": 129,
+            "frame": 64,
             "type": "top",
             "strength": 0.3357559984426714
           },
           {
-            "frame": 130,
+            "frame": 65,
             "type": "top",
             "strength": 0.43172028103311305
           },
           {
-            "frame": 130,
+            "frame": 65,
             "type": "wall",
             "strength": 0.43172028103311305
           },
           {
-            "frame": 132,
+            "frame": 66,
             "type": "wall",
             "strength": 0.5374812951098337
           },
           {
-            "frame": 133,
+            "frame": 66,
             "type": "wall",
             "strength": 0.33940056408110053
           },
           {
-            "frame": 135,
+            "frame": 67,
             "type": "wall",
             "strength": 0.3369439271542578
           },
           {
-            "frame": 136,
+            "frame": 68,
             "type": "wall",
             "strength": 0.3152726937929152
           },
           {
-            "frame": 137,
+            "frame": 68,
             "type": "wall",
             "strength": 0.42098769521805246
           },
           {
-            "frame": 138,
+            "frame": 69,
             "type": "wall",
             "strength": 0.201398605588967
           },
           {
-            "frame": 138,
+            "frame": 69,
             "type": "wall",
             "strength": 0.4835373174609409
           },
           {
-            "frame": 139,
+            "frame": 69,
             "type": "wall",
             "strength": 0.4575617850001303
           },
           {
-            "frame": 139,
+            "frame": 69,
             "type": "wall",
             "strength": 0.3236867620792854
           },
           {
-            "frame": 140,
+            "frame": 70,
             "type": "wall",
             "strength": 0.5745714905637705
           },
           {
-            "frame": 140,
+            "frame": 70,
             "type": "wall",
             "strength": 0.15857482187031982
           },
           {
-            "frame": 143,
+            "frame": 71,
             "type": "wall",
             "strength": 0.5755985645489636
           },
           {
-            "frame": 146,
+            "frame": 73,
             "type": "top",
             "strength": 0.46927779911487416
           },
           {
-            "frame": 170,
+            "frame": 85,
             "type": "wall",
             "strength": 0.19333818300912375
           },
           {
-            "frame": 179,
+            "frame": 89,
             "type": "wall",
             "strength": 0.48695337600055943
           },
           {
-            "frame": 181,
+            "frame": 90,
             "type": "top",
             "strength": 0.4080686691876249
           },
           {
-            "frame": 183,
+            "frame": 91,
             "type": "top",
             "strength": 0.5538296447030504
           },
           {
-            "frame": 188,
+            "frame": 94,
             "type": "wall",
             "strength": 0.5156249679250785
           },
           {
-            "frame": 195,
+            "frame": 97,
             "type": "top",
             "strength": 0.45200201289914327
           },
           {
-            "frame": 197,
+            "frame": 98,
             "type": "wall",
             "strength": 0.23389860872539783
           },
           {
-            "frame": 221,
+            "frame": 110,
             "type": "top",
             "strength": 0.337510095114592
           },
           {
-            "frame": 233,
+            "frame": 116,
             "type": "wall",
             "strength": 0.06062550278405435
           },
           {
-            "frame": 245,
+            "frame": 122,
             "type": "top",
             "strength": 0.12951841408741133
           },
           {
-            "frame": 247,
+            "frame": 123,
             "type": "wall",
             "strength": 0.43041700699279467
           },
           {
-            "frame": 247,
+            "frame": 123,
             "type": "wall",
             "strength": 0.23533200311472213
           },
           {
-            "frame": 266,
+            "frame": 133,
             "type": "top",
             "strength": 0.4490656029767474
           },
           {
-            "frame": 273,
+            "frame": 136,
             "type": "wall",
             "strength": 0.3054814311313604
           },
           {
-            "frame": 306,
+            "frame": 153,
             "type": "wall",
             "strength": 0.29653438357329154
           },
           {
-            "frame": 307,
+            "frame": 153,
             "type": "wall",
             "strength": 0.16704447820630502
           },
           {
-            "frame": 325,
+            "frame": 162,
             "type": "top",
             "strength": 0.5488175513954541
           },
           {
-            "frame": 355,
+            "frame": 177,
             "type": "top",
             "strength": 0.3646756999592886
           },
           {
-            "frame": 372,
+            "frame": 186,
             "type": "wall",
             "strength": 0.28269331177381113
           },
           {
-            "frame": 392,
+            "frame": 196,
             "type": "wall",
             "strength": 0.19894087265668847
           },
           {
-            "frame": 441,
+            "frame": 220,
             "type": "wall",
             "strength": 0.22152666431376938
           },
           {
-            "frame": 442,
+            "frame": 221,
             "type": "wall",
             "strength": 0.1995431518488407
           },
           {
-            "frame": 458,
+            "frame": 229,
             "type": "wall",
             "strength": 0.149593463197231
           },
           {
-            "frame": 468,
+            "frame": 234,
             "type": "wall",
             "strength": 0.163712270213149
           },
           {
-            "frame": 532,
+            "frame": 266,
             "type": "wall",
             "strength": 0.07497576124629113
           },
           {
-            "frame": 685,
+            "frame": 342,
             "type": "top",
             "strength": 0.09469272093658324
           },
           {
-            "frame": 721,
+            "frame": 360,
             "type": "wall",
             "strength": 0.13313155527244835
           },
           {
-            "frame": 817,
+            "frame": 408,
             "type": "top",
             "strength": 0.20709699368505516
           },
           {
-            "frame": 853,
+            "frame": 426,
             "type": "top",
             "strength": 0.16389246596295642
           }
@@ -1023,8 +1023,8 @@
         "survivorOrder": [
           8,
           0,
-          6,
           1,
+          6,
           7,
           2,
           5,
@@ -1033,18 +1033,18 @@
           4
         ],
         "eliminationFrames": [
-          978,
-          855,
-          756,
-          515,
-          393,
-          666,
-          928,
-          794,
-          1129,
-          600
+          488,
+          482,
+          377,
+          257,
+          196,
+          332,
+          429,
+          396,
+          564,
+          299
         ],
-        "battleFrames": 1129,
+        "battleFrames": 564,
         "winnerIndex": 28,
         "collisions": [
           {
@@ -1088,284 +1088,269 @@
             "strength": 0.6178669878024783
           },
           {
-            "frame": 1,
+            "frame": 0,
             "type": "top",
             "strength": 0.6940064846044376
           },
           {
-            "frame": 1,
+            "frame": 0,
             "type": "top",
             "strength": 0.9047079605886084
           },
           {
-            "frame": 38,
+            "frame": 19,
             "type": "wall",
             "strength": 0.24066979063282723
           },
           {
-            "frame": 46,
+            "frame": 23,
             "type": "wall",
             "strength": 0.30287431862134806
           },
           {
-            "frame": 60,
+            "frame": 30,
             "type": "wall",
             "strength": 0.4494076918967988
           },
           {
-            "frame": 62,
+            "frame": 31,
             "type": "wall",
             "strength": 0.7499801902286602
           },
           {
-            "frame": 65,
+            "frame": 32,
             "type": "top",
             "strength": 0.6713286990128263
           },
           {
-            "frame": 69,
+            "frame": 34,
             "type": "wall",
             "strength": 0.5406104344737843
           },
           {
-            "frame": 70,
+            "frame": 35,
             "type": "wall",
             "strength": 0.38450238333985676
           },
           {
-            "frame": 90,
+            "frame": 45,
             "type": "wall",
             "strength": 0.49163478456537335
           },
           {
-            "frame": 99,
+            "frame": 49,
             "type": "top",
             "strength": 0.5280880475692004
           },
           {
-            "frame": 128,
+            "frame": 64,
             "type": "wall",
             "strength": 0.23373764698028143
           },
           {
-            "frame": 135,
+            "frame": 67,
             "type": "wall",
             "strength": 0.10728929589728156
           },
           {
-            "frame": 135,
+            "frame": 67,
             "type": "wall",
             "strength": 0.33124600515647407
           },
           {
-            "frame": 136,
+            "frame": 68,
             "type": "wall",
             "strength": 0.3717825375792176
           },
           {
-            "frame": 139,
+            "frame": 69,
             "type": "wall",
             "strength": 0.5400812675395653
           },
           {
-            "frame": 140,
+            "frame": 70,
             "type": "wall",
             "strength": 0.22364283674216523
           },
           {
-            "frame": 141,
+            "frame": 70,
             "type": "wall",
             "strength": 0.2828247810415105
           },
           {
-            "frame": 141,
+            "frame": 70,
             "type": "wall",
             "strength": 0.3242453631885552
           },
           {
-            "frame": 142,
+            "frame": 71,
             "type": "wall",
             "strength": 0.3037479656342623
           },
           {
-            "frame": 144,
+            "frame": 72,
             "type": "wall",
             "strength": 0.32977013106208686
           },
           {
-            "frame": 144,
+            "frame": 72,
             "type": "wall",
             "strength": 0.21987902515017219
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.3738436059290141
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.586378826571854
           },
           {
-            "frame": 157,
+            "frame": 78,
             "type": "top",
             "strength": 0.4813844527895611
           },
           {
-            "frame": 176,
+            "frame": 88,
             "type": "wall",
             "strength": 0.23058868419209283
           },
           {
-            "frame": 188,
+            "frame": 94,
             "type": "top",
             "strength": 0.2680140954676167
           },
           {
-            "frame": 194,
+            "frame": 97,
             "type": "wall",
             "strength": 0.1687445116047703
           },
           {
-            "frame": 202,
+            "frame": 101,
             "type": "top",
             "strength": 0.17377005907864249
           },
           {
-            "frame": 215,
+            "frame": 107,
             "type": "top",
             "strength": 0.32389648300964846
           },
           {
-            "frame": 238,
+            "frame": 119,
             "type": "wall",
             "strength": 0.13513556618190878
           },
           {
-            "frame": 247,
+            "frame": 123,
             "type": "top",
             "strength": 0.4227884488557964
           },
           {
-            "frame": 272,
+            "frame": 136,
             "type": "top",
             "strength": 0.6203729062433171
           },
           {
-            "frame": 286,
+            "frame": 143,
             "type": "top",
             "strength": 0.3010901228888542
           },
           {
-            "frame": 291,
+            "frame": 145,
             "type": "top",
             "strength": 0.31993657478781523
           },
           {
-            "frame": 292,
+            "frame": 146,
             "type": "top",
             "strength": 0.30375626145328716
           },
           {
-            "frame": 314,
+            "frame": 157,
             "type": "wall",
             "strength": 0.39792303017871994
           },
           {
-            "frame": 318,
+            "frame": 159,
             "type": "wall",
             "strength": 0.08365482230499348
           },
           {
-            "frame": 325,
+            "frame": 162,
             "type": "wall",
             "strength": 0.1435942022979462
           },
           {
-            "frame": 338,
+            "frame": 169,
             "type": "wall",
             "strength": 0.17893178469570906
           },
           {
-            "frame": 341,
+            "frame": 170,
             "type": "top",
             "strength": 0.16011732232372708
           },
           {
-            "frame": 353,
+            "frame": 176,
             "type": "wall",
             "strength": 0.10817633897192118
           },
           {
-            "frame": 370,
+            "frame": 185,
             "type": "wall",
             "strength": 0.11793924042985697
           },
           {
-            "frame": 374,
+            "frame": 187,
             "type": "top",
             "strength": 0.10997426784006335
           },
           {
-            "frame": 389,
+            "frame": 194,
             "type": "top",
             "strength": 0.16894392520471865
           },
           {
-            "frame": 420,
+            "frame": 210,
             "type": "top",
             "strength": 0.11228297422971241
           },
           {
-            "frame": 451,
+            "frame": 225,
             "type": "top",
             "strength": 0.033660299351516466
           },
           {
-            "frame": 559,
+            "frame": 279,
             "type": "wall",
             "strength": 0.10526597073377976
           },
           {
-            "frame": 574,
+            "frame": 287,
             "type": "top",
             "strength": 0.014161285012676363
           },
           {
-            "frame": 593,
+            "frame": 296,
             "type": "top",
             "strength": 0.022760887345285575
           },
           {
-            "frame": 624,
+            "frame": 312,
             "type": "top",
             "strength": 0.03015121115670577
           },
           {
-            "frame": 636,
+            "frame": 318,
             "type": "top",
             "strength": 0.011592685008848745
           },
           {
-            "frame": 745,
+            "frame": 356,
             "type": "top",
-            "strength": 0.018136476466889838
-          },
-          {
-            "frame": 835,
-            "type": "top",
-            "strength": 0.009285220047241393
-          },
-          {
-            "frame": 983,
-            "type": "top",
-            "strength": 0.05030356751502803
-          },
-          {
-            "frame": 1002,
-            "type": "top",
-            "strength": 0
+            "strength": 0.03173655119058792
           }
         ]
       },
@@ -1398,18 +1383,18 @@
           1
         ],
         "eliminationFrames": [
-          1301,
-          556,
-          865,
-          725,
-          736,
-          1220,
-          1391,
-          764,
-          782,
-          776
+          650,
+          277,
+          431,
+          362,
+          367,
+          609,
+          650,
+          381,
+          390,
+          387
         ],
-        "battleFrames": 1452,
+        "battleFrames": 726,
         "winnerIndex": 36,
         "collisions": [
           {
@@ -1458,289 +1443,289 @@
             "strength": 0.6241527853598435
           },
           {
-            "frame": 1,
+            "frame": 0,
             "type": "top",
             "strength": 0.4943917458120661
           },
           {
-            "frame": 45,
+            "frame": 22,
             "type": "wall",
             "strength": 0.4232389618083603
           },
           {
-            "frame": 58,
+            "frame": 29,
             "type": "wall",
             "strength": 0.2703960575384533
           },
           {
-            "frame": 79,
+            "frame": 39,
             "type": "wall",
             "strength": 0.2783550651780106
           },
           {
-            "frame": 81,
+            "frame": 40,
             "type": "wall",
             "strength": 0.30721172519135515
           },
           {
-            "frame": 82,
+            "frame": 41,
             "type": "wall",
             "strength": 0.25285824333888335
           },
           {
-            "frame": 88,
+            "frame": 44,
             "type": "wall",
             "strength": 0.21925278154053546
           },
           {
-            "frame": 90,
+            "frame": 45,
             "type": "top",
             "strength": 0.30783203148040944
           },
           {
-            "frame": 94,
+            "frame": 47,
             "type": "wall",
             "strength": 0.06482766296973827
           },
           {
-            "frame": 96,
+            "frame": 48,
             "type": "wall",
             "strength": 0.0643548672178848
           },
           {
-            "frame": 97,
+            "frame": 48,
             "type": "wall",
             "strength": 0.5607991876331319
           },
           {
-            "frame": 111,
+            "frame": 55,
             "type": "wall",
             "strength": 0.1233150068804494
           },
           {
-            "frame": 115,
+            "frame": 57,
             "type": "top",
             "strength": 0.29753392435441667
           },
           {
-            "frame": 129,
+            "frame": 64,
             "type": "wall",
             "strength": 0.06569136308833666
           },
           {
-            "frame": 136,
+            "frame": 68,
             "type": "wall",
             "strength": 0.2990490846029673
           },
           {
-            "frame": 141,
+            "frame": 70,
             "type": "wall",
             "strength": 0.5960002508635579
           },
           {
-            "frame": 141,
+            "frame": 70,
             "type": "wall",
             "strength": 0.3681415136981176
           },
           {
-            "frame": 143,
+            "frame": 71,
             "type": "wall",
             "strength": 0.19031564940784515
           },
           {
-            "frame": 144,
+            "frame": 72,
             "type": "wall",
             "strength": 0.3031715348693124
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.2745416142277124
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.08207303570667814
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.2325485667234473
           },
           {
-            "frame": 146,
+            "frame": 73,
             "type": "wall",
             "strength": 0.20228044030779863
           },
           {
-            "frame": 182,
+            "frame": 91,
             "type": "top",
             "strength": 0.42316569486367267
           },
           {
-            "frame": 183,
+            "frame": 91,
             "type": "top",
             "strength": 0.5790765442172513
           },
           {
-            "frame": 196,
+            "frame": 98,
             "type": "wall",
             "strength": 0.5104921334716801
           },
           {
-            "frame": 220,
+            "frame": 110,
             "type": "top",
             "strength": 0.6342419183880453
           },
           {
-            "frame": 252,
+            "frame": 126,
             "type": "wall",
             "strength": 0.07938172288965828
           },
           {
-            "frame": 252,
+            "frame": 126,
             "type": "wall",
             "strength": 0.458309986317114
           },
           {
-            "frame": 259,
+            "frame": 129,
             "type": "wall",
             "strength": 0.37619635421318687
           },
           {
-            "frame": 263,
+            "frame": 131,
             "type": "top",
             "strength": 0.3054726303725046
           },
           {
-            "frame": 265,
+            "frame": 132,
             "type": "wall",
             "strength": 0.22611070815965717
           },
           {
-            "frame": 293,
+            "frame": 146,
             "type": "top",
             "strength": 0.24268517176368073
           },
           {
-            "frame": 302,
+            "frame": 151,
             "type": "top",
             "strength": 0.24347461616965307
           },
           {
-            "frame": 319,
+            "frame": 159,
             "type": "wall",
             "strength": 0.5880252597883227
           },
           {
-            "frame": 335,
+            "frame": 167,
             "type": "wall",
             "strength": 0.6077495961601086
           },
           {
-            "frame": 365,
+            "frame": 182,
             "type": "wall",
             "strength": 0.3178918040135575
           },
           {
-            "frame": 371,
+            "frame": 185,
             "type": "top",
             "strength": 0.11259093093717369
           },
           {
-            "frame": 375,
+            "frame": 187,
             "type": "wall",
             "strength": 0.28533532807341777
           },
           {
-            "frame": 389,
+            "frame": 194,
             "type": "wall",
             "strength": 0.029159989160964912
           },
           {
-            "frame": 416,
+            "frame": 208,
             "type": "top",
             "strength": 0.3211527868798605
           },
           {
-            "frame": 453,
+            "frame": 226,
             "type": "wall",
             "strength": 0.18808440536784157
           },
           {
-            "frame": 466,
+            "frame": 233,
             "type": "top",
             "strength": 0.22814516482894615
           },
           {
-            "frame": 479,
+            "frame": 239,
             "type": "wall",
             "strength": 0.19660593866910023
           },
           {
-            "frame": 522,
+            "frame": 261,
             "type": "top",
             "strength": 0.36702181810625983
           },
           {
-            "frame": 537,
+            "frame": 268,
             "type": "top",
             "strength": 0.08806398868121719
           },
           {
-            "frame": 563,
+            "frame": 281,
             "type": "wall",
             "strength": 0.4766176651489279
           },
           {
-            "frame": 569,
+            "frame": 284,
             "type": "top",
             "strength": 0.3629708029685193
           },
           {
-            "frame": 584,
+            "frame": 292,
             "type": "top",
             "strength": 0.22136485964857824
           },
           {
-            "frame": 642,
+            "frame": 321,
             "type": "wall",
             "strength": 0.09398280970385521
           },
           {
-            "frame": 663,
+            "frame": 331,
             "type": "top",
             "strength": 0.19343139972075007
           },
           {
-            "frame": 663,
+            "frame": 331,
             "type": "top",
             "strength": 0.19343139972075007
           },
           {
-            "frame": 673,
+            "frame": 336,
             "type": "top",
-            "strength": 0.01918378879252114
+            "strength": 0.01931678254930018
           },
           {
-            "frame": 719,
+            "frame": 359,
             "type": "top",
             "strength": 0.23472664474189664
           },
           {
-            "frame": 723,
+            "frame": 361,
             "type": "wall",
             "strength": 0.20985462146848208
           },
           {
-            "frame": 899,
+            "frame": 447,
             "type": "top",
-            "strength": 0.05776011310082531
+            "strength": 0.043929032681069305
           },
           {
-            "frame": 1089,
-            "type": "wall",
-            "strength": 0.08071061391020647
+            "frame": 515,
+            "type": "top",
+            "strength": 0.026913949874867154
           }
         ]
       },
@@ -1761,166 +1746,166 @@
           3
         ],
         "eliminationFrames": [
-          1228,
-          1077,
-          742,
-          599
+          614,
+          538,
+          370,
+          299
         ],
-        "battleFrames": 1228,
+        "battleFrames": 614,
         "winnerIndex": 9,
         "collisions": [
           {
-            "frame": 17,
+            "frame": 8,
             "type": "top",
             "strength": 0.5968616086229269
           },
           {
-            "frame": 46,
+            "frame": 23,
             "type": "wall",
             "strength": 0.8374080267918236
           },
           {
-            "frame": 70,
+            "frame": 35,
             "type": "wall",
             "strength": 0.7131133130371761
           },
           {
-            "frame": 101,
+            "frame": 50,
             "type": "wall",
             "strength": 0.4327837409675899
           },
           {
-            "frame": 103,
+            "frame": 51,
             "type": "top",
             "strength": 0.48726942696204834
           },
           {
-            "frame": 104,
+            "frame": 52,
             "type": "wall",
             "strength": 0.3793844762107413
           },
           {
-            "frame": 133,
+            "frame": 66,
             "type": "wall",
             "strength": 0.5393673317224649
           },
           {
-            "frame": 144,
+            "frame": 72,
             "type": "wall",
             "strength": 0.3072527772902911
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.9200289599743476
           },
           {
-            "frame": 145,
+            "frame": 72,
             "type": "wall",
             "strength": 0.741803771962264
           },
           {
-            "frame": 147,
+            "frame": 73,
             "type": "wall",
             "strength": 0.08006720081956722
           },
           {
-            "frame": 155,
+            "frame": 77,
             "type": "wall",
             "strength": 0.5772156668474461
           },
           {
-            "frame": 181,
+            "frame": 90,
             "type": "top",
             "strength": 0.6009407601226902
           },
           {
-            "frame": 188,
+            "frame": 94,
             "type": "wall",
             "strength": 0.5858020343715508
           },
           {
-            "frame": 193,
+            "frame": 96,
             "type": "top",
             "strength": 0.4255538992065354
           },
           {
-            "frame": 273,
+            "frame": 136,
             "type": "wall",
             "strength": 0.35389362097223054
           },
           {
-            "frame": 295,
+            "frame": 147,
             "type": "wall",
             "strength": 0.9101234612932698
           },
           {
-            "frame": 342,
+            "frame": 171,
             "type": "wall",
             "strength": 0.15337018847860306
           },
           {
-            "frame": 352,
+            "frame": 176,
             "type": "top",
             "strength": 0.9201165536553306
           },
           {
-            "frame": 359,
+            "frame": 179,
             "type": "top",
             "strength": 0.7424521161261061
           },
           {
-            "frame": 359,
+            "frame": 179,
             "type": "wall",
             "strength": 0.771823148241864
           },
           {
-            "frame": 372,
+            "frame": 186,
             "type": "top",
             "strength": 0.6394115210435891
           },
           {
-            "frame": 392,
+            "frame": 196,
             "type": "top",
             "strength": 0.5086069556216011
           },
           {
-            "frame": 461,
+            "frame": 230,
             "type": "wall",
             "strength": 0.27557599982755165
           },
           {
-            "frame": 488,
+            "frame": 244,
             "type": "wall",
             "strength": 0.2788992826243696
           },
           {
-            "frame": 521,
+            "frame": 260,
             "type": "wall",
             "strength": 0.20553468324088034
           },
           {
-            "frame": 620,
+            "frame": 310,
             "type": "wall",
             "strength": 0.031246715471144843
           },
           {
-            "frame": 643,
+            "frame": 321,
             "type": "wall",
             "strength": 0.0824333238469808
           },
           {
-            "frame": 650,
+            "frame": 325,
             "type": "wall",
             "strength": 0.11033454276705608
           },
           {
-            "frame": 669,
+            "frame": 334,
             "type": "wall",
             "strength": 0.10954523359832553
           },
           {
-            "frame": 702,
+            "frame": 351,
             "type": "wall",
             "strength": 0.05417414952774283
           }
@@ -1928,5 +1913,40 @@
       }
     ],
     "championIndex": 9
+  },
+  "youtube": {
+    "title": "Spinning Top Battle 🌍 40 Countries — Last One Spinning Wins!",
+    "description": "40 countries enter the arena as spinning tops. They clash, knock each other's spin out, and fall one by one. The LAST top still spinning is the champion. Who will it be? 🏆\n\nFeaturing United States, United Kingdom, Japan, Germany and 36 more nations battling across 4 groups and a grand final.\n\n👇 Comment which country you're rooting for!\n\nChapters:\n{{chapters}}\n\n#spinningtop #marblerace #countrybattle #satisfying",
+    "tags": [
+      "spinning top battle",
+      "marble race",
+      "country battle",
+      "countries battle",
+      "last one standing",
+      "tournament",
+      "satisfying",
+      "physics simulation",
+      "beyblade battle",
+      "flag battle",
+      "elimination",
+      "who will win",
+      "United States",
+      "United Kingdom",
+      "Japan",
+      "Germany",
+      "Brazil",
+      "France",
+      "India",
+      "China",
+      "Italy",
+      "Canada",
+      "Spain",
+      "Australia"
+    ],
+    "categoryId": "24",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en",
+    "publishAt": "2026-06-02T17:00:00.000Z"
   }
 }

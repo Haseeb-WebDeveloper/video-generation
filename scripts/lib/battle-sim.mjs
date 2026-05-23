@@ -25,10 +25,10 @@ const SPAWN_Y = TOP_HEIGHT / 2 + 0.25;
 const SLEEP_LINVEL_THRESHOLD = 0.015;
 
 // ── Spin / damping model ──
-export const INIT_SPIN = 120;  // much faster launch (~114°/frame visual spin)
+export const INIT_SPIN = 120;  // fast launch; reads as a spin-blur ring @30fps
 const SPIN_JITTER = 6;         // near-uniform start; outcome decided by clashes
 const STOP_THRESHOLD = 4;
-const STOP_DWELL_FRAMES = 20;
+const STOP_DWELL_FRAMES = 10;  // ~0.33s @ 30fps
 const ANGULAR_DAMPING = 0.010;
 const ANGULAR_DAMPING_JITTER = 0.020;
 const LINEAR_DAMPING = 0.22;
@@ -43,11 +43,16 @@ const WALL_RESTITUTION = 0.78;
 const NUDGE_INTERVAL = 18;
 const NUDGE_STRENGTH = 3.2;
 
-export const FPS = 60;
+// Output/bake rate. Physics still steps at 1/60 (PHYS_PER_FRAME sub-steps per
+// recorded frame) so the tuned dynamics are unchanged — we just record every
+// other step. Halving the output frame rate halves render time.
+export const FPS = 30;
+const PHYS_PER_FRAME = 2;
+const PHYS_DT = 1 / 60;
 const MAX_BATTLE_SECONDS = 70;
 const MAX_FRAMES = MAX_BATTLE_SECONDS * FPS;
 // Beat where the lone winner spins alone before the battle ends / reveal.
-export const VICTORY_HOLD = 150; // ~2.5s @ 60fps
+export const VICTORY_HOLD = 75; // ~2.5s @ 30fps
 
 let _rapierReady = false;
 export async function initRapier() {
@@ -167,7 +172,7 @@ function spawnRing(world, count, rand) {
 }
 
 const LEAN_ANGLE = 0.62;   // ~35° rest lean for a stopped top
-const LEAN_FRAMES = 26;    // how long the topple-lean takes
+const LEAN_FRAMES = 13;    // how long the topple-lean takes (~0.43s @ 30fps)
 
 function killTop(i, frame, reason, body, ctx, rand) {
   const { eliminated, eliminationFrames, eliminationReasons, elimOrder, leanAxis, leanStart } = ctx;
@@ -216,61 +221,67 @@ export function simulateBattle({ count, seed }) {
   const SPIN_LOSS_BASE = 0.18;
   const SPIN_LOSS_STR = 0.27;
 
+  world.timestep = PHYS_DT;
   let frame = 0;
+  let pstep = 0;          // physics step counter (1/60), for nudge cadence
   let winnerLockFrame = -1;
   for (; frame < MAX_FRAMES; frame++) {
-    world.step(eventQueue);
+    // Two physics sub-steps (at 1/60) per recorded (30fps) frame — keeps the
+    // tuned dynamics identical while halving the output frame count.
+    for (let sub = 0; sub < PHYS_PER_FRAME; sub++) {
+      world.step(eventQueue);
 
-    // ── Collision events → spin loss + record for SFX ──
-    eventQueue.drainCollisionEvents((h1, h2, started) => {
-      if (!started) return;
-      const i1 = handleToIndex.get(h1);
-      const i2 = handleToIndex.get(h2);
-      const topTop = i1 !== undefined && i2 !== undefined;
-      let strength = 0;
-      for (const idx of [i1, i2]) {
-        if (idx === undefined || eliminated.has(idx)) continue;
-        const b = tops[idx];
-        strength = Math.max(strength, Math.hypot(b.linvel().x, b.linvel().z));
-      }
-      const strNorm = Math.min(1, strength / 8);
-      if (topTop) {
-        const loss = SPIN_LOSS_BASE + SPIN_LOSS_STR * strNorm;
+      // ── Collision events → spin loss + record for SFX (battle-local frame) ──
+      eventQueue.drainCollisionEvents((h1, h2, started) => {
+        if (!started) return;
+        const i1 = handleToIndex.get(h1);
+        const i2 = handleToIndex.get(h2);
+        const topTop = i1 !== undefined && i2 !== undefined;
+        let strength = 0;
         for (const idx of [i1, i2]) {
           if (idx === undefined || eliminated.has(idx)) continue;
           const b = tops[idx];
-          const av = b.angvel();
-          b.setAngvel({ x: av.x, y: av.y * (1 - loss), z: av.z }, true);
+          strength = Math.max(strength, Math.hypot(b.linvel().x, b.linvel().z));
         }
-      }
-      collisions.push({ frame, type: topTop ? "top" : "wall", strength: strNorm });
-    });
+        const strNorm = Math.min(1, strength / 8);
+        if (topTop) {
+          const loss = SPIN_LOSS_BASE + SPIN_LOSS_STR * strNorm;
+          for (const idx of [i1, i2]) {
+            if (idx === undefined || eliminated.has(idx)) continue;
+            const b = tops[idx];
+            const av = b.angvel();
+            b.setAngvel({ x: av.x, y: av.y * (1 - loss), z: av.z }, true);
+          }
+        }
+        collisions.push({ frame, type: topTop ? "top" : "wall", strength: strNorm });
+      });
 
-    const doNudge = frame > 30 && frame % NUDGE_INTERVAL === 0;
-    for (let i = 0; i < N; i++) {
-      const body = tops[i];
-      const lv = body.linvel();
-      const av = body.angvel();
-      // Both alive AND eliminated tops are kept physically upright (the collider
-      // is a bumpable cylinder); the dead-top LEAN is purely visual (in the
-      // bake). Alive tops also get the stir nudge + keep their Y spin.
-      if (eliminated.has(i)) {
-        body.setLinvel({ x: lv.x, y: 0, z: lv.z }, true);
-        body.setAngvel({ x: 0, y: 0, z: 0 }, true);
-        continue;
+      const doNudge = pstep > 30 && pstep % NUDGE_INTERVAL === 0;
+      for (let i = 0; i < N; i++) {
+        const body = tops[i];
+        const lv = body.linvel();
+        const av = body.angvel();
+        // Alive AND eliminated tops are kept physically upright (the collider is
+        // a bumpable cylinder); the dead-top LEAN is purely visual (in the bake).
+        if (eliminated.has(i)) {
+          body.setLinvel({ x: lv.x, y: 0, z: lv.z }, true);
+          body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+          continue;
+        }
+        let nx = lv.x, nz = lv.z;
+        if (doNudge) {
+          const energy = Math.max(0, Math.min(1, Math.abs(av.y) / INIT_SPIN));
+          const ang = rand() * Math.PI * 2;
+          const mag = NUDGE_STRENGTH * energy;
+          nx += Math.cos(ang) * mag;
+          nz += Math.sin(ang) * mag;
+        }
+        const lateral = Math.hypot(nx, nz);
+        if (lateral < SLEEP_LINVEL_THRESHOLD) { nx = 0; nz = 0; }
+        body.setLinvel({ x: nx, y: 0, z: nz }, true);
+        body.setAngvel({ x: 0, y: av.y, z: 0 }, true);
       }
-      let nx = lv.x, nz = lv.z;
-      if (doNudge) {
-        const energy = Math.max(0, Math.min(1, Math.abs(av.y) / INIT_SPIN));
-        const ang = rand() * Math.PI * 2;
-        const mag = NUDGE_STRENGTH * energy;
-        nx += Math.cos(ang) * mag;
-        nz += Math.sin(ang) * mag;
-      }
-      const lateral = Math.hypot(nx, nz);
-      if (lateral < SLEEP_LINVEL_THRESHOLD) { nx = 0; nz = 0; }
-      body.setLinvel({ x: nx, y: 0, z: nz }, true);
-      body.setAngvel({ x: 0, y: av.y, z: 0 }, true);
+      pstep++;
     }
 
     for (let i = 0; i < N; i++) {
