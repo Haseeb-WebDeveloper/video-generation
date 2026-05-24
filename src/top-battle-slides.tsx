@@ -408,7 +408,7 @@ const Arena: React.FC = () => {
           ground so it reads as a thick board, not a floating sheet. */}
       <mesh position={[0, FLOOR_Y - BOARD_DROP / 2, 0]}>
         <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2 + 0.3, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2 + 0.3]} />
-        <meshStandardMaterial color={"#aeb7c1"} roughness={0.55} metalness={0.4} envMapIntensity={0.7} />
+        <meshStandardMaterial color={"#aeb7c1"} roughness={0.78} metalness={0.1} envMapIntensity={0.15} />
       </mesh>
 
       {/* PLAY SURFACE — light brushed-steel floor the tops spin on. */}
@@ -417,9 +417,9 @@ const Arena: React.FC = () => {
         <meshStandardMaterial
           map={steelTex}
           color={"#d3dbe4"}
-          roughness={0.3}
-          metalness={0.8}
-          envMapIntensity={0.6}
+          roughness={0.72}
+          metalness={0.1}
+          envMapIntensity={0.12}
         />
       </mesh>
 
@@ -435,7 +435,7 @@ const ArenaWalls: React.FC = () => {
   const off = WALL_VIS_THICK / 2;
   // Dark brushed gunmetal rim — premium, not cheap white plastic.
   const wallMat = (
-    <meshStandardMaterial color={"#9aa3ad"} roughness={0.5} metalness={0.45} envMapIntensity={0.8} />
+    <meshStandardMaterial color={"#9aa3ad"} roughness={0.7} metalness={0.12} envMapIntensity={0.2} />
   );
   return (
     <>
