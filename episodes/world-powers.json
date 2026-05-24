@@ -315,71 +315,71 @@
         ],
         "bakePath": "battle-bakes/world-powers-r0.bin",
         "survivorOrder": [
+          5,
+          3,
           1,
           0,
-          3,
-          7,
           6,
+          9,
           4,
-          5,
-          2,
           8,
-          9
+          2,
+          7
         ],
         "eliminationFrames": [
-          561,
-          561,
-          412,
-          459,
-          445,
-          420,
-          451,
-          452,
-          318,
-          228
+          417,
+          491,
+          350,
+          507,
+          393,
+          530,
+          416,
+          325,
+          363,
+          415
         ],
-        "battleFrames": 637,
-        "winnerIndex": 1,
+        "battleFrames": 583,
+        "winnerIndex": 5,
         "collisions": [
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.262407039276025
+            "strength": 0.16909592292595177
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3170407668918309
+            "strength": 0.4345132901389966
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.262407039276025
+            "strength": 0.33453738030293445
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3686564493726277
+            "strength": 0.35108190332957284
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.48674700631083667
+            "strength": 0.5483925260096119
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.48674700631083667
+            "strength": 0.5483925260096119
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.4303844558919756
+            "strength": 0.33165283085349423
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3686564493726277
+            "strength": 0.4345132901389966
           },
           {
             "frame": 0,
@@ -389,632 +389,1092 @@
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.4052058481925088
+            "strength": 0.30736481071371313
           },
           {
-            "frame": 22,
-            "type": "wall",
-            "strength": 0.20107826243969665
+            "frame": 1,
+            "type": "top",
+            "strength": 0.313369625651011
           },
           {
-            "frame": 23,
+            "frame": 20,
             "type": "wall",
-            "strength": 0.19064078128094297
+            "strength": 0.25265465258820646
+          },
+          {
+            "frame": 26,
+            "type": "top",
+            "strength": 0.09259571188316326
+          },
+          {
+            "frame": 30,
+            "type": "wall",
+            "strength": 0.12161295682774412
+          },
+          {
+            "frame": 34,
+            "type": "top",
+            "strength": 0.3389347217747644
+          },
+          {
+            "frame": 35,
+            "type": "top",
+            "strength": 0.20455485889947195
           },
           {
             "frame": 38,
             "type": "top",
-            "strength": 0.5584920814652461
-          },
-          {
-            "frame": 40,
-            "type": "top",
-            "strength": 0.6992592421283182
-          },
-          {
-            "frame": 40,
-            "type": "top",
-            "strength": 0.37058064245810596
+            "strength": 0.3729780277032611
           },
           {
             "frame": 41,
             "type": "top",
-            "strength": 0.8560010715013173
+            "strength": 0.48584122744482344
           },
           {
-            "frame": 42,
+            "frame": 43,
             "type": "top",
-            "strength": 0.5727818188201027
+            "strength": 0.5083988773497156
           },
           {
-            "frame": 47,
+            "frame": 46,
             "type": "top",
-            "strength": 0.5428720695881034
+            "strength": 0.5362834386569223
           },
           {
-            "frame": 47,
-            "type": "wall",
-            "strength": 0.25617365038503964
-          },
-          {
-            "frame": 48,
+            "frame": 49,
             "type": "top",
-            "strength": 0.3949341916637705
+            "strength": 0.4949279625867251
           },
           {
-            "frame": 48,
+            "frame": 50,
             "type": "top",
-            "strength": 0.7108711244873661
-          },
-          {
-            "frame": 52,
-            "type": "top",
-            "strength": 0.6949315895869651
+            "strength": 0.46839844044323947
           },
           {
             "frame": 53,
             "type": "top",
-            "strength": 0.6943165688668316
+            "strength": 0.5922683394777898
           },
           {
-            "frame": 59,
+            "frame": 54,
             "type": "top",
-            "strength": 0.6155833282603084
+            "strength": 0.37744329389650016
+          },
+          {
+            "frame": 58,
+            "type": "top",
+            "strength": 0.6193834144530656
+          },
+          {
+            "frame": 60,
+            "type": "wall",
+            "strength": 0.4624775160460008
+          },
+          {
+            "frame": 61,
+            "type": "wall",
+            "strength": 0.6032489446507819
+          },
+          {
+            "frame": 61,
+            "type": "top",
+            "strength": 0.296886792178797
           },
           {
             "frame": 62,
             "type": "top",
-            "strength": 0.3415605513273518
+            "strength": 0.677598843233732
           },
           {
             "frame": 62,
+            "type": "wall",
+            "strength": 0.6004892623075337
+          },
+          {
+            "frame": 66,
+            "type": "wall",
+            "strength": 0.2135405237819388
+          },
+          {
+            "frame": 66,
             "type": "top",
-            "strength": 0.35015456324079053
+            "strength": 0.3014984851538081
+          },
+          {
+            "frame": 67,
+            "type": "wall",
+            "strength": 0.23490215563089464
           },
           {
             "frame": 68,
-            "type": "wall",
-            "strength": 0.08686093744628585
-          },
-          {
-            "frame": 68,
-            "type": "wall",
-            "strength": 0.3770594406316981
-          },
-          {
-            "frame": 68,
-            "type": "wall",
-            "strength": 0.14239254724345518
-          },
-          {
-            "frame": 69,
             "type": "top",
-            "strength": 0.2731435106192875
+            "strength": 0.615363683196828
           },
           {
             "frame": 69,
             "type": "wall",
-            "strength": 0.2950396664522307
-          },
-          {
-            "frame": 69,
-            "type": "wall",
-            "strength": 0.27513477625279087
+            "strength": 0.27735462854076987
           },
           {
             "frame": 70,
             "type": "wall",
-            "strength": 0.17697932033795916
+            "strength": 0.3129194734849652
           },
           {
             "frame": 70,
             "type": "wall",
-            "strength": 0.316918567850546
+            "strength": 0.25240403002919787
           },
           {
             "frame": 70,
             "type": "wall",
-            "strength": 0.4616505034045274
-          },
-          {
-            "frame": 70,
-            "type": "wall",
-            "strength": 0.2647928504479224
+            "strength": 0.41763574547572313
           },
           {
             "frame": 71,
             "type": "top",
-            "strength": 0.3307078958827779
+            "strength": 0.48482693590760984
           },
           {
             "frame": 72,
             "type": "wall",
-            "strength": 0.15758231294505548
-          },
-          {
-            "frame": 72,
-            "type": "wall",
-            "strength": 0.16040497983962385
+            "strength": 0.3897687171171547
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.2484044184812603
+            "strength": 0.32572784322797294
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.1089011900049166
+            "strength": 0.35003226641103224
           },
           {
-            "frame": 79,
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.47564959428450954
+          },
+          {
+            "frame": 75,
+            "type": "wall",
+            "strength": 0.45593143907160005
+          },
+          {
+            "frame": 77,
             "type": "top",
-            "strength": 0.21686332760145724
+            "strength": 0.3913582864804705
+          },
+          {
+            "frame": 77,
+            "type": "top",
+            "strength": 0.4258957433547818
+          },
+          {
+            "frame": 77,
+            "type": "top",
+            "strength": 0.31315278326568413
+          },
+          {
+            "frame": 78,
+            "type": "top",
+            "strength": 0.33777555044614466
+          },
+          {
+            "frame": 80,
+            "type": "wall",
+            "strength": 0.2842887650091161
+          },
+          {
+            "frame": 82,
+            "type": "top",
+            "strength": 0.3628379505457343
           },
           {
             "frame": 83,
             "type": "wall",
-            "strength": 0.42296480932451413
+            "strength": 0.3528954599655451
           },
           {
-            "frame": 89,
+            "frame": 86,
             "type": "top",
-            "strength": 0.4133778443400457
+            "strength": 0.4587445320913937
           },
           {
-            "frame": 97,
-            "type": "top",
-            "strength": 0.3566098146345266
+            "frame": 87,
+            "type": "wall",
+            "strength": 0.0714111672353414
           },
           {
-            "frame": 103,
-            "type": "top",
-            "strength": 0.13257129392001488
+            "frame": 88,
+            "type": "wall",
+            "strength": 0.07830356247367434
           },
           {
-            "frame": 115,
-            "type": "top",
-            "strength": 0.21364572235508297
+            "frame": 93,
+            "type": "wall",
+            "strength": 0.2781768423044507
           },
           {
-            "frame": 118,
+            "frame": 93,
+            "type": "wall",
+            "strength": 0.15149969271155656
+          },
+          {
+            "frame": 94,
             "type": "top",
-            "strength": 0.13800827958803402
+            "strength": 0.35366537312883317
+          },
+          {
+            "frame": 102,
+            "type": "top",
+            "strength": 0.38545121836329316
+          },
+          {
+            "frame": 106,
+            "type": "top",
+            "strength": 0.12288639820961302
+          },
+          {
+            "frame": 107,
+            "type": "wall",
+            "strength": 0.11733774761814138
+          },
+          {
+            "frame": 110,
+            "type": "top",
+            "strength": 0.1386685702537035
           },
           {
             "frame": 119,
             "type": "top",
-            "strength": 0.11530426517475136
+            "strength": 0.7120098256875412
           },
           {
-            "frame": 120,
-            "type": "top",
-            "strength": 0.17619488758605592
+            "frame": 121,
+            "type": "wall",
+            "strength": 0.5555784515080847
           },
           {
             "frame": 121,
             "type": "top",
-            "strength": 0.1781675740873116
+            "strength": 0.3141542261125539
+          },
+          {
+            "frame": 121,
+            "type": "top",
+            "strength": 0.4824766993362182
+          },
+          {
+            "frame": 122,
+            "type": "top",
+            "strength": 0.49238694236968966
+          },
+          {
+            "frame": 122,
+            "type": "wall",
+            "strength": 0.46772200705651945
+          },
+          {
+            "frame": 123,
+            "type": "top",
+            "strength": 0.335361167231265
+          },
+          {
+            "frame": 124,
+            "type": "wall",
+            "strength": 0.4779614145881071
           },
           {
             "frame": 127,
             "type": "top",
-            "strength": 0.5302507534954354
+            "strength": 0.5674000428481504
           },
           {
-            "frame": 129,
+            "frame": 128,
+            "type": "wall",
+            "strength": 0.14140431023398334
+          },
+          {
+            "frame": 130,
             "type": "top",
-            "strength": 0.27762203335849844
+            "strength": 0.17360485927591365
+          },
+          {
+            "frame": 130,
+            "type": "top",
+            "strength": 0.40455846623792974
+          },
+          {
+            "frame": 131,
+            "type": "top",
+            "strength": 0.3769202016429204
+          },
+          {
+            "frame": 132,
+            "type": "wall",
+            "strength": 0.18273414452308445
           },
           {
             "frame": 139,
             "type": "top",
-            "strength": 0.4339150510972413
+            "strength": 0.2775653485639035
           },
           {
-            "frame": 143,
+            "frame": 140,
             "type": "top",
-            "strength": 0.1828655505508747
+            "strength": 0.45274690311860283
           },
           {
-            "frame": 144,
+            "frame": 141,
             "type": "top",
-            "strength": 0.1763196580714606
-          },
-          {
-            "frame": 148,
-            "type": "wall",
-            "strength": 0.21040560139809683
+            "strength": 0.3816821146200745
           },
           {
             "frame": 157,
             "type": "top",
-            "strength": 0.19949971887104967
+            "strength": 0.42078726728963833
           },
           {
-            "frame": 168,
+            "frame": 163,
             "type": "top",
-            "strength": 0.14417102799264614
+            "strength": 0.2380984891801075
           },
           {
-            "frame": 175,
+            "frame": 171,
             "type": "top",
-            "strength": 0.18605585722129356
+            "strength": 0.25816927726134187
           },
           {
-            "frame": 177,
+            "frame": 171,
             "type": "top",
-            "strength": 0.3091919935987525
+            "strength": 0.0818194013968499
           },
           {
-            "frame": 178,
+            "frame": 179,
             "type": "top",
-            "strength": 0.14077995470570065
+            "strength": 0.33193790354011427
           },
           {
-            "frame": 192,
+            "frame": 180,
             "type": "top",
-            "strength": 0.48011516004447047
+            "strength": 0.3585523667569498
           },
           {
-            "frame": 193,
+            "frame": 182,
             "type": "top",
-            "strength": 0.4185447410783611
+            "strength": 0.10846380439682649
           },
           {
-            "frame": 198,
+            "frame": 182,
             "type": "top",
-            "strength": 0.27481897506651104
+            "strength": 0.18897328175372166
           },
           {
-            "frame": 200,
+            "frame": 190,
             "type": "top",
-            "strength": 0.36787303442118174
+            "strength": 0.14280236733120066
+          },
+          {
+            "frame": 194,
+            "type": "top",
+            "strength": 0.313026690987364
+          },
+          {
+            "frame": 195,
+            "type": "top",
+            "strength": 0.30242169138254804
+          },
+          {
+            "frame": 201,
+            "type": "top",
+            "strength": 0.4067643313352183
+          },
+          {
+            "frame": 201,
+            "type": "top",
+            "strength": 0.199296725489031
           },
           {
             "frame": 202,
             "type": "top",
-            "strength": 0.2983055597210024
+            "strength": 0.37639559825426194
           },
           {
             "frame": 204,
             "type": "top",
-            "strength": 0.22837312503054533
+            "strength": 0.16593138039925884
           },
           {
-            "frame": 211,
+            "frame": 208,
             "type": "top",
-            "strength": 0.09714113549208782
+            "strength": 0.4073483977243545
+          },
+          {
+            "frame": 210,
+            "type": "top",
+            "strength": 0.22454835635653866
           },
           {
             "frame": 212,
             "type": "top",
-            "strength": 0.11527905908805254
-          },
-          {
-            "frame": 213,
-            "type": "top",
-            "strength": 0.17907339933563315
+            "strength": 0.32410540380538805
           },
           {
             "frame": 214,
             "type": "top",
-            "strength": 0.1749461973057099
+            "strength": 0.1164006394062506
           },
           {
             "frame": 217,
             "type": "top",
-            "strength": 0.16292711697277265
+            "strength": 0.38896692732156196
           },
           {
-            "frame": 218,
+            "frame": 217,
             "type": "top",
-            "strength": 0.15145052698517694
-          },
-          {
-            "frame": 219,
-            "type": "top",
-            "strength": 0.1483664373095239
-          },
-          {
-            "frame": 219,
-            "type": "top",
-            "strength": 0.1547869851684974
+            "strength": 0.1912576623355723
           },
           {
             "frame": 225,
             "type": "top",
-            "strength": 0.28677495958985055
+            "strength": 0.17037733041834624
+          },
+          {
+            "frame": 225,
+            "type": "top",
+            "strength": 0.14627660379474067
+          },
+          {
+            "frame": 225,
+            "type": "top",
+            "strength": 0.06847118459938151
+          },
+          {
+            "frame": 227,
+            "type": "top",
+            "strength": 0.0736733580988716
+          },
+          {
+            "frame": 228,
+            "type": "top",
+            "strength": 0.45304647711969154
+          },
+          {
+            "frame": 228,
+            "type": "top",
+            "strength": 0.3294760170782304
           },
           {
             "frame": 229,
             "type": "top",
-            "strength": 0.2550090510521622
+            "strength": 0.2728832678650445
           },
           {
-            "frame": 236,
+            "frame": 229,
             "type": "top",
-            "strength": 0.11878305204449684
+            "strength": 0.2728832678650445
           },
           {
-            "frame": 236,
+            "frame": 234,
             "type": "top",
-            "strength": 0.14500677353866256
+            "strength": 0.16203729055986976
+          },
+          {
+            "frame": 237,
+            "type": "top",
+            "strength": 0.21258992907476562
+          },
+          {
+            "frame": 239,
+            "type": "top",
+            "strength": 0.08808323483161422
           },
           {
             "frame": 241,
             "type": "top",
-            "strength": 0.1018550727667922
+            "strength": 0.1987102006387649
           },
           {
-            "frame": 241,
+            "frame": 245,
             "type": "top",
-            "strength": 0.12580315557464994
+            "strength": 0.15769497437059538
           },
           {
-            "frame": 256,
+            "frame": 246,
             "type": "top",
-            "strength": 0.1210994641684439
+            "strength": 0.13269533715369536
           },
           {
-            "frame": 276,
+            "frame": 247,
             "type": "top",
-            "strength": 0.23283663829785953
+            "strength": 0.23456536423860763
           },
           {
-            "frame": 286,
+            "frame": 251,
             "type": "top",
-            "strength": 0.17976347952189412
+            "strength": 0.12186677971105155
           },
           {
-            "frame": 288,
+            "frame": 254,
             "type": "top",
-            "strength": 0.10845532923901187
+            "strength": 0.14793958013538258
           },
           {
-            "frame": 293,
+            "frame": 266,
             "type": "top",
-            "strength": 0.1527725092972821
+            "strength": 0.16764784456912094
           },
           {
-            "frame": 294,
+            "frame": 266,
             "type": "top",
-            "strength": 0.17698876914737563
+            "strength": 0.12543374089436657
+          },
+          {
+            "frame": 268,
+            "type": "top",
+            "strength": 0.17418449910250064
+          },
+          {
+            "frame": 270,
+            "type": "top",
+            "strength": 0.1222970403744301
+          },
+          {
+            "frame": 278,
+            "type": "top",
+            "strength": 0.22780615832825493
+          },
+          {
+            "frame": 278,
+            "type": "top",
+            "strength": 0.16803095556051623
+          },
+          {
+            "frame": 279,
+            "type": "top",
+            "strength": 0.0718371836435621
+          },
+          {
+            "frame": 281,
+            "type": "top",
+            "strength": 0.06106755526661753
+          },
+          {
+            "frame": 285,
+            "type": "top",
+            "strength": 0.09701020136366155
+          },
+          {
+            "frame": 287,
+            "type": "top",
+            "strength": 0.2492137543050605
+          },
+          {
+            "frame": 289,
+            "type": "top",
+            "strength": 0.049903794175584056
+          },
+          {
+            "frame": 289,
+            "type": "top",
+            "strength": 0.1088388017173757
           },
           {
             "frame": 301,
             "type": "top",
-            "strength": 0.11786336502638511
+            "strength": 0.054500924170920347
           },
           {
-            "frame": 303,
+            "frame": 306,
             "type": "top",
-            "strength": 0.021767080524902633
+            "strength": 0.09941742132378631
           },
           {
-            "frame": 303,
+            "frame": 306,
             "type": "top",
-            "strength": 0.21635019071796388
+            "strength": 0.1055643265405032
           },
           {
-            "frame": 305,
+            "frame": 308,
             "type": "top",
-            "strength": 0.12817216599685755
-          },
-          {
-            "frame": 307,
-            "type": "top",
-            "strength": 0.1176488225353391
-          },
-          {
-            "frame": 307,
-            "type": "top",
-            "strength": 0.040744882211113824
+            "strength": 0.10252839021914903
           },
           {
             "frame": 309,
             "type": "top",
-            "strength": 0.08155666956303217
+            "strength": 0.09927862676919581
           },
           {
-            "frame": 313,
+            "frame": 310,
             "type": "top",
-            "strength": 0.02735383463097067
+            "strength": 0.08029940780724193
           },
           {
-            "frame": 318,
+            "frame": 311,
             "type": "top",
-            "strength": 0.06842363381131643
+            "strength": 0.07679179500893123
           },
           {
-            "frame": 318,
+            "frame": 316,
             "type": "top",
-            "strength": 0.11194719125304893
+            "strength": 0.08706145489967407
+          },
+          {
+            "frame": 316,
+            "type": "top",
+            "strength": 0.05029694204370783
           },
           {
             "frame": 319,
             "type": "top",
-            "strength": 0.09130235885730796
+            "strength": 0.17569363305133265
           },
           {
-            "frame": 324,
+            "frame": 319,
             "type": "top",
-            "strength": 0.20293226137544856
+            "strength": 0.07634186459941421
+          },
+          {
+            "frame": 321,
+            "type": "top",
+            "strength": 0.0658619052607269
+          },
+          {
+            "frame": 322,
+            "type": "top",
+            "strength": 0.07984357731053322
+          },
+          {
+            "frame": 325,
+            "type": "top",
+            "strength": 0.09317745941199776
           },
           {
             "frame": 327,
             "type": "top",
-            "strength": 0.16032737116548615
+            "strength": 0.05409629539253706
           },
           {
-            "frame": 329,
+            "frame": 328,
             "type": "top",
-            "strength": 0.05233477772657936
+            "strength": 0.09515059849291038
           },
           {
             "frame": 330,
             "type": "top",
-            "strength": 0
+            "strength": 0.004995839276880354
           },
           {
-            "frame": 331,
+            "frame": 334,
             "type": "top",
-            "strength": 0.04706472459482246
+            "strength": 0.10653070045681114
           },
           {
-            "frame": 336,
+            "frame": 334,
             "type": "top",
-            "strength": 0.06792639599389107
+            "strength": 0.07010423531203998
           },
           {
-            "frame": 349,
+            "frame": 335,
             "type": "top",
-            "strength": 0.01734831066603541
+            "strength": 0.06139182027823198
+          },
+          {
+            "frame": 338,
+            "type": "top",
+            "strength": 0.0288469439079767
+          },
+          {
+            "frame": 338,
+            "type": "top",
+            "strength": 0.08436153254900386
+          },
+          {
+            "frame": 339,
+            "type": "top",
+            "strength": 0.04967221018521229
+          },
+          {
+            "frame": 339,
+            "type": "top",
+            "strength": 0.056077449180754475
+          },
+          {
+            "frame": 340,
+            "type": "top",
+            "strength": 0.0723302043016598
+          },
+          {
+            "frame": 341,
+            "type": "top",
+            "strength": 0.05547198115295032
+          },
+          {
+            "frame": 341,
+            "type": "top",
+            "strength": 0.014114030791979239
+          },
+          {
+            "frame": 341,
+            "type": "top",
+            "strength": 0.05547198115295032
+          },
+          {
+            "frame": 342,
+            "type": "top",
+            "strength": 0.03970725593497798
+          },
+          {
+            "frame": 343,
+            "type": "top",
+            "strength": 0.06909159793881724
+          },
+          {
+            "frame": 343,
+            "type": "top",
+            "strength": 0.045652024157820444
+          },
+          {
+            "frame": 344,
+            "type": "top",
+            "strength": 0.02402054470583137
+          },
+          {
+            "frame": 347,
+            "type": "top",
+            "strength": 0.025678257346184005
+          },
+          {
+            "frame": 347,
+            "type": "top",
+            "strength": 0.02525243809762581
           },
           {
             "frame": 351,
             "type": "top",
-            "strength": 0.06354407922510821
+            "strength": 0.011721570420682387
+          },
+          {
+            "frame": 351,
+            "type": "top",
+            "strength": 0.011721570420682387
           },
           {
             "frame": 352,
             "type": "top",
-            "strength": 0.1118790749813689
+            "strength": 0.041470699478970946
+          },
+          {
+            "frame": 352,
+            "type": "top",
+            "strength": 0.041470699478970946
           },
           {
             "frame": 353,
             "type": "top",
-            "strength": 0.11475052898041783
+            "strength": 0.005209459119488996
+          },
+          {
+            "frame": 354,
+            "type": "top",
+            "strength": 0.02054690324136283
+          },
+          {
+            "frame": 354,
+            "type": "top",
+            "strength": 0.05318671014533508
           },
           {
             "frame": 356,
             "type": "top",
-            "strength": 0.08117805976072032
+            "strength": 0.0079205321104702
           },
           {
             "frame": 356,
             "type": "top",
-            "strength": 0.12283640885013358
+            "strength": 0.008034417381881834
+          },
+          {
+            "frame": 358,
+            "type": "top",
+            "strength": 0.028294720037918695
           },
           {
             "frame": 359,
             "type": "top",
-            "strength": 0.018130452124172705
+            "strength": 0.011730554027467333
           },
           {
-            "frame": 365,
+            "frame": 359,
             "type": "top",
-            "strength": 0.08290633650532582
+            "strength": 0.04643828938775104
           },
           {
-            "frame": 366,
+            "frame": 360,
             "type": "top",
-            "strength": 0.10668820204514713
+            "strength": 0.0188200204446548
+          },
+          {
+            "frame": 361,
+            "type": "top",
+            "strength": 0.020462898185128378
+          },
+          {
+            "frame": 361,
+            "type": "top",
+            "strength": 0.09125870314411623
+          },
+          {
+            "frame": 361,
+            "type": "top",
+            "strength": 0.010147407176544493
+          },
+          {
+            "frame": 362,
+            "type": "top",
+            "strength": 0.04225207796293344
+          },
+          {
+            "frame": 362,
+            "type": "top",
+            "strength": 0.0365199547299825
+          },
+          {
+            "frame": 362,
+            "type": "top",
+            "strength": 0.08316635916422818
+          },
+          {
+            "frame": 363,
+            "type": "top",
+            "strength": 0.02467044401704822
+          },
+          {
+            "frame": 364,
+            "type": "top",
+            "strength": 0.025237254457194137
+          },
+          {
+            "frame": 367,
+            "type": "top",
+            "strength": 0.04856847462276436
           },
           {
             "frame": 370,
             "type": "top",
-            "strength": 0.09781023264406175
+            "strength": 0.022633169016607047
+          },
+          {
+            "frame": 370,
+            "type": "top",
+            "strength": 0.03193212130068187
+          },
+          {
+            "frame": 370,
+            "type": "top",
+            "strength": 0.03193212130068187
+          },
+          {
+            "frame": 371,
+            "type": "top",
+            "strength": 0.0539745870106347
+          },
+          {
+            "frame": 371,
+            "type": "top",
+            "strength": 0.029032270666527495
+          },
+          {
+            "frame": 372,
+            "type": "top",
+            "strength": 0.03493219370547726
+          },
+          {
+            "frame": 373,
+            "type": "top",
+            "strength": 0.054694065739805876
+          },
+          {
+            "frame": 373,
+            "type": "top",
+            "strength": 0.04425965366598464
+          },
+          {
+            "frame": 373,
+            "type": "top",
+            "strength": 0
           },
           {
             "frame": 374,
             "type": "top",
-            "strength": 0.06216553350910456
+            "strength": 0.02182794876144548
+          },
+          {
+            "frame": 375,
+            "type": "top",
+            "strength": 0.013329466635981366
+          },
+          {
+            "frame": 375,
+            "type": "top",
+            "strength": 0.02670887436405989
+          },
+          {
+            "frame": 376,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 377,
+            "type": "top",
+            "strength": 0.014580951801902779
           },
           {
             "frame": 378,
             "type": "top",
-            "strength": 0.02309218250829243
+            "strength": 0.03491545604835359
           },
           {
-            "frame": 384,
+            "frame": 383,
+            "type": "top",
+            "strength": 0.00003134365039783689
+          },
+          {
+            "frame": 385,
+            "type": "top",
+            "strength": 0.036050916599419405
+          },
+          {
+            "frame": 387,
+            "type": "top",
+            "strength": 0.000022006143218343
+          },
+          {
+            "frame": 388,
+            "type": "top",
+            "strength": 0.031282090872805826
+          },
+          {
+            "frame": 390,
+            "type": "top",
+            "strength": 0.05293469307420845
+          },
+          {
+            "frame": 392,
+            "type": "top",
+            "strength": 0.006087591299585453
+          },
+          {
+            "frame": 392,
             "type": "top",
             "strength": 0
           },
           {
-            "frame": 384,
+            "frame": 394,
             "type": "top",
-            "strength": 0.03454160835708607
+            "strength": 0.060853340125331466
           },
           {
-            "frame": 386,
+            "frame": 396,
             "type": "top",
-            "strength": 0.03379707134949461
+            "strength": 0.03292036776554156
           },
           {
-            "frame": 386,
+            "frame": 397,
             "type": "top",
-            "strength": 0.03379707134949461
+            "strength": 0.04767757543302211
           },
           {
-            "frame": 389,
+            "frame": 397,
             "type": "top",
-            "strength": 0.017590470155105082
+            "strength": 0.01931298177401832
           },
           {
-            "frame": 389,
+            "frame": 398,
             "type": "top",
-            "strength": 0.024609511338998306
+            "strength": 0.015318325929893439
+          },
+          {
+            "frame": 398,
+            "type": "top",
+            "strength": 0
           },
           {
             "frame": 400,
             "type": "top",
-            "strength": 0.03089540551659203
+            "strength": 0.04142685424346676
           },
           {
-            "frame": 404,
+            "frame": 405,
             "type": "top",
-            "strength": 0.020535066194263814
+            "strength": 0.010959002606135507
+          },
+          {
+            "frame": 406,
+            "type": "top",
+            "strength": 0.024140152934561572
           },
           {
             "frame": 407,
+            "type": "top",
+            "strength": 0.024659625008924314
+          },
+          {
+            "frame": 407,
+            "type": "top",
+            "strength": 0.000033385199451557856
+          },
+          {
+            "frame": 408,
+            "type": "top",
+            "strength": 0.023154288199140498
+          },
+          {
+            "frame": 409,
+            "type": "top",
+            "strength": 0.03404993743206567
+          },
+          {
+            "frame": 409,
             "type": "top",
             "strength": 0
-          },
-          {
-            "frame": 407,
-            "type": "top",
-            "strength": 0.02377978191810309
-          },
-          {
-            "frame": 409,
-            "type": "top",
-            "strength": 0.008751111526612327
-          },
-          {
-            "frame": 409,
-            "type": "top",
-            "strength": 0.01711918749064567
           },
           {
             "frame": 410,
             "type": "top",
-            "strength": 0.008850353737107224
+            "strength": 0.01071132767047481
           },
           {
-            "frame": 411,
+            "frame": 418,
             "type": "top",
-            "strength": 0.0030531789381290407
+            "strength": 0.016806410733331802
           },
           {
-            "frame": 413,
+            "frame": 419,
             "type": "top",
-            "strength": 0.04475592037746956
+            "strength": 0
           },
           {
-            "frame": 415,
+            "frame": 419,
             "type": "top",
-            "strength": 0.0037098226242630655
+            "strength": 0
+          },
+          {
+            "frame": 420,
+            "type": "top",
+            "strength": 0.021613003599408608
           },
           {
             "frame": 421,
             "type": "top",
-            "strength": 0.07257405727322161
+            "strength": 0
           },
           {
-            "frame": 424,
+            "frame": 423,
             "type": "top",
-            "strength": 0.017449794621698683
+            "strength": 0.036635745245096135
           },
           {
             "frame": 424,
@@ -1022,94 +1482,129 @@
             "strength": 0
           },
           {
-            "frame": 425,
+            "frame": 426,
             "type": "top",
-            "strength": 0.03451944147721135
-          },
-          {
-            "frame": 425,
-            "type": "top",
-            "strength": 0.020911093611574127
+            "strength": 0
           },
           {
             "frame": 428,
             "type": "top",
-            "strength": 0.00005344932307146916
+            "strength": 0.011998371846321812
           },
           {
             "frame": 429,
             "type": "top",
-            "strength": 0.033364518463140994
+            "strength": 0
           },
           {
-            "frame": 432,
-            "type": "top",
-            "strength": 0.01285434126372352
-          },
-          {
-            "frame": 432,
-            "type": "top",
-            "strength": 0.01285434126372352
-          },
-          {
-            "frame": 432,
-            "type": "top",
-            "strength": 0.006103668463650888
-          },
-          {
-            "frame": 433,
-            "type": "top",
-            "strength": 0.0020454935394631224
-          },
-          {
-            "frame": 458,
-            "type": "top",
-            "strength": 0.006599696669732527
-          },
-          {
-            "frame": 458,
-            "type": "top",
-            "strength": 0.006882595144400593
-          },
-          {
-            "frame": 460,
+            "frame": 435,
             "type": "top",
             "strength": 0
           },
           {
-            "frame": 471,
+            "frame": 436,
+            "type": "top",
+            "strength": 0.00880175795694852
+          },
+          {
+            "frame": 441,
+            "type": "top",
+            "strength": 0.009326648266390026
+          },
+          {
+            "frame": 442,
+            "type": "top",
+            "strength": 0.013656873538281428
+          },
+          {
+            "frame": 443,
+            "type": "top",
+            "strength": 0.016737358252258503
+          },
+          {
+            "frame": 449,
+            "type": "top",
+            "strength": 0.016298636207204453
+          },
+          {
+            "frame": 452,
             "type": "top",
             "strength": 0
           },
           {
-            "frame": 481,
-            "type": "top",
-            "strength": 0.004452313193511788
-          },
-          {
-            "frame": 485,
+            "frame": 452,
             "type": "top",
             "strength": 0
           },
           {
-            "frame": 487,
+            "frame": 461,
             "type": "top",
-            "strength": 0.007512043726216393
+            "strength": 0.04174316660487463
           },
           {
-            "frame": 508,
+            "frame": 462,
             "type": "top",
-            "strength": 0.00003675650579188766
+            "strength": 0
           },
           {
-            "frame": 515,
+            "frame": 463,
             "type": "top",
-            "strength": 0.005074300438044087
+            "strength": 0.008658403862209143
           },
           {
-            "frame": 533,
+            "frame": 465,
             "type": "top",
-            "strength": 0.004381540912021311
+            "strength": 0.008478870614561441
+          },
+          {
+            "frame": 472,
+            "type": "top",
+            "strength": 0.000048039889873606936
+          },
+          {
+            "frame": 474,
+            "type": "top",
+            "strength": 0.02702849729607615
+          },
+          {
+            "frame": 475,
+            "type": "top",
+            "strength": 0.02544082448261754
+          },
+          {
+            "frame": 486,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 498,
+            "type": "top",
+            "strength": 0.01964404053706565
+          },
+          {
+            "frame": 502,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 512,
+            "type": "top",
+            "strength": 0.01134789315960084
+          },
+          {
+            "frame": 521,
+            "type": "top",
+            "strength": 0.007452310133813351
+          },
+          {
+            "frame": 523,
+            "type": "top",
+            "strength": 0.009421844109666186
+          },
+          {
+            "frame": 526,
+            "type": "top",
+            "strength": 0.008625937248654675
           }
         ]
       },
@@ -1130,866 +1625,1106 @@
         ],
         "bakePath": "battle-bakes/world-powers-r1.bin",
         "survivorOrder": [
+          8,
+          6,
+          5,
+          2,
+          7,
+          9,
+          4,
           3,
           0,
-          9,
-          8,
-          5,
-          1,
-          2,
-          4,
-          6,
-          7
+          1
         ],
         "eliminationFrames": [
-          588,
-          402,
-          377,
-          593,
-          358,
-          453,
-          350,
-          316,
-          475,
-          571
+          384,
+          345,
+          492,
+          385,
+          451,
+          507,
+          524,
+          485,
+          531,
+          452
         ],
-        "battleFrames": 664,
-        "winnerIndex": 13,
+        "battleFrames": 600,
+        "winnerIndex": 18,
         "collisions": [
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3346624767392311
+            "strength": 0.29977634778424145
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.36516064224653777
+            "strength": 0.29977634778424145
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.17223903355549883
+            "strength": 0.2090560342497454
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6128740043991757
+            "strength": 0.5749149022136489
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.7729699408947243
+            "strength": 0.7665383545757918
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.7729699408947243
+            "strength": 0.7665383545757918
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.429841917413282
+            "strength": 0.46934166049932924
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.29617679114622497
+            "strength": 0.29791585437781115
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.26462541695253833
+            "strength": 0.2103111251139968
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.429841917413282
+            "strength": 0.46934166049932924
           },
           {
-            "frame": 16,
+            "frame": 18,
             "type": "top",
-            "strength": 0.2527658722948657
+            "strength": 0.1587442584909061
           },
           {
-            "frame": 16,
+            "frame": 18,
             "type": "wall",
-            "strength": 0.4392239619838336
+            "strength": 0.49734636934763043
           },
           {
-            "frame": 22,
+            "frame": 25,
             "type": "top",
-            "strength": 0.17958596451388784
+            "strength": 0.19974343636937367
           },
           {
-            "frame": 23,
+            "frame": 31,
             "type": "top",
-            "strength": 0.4235268801223926
+            "strength": 0.09745506983039781
           },
           {
-            "frame": 33,
-            "type": "top",
-            "strength": 0.0955949178052435
-          },
-          {
-            "frame": 33,
+            "frame": 31,
             "type": "wall",
-            "strength": 0.3252013300383663
+            "strength": 0.18728843558838523
           },
           {
-            "frame": 42,
+            "frame": 35,
             "type": "top",
-            "strength": 0.46593455848168774
+            "strength": 0.5318205346430638
           },
           {
-            "frame": 45,
-            "type": "wall",
-            "strength": 0.09816828834998524
-          },
-          {
-            "frame": 49,
+            "frame": 43,
             "type": "top",
-            "strength": 0.4472161765734096
+            "strength": 1
           },
           {
-            "frame": 60,
+            "frame": 57,
             "type": "wall",
-            "strength": 0.22967890562260887
+            "strength": 0.1924150106124425
           },
           {
-            "frame": 60,
-            "type": "wall",
-            "strength": 0.228856281837811
+            "frame": 61,
+            "type": "top",
+            "strength": 0.42204253608661024
           },
           {
             "frame": 63,
             "type": "top",
-            "strength": 0.4209677177283607
+            "strength": 0.23977583232587882
           },
           {
-            "frame": 63,
+            "frame": 68,
             "type": "wall",
-            "strength": 0.22509307362781203
+            "strength": 0.16202661957706835
           },
           {
-            "frame": 66,
+            "frame": 68,
             "type": "wall",
-            "strength": 0.30673923149843096
-          },
-          {
-            "frame": 67,
-            "type": "wall",
-            "strength": 0.421268326175637
+            "strength": 0.2015576308146814
           },
           {
             "frame": 69,
             "type": "wall",
-            "strength": 0.19778436475155817
-          },
-          {
-            "frame": 69,
-            "type": "wall",
-            "strength": 0.09345041728465392
-          },
-          {
-            "frame": 70,
-            "type": "wall",
-            "strength": 0.1359369313659025
+            "strength": 0.10334299491726957
           },
           {
             "frame": 71,
             "type": "wall",
-            "strength": 0.5916698534616422
+            "strength": 0.4388121270485602
           },
           {
             "frame": 71,
             "type": "wall",
-            "strength": 0.15971954560836138
+            "strength": 0.13052094861093178
           },
           {
-            "frame": 71,
+            "frame": 72,
             "type": "wall",
-            "strength": 0.22062977239900777
+            "strength": 0.21610272845765438
           },
           {
-            "frame": 74,
+            "frame": 72,
             "type": "wall",
-            "strength": 0.12523171363584457
+            "strength": 0.3313202370320368
           },
           {
-            "frame": 86,
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.24095605532152267
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.5074588563891853
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.884028614400501
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.2957602287543556
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.34753544401182895
+          },
+          {
+            "frame": 73,
             "type": "top",
-            "strength": 0.5182716693984455
+            "strength": 0.7687008260755567
           },
           {
-            "frame": 98,
+            "frame": 76,
+            "type": "wall",
+            "strength": 0.34713710593676256
+          },
+          {
+            "frame": 79,
+            "type": "wall",
+            "strength": 0.7200212612690271
+          },
+          {
+            "frame": 81,
+            "type": "wall",
+            "strength": 0.10621842972842563
+          },
+          {
+            "frame": 85,
             "type": "top",
-            "strength": 0.12848013369367545
+            "strength": 0.4144532490474003
+          },
+          {
+            "frame": 85,
+            "type": "top",
+            "strength": 0.1251886301704437
           },
           {
             "frame": 100,
             "type": "top",
-            "strength": 0.5043228919816451
-          },
-          {
-            "frame": 100,
-            "type": "top",
-            "strength": 0.5803177544868249
+            "strength": 0.6136384911644648
           },
           {
             "frame": 101,
             "type": "top",
-            "strength": 0.5631365019328388
+            "strength": 0.9207444115153935
+          },
+          {
+            "frame": 101,
+            "type": "top",
+            "strength": 0.6287044584282222
+          },
+          {
+            "frame": 102,
+            "type": "top",
+            "strength": 0.6752614957752735
           },
           {
             "frame": 103,
-            "type": "top",
-            "strength": 0.38915415927365515
+            "type": "wall",
+            "strength": 0.6697263838966084
           },
           {
             "frame": 104,
-            "type": "top",
-            "strength": 0.49460969632587365
+            "type": "wall",
+            "strength": 0.21904151996843255
           },
           {
             "frame": 107,
             "type": "top",
-            "strength": 0.21974924332880835
+            "strength": 0.5974921108704683
           },
           {
             "frame": 108,
             "type": "top",
-            "strength": 0.3790574311885921
+            "strength": 1
           },
           {
-            "frame": 109,
+            "frame": 123,
             "type": "top",
-            "strength": 0.5735151618114542
+            "strength": 0.5644350302360873
           },
           {
-            "frame": 114,
+            "frame": 126,
+            "type": "top",
+            "strength": 0.4893727547375799
+          },
+          {
+            "frame": 129,
+            "type": "top",
+            "strength": 0.34612229323943117
+          },
+          {
+            "frame": 129,
             "type": "wall",
-            "strength": 0.26890063828383676
+            "strength": 0.3189144193865862
           },
           {
-            "frame": 116,
-            "type": "top",
-            "strength": 0.310839437956374
-          },
-          {
-            "frame": 117,
+            "frame": 130,
             "type": "wall",
-            "strength": 0.49502911388225174
+            "strength": 1
           },
           {
-            "frame": 127,
+            "frame": 135,
             "type": "top",
-            "strength": 0.4382620220401723
+            "strength": 1
           },
           {
-            "frame": 134,
+            "frame": 137,
             "type": "top",
-            "strength": 0.4586021986276204
+            "strength": 1
           },
           {
-            "frame": 138,
+            "frame": 137,
             "type": "top",
-            "strength": 0.36212382422073275
+            "strength": 1
           },
           {
-            "frame": 144,
-            "type": "top",
-            "strength": 0.37436309174102844
+            "frame": 139,
+            "type": "wall",
+            "strength": 1
           },
           {
-            "frame": 145,
+            "frame": 140,
             "type": "top",
-            "strength": 0.3756342504545875
+            "strength": 1
           },
           {
-            "frame": 149,
-            "type": "top",
-            "strength": 0.2075023884920802
+            "frame": 143,
+            "type": "wall",
+            "strength": 1
           },
           {
-            "frame": 154,
+            "frame": 155,
+            "type": "wall",
+            "strength": 0.2883640001128293
+          },
+          {
+            "frame": 155,
             "type": "top",
-            "strength": 0.212238792771484
+            "strength": 0.7811577710370022
+          },
+          {
+            "frame": 156,
+            "type": "wall",
+            "strength": 1
           },
           {
             "frame": 156,
             "type": "top",
-            "strength": 0.2784171600573741
+            "strength": 0.30480485749491903
           },
           {
-            "frame": 157,
+            "frame": 162,
             "type": "top",
-            "strength": 0.20320077189521557
+            "strength": 0.5256826559172338
           },
           {
-            "frame": 157,
+            "frame": 163,
             "type": "top",
-            "strength": 0.21207550199506736
+            "strength": 0.5863273081815192
+          },
+          {
+            "frame": 164,
+            "type": "wall",
+            "strength": 0.3582546337279805
           },
           {
             "frame": 165,
+            "type": "wall",
+            "strength": 0.10274852027479475
+          },
+          {
+            "frame": 165,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 166,
             "type": "top",
-            "strength": 0.23435596505348447
+            "strength": 0.41072878896129383
           },
           {
             "frame": 168,
-            "type": "top",
-            "strength": 0.20734364523235102
-          },
-          {
-            "frame": 168,
-            "type": "top",
-            "strength": 0.24596974747745384
+            "type": "wall",
+            "strength": 0.6236114338903259
           },
           {
             "frame": 169,
-            "type": "top",
-            "strength": 0.20734009883725943
+            "type": "wall",
+            "strength": 0.389350313630217
           },
           {
-            "frame": 180,
-            "type": "top",
-            "strength": 0.21026227220294577
+            "frame": 172,
+            "type": "wall",
+            "strength": 0.5203383066410325
           },
           {
-            "frame": 198,
-            "type": "top",
-            "strength": 0.09838103574190808
+            "frame": 175,
+            "type": "wall",
+            "strength": 0.29784556853567584
           },
           {
-            "frame": 198,
+            "frame": 175,
+            "type": "wall",
+            "strength": 0.3019225388101774
+          },
+          {
+            "frame": 177,
             "type": "top",
-            "strength": 0.11040398737488749
+            "strength": 0.2774203204615116
+          },
+          {
+            "frame": 185,
+            "type": "wall",
+            "strength": 0.1962441212884817
+          },
+          {
+            "frame": 191,
+            "type": "top",
+            "strength": 1
+          },
+          {
+            "frame": 193,
+            "type": "wall",
+            "strength": 0.8196701713577468
+          },
+          {
+            "frame": 196,
+            "type": "top",
+            "strength": 0.2850242062678312
           },
           {
             "frame": 201,
             "type": "top",
-            "strength": 0.16966907680541035
+            "strength": 0.5764936638477154
+          },
+          {
+            "frame": 202,
+            "type": "top",
+            "strength": 0.9849657468389745
+          },
+          {
+            "frame": 204,
+            "type": "top",
+            "strength": 0.41432880966178026
           },
           {
             "frame": 205,
+            "type": "wall",
+            "strength": 0.041625276123771086
+          },
+          {
+            "frame": 210,
             "type": "top",
-            "strength": 0.07567198238518033
+            "strength": 0.4459246504117461
+          },
+          {
+            "frame": 210,
+            "type": "top",
+            "strength": 0.44941594013102204
+          },
+          {
+            "frame": 216,
+            "type": "wall",
+            "strength": 0.4435875429094118
           },
           {
             "frame": 217,
             "type": "top",
-            "strength": 0.10799060106395753
+            "strength": 0.25645864606740587
+          },
+          {
+            "frame": 217,
+            "type": "top",
+            "strength": 0.4227303390430069
+          },
+          {
+            "frame": 222,
+            "type": "top",
+            "strength": 0.513842164412117
           },
           {
             "frame": 223,
             "type": "top",
-            "strength": 0.1720732559555007
+            "strength": 0.46918044654177227
           },
           {
-            "frame": 223,
-            "type": "top",
-            "strength": 0.10247128095639522
+            "frame": 227,
+            "type": "wall",
+            "strength": 0.47611044795998514
           },
           {
-            "frame": 231,
+            "frame": 232,
             "type": "top",
-            "strength": 0.20217329790798674
+            "strength": 0.41244343306431464
           },
           {
-            "frame": 234,
+            "frame": 235,
             "type": "top",
-            "strength": 0.14417229893377667
+            "strength": 0.31745475194079625
           },
           {
-            "frame": 241,
+            "frame": 235,
             "type": "top",
-            "strength": 0.23503673945872136
+            "strength": 0.407270672646013
           },
           {
-            "frame": 243,
+            "frame": 237,
             "type": "top",
-            "strength": 0.18680450929679066
+            "strength": 0.22491316354528784
           },
           {
-            "frame": 253,
+            "frame": 239,
             "type": "top",
-            "strength": 0.14926774178637123
+            "strength": 0.19508289706107793
           },
           {
-            "frame": 255,
+            "frame": 246,
             "type": "top",
-            "strength": 0.1525854754378178
+            "strength": 0.105926131838094
           },
           {
-            "frame": 258,
+            "frame": 254,
             "type": "top",
-            "strength": 0.14279809265155996
+            "strength": 0.30315856775277994
           },
           {
             "frame": 259,
             "type": "top",
-            "strength": 0.15924655340052182
+            "strength": 0.47156886517015006
           },
           {
-            "frame": 264,
+            "frame": 262,
             "type": "top",
-            "strength": 0.16050337527884573
+            "strength": 0.2255724038214547
+          },
+          {
+            "frame": 263,
+            "type": "wall",
+            "strength": 0.06675489747040372
+          },
+          {
+            "frame": 263,
+            "type": "top",
+            "strength": 0.3506354053033123
+          },
+          {
+            "frame": 265,
+            "type": "top",
+            "strength": 0.21787031099391238
+          },
+          {
+            "frame": 265,
+            "type": "top",
+            "strength": 0.3868059151439038
           },
           {
             "frame": 266,
-            "type": "top",
-            "strength": 0.27956144873058764
+            "type": "wall",
+            "strength": 0.13829199534938852
           },
           {
-            "frame": 269,
-            "type": "top",
-            "strength": 0.2604744648965873
-          },
-          {
-            "frame": 271,
-            "type": "top",
-            "strength": 0.22196270244637128
-          },
-          {
-            "frame": 273,
-            "type": "top",
-            "strength": 0.22206512123508243
-          },
-          {
-            "frame": 276,
-            "type": "top",
-            "strength": 0.17188894088117282
+            "frame": 268,
+            "type": "wall",
+            "strength": 0.14245328592193213
           },
           {
             "frame": 277,
             "type": "top",
-            "strength": 0.07591327861403314
+            "strength": 0.1580588274373803
           },
           {
-            "frame": 284,
+            "frame": 278,
             "type": "top",
-            "strength": 0.1546633598272399
+            "strength": 0.13814342254314255
           },
           {
-            "frame": 291,
+            "frame": 278,
             "type": "top",
-            "strength": 0.09891608049138911
+            "strength": 0.06584514738926163
           },
           {
-            "frame": 294,
+            "frame": 281,
             "type": "top",
-            "strength": 0.26238494274225377
+            "strength": 0.13389057004785418
           },
           {
-            "frame": 294,
+            "frame": 287,
             "type": "top",
-            "strength": 0.2141127152090128
+            "strength": 0.24548714005176578
+          },
+          {
+            "frame": 293,
+            "type": "top",
+            "strength": 0.2971814908629776
+          },
+          {
+            "frame": 293,
+            "type": "top",
+            "strength": 0.16440323507861165
           },
           {
             "frame": 295,
             "type": "top",
-            "strength": 0.14061474690099765
-          },
-          {
-            "frame": 296,
-            "type": "top",
-            "strength": 0.16082796614099704
+            "strength": 0.11745145564913691
           },
           {
             "frame": 297,
             "type": "top",
-            "strength": 0.127668414860895
-          },
-          {
-            "frame": 298,
-            "type": "top",
-            "strength": 0.09599874923436658
-          },
-          {
-            "frame": 299,
-            "type": "top",
-            "strength": 0.14399873986214054
+            "strength": 0.2421744140713717
           },
           {
             "frame": 302,
             "type": "top",
-            "strength": 0.13413145627418221
+            "strength": 0.23517536766151387
           },
           {
             "frame": 303,
             "type": "top",
-            "strength": 0.09914495335323724
+            "strength": 0.1697964932928525
           },
           {
-            "frame": 305,
+            "frame": 307,
             "type": "top",
-            "strength": 0.0684515349468823
+            "strength": 0.061745126411264215
           },
           {
-            "frame": 306,
+            "frame": 307,
             "type": "top",
-            "strength": 0.12872052935273082
+            "strength": 0.14204948483137828
           },
           {
-            "frame": 315,
+            "frame": 308,
             "type": "top",
-            "strength": 0.07607482041184226
+            "strength": 0.1459260418968048
           },
           {
-            "frame": 321,
+            "frame": 309,
             "type": "top",
-            "strength": 0.061792800198797286
+            "strength": 0.14670972075194563
           },
           {
-            "frame": 322,
+            "frame": 312,
             "type": "top",
-            "strength": 0.07875785982561581
+            "strength": 0.17232993351306983
           },
           {
-            "frame": 326,
+            "frame": 312,
             "type": "top",
-            "strength": 0.06582205497443985
+            "strength": 0.09711342368758737
+          },
+          {
+            "frame": 319,
+            "type": "top",
+            "strength": 0.23999266221558507
+          },
+          {
+            "frame": 320,
+            "type": "top",
+            "strength": 0.20867939417094605
+          },
+          {
+            "frame": 320,
+            "type": "top",
+            "strength": 0.1806859672951954
+          },
+          {
+            "frame": 320,
+            "type": "top",
+            "strength": 0.1669573978638308
+          },
+          {
+            "frame": 327,
+            "type": "top",
+            "strength": 0.10655645082370949
+          },
+          {
+            "frame": 328,
+            "type": "top",
+            "strength": 0.14775277817033497
+          },
+          {
+            "frame": 329,
+            "type": "top",
+            "strength": 0.18758875081586318
+          },
+          {
+            "frame": 330,
+            "type": "top",
+            "strength": 0.2380542770653921
+          },
+          {
+            "frame": 331,
+            "type": "top",
+            "strength": 0.1785674988557488
+          },
+          {
+            "frame": 332,
+            "type": "top",
+            "strength": 0.13385044100916485
+          },
+          {
+            "frame": 333,
+            "type": "top",
+            "strength": 0.18826763100505972
+          },
+          {
+            "frame": 334,
+            "type": "top",
+            "strength": 0.13488557492920195
           },
           {
             "frame": 335,
             "type": "top",
-            "strength": 0.02786886086901263
+            "strength": 0.10408554169804056
           },
           {
-            "frame": 336,
+            "frame": 335,
             "type": "top",
-            "strength": 0.03478537296720374
+            "strength": 0.17907018374944958
           },
           {
-            "frame": 344,
+            "frame": 335,
             "type": "top",
-            "strength": 0.10916526004364188
+            "strength": 0.19443476233478788
           },
           {
-            "frame": 346,
+            "frame": 342,
             "type": "top",
-            "strength": 0.10259365465227675
+            "strength": 0.07772566781264774
           },
           {
-            "frame": 351,
+            "frame": 350,
             "type": "top",
-            "strength": 0.0736507986157075
+            "strength": 0.0753154066735311
+          },
+          {
+            "frame": 350,
+            "type": "top",
+            "strength": 0.0928032694726238
+          },
+          {
+            "frame": 350,
+            "type": "top",
+            "strength": 0.036701649976680836
           },
           {
             "frame": 352,
             "type": "top",
-            "strength": 0.027147390218629726
+            "strength": 0.03474722210185309
           },
           {
-            "frame": 352,
+            "frame": 353,
             "type": "top",
-            "strength": 0.006990708363982211
+            "strength": 0.10510848552218913
           },
           {
-            "frame": 361,
+            "frame": 360,
             "type": "top",
-            "strength": 0.012329311704156003
+            "strength": 0.018797779674793545
+          },
+          {
+            "frame": 362,
+            "type": "top",
+            "strength": 0.11088965911473994
           },
           {
             "frame": 363,
             "type": "top",
-            "strength": 0.033488698342474116
+            "strength": 0.0957071233781195
           },
           {
-            "frame": 365,
+            "frame": 364,
             "type": "top",
-            "strength": 0.11950891414853089
+            "strength": 0.1408095054587076
+          },
+          {
+            "frame": 364,
+            "type": "top",
+            "strength": 0.1229972061217132
           },
           {
             "frame": 368,
             "type": "top",
-            "strength": 0.07645068204741934
+            "strength": 0.05770095422780455
           },
           {
-            "frame": 369,
+            "frame": 368,
             "type": "top",
-            "strength": 0.0949271427932037
+            "strength": 0.0872355585713222
           },
           {
-            "frame": 373,
+            "frame": 370,
             "type": "top",
-            "strength": 0.10180084818063105
+            "strength": 0.0736497875918575
+          },
+          {
+            "frame": 371,
+            "type": "top",
+            "strength": 0.09776509208147369
+          },
+          {
+            "frame": 372,
+            "type": "top",
+            "strength": 0.0735121116475911
+          },
+          {
+            "frame": 374,
+            "type": "top",
+            "strength": 0.09482837016023954
+          },
+          {
+            "frame": 375,
+            "type": "top",
+            "strength": 0.10822785370757002
           },
           {
             "frame": 376,
             "type": "top",
-            "strength": 0.03218591032842015
+            "strength": 0.09160783730877388
           },
           {
-            "frame": 378,
+            "frame": 376,
             "type": "top",
-            "strength": 0
+            "strength": 0.06939472889747096
           },
           {
-            "frame": 380,
+            "frame": 376,
             "type": "top",
-            "strength": 0.003494789800826605
+            "strength": 0.08032163092961761
           },
           {
-            "frame": 380,
+            "frame": 379,
             "type": "top",
-            "strength": 0.12466486399715507
+            "strength": 0.07893559138422306
+          },
+          {
+            "frame": 379,
+            "type": "top",
+            "strength": 0.05482386128192306
+          },
+          {
+            "frame": 382,
+            "type": "top",
+            "strength": 0.014737685929179897
           },
           {
             "frame": 384,
             "type": "top",
-            "strength": 0.028877700586585685
+            "strength": 0.046135206504061034
           },
           {
-            "frame": 386,
+            "frame": 389,
             "type": "top",
-            "strength": 0.09679088497508839
-          },
-          {
-            "frame": 386,
-            "type": "top",
-            "strength": 0.1434288351750748
-          },
-          {
-            "frame": 388,
-            "type": "top",
-            "strength": 0.011899186251997934
-          },
-          {
-            "frame": 388,
-            "type": "top",
-            "strength": 0.09474128152583602
+            "strength": 0.04496151808341361
           },
           {
             "frame": 390,
             "type": "top",
-            "strength": 0.003453737790452504
+            "strength": 0.1225868272974416
+          },
+          {
+            "frame": 390,
+            "type": "top",
+            "strength": 0.019653135071636692
           },
           {
             "frame": 392,
             "type": "top",
-            "strength": 0.007389422014853143
+            "strength": 0.08505486344094632
           },
           {
             "frame": 393,
             "type": "top",
-            "strength": 0.01654136853312856
-          },
-          {
-            "frame": 393,
-            "type": "top",
-            "strength": 0
-          },
-          {
-            "frame": 393,
-            "type": "top",
-            "strength": 0.01654136853312856
-          },
-          {
-            "frame": 393,
-            "type": "top",
-            "strength": 0.022680282596442423
+            "strength": 0.08200556857298444
           },
           {
             "frame": 395,
             "type": "top",
-            "strength": 0.011318502165190208
+            "strength": 0.05454208679421165
+          },
+          {
+            "frame": 395,
+            "type": "top",
+            "strength": 0.023527621705363797
           },
           {
             "frame": 399,
             "type": "top",
-            "strength": 0
+            "strength": 0.02441000230663224
+          },
+          {
+            "frame": 400,
+            "type": "top",
+            "strength": 0.03191901091814068
           },
           {
             "frame": 401,
             "type": "top",
-            "strength": 0.0164551613029389
+            "strength": 0.018042886879984885
           },
           {
-            "frame": 402,
+            "frame": 407,
             "type": "top",
-            "strength": 0.03286822938578032
+            "strength": 0.10974960320228826
           },
           {
-            "frame": 406,
+            "frame": 407,
             "type": "top",
-            "strength": 0
+            "strength": 0.052458384549071715
           },
           {
-            "frame": 410,
+            "frame": 408,
             "type": "top",
-            "strength": 0.03130657970202887
+            "strength": 0.051818271419833396
           },
           {
-            "frame": 410,
+            "frame": 409,
             "type": "top",
-            "strength": 0.016201236851711702
+            "strength": 0.03933893298508425
           },
           {
-            "frame": 410,
+            "frame": 414,
             "type": "top",
-            "strength": 0
+            "strength": 0.06313108215588505
           },
           {
-            "frame": 413,
+            "frame": 415,
             "type": "top",
-            "strength": 0
+            "strength": 0.012372748362837683
+          },
+          {
+            "frame": 415,
+            "type": "top",
+            "strength": 0.048727695431352386
+          },
+          {
+            "frame": 416,
+            "type": "top",
+            "strength": 0.03538406146375222
+          },
+          {
+            "frame": 416,
+            "type": "top",
+            "strength": 0.1485033710748188
           },
           {
             "frame": 417,
             "type": "top",
-            "strength": 0.05707272542004398
+            "strength": 0.08163519116600676
           },
           {
             "frame": 418,
             "type": "top",
-            "strength": 0.014085124655645645
+            "strength": 0.01779519423929652
           },
           {
             "frame": 418,
             "type": "top",
-            "strength": 0.000037484241043277375
-          },
-          {
-            "frame": 418,
-            "type": "top",
-            "strength": 0
-          },
-          {
-            "frame": 419,
-            "type": "top",
-            "strength": 0
-          },
-          {
-            "frame": 419,
-            "type": "top",
-            "strength": 0.052649766877688166
-          },
-          {
-            "frame": 420,
-            "type": "top",
-            "strength": 0.01306502406660325
-          },
-          {
-            "frame": 420,
-            "type": "top",
-            "strength": 0.0146639063378433
-          },
-          {
-            "frame": 420,
-            "type": "top",
-            "strength": 0.0076998918046190315
-          },
-          {
-            "frame": 420,
-            "type": "top",
-            "strength": 0
+            "strength": 0.06724863445474329
           },
           {
             "frame": 421,
             "type": "top",
-            "strength": 0
-          },
-          {
-            "frame": 424,
-            "type": "top",
-            "strength": 0
-          },
-          {
-            "frame": 424,
-            "type": "top",
-            "strength": 0
+            "strength": 0.008706738901269993
           },
           {
             "frame": 426,
             "type": "top",
-            "strength": 0.016277261719521374
+            "strength": 0.10742078428964531
           },
           {
             "frame": 426,
             "type": "top",
-            "strength": 0
+            "strength": 0.016822701751194526
           },
           {
-            "frame": 430,
+            "frame": 431,
             "type": "top",
-            "strength": 0.006935491784689104
+            "strength": 0.05474247406834383
           },
           {
-            "frame": 432,
+            "frame": 433,
             "type": "top",
-            "strength": 0.007074451753373041
+            "strength": 0.027737956390745586
           },
           {
-            "frame": 432,
+            "frame": 433,
             "type": "top",
-            "strength": 0.009553313538033025
+            "strength": 0.031746689819619436
           },
           {
-            "frame": 436,
+            "frame": 434,
             "type": "top",
-            "strength": 0
+            "strength": 0.0864426672950834
           },
           {
             "frame": 437,
             "type": "top",
-            "strength": 0.013280898204502787
+            "strength": 0.02489642792881917
           },
           {
-            "frame": 439,
+            "frame": 440,
             "type": "top",
-            "strength": 0
+            "strength": 0.013577759274038393
+          },
+          {
+            "frame": 441,
+            "type": "top",
+            "strength": 0.06423398679251496
+          },
+          {
+            "frame": 441,
+            "type": "top",
+            "strength": 0.03564547922967393
           },
           {
             "frame": 442,
             "type": "top",
-            "strength": 0.05612627886818948
+            "strength": 0.029543539531643313
           },
           {
-            "frame": 444,
+            "frame": 442,
             "type": "top",
-            "strength": 0.003951464679481759
+            "strength": 0.07067836939058544
           },
           {
-            "frame": 448,
+            "frame": 443,
             "type": "top",
-            "strength": 0
+            "strength": 0.04430542973690442
+          },
+          {
+            "frame": 443,
+            "type": "top",
+            "strength": 0.07090557205458786
+          },
+          {
+            "frame": 445,
+            "type": "top",
+            "strength": 0.06641336649440446
+          },
+          {
+            "frame": 445,
+            "type": "top",
+            "strength": 0.030286899654353293
+          },
+          {
+            "frame": 446,
+            "type": "top",
+            "strength": 0.041741511046094
           },
           {
             "frame": 449,
             "type": "top",
-            "strength": 0.0027529214759158573
+            "strength": 0.048287585410824584
+          },
+          {
+            "frame": 449,
+            "type": "top",
+            "strength": 0.018727200381866003
           },
           {
             "frame": 451,
+            "type": "top",
+            "strength": 0.010794340384409995
+          },
+          {
+            "frame": 452,
             "type": "top",
             "strength": 0
           },
           {
             "frame": 452,
             "type": "top",
-            "strength": 0.006157248483026671
+            "strength": 0
           },
           {
-            "frame": 454,
+            "frame": 458,
             "type": "top",
-            "strength": 0.0038391993099183386
+            "strength": 0.009131642129532292
           },
           {
-            "frame": 462,
+            "frame": 458,
             "type": "top",
-            "strength": 0.013513941828463851
+            "strength": 0.013528251114829519
           },
           {
-            "frame": 465,
+            "frame": 460,
             "type": "top",
-            "strength": 0.000015539806265741252
+            "strength": 0.015099658392247311
           },
           {
-            "frame": 467,
+            "frame": 460,
             "type": "top",
-            "strength": 0.004346802851430823
+            "strength": 0
+          },
+          {
+            "frame": 461,
+            "type": "top",
+            "strength": 0.04567274562589046
+          },
+          {
+            "frame": 463,
+            "type": "top",
+            "strength": 0.03595809566993906
+          },
+          {
+            "frame": 464,
+            "type": "top",
+            "strength": 0.021496385056152735
+          },
+          {
+            "frame": 464,
+            "type": "top",
+            "strength": 0.005004354395598694
+          },
+          {
+            "frame": 468,
+            "type": "top",
+            "strength": 0.03606854311353299
           },
           {
             "frame": 469,
@@ -1997,64 +2732,94 @@
             "strength": 0
           },
           {
-            "frame": 479,
+            "frame": 469,
             "type": "top",
-            "strength": 0.03431687644527899
+            "strength": 0
           },
           {
-            "frame": 480,
+            "frame": 469,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 472,
+            "type": "top",
+            "strength": 0.0018042997472384392
+          },
+          {
+            "frame": 473,
+            "type": "top",
+            "strength": 0.009529282303199585
+          },
+          {
+            "frame": 474,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 476,
+            "type": "top",
+            "strength": 0.005373868034608176
+          },
+          {
+            "frame": 477,
+            "type": "top",
+            "strength": 0.00735758511787508
+          },
+          {
+            "frame": 482,
             "type": "top",
             "strength": 0
           },
           {
             "frame": 483,
             "type": "top",
-            "strength": 0
+            "strength": 0.014880285246524409
           },
           {
-            "frame": 486,
+            "frame": 487,
             "type": "top",
-            "strength": 0
+            "strength": 0.02427400779843923
           },
           {
-            "frame": 491,
+            "frame": 495,
             "type": "top",
-            "strength": 0.004386389632345961
+            "strength": 0.037799331306796344
           },
           {
-            "frame": 516,
+            "frame": 496,
             "type": "top",
-            "strength": 0.0068331680101593045
+            "strength": 0.015181813496674447
+          },
+          {
+            "frame": 498,
+            "type": "top",
+            "strength": 0.004260696643417723
+          },
+          {
+            "frame": 501,
+            "type": "top",
+            "strength": 0.004840395228745241
+          },
+          {
+            "frame": 507,
+            "type": "top",
+            "strength": 0.008695024030217562
+          },
+          {
+            "frame": 515,
+            "type": "top",
+            "strength": 0.0206583140792381
+          },
+          {
+            "frame": 522,
+            "type": "top",
+            "strength": 0.024552874826050407
           },
           {
             "frame": 524,
             "type": "top",
-            "strength": 0.0107464702372811
-          },
-          {
-            "frame": 526,
-            "type": "top",
-            "strength": 0
-          },
-          {
-            "frame": 532,
-            "type": "top",
-            "strength": 0.010256929861930131
-          },
-          {
-            "frame": 550,
-            "type": "top",
-            "strength": 0.007325491764783891
-          },
-          {
-            "frame": 552,
-            "type": "top",
-            "strength": 0.00002492658968155423
-          },
-          {
-            "frame": 570,
-            "type": "top",
-            "strength": 0.00002946113002677996
+            "strength": 0.013880569101216605
           }
         ]
       },
@@ -2075,791 +2840,1281 @@
         ],
         "bakePath": "battle-bakes/world-powers-r2.bin",
         "survivorOrder": [
-          5,
           7,
-          1,
           9,
-          3,
-          2,
           0,
           6,
-          8,
-          4
+          4,
+          2,
+          5,
+          3,
+          1,
+          8
         ],
         "eliminationFrames": [
-          377,
-          551,
-          387,
-          456,
-          351,
-          618,
+          512,
+          307,
+          446,
           362,
-          584,
-          361,
-          504
+          456,
+          407,
+          471,
+          597,
+          298,
+          559
         ],
-        "battleFrames": 660,
-        "winnerIndex": 25,
+        "battleFrames": 635,
+        "winnerIndex": 27,
         "collisions": [
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3975199877345466
+            "strength": 0.35387585919102954
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6239724183395832
+            "strength": 0.5700200221968591
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.8771857986173027
+            "strength": 0.7748005851605739
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.751593748429947
+            "strength": 0.708532287345231
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6029426190367007
+            "strength": 0.5519124035046213
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.751593748429947
+            "strength": 0.708532287345231
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6682173490102538
+            "strength": 0.6327594457811819
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.5092827659462403
+            "strength": 0.5547245648709808
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6682173490102538
+            "strength": 0.6327594457811819
           },
           {
-            "frame": 0,
+            "frame": 1,
             "type": "top",
-            "strength": 0.7304933309827908
+            "strength": 0.5813761772828163
           },
           {
-            "frame": 16,
+            "frame": 19,
             "type": "wall",
-            "strength": 0.36236919912744636
+            "strength": 0.5230539418564714
           },
           {
-            "frame": 17,
+            "frame": 24,
             "type": "wall",
-            "strength": 0.42216770140303683
+            "strength": 0.2355592816150186
           },
           {
-            "frame": 26,
-            "type": "top",
-            "strength": 0.5194604769349256
-          },
-          {
-            "frame": 26,
-            "type": "top",
-            "strength": 0.5231414561141438
+            "frame": 29,
+            "type": "wall",
+            "strength": 0.22086658900364564
           },
           {
             "frame": 42,
             "type": "top",
-            "strength": 0.5234932475252827
-          },
-          {
-            "frame": 51,
-            "type": "wall",
-            "strength": 0.06193275895077992
+            "strength": 0.22309774051726977
           },
           {
             "frame": 53,
             "type": "top",
-            "strength": 0.27059747476973806
-          },
-          {
-            "frame": 57,
-            "type": "wall",
-            "strength": 0.14908985857520396
-          },
-          {
-            "frame": 63,
-            "type": "wall",
-            "strength": 0.1797073362476581
-          },
-          {
-            "frame": 65,
-            "type": "wall",
-            "strength": 0.10528797617470026
-          },
-          {
-            "frame": 65,
-            "type": "wall",
-            "strength": 0.10767391947157669
-          },
-          {
-            "frame": 66,
-            "type": "wall",
-            "strength": 0.2200039986694111
+            "strength": 0.45800650116570324
           },
           {
             "frame": 68,
             "type": "wall",
-            "strength": 0.46737393603545146
+            "strength": 0.6305765700614369
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.3239600419093206
           },
           {
             "frame": 70,
             "type": "wall",
-            "strength": 0.37814468353945807
+            "strength": 0.514394416106377
           },
           {
-            "frame": 70,
+            "frame": 71,
             "type": "wall",
-            "strength": 0.247736232504845
+            "strength": 0.47950014636737387
           },
           {
-            "frame": 70,
-            "type": "wall",
-            "strength": 0.35581556550878773
+            "frame": 71,
+            "type": "top",
+            "strength": 0.4847140314384669
+          },
+          {
+            "frame": 72,
+            "type": "top",
+            "strength": 0.2638066532655853
           },
           {
             "frame": 72,
             "type": "wall",
-            "strength": 0.24283876254037814
+            "strength": 0.4282101869302286
           },
           {
             "frame": 72,
             "type": "wall",
-            "strength": 0.22902899593897263
-          },
-          {
-            "frame": 72,
-            "type": "wall",
-            "strength": 0.32543747662570366
+            "strength": 0.6268573637865135
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.5439769224924514
-          },
-          {
-            "frame": 73,
-            "type": "top",
-            "strength": 0.4078957675190973
+            "strength": 0.20352280903904998
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.3740467423883548
+            "strength": 0.44831361340107984
           },
           {
-            "frame": 78,
-            "type": "top",
-            "strength": 0.33539567188741704
-          },
-          {
-            "frame": 82,
-            "type": "top",
-            "strength": 0.3616744697472974
-          },
-          {
-            "frame": 84,
-            "type": "top",
-            "strength": 0.5762114232367725
-          },
-          {
-            "frame": 94,
-            "type": "top",
-            "strength": 0.6684662799581027
-          },
-          {
-            "frame": 97,
+            "frame": 73,
             "type": "wall",
-            "strength": 0.1706772600769964
+            "strength": 0.2885960858447033
+          },
+          {
+            "frame": 73,
+            "type": "wall",
+            "strength": 0.25452785416450785
+          },
+          {
+            "frame": 77,
+            "type": "top",
+            "strength": 0.28132547400147595
+          },
+          {
+            "frame": 88,
+            "type": "top",
+            "strength": 0.589417109917314
+          },
+          {
+            "frame": 93,
+            "type": "top",
+            "strength": 0.8889521360148146
+          },
+          {
+            "frame": 96,
+            "type": "top",
+            "strength": 0.6073407464329862
+          },
+          {
+            "frame": 96,
+            "type": "wall",
+            "strength": 0.8331074389104997
+          },
+          {
+            "frame": 100,
+            "type": "wall",
+            "strength": 0.35952290753595784
+          },
+          {
+            "frame": 100,
+            "type": "top",
+            "strength": 0.7200562356297245
           },
           {
             "frame": 102,
+            "type": "wall",
+            "strength": 0.23264788392319752
+          },
+          {
+            "frame": 104,
+            "type": "wall",
+            "strength": 0.3215323515213317
+          },
+          {
+            "frame": 104,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 105,
+            "type": "wall",
+            "strength": 0.32677778478701214
+          },
+          {
+            "frame": 106,
             "type": "top",
-            "strength": 0.6285734442656966
+            "strength": 0.47847301307527274
           },
           {
             "frame": 108,
             "type": "wall",
-            "strength": 0.6586931784094365
+            "strength": 0.12022409936796134
           },
           {
-            "frame": 128,
+            "frame": 109,
+            "type": "wall",
+            "strength": 0.1265015069832575
+          },
+          {
+            "frame": 113,
             "type": "top",
-            "strength": 0.5269407623040291
+            "strength": 0.7342677322455317
+          },
+          {
+            "frame": 117,
+            "type": "wall",
+            "strength": 0.3065683850118772
+          },
+          {
+            "frame": 117,
+            "type": "top",
+            "strength": 0.5719253586909757
+          },
+          {
+            "frame": 118,
+            "type": "top",
+            "strength": 0.5929852934794841
+          },
+          {
+            "frame": 119,
+            "type": "top",
+            "strength": 0.42362125222282504
+          },
+          {
+            "frame": 120,
+            "type": "top",
+            "strength": 0.5597410470378927
+          },
+          {
+            "frame": 121,
+            "type": "top",
+            "strength": 0.2401736948364339
+          },
+          {
+            "frame": 122,
+            "type": "top",
+            "strength": 0.3331016395712412
+          },
+          {
+            "frame": 123,
+            "type": "top",
+            "strength": 0.4014170572017089
+          },
+          {
+            "frame": 126,
+            "type": "top",
+            "strength": 0.3779807485263298
+          },
+          {
+            "frame": 126,
+            "type": "wall",
+            "strength": 0.3918746265984556
+          },
+          {
+            "frame": 127,
+            "type": "wall",
+            "strength": 0.3453114803771307
+          },
+          {
+            "frame": 127,
+            "type": "top",
+            "strength": 0.3394574102705023
+          },
+          {
+            "frame": 129,
+            "type": "top",
+            "strength": 0.5454672462852806
+          },
+          {
+            "frame": 132,
+            "type": "wall",
+            "strength": 0.5647312691919304
+          },
+          {
+            "frame": 133,
+            "type": "top",
+            "strength": 0.48434228114060035
+          },
+          {
+            "frame": 135,
+            "type": "wall",
+            "strength": 0.5218107752331137
           },
           {
             "frame": 136,
             "type": "top",
-            "strength": 0.491004272972848
+            "strength": 0.51740042617643
+          },
+          {
+            "frame": 136,
+            "type": "top",
+            "strength": 0.6012934661988562
           },
           {
             "frame": 137,
+            "type": "wall",
+            "strength": 0.43417658443204077
+          },
+          {
+            "frame": 138,
             "type": "top",
-            "strength": 0.5601282786686476
+            "strength": 0.6739861111079581
+          },
+          {
+            "frame": 140,
+            "type": "top",
+            "strength": 0.48670188854594787
+          },
+          {
+            "frame": 142,
+            "type": "wall",
+            "strength": 0.38338114876264173
           },
           {
             "frame": 143,
             "type": "top",
-            "strength": 0.8600798820857558
+            "strength": 0.6733821370767333
           },
           {
-            "frame": 143,
+            "frame": 144,
             "type": "top",
-            "strength": 1
+            "strength": 0.21797332639897396
           },
           {
             "frame": 145,
             "type": "top",
-            "strength": 1
+            "strength": 0.34062013605326236
+          },
+          {
+            "frame": 146,
+            "type": "wall",
+            "strength": 0.33377502381417357
+          },
+          {
+            "frame": 148,
+            "type": "wall",
+            "strength": 0.28934767987018295
           },
           {
             "frame": 149,
             "type": "top",
-            "strength": 0.39881003213713667
+            "strength": 0.40725594866348147
           },
           {
-            "frame": 150,
-            "type": "wall",
-            "strength": 1
-          },
-          {
-            "frame": 156,
-            "type": "wall",
-            "strength": 1
-          },
-          {
-            "frame": 156,
+            "frame": 151,
             "type": "top",
-            "strength": 0.24851822887102806
+            "strength": 0.6241172864201189
+          },
+          {
+            "frame": 152,
+            "type": "wall",
+            "strength": 0.45883979999174235
+          },
+          {
+            "frame": 152,
+            "type": "wall",
+            "strength": 0.4571122614842405
+          },
+          {
+            "frame": 157,
+            "type": "top",
+            "strength": 0.49587714922736725
           },
           {
             "frame": 159,
             "type": "wall",
-            "strength": 1
+            "strength": 0.4750286466440795
           },
           {
-            "frame": 159,
+            "frame": 163,
             "type": "top",
-            "strength": 0.2874118237947892
+            "strength": 0.42579386454613444
+          },
+          {
+            "frame": 164,
+            "type": "wall",
+            "strength": 0.430980160497473
           },
           {
             "frame": 164,
             "type": "top",
-            "strength": 0.4802243011815549
+            "strength": 0.35986814875019496
+          },
+          {
+            "frame": 167,
+            "type": "top",
+            "strength": 0.48089516784668473
+          },
+          {
+            "frame": 170,
+            "type": "top",
+            "strength": 0.4679835507143375
           },
           {
             "frame": 171,
             "type": "top",
-            "strength": 1
+            "strength": 0.6795241177960872
           },
           {
-            "frame": 179,
+            "frame": 172,
+            "type": "top",
+            "strength": 0.4316884921311538
+          },
+          {
+            "frame": 176,
             "type": "wall",
-            "strength": 0.8665346634170814
+            "strength": 0.5704045604226101
+          },
+          {
+            "frame": 180,
+            "type": "top",
+            "strength": 0.4244903125611876
           },
           {
             "frame": 181,
-            "type": "wall",
-            "strength": 1
+            "type": "top",
+            "strength": 0.3710098487788938
           },
           {
             "frame": 182,
-            "type": "top",
-            "strength": 0.36803459991105353
+            "type": "wall",
+            "strength": 0.43219003427686026
           },
           {
             "frame": 183,
+            "type": "wall",
+            "strength": 0.3566612300399567
+          },
+          {
+            "frame": 190,
             "type": "top",
-            "strength": 0.2304561227748467
-          },
-          {
-            "frame": 186,
-            "type": "wall",
-            "strength": 0.7686697626014727
-          },
-          {
-            "frame": 187,
-            "type": "wall",
-            "strength": 0.12019267512557263
+            "strength": 0.17456811668514283
           },
           {
             "frame": 191,
-            "type": "wall",
-            "strength": 0.738231493303072
-          },
-          {
-            "frame": 203,
             "type": "top",
-            "strength": 0.1990334814575449
+            "strength": 0.0999954927407341
           },
           {
-            "frame": 204,
-            "type": "wall",
-            "strength": 0.7878158230844307
-          },
-          {
-            "frame": 211,
+            "frame": 192,
             "type": "top",
-            "strength": 0.27454434143088996
+            "strength": 0.2645386767901028
           },
           {
-            "frame": 214,
+            "frame": 193,
             "type": "top",
-            "strength": 0.20900534652202796
+            "strength": 0.4112266521331954
           },
           {
-            "frame": 216,
+            "frame": 195,
+            "type": "top",
+            "strength": 0.22944237403908793
+          },
+          {
+            "frame": 197,
+            "type": "top",
+            "strength": 0.22535389170259013
+          },
+          {
+            "frame": 199,
+            "type": "top",
+            "strength": 0.18959879945878294
+          },
+          {
+            "frame": 205,
             "type": "wall",
-            "strength": 0.623142840268458
+            "strength": 0.37095763281136646
+          },
+          {
+            "frame": 207,
+            "type": "top",
+            "strength": 0.11204215875478452
+          },
+          {
+            "frame": 208,
+            "type": "top",
+            "strength": 0.20815717442376558
+          },
+          {
+            "frame": 210,
+            "type": "top",
+            "strength": 0.3685239024318065
           },
           {
             "frame": 217,
             "type": "top",
-            "strength": 0.24685767825439528
+            "strength": 0.38417228375598295
           },
           {
-            "frame": 220,
+            "frame": 221,
             "type": "top",
-            "strength": 0.12971176225028272
+            "strength": 0.27036884937949246
+          },
+          {
+            "frame": 222,
+            "type": "top",
+            "strength": 0.19386434379849543
           },
           {
             "frame": 224,
             "type": "top",
-            "strength": 0.5980816928165321
+            "strength": 0.1885126684508659
           },
           {
-            "frame": 228,
+            "frame": 227,
             "type": "top",
-            "strength": 0.4419507725979947
+            "strength": 0.24370335261978168
           },
           {
-            "frame": 232,
+            "frame": 230,
             "type": "top",
-            "strength": 0.7478641735758097
+            "strength": 0.07665489635206231
           },
           {
-            "frame": 233,
+            "frame": 231,
             "type": "top",
-            "strength": 0.11797577172739838
+            "strength": 0.09470025761846089
+          },
+          {
+            "frame": 231,
+            "type": "top",
+            "strength": 0.09622876999952347
+          },
+          {
+            "frame": 234,
+            "type": "top",
+            "strength": 0.3540092726173429
+          },
+          {
+            "frame": 234,
+            "type": "top",
+            "strength": 0.10637746469737702
+          },
+          {
+            "frame": 236,
+            "type": "top",
+            "strength": 0.23023898491058628
           },
           {
             "frame": 238,
             "type": "top",
-            "strength": 0.6209346629934753
+            "strength": 0.23124924058198057
           },
           {
             "frame": 240,
             "type": "top",
-            "strength": 0.5537124636654013
+            "strength": 0.16530257958997116
           },
           {
-            "frame": 242,
+            "frame": 240,
             "type": "top",
-            "strength": 0.5116713419910087
+            "strength": 0.22196460144790262
+          },
+          {
+            "frame": 240,
+            "type": "top",
+            "strength": 0.2205224073493472
+          },
+          {
+            "frame": 241,
+            "type": "top",
+            "strength": 0.10967353586454023
           },
           {
             "frame": 245,
             "type": "top",
-            "strength": 0.14903871305653507
+            "strength": 0.09476040597397496
           },
           {
             "frame": 246,
             "type": "top",
-            "strength": 0.14659169389053447
+            "strength": 0.3701765009486656
           },
           {
-            "frame": 253,
-            "type": "wall",
-            "strength": 0.3609981526642347
-          },
-          {
-            "frame": 259,
+            "frame": 261,
             "type": "top",
-            "strength": 0.5062200934957344
+            "strength": 0.02195110525093845
           },
           {
-            "frame": 263,
+            "frame": 264,
             "type": "top",
-            "strength": 0.44775766069378564
+            "strength": 0.6108670961050929
           },
           {
-            "frame": 267,
+            "frame": 265,
             "type": "top",
-            "strength": 0.3990681957138879
-          },
-          {
-            "frame": 270,
-            "type": "top",
-            "strength": 0.14063299749306127
+            "strength": 0.20873909381559036
           },
           {
             "frame": 271,
-            "type": "wall",
-            "strength": 0.1546798534966876
+            "type": "top",
+            "strength": 0.2271012270105292
+          },
+          {
+            "frame": 272,
+            "type": "top",
+            "strength": 0.15113710489768473
+          },
+          {
+            "frame": 273,
+            "type": "top",
+            "strength": 0.18906122010181867
           },
           {
             "frame": 274,
             "type": "top",
-            "strength": 0.2957085813791487
+            "strength": 0.5277670482396211
           },
           {
             "frame": 275,
-            "type": "wall",
-            "strength": 0.2717459514670461
+            "type": "top",
+            "strength": 0.43985556403719167
+          },
+          {
+            "frame": 276,
+            "type": "top",
+            "strength": 0.1827081619790969
+          },
+          {
+            "frame": 278,
+            "type": "top",
+            "strength": 0.1889937952344121
           },
           {
             "frame": 281,
             "type": "top",
-            "strength": 0.11196479595447424
+            "strength": 0.22293971629376408
           },
           {
-            "frame": 282,
+            "frame": 281,
             "type": "top",
-            "strength": 0.18850237201866188
+            "strength": 0.14633955655524997
           },
           {
             "frame": 283,
             "type": "top",
-            "strength": 0.25615761970013384
+            "strength": 0.1421359661290069
+          },
+          {
+            "frame": 285,
+            "type": "top",
+            "strength": 0.06948062377775029
+          },
+          {
+            "frame": 289,
+            "type": "top",
+            "strength": 0.08874488359943056
+          },
+          {
+            "frame": 289,
+            "type": "top",
+            "strength": 0.24413178692846624
           },
           {
             "frame": 290,
             "type": "top",
-            "strength": 0.16771649455164156
+            "strength": 0.25658292224727497
           },
           {
-            "frame": 293,
+            "frame": 291,
             "type": "top",
-            "strength": 0.14287406102613942
+            "strength": 0.2451302994618548
           },
           {
-            "frame": 300,
+            "frame": 292,
             "type": "top",
-            "strength": 0.10528079402878114
+            "strength": 0.06468336761636764
+          },
+          {
+            "frame": 294,
+            "type": "top",
+            "strength": 0.10763197437110725
+          },
+          {
+            "frame": 294,
+            "type": "wall",
+            "strength": 0.33521072797996027
+          },
+          {
+            "frame": 296,
+            "type": "top",
+            "strength": 0.2292629222902714
+          },
+          {
+            "frame": 298,
+            "type": "top",
+            "strength": 0.09241487755621805
+          },
+          {
+            "frame": 299,
+            "type": "top",
+            "strength": 0.06146861631849742
+          },
+          {
+            "frame": 303,
+            "type": "top",
+            "strength": 0.06428396986996544
+          },
+          {
+            "frame": 305,
+            "type": "top",
+            "strength": 0.10473670292809266
+          },
+          {
+            "frame": 305,
+            "type": "top",
+            "strength": 0.04903893967954558
+          },
+          {
+            "frame": 307,
+            "type": "top",
+            "strength": 0.12169640683364367
+          },
+          {
+            "frame": 308,
+            "type": "top",
+            "strength": 0.07274195302386256
           },
           {
             "frame": 309,
             "type": "top",
-            "strength": 0.22890410991853039
+            "strength": 0.08260957719502644
           },
           {
-            "frame": 311,
+            "frame": 314,
             "type": "top",
-            "strength": 0.16587708961741449
+            "strength": 0.07014301099372584
           },
           {
-            "frame": 313,
+            "frame": 319,
             "type": "top",
-            "strength": 0.1198079923098837
+            "strength": 0.08642828730186305
           },
           {
-            "frame": 315,
+            "frame": 325,
             "type": "top",
-            "strength": 0.14004525560868314
-          },
-          {
-            "frame": 321,
-            "type": "top",
-            "strength": 0.09841740545100512
-          },
-          {
-            "frame": 323,
-            "type": "top",
-            "strength": 0.23853202367928325
-          },
-          {
-            "frame": 323,
-            "type": "wall",
-            "strength": 0.0973746073049097
+            "strength": 0.07996678324902762
           },
           {
             "frame": 327,
             "type": "top",
-            "strength": 0.033961492749634954
+            "strength": 0.1402476819622386
+          },
+          {
+            "frame": 328,
+            "type": "top",
+            "strength": 0.10316978649056352
           },
           {
             "frame": 329,
             "type": "top",
-            "strength": 0.018124774092341017
+            "strength": 0.017585803820138315
           },
           {
             "frame": 329,
             "type": "top",
-            "strength": 0.07673271610683584
+            "strength": 0.07216471654940361
           },
           {
-            "frame": 335,
+            "frame": 332,
             "type": "top",
-            "strength": 0.041846230436343175
+            "strength": 0.18350448385815385
           },
           {
-            "frame": 335,
+            "frame": 333,
             "type": "top",
-            "strength": 0.020082121292188868
+            "strength": 0.2046427299971484
           },
           {
-            "frame": 341,
+            "frame": 334,
             "type": "top",
-            "strength": 0.019986622184724738
+            "strength": 0.1848714362872293
           },
           {
-            "frame": 342,
+            "frame": 337,
             "type": "top",
-            "strength": 0.019036212285976316
+            "strength": 0.05541064357045627
           },
           {
-            "frame": 344,
+            "frame": 340,
             "type": "top",
-            "strength": 0.010641270171081263
+            "strength": 0.2808931889346821
           },
           {
-            "frame": 347,
+            "frame": 340,
             "type": "top",
-            "strength": 0.006139748073041155
+            "strength": 0.15920261238084957
           },
           {
-            "frame": 349,
+            "frame": 348,
             "type": "top",
-            "strength": 0.1255975173278482
-          },
-          {
-            "frame": 349,
-            "type": "top",
-            "strength": 0.08898348902867205
-          },
-          {
-            "frame": 350,
-            "type": "top",
-            "strength": 0.13483280419908894
+            "strength": 0.16817679145032044
           },
           {
             "frame": 353,
             "type": "top",
-            "strength": 0.13013923012715842
+            "strength": 0.06907928125226998
           },
           {
-            "frame": 368,
+            "frame": 356,
             "type": "top",
-            "strength": 0.22176778503949007
+            "strength": 0.0688860962864529
           },
           {
-            "frame": 370,
+            "frame": 359,
             "type": "top",
-            "strength": 0.12349464991389501
+            "strength": 0.04486195468634299
           },
           {
-            "frame": 372,
+            "frame": 360,
             "type": "top",
-            "strength": 0.11727277263947486
+            "strength": 0.23453931046413068
           },
           {
-            "frame": 372,
+            "frame": 360,
             "type": "top",
-            "strength": 0.1444748651990062
+            "strength": 0.10194527846256936
+          },
+          {
+            "frame": 360,
+            "type": "top",
+            "strength": 0.06761256219833983
+          },
+          {
+            "frame": 361,
+            "type": "top",
+            "strength": 0.2149724354036099
+          },
+          {
+            "frame": 363,
+            "type": "top",
+            "strength": 0.1227199694070632
+          },
+          {
+            "frame": 365,
+            "type": "top",
+            "strength": 0.18437743490000885
+          },
+          {
+            "frame": 365,
+            "type": "top",
+            "strength": 0.06990060147291098
+          },
+          {
+            "frame": 369,
+            "type": "top",
+            "strength": 0.14180948687338937
+          },
+          {
+            "frame": 371,
+            "type": "top",
+            "strength": 0.05869279746100624
+          },
+          {
+            "frame": 373,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 373,
+            "type": "top",
+            "strength": 0.110254301059638
           },
           {
             "frame": 374,
             "type": "top",
-            "strength": 0.14887541352885347
+            "strength": 0.03790614230215195
           },
           {
-            "frame": 378,
+            "frame": 374,
             "type": "top",
-            "strength": 0.23078221766253862
+            "strength": 0.10988183706096061
+          },
+          {
+            "frame": 376,
+            "type": "top",
+            "strength": 0.11272069717873005
+          },
+          {
+            "frame": 376,
+            "type": "top",
+            "strength": 0.10844988670737013
+          },
+          {
+            "frame": 377,
+            "type": "top",
+            "strength": 0.06909190140317555
+          },
+          {
+            "frame": 379,
+            "type": "top",
+            "strength": 0.08768295200635674
+          },
+          {
+            "frame": 379,
+            "type": "top",
+            "strength": 0.03941262171797467
+          },
+          {
+            "frame": 382,
+            "type": "top",
+            "strength": 0.10453164765385886
+          },
+          {
+            "frame": 387,
+            "type": "top",
+            "strength": 0.055938256133010955
           },
           {
             "frame": 388,
             "type": "top",
-            "strength": 0.22279840221149805
+            "strength": 0.07839113564736888
           },
           {
             "frame": 392,
             "type": "top",
-            "strength": 0.1587097288407255
+            "strength": 0.04327811010763337
           },
           {
-            "frame": 394,
+            "frame": 396,
             "type": "top",
-            "strength": 0.014367831248284333
+            "strength": 0.03188402887133523
           },
           {
-            "frame": 395,
+            "frame": 396,
             "type": "top",
-            "strength": 0
+            "strength": 0.07101204922690257
           },
           {
-            "frame": 398,
+            "frame": 399,
             "type": "top",
-            "strength": 0.10922953705244112
+            "strength": 0.004035740099796175
+          },
+          {
+            "frame": 402,
+            "type": "top",
+            "strength": 0.07637460846349614
+          },
+          {
+            "frame": 403,
+            "type": "top",
+            "strength": 0.04333384691807507
+          },
+          {
+            "frame": 403,
+            "type": "top",
+            "strength": 0.045307681221276076
+          },
+          {
+            "frame": 403,
+            "type": "top",
+            "strength": 0.04308502547558042
+          },
+          {
+            "frame": 408,
+            "type": "top",
+            "strength": 0.03617615317208434
+          },
+          {
+            "frame": 409,
+            "type": "top",
+            "strength": 0.06419236365678856
           },
           {
             "frame": 411,
             "type": "top",
-            "strength": 0.05550348662931541
+            "strength": 0.05535314283243371
           },
           {
-            "frame": 419,
-            "type": "top",
-            "strength": 0.10626598850805201
-          },
-          {
-            "frame": 420,
-            "type": "top",
-            "strength": 0.12446715478005015
-          },
-          {
-            "frame": 421,
-            "type": "top",
-            "strength": 0.15493107878760207
-          },
-          {
-            "frame": 423,
-            "type": "top",
-            "strength": 0.055276367874985965
-          },
-          {
-            "frame": 429,
-            "type": "top",
-            "strength": 0.024537469755600984
-          },
-          {
-            "frame": 431,
-            "type": "top",
-            "strength": 0.08575593858354244
-          },
-          {
-            "frame": 436,
-            "type": "top",
-            "strength": 0.036815796576652016
-          },
-          {
-            "frame": 448,
-            "type": "top",
-            "strength": 0.0704960966782591
-          },
-          {
-            "frame": 453,
-            "type": "top",
-            "strength": 0.03160151566341156
-          },
-          {
-            "frame": 460,
-            "type": "top",
-            "strength": 0.02332426127900293
-          },
-          {
-            "frame": 462,
-            "type": "top",
-            "strength": 0.015755088160248298
-          },
-          {
-            "frame": 463,
+            "frame": 411,
             "type": "top",
             "strength": 0
           },
           {
-            "frame": 471,
+            "frame": 411,
             "type": "top",
-            "strength": 0.024582692126346128
+            "strength": 0.026721022782967445
+          },
+          {
+            "frame": 413,
+            "type": "top",
+            "strength": 0.02840786590380632
+          },
+          {
+            "frame": 413,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 417,
+            "type": "top",
+            "strength": 0.04595029505867686
+          },
+          {
+            "frame": 417,
+            "type": "top",
+            "strength": 0.007359194789427115
+          },
+          {
+            "frame": 418,
+            "type": "top",
+            "strength": 0.0245773623890373
+          },
+          {
+            "frame": 419,
+            "type": "top",
+            "strength": 0.033207746449786406
+          },
+          {
+            "frame": 419,
+            "type": "top",
+            "strength": 0.014411489316772094
+          },
+          {
+            "frame": 420,
+            "type": "top",
+            "strength": 0.051194830055352816
+          },
+          {
+            "frame": 422,
+            "type": "top",
+            "strength": 0.06387630042945923
+          },
+          {
+            "frame": 426,
+            "type": "top",
+            "strength": 0.07521125973389514
+          },
+          {
+            "frame": 429,
+            "type": "top",
+            "strength": 0.012662952198332066
+          },
+          {
+            "frame": 431,
+            "type": "top",
+            "strength": 0.027584566944290387
+          },
+          {
+            "frame": 442,
+            "type": "top",
+            "strength": 0.009910398412405713
+          },
+          {
+            "frame": 445,
+            "type": "top",
+            "strength": 0.017961354064273818
+          },
+          {
+            "frame": 447,
+            "type": "top",
+            "strength": 0.022432176740494036
+          },
+          {
+            "frame": 450,
+            "type": "top",
+            "strength": 0.04546054961928378
+          },
+          {
+            "frame": 450,
+            "type": "top",
+            "strength": 0.026929376187828886
+          },
+          {
+            "frame": 451,
+            "type": "top",
+            "strength": 0.03660473381970261
+          },
+          {
+            "frame": 453,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 454,
+            "type": "top",
+            "strength": 0.020038292452750156
+          },
+          {
+            "frame": 455,
+            "type": "top",
+            "strength": 0.03083098736683386
+          },
+          {
+            "frame": 464,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 465,
+            "type": "top",
+            "strength": 0.007572635555313453
+          },
+          {
+            "frame": 466,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 467,
+            "type": "top",
+            "strength": 0.0026214462108380553
+          },
+          {
+            "frame": 470,
+            "type": "top",
+            "strength": 0.027709695310513125
+          },
+          {
+            "frame": 470,
+            "type": "top",
+            "strength": 0.011852125806091737
+          },
+          {
+            "frame": 470,
+            "type": "top",
+            "strength": 0
           },
           {
             "frame": 474,
             "type": "top",
-            "strength": 0.048875260803123786
+            "strength": 0.020454515404273694
           },
           {
-            "frame": 474,
+            "frame": 476,
             "type": "top",
-            "strength": 0.017275655008762016
+            "strength": 0.01670259286203742
           },
           {
-            "frame": 489,
+            "frame": 476,
             "type": "top",
-            "strength": 0.023024265479682803
+            "strength": 0.019652480449942358
+          },
+          {
+            "frame": 476,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 477,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 482,
+            "type": "top",
+            "strength": 0.004356368494650133
+          },
+          {
+            "frame": 483,
+            "type": "top",
+            "strength": 0.0035880086706110495
+          },
+          {
+            "frame": 484,
+            "type": "top",
+            "strength": 0.0011903958009388603
+          },
+          {
+            "frame": 490,
+            "type": "top",
+            "strength": 0.02127177313902309
           },
           {
             "frame": 491,
             "type": "top",
-            "strength": 0.04667165962971051
+            "strength": 0.021974274254113347
+          },
+          {
+            "frame": 492,
+            "type": "top",
+            "strength": 0.0044055484752423685
+          },
+          {
+            "frame": 493,
+            "type": "top",
+            "strength": 0
           },
           {
             "frame": 494,
             "type": "top",
-            "strength": 0.005225081429369585
+            "strength": 0.01548903733266216
           },
           {
-            "frame": 496,
+            "frame": 498,
             "type": "top",
-            "strength": 0.05199620254878925
+            "strength": 0.020439754390463267
           },
           {
             "frame": 499,
             "type": "top",
-            "strength": 0.0123705175091604
+            "strength": 0.012299528834953185
           },
           {
-            "frame": 502,
+            "frame": 501,
             "type": "top",
-            "strength": 0.004919780960010575
+            "strength": 0.0014817711743409594
+          },
+          {
+            "frame": 506,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 507,
+            "type": "top",
+            "strength": 0.009085368895312144
           },
           {
             "frame": 509,
             "type": "top",
-            "strength": 0.003977243939602228
+            "strength": 0.001605838103071408
           },
           {
-            "frame": 513,
+            "frame": 510,
             "type": "top",
-            "strength": 0.043500515215883266
+            "strength": 0
+          },
+          {
+            "frame": 512,
+            "type": "top",
+            "strength": 0.02262088964673068
           },
           {
             "frame": 514,
             "type": "top",
-            "strength": 0.01341556455297552
-          },
-          {
-            "frame": 516,
-            "type": "top",
-            "strength": 0.02856165869061776
-          },
-          {
-            "frame": 529,
-            "type": "top",
-            "strength": 0.02016992569582189
-          },
-          {
-            "frame": 532,
-            "type": "top",
-            "strength": 0.009859588954995625
-          },
-          {
-            "frame": 542,
-            "type": "top",
-            "strength": 0.002493364436575858
+            "strength": 0.01866457261906667
           },
           {
             "frame": 550,
             "type": "top",
-            "strength": 0.009754071487363115
+            "strength": 0.017714948950262713
           },
           {
-            "frame": 596,
+            "frame": 569,
             "type": "top",
-            "strength": 0.002336917444344826
+            "strength": 0.012725357224741773
+          },
+          {
+            "frame": 588,
+            "type": "top",
+            "strength": 0.014176934402695048
           }
         ]
       },
@@ -2880,786 +4135,1226 @@
         ],
         "bakePath": "battle-bakes/world-powers-r3.bin",
         "survivorOrder": [
-          8,
-          0,
-          1,
-          2,
-          6,
-          4,
-          3,
-          9,
           5,
-          7
+          9,
+          7,
+          6,
+          1,
+          0,
+          3,
+          8,
+          4,
+          2
         ],
         "eliminationFrames": [
-          528,
+          451,
+          491,
+          336,
+          441,
+          355,
+          593,
+          511,
           515,
-          479,
-          408,
-          453,
-          373,
-          475,
-          371,
-          537,
-          396
+          400,
+          562
         ],
-        "battleFrames": 604,
-        "winnerIndex": 38,
+        "battleFrames": 638,
+        "winnerIndex": 35,
         "collisions": [
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.2991798702654582
+            "strength": 0.3120497218640848
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.32550692346412596
+            "strength": 0.3120497218640848
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.7964586941054581
+            "strength": 0.8111399938588553
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6633529227188623
+            "strength": 0.6438187031507565
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3643349157002337
+            "strength": 0.3806230193376973
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.3643349157002337
+            "strength": 0.3806230193376973
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.2786682307903507
+            "strength": 0.16940482609644386
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6633529227188623
+            "strength": 0.6438187031507565
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.32550692346412596
+            "strength": 0.21687480618628296
           },
           {
             "frame": 0,
             "type": "top",
-            "strength": 0.6382435203429095
+            "strength": 0.5431703106655896
           },
           {
-            "frame": 18,
+            "frame": 9,
+            "type": "top",
+            "strength": 0.4462464082062332
+          },
+          {
+            "frame": 22,
             "type": "wall",
-            "strength": 0.412834537979648
-          },
-          {
-            "frame": 24,
-            "type": "wall",
-            "strength": 0.07594715536735723
+            "strength": 0.06031748446318309
           },
           {
             "frame": 28,
             "type": "top",
-            "strength": 0.5343199530878747
+            "strength": 0.4325440937901535
           },
           {
             "frame": 31,
             "type": "top",
-            "strength": 0.6061434843748177
+            "strength": 0.4441010938603928
+          },
+          {
+            "frame": 31,
+            "type": "wall",
+            "strength": 0.0627597909624954
+          },
+          {
+            "frame": 40,
+            "type": "top",
+            "strength": 0.6018605079149
           },
           {
             "frame": 46,
-            "type": "wall",
-            "strength": 0.45768497761455673
+            "type": "top",
+            "strength": 0.4405100409855826
+          },
+          {
+            "frame": 50,
+            "type": "top",
+            "strength": 0.4502462961944679
           },
           {
             "frame": 52,
-            "type": "top",
-            "strength": 0.3097240446408033
-          },
-          {
-            "frame": 54,
-            "type": "top",
-            "strength": 0.23562319753198638
-          },
-          {
-            "frame": 54,
-            "type": "top",
-            "strength": 0.3088440381556978
-          },
-          {
-            "frame": 56,
-            "type": "top",
-            "strength": 0.7858077985903243
-          },
-          {
-            "frame": 56,
             "type": "wall",
-            "strength": 0.3797210966507754
+            "strength": 0.4021524170132979
           },
           {
-            "frame": 57,
+            "frame": 58,
+            "type": "wall",
+            "strength": 0.49033955035300436
+          },
+          {
+            "frame": 58,
             "type": "top",
-            "strength": 0.5820868171396694
+            "strength": 0.7167338662127192
+          },
+          {
+            "frame": 60,
+            "type": "top",
+            "strength": 0.49781736455038333
           },
           {
             "frame": 61,
             "type": "top",
-            "strength": 0.4284830520560802
+            "strength": 0.4019545563156032
           },
           {
-            "frame": 63,
-            "type": "wall",
-            "strength": 0.07563178357465218
-          },
-          {
-            "frame": 65,
-            "type": "wall",
-            "strength": 0.35839300636960414
-          },
-          {
-            "frame": 66,
-            "type": "wall",
-            "strength": 0.39486212872486276
-          },
-          {
-            "frame": 67,
-            "type": "wall",
-            "strength": 0.3800981896100666
-          },
-          {
-            "frame": 69,
-            "type": "wall",
-            "strength": 0.2992396735455966
-          },
-          {
-            "frame": 69,
-            "type": "wall",
-            "strength": 0.18743487808781062
-          },
-          {
-            "frame": 70,
-            "type": "wall",
-            "strength": 0.35211399708467184
-          },
-          {
-            "frame": 70,
-            "type": "wall",
-            "strength": 0.5043943294619012
-          },
-          {
-            "frame": 70,
+            "frame": 61,
             "type": "top",
-            "strength": 0.4354310445435377
+            "strength": 0.5277479326057609
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.4404649319423987
+          },
+          {
+            "frame": 69,
+            "type": "wall",
+            "strength": 0.38161678609350524
           },
           {
             "frame": 70,
             "type": "wall",
-            "strength": 0.26608295528240195
+            "strength": 0.6250315727875295
           },
           {
             "frame": 70,
             "type": "wall",
-            "strength": 0.4376648138538175
+            "strength": 0.24597876002714694
           },
           {
             "frame": 71,
             "type": "wall",
-            "strength": 0.19563138705974184
+            "strength": 0.2971887947113298
+          },
+          {
+            "frame": 71,
+            "type": "wall",
+            "strength": 0.4051689138670125
+          },
+          {
+            "frame": 71,
+            "type": "top",
+            "strength": 0.4025905459754954
           },
           {
             "frame": 72,
             "type": "wall",
-            "strength": 0.14721909465944596
+            "strength": 0.6191256298196417
           },
           {
-            "frame": 74,
+            "frame": 72,
             "type": "wall",
-            "strength": 0.7183080148971281
+            "strength": 0.398129592356366
           },
           {
-            "frame": 80,
+            "frame": 72,
             "type": "top",
-            "strength": 0.47095256289283893
+            "strength": 0.5073816563553393
           },
           {
-            "frame": 81,
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.6115676953002835
+          },
+          {
+            "frame": 72,
+            "type": "wall",
+            "strength": 0.3410204351466246
+          },
+          {
+            "frame": 73,
             "type": "top",
-            "strength": 0.5976642185301294
+            "strength": 0.2949947286310905
+          },
+          {
+            "frame": 73,
+            "type": "top",
+            "strength": 0.617362969596239
+          },
+          {
+            "frame": 75,
+            "type": "wall",
+            "strength": 0.3728482364733355
+          },
+          {
+            "frame": 79,
+            "type": "wall",
+            "strength": 0.28240077505496997
           },
           {
             "frame": 84,
-            "type": "top",
-            "strength": 0.49170433877445613
-          },
-          {
-            "frame": 84,
             "type": "wall",
-            "strength": 0.5316650947664615
+            "strength": 0.49753682358769785
           },
           {
-            "frame": 84,
-            "type": "wall",
-            "strength": 0.4794431939328988
-          },
-          {
-            "frame": 85,
+            "frame": 99,
             "type": "top",
-            "strength": 0.451447631235159
+            "strength": 0.46191476985925045
           },
           {
-            "frame": 86,
+            "frame": 99,
             "type": "wall",
-            "strength": 0.4748383464079952
+            "strength": 0.18263768678730705
           },
           {
-            "frame": 87,
+            "frame": 106,
             "type": "top",
-            "strength": 0.5032217196617886
+            "strength": 0.595163431142245
           },
           {
-            "frame": 87,
+            "frame": 109,
+            "type": "top",
+            "strength": 0.5748757460604376
+          },
+          {
+            "frame": 109,
+            "type": "top",
+            "strength": 0.7353371045770919
+          },
+          {
+            "frame": 117,
+            "type": "top",
+            "strength": 1
+          },
+          {
+            "frame": 117,
+            "type": "top",
+            "strength": 0.7080552247273187
+          },
+          {
+            "frame": 120,
+            "type": "top",
+            "strength": 0.9963013077405977
+          },
+          {
+            "frame": 120,
             "type": "wall",
-            "strength": 0.7860397368822908
+            "strength": 0.19947626111834602
           },
           {
-            "frame": 94,
-            "type": "top",
-            "strength": 0.8849952149164427
-          },
-          {
-            "frame": 102,
+            "frame": 122,
             "type": "wall",
-            "strength": 0.3337565668102575
+            "strength": 0.5516158599405928
           },
           {
-            "frame": 103,
-            "type": "top",
-            "strength": 0.38312567916245605
-          },
-          {
-            "frame": 114,
-            "type": "top",
-            "strength": 0.9443421946646372
-          },
-          {
-            "frame": 126,
+            "frame": 123,
             "type": "wall",
-            "strength": 0.6869673666192786
+            "strength": 0.9593932484980712
+          },
+          {
+            "frame": 124,
+            "type": "wall",
+            "strength": 0.7812245275857042
+          },
+          {
+            "frame": 124,
+            "type": "wall",
+            "strength": 0.5588437975969243
+          },
+          {
+            "frame": 125,
+            "type": "top",
+            "strength": 0.8016692856038529
+          },
+          {
+            "frame": 127,
+            "type": "wall",
+            "strength": 0.18702723381003214
           },
           {
             "frame": 129,
+            "type": "wall",
+            "strength": 0.6668126984632645
+          },
+          {
+            "frame": 133,
             "type": "top",
-            "strength": 0.2540615162484611
+            "strength": 0.6155017563104047
+          },
+          {
+            "frame": 135,
+            "type": "wall",
+            "strength": 0.5272914971370003
           },
           {
             "frame": 138,
-            "type": "top",
-            "strength": 0.4733058615056731
-          },
-          {
-            "frame": 147,
             "type": "wall",
-            "strength": 0.40312244305617373
+            "strength": 0.6220029986179045
           },
           {
-            "frame": 148,
+            "frame": 139,
+            "type": "wall",
+            "strength": 0.5526077756444838
+          },
+          {
+            "frame": 149,
             "type": "top",
-            "strength": 0.5453092760980723
+            "strength": 0.3341572314888766
           },
           {
             "frame": 152,
-            "type": "top",
-            "strength": 0.241229710396692
+            "type": "wall",
+            "strength": 0.03811967826027322
           },
           {
-            "frame": 156,
+            "frame": 155,
             "type": "top",
-            "strength": 0.4537458943634414
+            "strength": 0.3409343484568896
           },
           {
-            "frame": 171,
+            "frame": 157,
             "type": "top",
-            "strength": 0.2752515025468353
+            "strength": 0.44363556984455366
           },
           {
-            "frame": 171,
+            "frame": 158,
             "type": "top",
-            "strength": 0.22030559585925225
+            "strength": 0.6387169369897002
+          },
+          {
+            "frame": 160,
+            "type": "top",
+            "strength": 0.6961375552663748
+          },
+          {
+            "frame": 162,
+            "type": "wall",
+            "strength": 0.5778841885069995
+          },
+          {
+            "frame": 162,
+            "type": "top",
+            "strength": 0.5778841885069995
+          },
+          {
+            "frame": 163,
+            "type": "top",
+            "strength": 0.8580767790586868
+          },
+          {
+            "frame": 164,
+            "type": "wall",
+            "strength": 0.2204887793185946
+          },
+          {
+            "frame": 173,
+            "type": "top",
+            "strength": 0.5141101148427443
+          },
+          {
+            "frame": 174,
+            "type": "wall",
+            "strength": 0.6144998941102012
           },
           {
             "frame": 176,
             "type": "top",
-            "strength": 0.26266654360191377
+            "strength": 0.5125707063680104
           },
           {
-            "frame": 183,
+            "frame": 178,
             "type": "top",
-            "strength": 0.26352877169836086
+            "strength": 0.5738282186332365
           },
           {
-            "frame": 192,
+            "frame": 179,
             "type": "top",
-            "strength": 0.48965571077178266
+            "strength": 0.5343749683482869
           },
           {
-            "frame": 202,
+            "frame": 182,
+            "type": "top",
+            "strength": 0.2781093464442474
+          },
+          {
+            "frame": 185,
+            "type": "top",
+            "strength": 0.22931140959881877
+          },
+          {
+            "frame": 188,
+            "type": "top",
+            "strength": 0.20115131686266885
+          },
+          {
+            "frame": 190,
             "type": "wall",
-            "strength": 0.33386585197063423
+            "strength": 0.821310651392436
           },
           {
-            "frame": 203,
+            "frame": 193,
             "type": "top",
-            "strength": 0.26143002104321855
+            "strength": 0.18957462664107363
+          },
+          {
+            "frame": 196,
+            "type": "top",
+            "strength": 0.31061689658348224
+          },
+          {
+            "frame": 205,
+            "type": "wall",
+            "strength": 0.5347913304883659
+          },
+          {
+            "frame": 207,
+            "type": "top",
+            "strength": 0.22825727137290966
           },
           {
             "frame": 209,
-            "type": "top",
-            "strength": 0.19980316398643522
+            "type": "wall",
+            "strength": 0.438529990022486
           },
           {
-            "frame": 223,
+            "frame": 210,
             "type": "top",
-            "strength": 0.2075295022334708
+            "strength": 0.28555241373475854
+          },
+          {
+            "frame": 210,
+            "type": "top",
+            "strength": 0.506633371111425
+          },
+          {
+            "frame": 220,
+            "type": "top",
+            "strength": 0.19058248608621836
           },
           {
             "frame": 224,
             "type": "top",
-            "strength": 0.327084736909164
+            "strength": 0.6016451571645927
           },
           {
-            "frame": 228,
+            "frame": 234,
             "type": "top",
-            "strength": 0.21790044977858167
+            "strength": 0.563749830732753
           },
           {
-            "frame": 235,
+            "frame": 238,
             "type": "top",
-            "strength": 0.3736360320387861
+            "strength": 0.13704789891653738
           },
           {
-            "frame": 237,
-            "type": "top",
-            "strength": 0.2409516662322608
-          },
-          {
-            "frame": 239,
-            "type": "top",
-            "strength": 0.22492676463117278
-          },
-          {
-            "frame": 240,
-            "type": "top",
-            "strength": 0.46326866531878996
+            "frame": 241,
+            "type": "wall",
+            "strength": 0.11275672911988394
           },
           {
             "frame": 242,
             "type": "top",
-            "strength": 0.19593560081485104
+            "strength": 0.10227888189240107
           },
           {
-            "frame": 245,
-            "type": "top",
-            "strength": 0.3621177802314644
+            "frame": 249,
+            "type": "wall",
+            "strength": 0.46930042387350107
           },
           {
-            "frame": 248,
+            "frame": 250,
             "type": "top",
-            "strength": 0.22132747351100143
+            "strength": 0.29324077711491686
           },
           {
-            "frame": 254,
+            "frame": 251,
             "type": "top",
-            "strength": 0.13443803526102993
+            "strength": 0.31212300500770956
+          },
+          {
+            "frame": 253,
+            "type": "top",
+            "strength": 0.27485236127915014
+          },
+          {
+            "frame": 255,
+            "type": "top",
+            "strength": 0.3133145446460817
+          },
+          {
+            "frame": 258,
+            "type": "top",
+            "strength": 0.5619260879816205
+          },
+          {
+            "frame": 258,
+            "type": "top",
+            "strength": 0.24183148889454234
+          },
+          {
+            "frame": 260,
+            "type": "wall",
+            "strength": 0.24809856611455317
+          },
+          {
+            "frame": 266,
+            "type": "top",
+            "strength": 0.24501782976513609
+          },
+          {
+            "frame": 268,
+            "type": "top",
+            "strength": 0.1918643915244218
           },
           {
             "frame": 269,
             "type": "top",
-            "strength": 0.10757996394675166
+            "strength": 0.26555209215879266
+          },
+          {
+            "frame": 269,
+            "type": "wall",
+            "strength": 0.9889929968609733
           },
           {
             "frame": 274,
             "type": "top",
-            "strength": 0.16592405992591594
+            "strength": 0.2057689314742901
           },
           {
-            "frame": 274,
+            "frame": 275,
             "type": "top",
-            "strength": 0.1637187808077067
+            "strength": 0.3249454498687678
           },
           {
-            "frame": 277,
+            "frame": 276,
             "type": "top",
-            "strength": 0.15035774678003386
+            "strength": 0.23034831231799302
           },
           {
-            "frame": 277,
+            "frame": 276,
+            "type": "wall",
+            "strength": 0.29309821497449157
+          },
+          {
+            "frame": 276,
             "type": "top",
-            "strength": 0.15091672058196295
+            "strength": 0.1911695215629692
           },
           {
             "frame": 279,
             "type": "top",
-            "strength": 0.13227448193395577
-          },
-          {
-            "frame": 280,
-            "type": "top",
-            "strength": 0.13882328135466981
-          },
-          {
-            "frame": 281,
-            "type": "top",
-            "strength": 0.1553537844136768
-          },
-          {
-            "frame": 284,
-            "type": "top",
-            "strength": 0.08153837968230021
+            "strength": 0.31333283336848045
           },
           {
             "frame": 285,
             "type": "top",
-            "strength": 0.06065038225792221
+            "strength": 0.23431333771686963
           },
           {
-            "frame": 287,
+            "frame": 291,
             "type": "top",
-            "strength": 0.1471607387943537
+            "strength": 0.15206584081862026
           },
           {
-            "frame": 288,
+            "frame": 293,
             "type": "top",
-            "strength": 0.12927499081517338
+            "strength": 0.1071633629082731
           },
           {
-            "frame": 304,
+            "frame": 295,
             "type": "top",
-            "strength": 0.06741178489204917
+            "strength": 0.13022408342925976
           },
           {
-            "frame": 305,
+            "frame": 297,
             "type": "top",
-            "strength": 0.09212642926269163
+            "strength": 0.20701221019069352
           },
           {
-            "frame": 310,
+            "frame": 298,
             "type": "top",
-            "strength": 0.05920135363963049
+            "strength": 0.5586320587634795
           },
           {
-            "frame": 311,
+            "frame": 299,
             "type": "top",
-            "strength": 0.031733288584916454
+            "strength": 0.19978015873614952
           },
           {
-            "frame": 315,
+            "frame": 299,
             "type": "top",
-            "strength": 0.06012220309728379
+            "strength": 0.055138542163279056
           },
           {
-            "frame": 316,
+            "frame": 301,
             "type": "top",
-            "strength": 0.1512853906941092
+            "strength": 0.47350842303700047
+          },
+          {
+            "frame": 301,
+            "type": "top",
+            "strength": 0.3299455484428091
+          },
+          {
+            "frame": 302,
+            "type": "top",
+            "strength": 0.2760338169454924
+          },
+          {
+            "frame": 314,
+            "type": "wall",
+            "strength": 0.2609159861347621
           },
           {
             "frame": 317,
             "type": "top",
-            "strength": 0.14234687129814258
-          },
-          {
-            "frame": 318,
-            "type": "top",
-            "strength": 0.08485336838069661
-          },
-          {
-            "frame": 319,
-            "type": "top",
-            "strength": 0.07407153116684526
-          },
-          {
-            "frame": 320,
-            "type": "top",
-            "strength": 0.07022400851648174
+            "strength": 0.14952995192589272
           },
           {
             "frame": 321,
             "type": "top",
-            "strength": 0.07811462731948426
+            "strength": 0.14604297917825826
           },
           {
-            "frame": 321,
+            "frame": 322,
             "type": "top",
-            "strength": 0.15305580348008607
+            "strength": 0.1091343310110879
           },
           {
-            "frame": 329,
+            "frame": 322,
             "type": "top",
-            "strength": 0.11837291071147449
+            "strength": 0.29998293414827604
           },
           {
-            "frame": 330,
+            "frame": 325,
             "type": "top",
-            "strength": 0.10424873283210746
+            "strength": 0.24937421349239727
           },
           {
-            "frame": 333,
+            "frame": 327,
             "type": "top",
-            "strength": 0.11227750522015907
+            "strength": 0.2373099692013087
+          },
+          {
+            "frame": 327,
+            "type": "top",
+            "strength": 0.24210397190573343
+          },
+          {
+            "frame": 331,
+            "type": "top",
+            "strength": 0.1013033234737648
+          },
+          {
+            "frame": 331,
+            "type": "top",
+            "strength": 0.21745502229339309
+          },
+          {
+            "frame": 335,
+            "type": "top",
+            "strength": 0.35643996196600297
           },
           {
             "frame": 336,
             "type": "top",
-            "strength": 0.06933395996679222
+            "strength": 0.31780741400618795
+          },
+          {
+            "frame": 336,
+            "type": "top",
+            "strength": 0.2616685524843369
+          },
+          {
+            "frame": 341,
+            "type": "top",
+            "strength": 0.09219457487153157
           },
           {
             "frame": 343,
             "type": "top",
-            "strength": 0.04387142002820497
+            "strength": 0.2934627960291329
+          },
+          {
+            "frame": 349,
+            "type": "top",
+            "strength": 0.1183880839708834
+          },
+          {
+            "frame": 349,
+            "type": "top",
+            "strength": 0.0911333907431228
+          },
+          {
+            "frame": 349,
+            "type": "top",
+            "strength": 0.025158779590527314
           },
           {
             "frame": 350,
             "type": "top",
-            "strength": 0.03926694036303304
+            "strength": 0.07935832291592437
           },
           {
-            "frame": 352,
+            "frame": 353,
             "type": "top",
-            "strength": 0.060414356935808766
+            "strength": 0.18088614800377784
           },
           {
-            "frame": 354,
+            "frame": 355,
             "type": "top",
-            "strength": 0.0333086371032238
+            "strength": 0.06632246652746786
           },
           {
-            "frame": 359,
+            "frame": 356,
             "type": "top",
-            "strength": 0.09928322916882278
+            "strength": 0.14197264423718284
           },
           {
-            "frame": 360,
+            "frame": 357,
             "type": "top",
-            "strength": 0.07273832419650851
+            "strength": 0.07529712138793862
           },
           {
-            "frame": 363,
+            "frame": 365,
             "type": "top",
-            "strength": 0.04252392517794178
-          },
-          {
-            "frame": 364,
-            "type": "top",
-            "strength": 0.0550627579625113
+            "strength": 0.06740031386897677
           },
           {
             "frame": 366,
             "type": "top",
-            "strength": 0.03448978936124472
+            "strength": 0.11769568995959269
           },
           {
             "frame": 367,
             "type": "top",
-            "strength": 0.10094583975695741
-          },
-          {
-            "frame": 368,
-            "type": "top",
-            "strength": 0.09927001966739506
+            "strength": 0.13325949582630406
           },
           {
             "frame": 369,
             "type": "top",
-            "strength": 0.031105009378693697
+            "strength": 0.10435128315011147
           },
           {
-            "frame": 370,
+            "frame": 371,
             "type": "top",
-            "strength": 0.0725828023907507
-          },
-          {
-            "frame": 370,
-            "type": "top",
-            "strength": 0.09533536112121162
+            "strength": 0.17749238308329657
           },
           {
             "frame": 374,
             "type": "top",
-            "strength": 0.03553726448088162
+            "strength": 0.12275651209220956
           },
           {
-            "frame": 375,
+            "frame": 376,
             "type": "top",
-            "strength": 0.020192150330275698
+            "strength": 0.12593532899576287
           },
           {
-            "frame": 379,
+            "frame": 381,
             "type": "top",
-            "strength": 0.02821825277975121
+            "strength": 0.12414217431323775
           },
           {
-            "frame": 384,
+            "frame": 381,
             "type": "top",
-            "strength": 0.012768783544733613
+            "strength": 0.11425335051745546
           },
           {
-            "frame": 389,
+            "frame": 383,
             "type": "top",
-            "strength": 0.017433188502785368
+            "strength": 0.17006994288329433
           },
           {
-            "frame": 389,
+            "frame": 386,
             "type": "top",
-            "strength": 0.037281432940039036
+            "strength": 0.09632137315997032
           },
           {
             "frame": 391,
             "type": "top",
-            "strength": 0.006859323637343008
-          },
-          {
-            "frame": 393,
-            "type": "top",
-            "strength": 0.026464092091782163
+            "strength": 0.09470479306914899
           },
           {
             "frame": 396,
             "type": "top",
-            "strength": 0.005668104512438824
+            "strength": 0.06385881844506099
           },
           {
-            "frame": 399,
+            "frame": 397,
             "type": "top",
-            "strength": 0.012914408960163873
+            "strength": 0.07111142649040801
           },
           {
-            "frame": 399,
+            "frame": 397,
             "type": "top",
-            "strength": 0.01955986939665511
+            "strength": 0.04044137944678605
           },
           {
-            "frame": 400,
+            "frame": 398,
             "type": "top",
-            "strength": 0
+            "strength": 0.08574539531912119
           },
           {
-            "frame": 401,
+            "frame": 402,
             "type": "top",
-            "strength": 0.007221788482208382
+            "strength": 0.031770916815434244
           },
           {
-            "frame": 404,
+            "frame": 402,
             "type": "top",
-            "strength": 0.0026286308660786275
+            "strength": 0.07982371463878807
           },
           {
-            "frame": 406,
+            "frame": 402,
             "type": "top",
-            "strength": 0.044451705803065865
+            "strength": 0.06788358737140408
+          },
+          {
+            "frame": 403,
+            "type": "top",
+            "strength": 0.0819805688160144
+          },
+          {
+            "frame": 407,
+            "type": "top",
+            "strength": 0.05728640682960747
+          },
+          {
+            "frame": 407,
+            "type": "top",
+            "strength": 0.07445345784285017
+          },
+          {
+            "frame": 407,
+            "type": "top",
+            "strength": 0.05728640682960747
           },
           {
             "frame": 408,
             "type": "top",
-            "strength": 0.00004478789365174041
+            "strength": 0.06761560524007688
           },
           {
             "frame": 409,
             "type": "top",
-            "strength": 0.023826593191520775
+            "strength": 0.019818398659808917
           },
           {
-            "frame": 410,
+            "frame": 411,
             "type": "top",
-            "strength": 0.02250120230484448
+            "strength": 0.06330012669376808
+          },
+          {
+            "frame": 411,
+            "type": "top",
+            "strength": 0.003405821864780007
           },
           {
             "frame": 412,
             "type": "top",
-            "strength": 0.005353825512876194
+            "strength": 0.12608435985400784
           },
           {
-            "frame": 415,
+            "frame": 414,
             "type": "top",
-            "strength": 0.03623359765086146
+            "strength": 0.10953874831402699
           },
           {
-            "frame": 416,
+            "frame": 414,
             "type": "top",
-            "strength": 0.01340601405408668
+            "strength": 0.14573442324664593
           },
           {
-            "frame": 417,
+            "frame": 414,
             "type": "top",
-            "strength": 0.01542110140125393
+            "strength": 0.12438621448054099
+          },
+          {
+            "frame": 418,
+            "type": "top",
+            "strength": 0.04207016495378822
+          },
+          {
+            "frame": 419,
+            "type": "top",
+            "strength": 0.031628780787240324
+          },
+          {
+            "frame": 420,
+            "type": "top",
+            "strength": 0.012698436526267808
+          },
+          {
+            "frame": 420,
+            "type": "top",
+            "strength": 0.0443643843815088
+          },
+          {
+            "frame": 421,
+            "type": "top",
+            "strength": 0.009397459215126885
           },
           {
             "frame": 424,
             "type": "top",
-            "strength": 0.009493043342280022
+            "strength": 0.01115315531081818
           },
           {
-            "frame": 425,
+            "frame": 426,
             "type": "top",
-            "strength": 0.009330885767040172
+            "strength": 0.018747096867495993
           },
           {
-            "frame": 427,
+            "frame": 431,
             "type": "top",
-            "strength": 0.012694091487061548
+            "strength": 0.037744117750356736
           },
           {
-            "frame": 427,
+            "frame": 440,
             "type": "top",
-            "strength": 0.004302260697498523
+            "strength": 0.06792428055891873
           },
           {
-            "frame": 428,
+            "frame": 441,
             "type": "top",
-            "strength": 0.010350923929350319
+            "strength": 0.02413127538738521
           },
           {
-            "frame": 434,
+            "frame": 447,
             "type": "top",
-            "strength": 0.004495600404146943
-          },
-          {
-            "frame": 442,
-            "type": "top",
-            "strength": 0.02045060381024581
+            "strength": 0.0035349504711120064
           },
           {
             "frame": 449,
             "type": "top",
-            "strength": 0.00996126199891663
+            "strength": 0.009762061964552116
           },
           {
-            "frame": 454,
+            "frame": 450,
             "type": "top",
-            "strength": 0.005854742247246472
+            "strength": 0.002536266578635346
           },
           {
-            "frame": 470,
+            "frame": 450,
             "type": "top",
-            "strength": 0.010215893414167752
+            "strength": 0.024268649339947285
           },
           {
-            "frame": 479,
+            "frame": 450,
             "type": "top",
-            "strength": 0.007756052902787512
+            "strength": 0.05020050816942885
           },
           {
-            "frame": 498,
+            "frame": 453,
             "type": "top",
-            "strength": 0.0033195913645214974
+            "strength": 0
+          },
+          {
+            "frame": 456,
+            "type": "top",
+            "strength": 0.04672768928814993
+          },
+          {
+            "frame": 458,
+            "type": "top",
+            "strength": 0.015487594893603962
+          },
+          {
+            "frame": 461,
+            "type": "top",
+            "strength": 0.023048761943693635
+          },
+          {
+            "frame": 461,
+            "type": "top",
+            "strength": 0.07641698193897148
+          },
+          {
+            "frame": 463,
+            "type": "top",
+            "strength": 0.02027769384920798
+          },
+          {
+            "frame": 464,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 464,
+            "type": "top",
+            "strength": 0.013880098176799175
+          },
+          {
+            "frame": 465,
+            "type": "top",
+            "strength": 0.015379924405524954
+          },
+          {
+            "frame": 469,
+            "type": "top",
+            "strength": 0.037869106165437184
+          },
+          {
+            "frame": 472,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 476,
+            "type": "top",
+            "strength": 0.041809138722403334
+          },
+          {
+            "frame": 477,
+            "type": "top",
+            "strength": 0.03792640060758993
+          },
+          {
+            "frame": 477,
+            "type": "top",
+            "strength": 0.01015542984627951
+          },
+          {
+            "frame": 482,
+            "type": "top",
+            "strength": 0.0705866476635255
+          },
+          {
+            "frame": 487,
+            "type": "top",
+            "strength": 0.05809188154003636
+          },
+          {
+            "frame": 492,
+            "type": "top",
+            "strength": 0.07554892479796838
+          },
+          {
+            "frame": 495,
+            "type": "top",
+            "strength": 0.05315309174440353
+          },
+          {
+            "frame": 496,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 496,
+            "type": "top",
+            "strength": 0.06468878419277076
+          },
+          {
+            "frame": 497,
+            "type": "top",
+            "strength": 0.03046350957405932
+          },
+          {
+            "frame": 499,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 502,
+            "type": "top",
+            "strength": 0.0825396316356969
+          },
+          {
+            "frame": 504,
+            "type": "top",
+            "strength": 0.029319219840633553
+          },
+          {
+            "frame": 505,
+            "type": "top",
+            "strength": 0.05186204490664419
+          },
+          {
+            "frame": 506,
+            "type": "top",
+            "strength": 0.0452397966998939
+          },
+          {
+            "frame": 506,
+            "type": "top",
+            "strength": 0.018461032585059836
+          },
+          {
+            "frame": 506,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 506,
+            "type": "top",
+            "strength": 0.04623422490564997
+          },
+          {
+            "frame": 510,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 515,
+            "type": "top",
+            "strength": 0.002595742756617431
+          },
+          {
+            "frame": 515,
+            "type": "top",
+            "strength": 0.008699325238563973
+          },
+          {
+            "frame": 516,
+            "type": "top",
+            "strength": 0.01750247462112734
+          },
+          {
+            "frame": 521,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 526,
+            "type": "top",
+            "strength": 0.019724448297699208
+          },
+          {
+            "frame": 538,
+            "type": "top",
+            "strength": 0.03637897676099033
+          },
+          {
+            "frame": 540,
+            "type": "top",
+            "strength": 0.0028820184960773945
+          },
+          {
+            "frame": 540,
+            "type": "top",
+            "strength": 0.010614790619711373
+          },
+          {
+            "frame": 548,
+            "type": "top",
+            "strength": 0.004476217147372626
+          },
+          {
+            "frame": 549,
+            "type": "top",
+            "strength": 0.00603706346900321
+          },
+          {
+            "frame": 550,
+            "type": "top",
+            "strength": 0.027629739289014046
+          },
+          {
+            "frame": 552,
+            "type": "top",
+            "strength": 0.0053102679300257105
+          },
+          {
+            "frame": 554,
+            "type": "top",
+            "strength": 0.014032071157724818
+          },
+          {
+            "frame": 556,
+            "type": "top",
+            "strength": 0.00728703609525238
+          },
+          {
+            "frame": 559,
+            "type": "top",
+            "strength": 0.010806477572821702
+          },
+          {
+            "frame": 584,
+            "type": "top",
+            "strength": 0.0063312170512333735
+          },
+          {
+            "frame": 586,
+            "type": "top",
+            "strength": 0
+          },
+          {
+            "frame": 588,
+            "type": "top",
+            "strength": 0
           }
         ]
       },
@@ -3667,270 +5362,485 @@
         "kind": "final",
         "label": "FINAL",
         "itemIndices": [
-          1,
-          13,
-          25,
-          38
+          5,
+          18,
+          27,
+          35
         ],
         "bakePath": "battle-bakes/world-powers-r4.bin",
         "survivorOrder": [
           3,
-          0,
+          1,
           2,
-          1
+          0
         ],
         "eliminationFrames": [
-          900,
-          598,
-          783,
-          976
+          530,
+          631,
+          571,
+          666
         ],
-        "battleFrames": 976,
-        "winnerIndex": 38,
+        "battleFrames": 707,
+        "winnerIndex": 35,
         "collisions": [
           {
             "frame": 7,
             "type": "top",
-            "strength": 0.6985292327644809
+            "strength": 0.5267399037914939
           },
           {
-            "frame": 22,
-            "type": "wall",
-            "strength": 0.5219289727479807
-          },
-          {
-            "frame": 40,
+            "frame": 20,
             "type": "top",
-            "strength": 0.4496336089443732
+            "strength": 0.4566848469501102
           },
           {
-            "frame": 65,
+            "frame": 31,
+            "type": "wall",
+            "strength": 0.2962381510843959
+          },
+          {
+            "frame": 47,
             "type": "top",
-            "strength": 0.6758584535178793
+            "strength": 0.501451966093727
+          },
+          {
+            "frame": 48,
+            "type": "top",
+            "strength": 0.42485697927962185
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.7757063108368496
+            "strength": 0.5951100305329003
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.3765684431868849
+            "strength": 0.3433321948001808
           },
           {
             "frame": 73,
             "type": "wall",
-            "strength": 0.3321831269724586
+            "strength": 0.6301449469229764
           },
           {
-            "frame": 73,
+            "frame": 74,
             "type": "wall",
-            "strength": 0.1380655290335454
+            "strength": 0.3357057822259879
           },
           {
-            "frame": 78,
-            "type": "wall",
-            "strength": 0.3303442071495427
+            "frame": 90,
+            "type": "top",
+            "strength": 0.6712654535508185
           },
           {
-            "frame": 83,
-            "type": "wall",
-            "strength": 0.6597084029730893
+            "frame": 96,
+            "type": "top",
+            "strength": 0.4054592918268964
           },
           {
-            "frame": 147,
+            "frame": 115,
             "type": "wall",
-            "strength": 0.6559613892685779
+            "strength": 0.1428662940707924
+          },
+          {
+            "frame": 125,
+            "type": "top",
+            "strength": 0.4758385235470752
+          },
+          {
+            "frame": 128,
+            "type": "top",
+            "strength": 0.7430323525134155
+          },
+          {
+            "frame": 130,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 131,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 132,
+            "type": "top",
+            "strength": 1
+          },
+          {
+            "frame": 133,
+            "type": "top",
+            "strength": 1
+          },
+          {
+            "frame": 137,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 139,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 139,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 141,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 143,
+            "type": "wall",
+            "strength": 0.9529436363869654
+          },
+          {
+            "frame": 144,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 145,
+            "type": "wall",
+            "strength": 1
+          },
+          {
+            "frame": 150,
+            "type": "wall",
+            "strength": 0.9133735434590718
           },
           {
             "frame": 161,
             "type": "top",
-            "strength": 0.4402543289416686
+            "strength": 0.9210550987575202
           },
           {
-            "frame": 199,
-            "type": "top",
-            "strength": 0.7995283837757209
-          },
-          {
-            "frame": 276,
+            "frame": 166,
             "type": "top",
             "strength": 1
           },
           {
-            "frame": 277,
+            "frame": 166,
             "type": "wall",
-            "strength": 1
+            "strength": 0.4788583880706049
           },
           {
-            "frame": 277,
-            "type": "wall",
-            "strength": 1
+            "frame": 176,
+            "type": "top",
+            "strength": 0.9212553250249553
           },
           {
-            "frame": 277,
-            "type": "wall",
-            "strength": 1
-          },
-          {
-            "frame": 278,
+            "frame": 177,
             "type": "top",
             "strength": 1
           },
           {
-            "frame": 282,
+            "frame": 177,
             "type": "wall",
             "strength": 1
           },
           {
-            "frame": 286,
+            "frame": 181,
+            "type": "wall",
+            "strength": 0.8063823649830878
+          },
+          {
+            "frame": 181,
+            "type": "wall",
+            "strength": 0.8040626897134854
+          },
+          {
+            "frame": 182,
+            "type": "wall",
+            "strength": 0.15106709627723877
+          },
+          {
+            "frame": 192,
+            "type": "wall",
+            "strength": 0.30197211545223035
+          },
+          {
+            "frame": 198,
             "type": "top",
-            "strength": 1
+            "strength": 0.81123067352609
           },
           {
-            "frame": 290,
+            "frame": 198,
             "type": "wall",
-            "strength": 1
+            "strength": 0.5145839915655023
           },
           {
-            "frame": 300,
+            "frame": 200,
             "type": "wall",
-            "strength": 1
+            "strength": 0.610754024168103
           },
           {
-            "frame": 307,
+            "frame": 201,
             "type": "wall",
-            "strength": 1
+            "strength": 0.4843525594655061
           },
           {
-            "frame": 315,
+            "frame": 203,
             "type": "wall",
-            "strength": 1
+            "strength": 0.45223825047998073
           },
           {
-            "frame": 326,
+            "frame": 205,
             "type": "wall",
-            "strength": 1
+            "strength": 0.41133170261257185
           },
           {
-            "frame": 327,
+            "frame": 207,
             "type": "wall",
-            "strength": 1
+            "strength": 0.4442987512548153
           },
           {
-            "frame": 333,
+            "frame": 209,
             "type": "wall",
-            "strength": 0.3069469744766621
+            "strength": 0.6495753910312251
           },
           {
-            "frame": 335,
-            "type": "wall",
-            "strength": 1
-          },
-          {
-            "frame": 349,
-            "type": "wall",
-            "strength": 1
-          },
-          {
-            "frame": 373,
+            "frame": 223,
             "type": "top",
-            "strength": 0.6563393300222536
+            "strength": 0.6654060242862223
           },
           {
-            "frame": 386,
+            "frame": 242,
+            "type": "top",
+            "strength": 0.7389331650150904
+          },
+          {
+            "frame": 261,
             "type": "wall",
-            "strength": 0.5904567276874764
+            "strength": 0.29745884236086634
           },
           {
-            "frame": 389,
-            "type": "wall",
-            "strength": 0.4521547581260501
-          },
-          {
-            "frame": 418,
+            "frame": 376,
             "type": "top",
-            "strength": 0.5863728148849807
+            "strength": 0.2937323094107484
           },
           {
-            "frame": 448,
-            "type": "wall",
-            "strength": 0.31520981699733996
-          },
-          {
-            "frame": 507,
+            "frame": 415,
             "type": "top",
-            "strength": 0.28345240036623576
+            "strength": 0.42854387270215816
           },
           {
-            "frame": 530,
+            "frame": 438,
             "type": "top",
-            "strength": 0.21161945333552074
+            "strength": 0.13713237959609173
           },
           {
-            "frame": 530,
+            "frame": 441,
             "type": "top",
-            "strength": 0.21161945333552074
+            "strength": 0.2179809592075692
+          },
+          {
+            "frame": 447,
+            "type": "top",
+            "strength": 0.20611867793764055
+          },
+          {
+            "frame": 458,
+            "type": "top",
+            "strength": 0.08236873714495704
+          },
+          {
+            "frame": 459,
+            "type": "top",
+            "strength": 0.11330707544556447
+          },
+          {
+            "frame": 471,
+            "type": "top",
+            "strength": 0.15207335768264152
+          },
+          {
+            "frame": 472,
+            "type": "top",
+            "strength": 0.14626283751683153
+          },
+          {
+            "frame": 481,
+            "type": "top",
+            "strength": 0.1362195379669082
+          },
+          {
+            "frame": 481,
+            "type": "top",
+            "strength": 0.07304764339125379
+          },
+          {
+            "frame": 482,
+            "type": "top",
+            "strength": 0.12056152137755514
+          },
+          {
+            "frame": 487,
+            "type": "top",
+            "strength": 0.08623582737186092
+          },
+          {
+            "frame": 493,
+            "type": "top",
+            "strength": 0.07745625006742078
+          },
+          {
+            "frame": 506,
+            "type": "top",
+            "strength": 0.12220542369474667
+          },
+          {
+            "frame": 522,
+            "type": "top",
+            "strength": 0.09368847138367994
+          },
+          {
+            "frame": 532,
+            "type": "top",
+            "strength": 0.05953090474399293
+          },
+          {
+            "frame": 544,
+            "type": "top",
+            "strength": 0.02152475326073149
+          },
+          {
+            "frame": 545,
+            "type": "top",
+            "strength": 0.11213628426121786
+          },
+          {
+            "frame": 546,
+            "type": "top",
+            "strength": 0.09448817656675618
+          },
+          {
+            "frame": 550,
+            "type": "top",
+            "strength": 0.11911954414279442
+          },
+          {
+            "frame": 558,
+            "type": "top",
+            "strength": 0.11737892532657057
+          },
+          {
+            "frame": 558,
+            "type": "top",
+            "strength": 0.1046142160592468
+          },
+          {
+            "frame": 560,
+            "type": "top",
+            "strength": 0.10781052463065553
+          },
+          {
+            "frame": 571,
+            "type": "top",
+            "strength": 0.12201233507514071
+          },
+          {
+            "frame": 576,
+            "type": "top",
+            "strength": 0.07059629506705138
+          },
+          {
+            "frame": 576,
+            "type": "top",
+            "strength": 0.08552507588714922
+          },
+          {
+            "frame": 583,
+            "type": "top",
+            "strength": 0.08040519380407316
+          },
+          {
+            "frame": 586,
+            "type": "top",
+            "strength": 0.0718499331016591
+          },
+          {
+            "frame": 589,
+            "type": "top",
+            "strength": 0.06238406787485396
+          },
+          {
+            "frame": 591,
+            "type": "top",
+            "strength": 0.060973391340934296
+          },
+          {
+            "frame": 595,
+            "type": "top",
+            "strength": 0.04173155884253368
+          },
+          {
+            "frame": 600,
+            "type": "top",
+            "strength": 0.032853344230613465
+          },
+          {
+            "frame": 608,
+            "type": "top",
+            "strength": 0.027714398490135357
           },
           {
             "frame": 614,
             "type": "top",
-            "strength": 0.24583939010298905
+            "strength": 0.013794715390988749
           },
           {
-            "frame": 626,
+            "frame": 620,
             "type": "top",
-            "strength": 0.2771594000388393
+            "strength": 0.013999505228100975
           },
           {
-            "frame": 650,
+            "frame": 623,
             "type": "top",
-            "strength": 0.06835123780595331
+            "strength": 0.005954875702052661
           },
           {
-            "frame": 712,
+            "frame": 631,
             "type": "top",
-            "strength": 0.1745757653998449
+            "strength": 0.028993848927996856
           },
           {
-            "frame": 800,
+            "frame": 631,
             "type": "top",
-            "strength": 0.08358744188715948
+            "strength": 0.028993848927996856
           },
           {
-            "frame": 851,
+            "frame": 637,
             "type": "top",
-            "strength": 0.06787600946499069
+            "strength": 0.013050562566397547
           },
           {
-            "frame": 855,
+            "frame": 642,
             "type": "top",
-            "strength": 0.038918541128549936
+            "strength": 0.006907883589078749
           },
           {
-            "frame": 862,
+            "frame": 653,
             "type": "top",
-            "strength": 0.03077401023371886
+            "strength": 0.023480416607958934
           },
           {
-            "frame": 891,
+            "frame": 657,
             "type": "top",
-            "strength": 0.033780215563125805
+            "strength": 0.02191261179829483
           },
           {
-            "frame": 899,
+            "frame": 662,
             "type": "top",
-            "strength": 0.022102736961754313
-          },
-          {
-            "frame": 957,
-            "type": "top",
-            "strength": 0.005083720264632666
+            "strength": 0.022815665936112277
           }
         ]
       }
     ],
-    "championIndex": 38
+    "championIndex": 35
   }
 }

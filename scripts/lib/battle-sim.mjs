@@ -25,15 +25,15 @@ const SPAWN_Y = TOP_HEIGHT / 2 + 0.25;
 const SLEEP_LINVEL_THRESHOLD = 0.015;
 
 // ── Spin / damping model ──
-export const INIT_SPIN = 210;  // bigger spin budget → longer matches + more headroom above the stop threshold (longer final duel)
+export const INIT_SPIN = 280;  // fast, energetic launch + big spin budget for long matches
 const SPIN_JITTER = 6;         // near-uniform start; outcome decided by clashes
-const STOP_THRESHOLD = 4;
+const STOP_THRESHOLD = 18;     // KO tops while still visibly spinning (realistic) instead of letting them crawl to a near-stop
 const STOP_DWELL_FRAMES = 10;  // ~0.33s @ 30fps
 const ANGULAR_DAMPING = 0.007; // slower natural decay → the fight lasts
 const ANGULAR_DAMPING_JITTER = 0.024;
 const LINEAR_DAMPING = 0.22;
 const TOP_FRICTION = 0.02;
-const TOP_RESTITUTION = 0.82;
+const TOP_RESTITUTION = 0.62; // solid clash with ricochet, less pinball-bouncy (realistic)
 const FLOOR_FRICTION = 0.10;
 const FLOOR_RESTITUTION = 0.05;
 const WALL_FRICTION = 0.10;
@@ -226,8 +226,8 @@ export function simulateBattle({ count, seed }) {
   // impact strength, so hits MATTER but don't instantly gut a top — kept gentle
   // so collisions ACCUMULATE into a long, escalating fight instead of deciding
   // the match in the opening pile-up. Base + strength term.
-  const SPIN_LOSS_BASE = 0.09;
-  const SPIN_LOSS_STR = 0.14;
+  const SPIN_LOSS_BASE = 0.05;
+  const SPIN_LOSS_STR = 0.08;
 
   world.timestep = PHYS_DT;
   let frame = 0;

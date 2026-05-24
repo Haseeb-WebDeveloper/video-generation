@@ -631,7 +631,13 @@ const Top: React.FC<{
   // Spin blur: while a top still has spin, overlay a couple of faint flag
   // copies at trailing angles so it reads as fast-spinning motion (the flag
   // smears into a ring) rather than a frozen disc.
-  const spinning = energy > 0.22;
+  // Spin-blur stays on until a top is nearly dead (not 0.22) so a collision
+  // that bleeds spin doesn't make a still-spinning top look frozen. The smear
+  // arc + opacity scale with energy, so a fast top reads visibly faster than a
+  // slow one (raw rotation alone aliases at 30fps and can't show speed).
+  const spinning = energy > 0.05;
+  const blurArc = 1.0 + energy * 2.6;   // wider trailing smear when faster
+  const blurOpacity = Math.min(1, energy * 1.5);
   return (
     <>
       {/* Contact shadow on the floor (kept flat, follows x/z only). */}
@@ -671,20 +677,29 @@ const Top: React.FC<{
             )}
           </mesh>
 
-          {/* Spin-blur ghosts (only while spinning) — wider arc of trailing
-              copies so the fast spin reads as a smooth motion blur. */}
-          {spinning && texture && [0.4, 0.8, 1.2, 1.6].map((a, k) => (
-            <mesh key={k} position={[0, TOP_DISC_Y + 0.021 + k * 0.001, 0]} rotation={[0, -a, 0]}>
-              <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
-              <meshBasicMaterial
-                map={texture}
-                toneMapped={false}
-                transparent
-                opacity={0.3 - k * 0.06}
-                depthWrite={false}
-              />
-            </mesh>
-          ))}
+          {/* Spin-blur ghosts — a fan of trailing flag copies whose arc and
+              opacity grow with energy, so the smear reads as real fast-spin
+              motion and stays present until the top is nearly stopped. The
+              sharp flag above stays readable (country still identifiable). */}
+          {spinning && texture && [0, 1, 2, 3, 4, 5].map((k) => {
+            const frac = (k + 1) / 6;
+            return (
+              <mesh
+                key={k}
+                position={[0, TOP_DISC_Y + 0.021 + k * 0.001, 0]}
+                rotation={[0, -frac * blurArc, 0]}
+              >
+                <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
+                <meshBasicMaterial
+                  map={texture}
+                  toneMapped={false}
+                  transparent
+                  opacity={(0.34 - frac * 0.04) * blurOpacity}
+                  depthWrite={false}
+                />
+              </mesh>
+            );
+          })}
 
           {/* Gold stem knob at center top. */}
           <mesh position={[0, TOP_DISC_Y + 0.13, 0]}>
