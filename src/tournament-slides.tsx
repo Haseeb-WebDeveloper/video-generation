@@ -19,7 +19,12 @@ import {
 const { fontFamily: INTER } = loadFont();
 
 const COLOR_BG = "#0a0c10";
-const GOLD = "#f5b35a";
+const ACCENT = "#35e36b"; // bright green accent (was gold)
+
+// Render text in normal Title Case regardless of how it's stored (episode
+// titles/labels are kept uppercase in the data) — the user prefers not-uppercase.
+const titleCase = (s: string) =>
+  s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
 // Segment durations @ 30fps. Cards held long enough to comfortably read every
 // country before the battle starts.
@@ -186,7 +191,7 @@ const FlagChip: React.FC<{ item: EpisodeItem; size: number; delay: number }> = (
           boxShadow: "0 8px 24px rgba(0,0,0,0.55)",
         }}
       />
-      <div style={{ fontSize: size * 0.16, fontWeight: 600, opacity: 0.9 }}>
+      <div style={{ fontSize: size * 0.16, fontWeight: 600, opacity: 1 }}>
         {item.title}
       </div>
     </div>
@@ -199,13 +204,13 @@ const IntroCard: React.FC<{ episode: Episode }> = ({ episode }) => {
   return (
     <CardShell>
       <div style={{ opacity: op, textAlign: "center" }}>
-        <div style={{ fontSize: 40, letterSpacing: 8, fontWeight: 500, opacity: 0.8 }}>
-          {episode.title[0]}
+        <div style={{ fontSize: 40, letterSpacing: 4, fontWeight: 500, opacity: 1 }}>
+          {titleCase(episode.title[0])}
         </div>
-        <div style={{ fontSize: 130, fontWeight: 800, color: GOLD, letterSpacing: 2, lineHeight: 1 }}>
-          {episode.title[1]}
+        <div style={{ fontSize: 130, fontWeight: 800, color: ACCENT, letterSpacing: 2, lineHeight: 1 }}>
+          {titleCase(episode.title[1])}
         </div>
-        <div style={{ fontSize: 30, marginTop: 24, opacity: 0.7, fontWeight: 500 }}>
+        <div style={{ fontSize: 30, marginTop: 24, opacity: 1, fontWeight: 500 }}>
           {episode.items.length} nations · {(episode.tournamentResult?.rounds.length ?? 1) - 1} groups · 1 champion
         </div>
       </div>
@@ -223,11 +228,11 @@ const RoundCard: React.FC<{
   const op = interpolate(frame, [0, 16], [0, 1], { extrapolateRight: "clamp" });
   return (
     <CardShell>
-      <div style={{ opacity: op * 0.7, fontSize: 26, letterSpacing: 10, fontWeight: 600 }}>
-        GROUP {roundNum} OF {totalRounds}
+      <div style={{ opacity: op, fontSize: 26, letterSpacing: 4, fontWeight: 600 }}>
+        Group {roundNum} of {totalRounds}
       </div>
-      <div style={{ opacity: op, fontSize: 110, fontWeight: 800, color: GOLD, letterSpacing: 2, marginBottom: 36 }}>
-        {label}
+      <div style={{ opacity: op, fontSize: 110, fontWeight: 800, color: ACCENT, letterSpacing: 2, marginBottom: 36 }}>
+        {titleCase(label)}
       </div>
       <div
         style={{
@@ -250,11 +255,11 @@ const FinalistsCard: React.FC<{ finalists: EpisodeItem[] }> = ({ finalists }) =>
   const op = interpolate(frame, [0, 16], [0, 1], { extrapolateRight: "clamp" });
   return (
     <CardShell>
-      <div style={{ opacity: op * 0.75, fontSize: 30, letterSpacing: 10, fontWeight: 600 }}>
-        THE
+      <div style={{ opacity: op, fontSize: 30, letterSpacing: 4, fontWeight: 600 }}>
+        The
       </div>
-      <div style={{ opacity: op, fontSize: 130, fontWeight: 800, color: GOLD, letterSpacing: 2, marginBottom: 48 }}>
-        FINALISTS
+      <div style={{ opacity: op, fontSize: 130, fontWeight: 800, color: ACCENT, letterSpacing: 2, marginBottom: 48 }}>
+        Finalists
       </div>
       <div style={{ display: "flex", gap: 70 }}>
         {finalists.map((it, i) => (
@@ -272,8 +277,8 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
   const glow = 0.5 + 0.5 * Math.sin(frame * 0.12);
   return (
     <CardShell>
-      <div style={{ fontSize: 34, letterSpacing: 12, fontWeight: 600, opacity: 0.8 }}>
-        🏆 CHAMPION 🏆
+      <div style={{ fontSize: 34, letterSpacing: 6, fontWeight: 600, opacity: 1 }}>
+        🏆 Champion 🏆
       </div>
       <div style={{ transform: `scale(${s})`, marginTop: 30, marginBottom: 24 }}>
         <Img
@@ -283,12 +288,12 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
             height: 300,
             objectFit: "cover",
             borderRadius: 18,
-            border: `4px solid ${GOLD}`,
-            boxShadow: `0 0 ${40 + glow * 50}px rgba(245,179,90,${0.5 + glow * 0.4})`,
+            border: `4px solid ${ACCENT}`,
+            boxShadow: `0 0 ${40 + glow * 50}px rgba(53,227,107,${0.5 + glow * 0.4})`,
           }}
         />
       </div>
-      <div style={{ fontSize: 96, fontWeight: 800, color: GOLD, letterSpacing: 1 }}>
+      <div style={{ fontSize: 96, fontWeight: 800, color: ACCENT, letterSpacing: 1 }}>
         {champion.title}
       </div>
     </CardShell>

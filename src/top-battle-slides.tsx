@@ -914,7 +914,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             right: 0,
             transform: "translateY(-50%)",
             textAlign: "center",
-            color: "#f5b35a",
+            color: "#35e36b",
             fontSize: 300,
             fontWeight: 600,
             letterSpacing: -8,
@@ -945,15 +945,15 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
           <div
             style={{
               fontSize: 26,
-              letterSpacing: 6,
-              opacity: 0.8,
+              letterSpacing: 4,
+              opacity: 1,
               textTransform: "capitalize",
               fontWeight: 500,
             }}
           >
             last top spinning
           </div>
-          <div style={{ fontSize: 80, fontWeight: 600, color: "#f5b35a", marginTop: 6 }}>
+          <div style={{ fontSize: 80, fontWeight: 600, color: "#35e36b", marginTop: 6 }}>
             {episode.items[winnerIdx].title}
           </div>
         </div>
