@@ -205,8 +205,8 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={["#eef3f8"]} />
-      <fog attach="fog" args={["#e9eff5", 36, 100]} />
+      <color attach="background" args={["#dfe5ec"]} />
+      <fog attach="fog" args={["#d8dfe7", 36, 100]} />
       <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
@@ -380,9 +380,9 @@ const Backdrop: React.FC = () => {
   const tex = useMemo(
     () =>
       makeVerticalGradientTexture([
-        [0, "#d4dde7"],
-        [0.6, "#e9eff5"],
-        [1, "#f7fafc"],
+        [0, "#bcc7d4"],
+        [0.6, "#d3dce6"],
+        [1, "#e3e9f0"],
       ]),
     [],
   );
@@ -401,7 +401,7 @@ const Arena: React.FC = () => {
   );
   // Premium floor: a soft radial glow (brighter under the board, deepening out)
   // on a glossy surface so it catches the studio lights — reads real, not flat.
-  const floorTex = useMemo(() => makeRadialGradientTexture("#ffffff", "#d3dbe4"), []);
+  const floorTex = useMemo(() => makeRadialGradientTexture("#e7ebf1", "#c7cfda"), []);
 
   return (
     <>
@@ -430,7 +430,7 @@ const Arena: React.FC = () => {
         <boxGeometry args={[ARENA_HALF_X * 2, 0.06, ARENA_HALF_Z * 2]} />
         <meshStandardMaterial
           map={steelTex}
-          color={"#aab3be"}
+          color={"#8a93a0"}
           roughness={0.3}
           metalness={0.8}
           envMapIntensity={1.8}
@@ -704,12 +704,12 @@ const Top: React.FC<{
               light tone top-to-bottom (small self-color emissive lifts the tip). */}
           <mesh geometry={shellGeo}>
             <meshStandardMaterial
-              color={"#aab0b8"}
-              roughness={0.3}
-              metalness={0.9}
-              envMapIntensity={1.5}
-              emissive={"#5a6068"}
-              emissiveIntensity={0.12}
+              color={"#414853"}
+              roughness={0.26}
+              metalness={0.95}
+              envMapIntensity={1.7}
+              emissive={"#14171c"}
+              emissiveIntensity={0.05}
             />
           </mesh>
 
