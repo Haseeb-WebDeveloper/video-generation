@@ -60,6 +60,9 @@ function computeTournamentChapters(episode) {
 
 export function computeChapters(episode) {
   if (episode.tournamentResult) return computeTournamentChapters(episode);
+  // Single battle / race — one continuous event, no meaningful chapters (and a
+  // ~25s video can't have clickable chapters anyway). Return none.
+  if (episode.battleResult || episode.raceResult) return [];
   const sorted = [...episode.items].sort((a, b) => b.rank - a.rank);
   const N = sorted.length;
   const maxValue = Math.max(...sorted.map((i) => i.value));

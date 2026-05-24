@@ -1,0 +1,153 @@
+{
+  "slug": "spin-04",
+  "template": "battle",
+  "title": [
+    "SPINNING TOP BATTLE",
+    "LAST ONE WINS"
+  ],
+  "outro": [
+    "WHICH COUNTRY DID YOU BACK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "",
+  "coverFit": "cover",
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.3,
+  "items": [
+    {
+      "title": "India",
+      "value": 1,
+      "country": "IN",
+      "imagePath": "flags/in.png"
+    },
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "flags/us.png"
+    },
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "flags/br.png"
+    },
+    {
+      "title": "Mexico",
+      "value": 1,
+      "country": "MX",
+      "imagePath": "flags/mx.png"
+    },
+    {
+      "title": "Argentina",
+      "value": 1,
+      "country": "AR",
+      "imagePath": "flags/ar.png"
+    },
+    {
+      "title": "Colombia",
+      "value": 1,
+      "country": "CO",
+      "imagePath": "flags/co.png"
+    },
+    {
+      "title": "Indonesia",
+      "value": 1,
+      "country": "ID",
+      "imagePath": "flags/id.png"
+    },
+    {
+      "title": "Philippines",
+      "value": 1,
+      "country": "PH",
+      "imagePath": "flags/ph.png"
+    },
+    {
+      "title": "Vietnam",
+      "value": 1,
+      "country": "VN",
+      "imagePath": "flags/vn.png"
+    },
+    {
+      "title": "Thailand",
+      "value": 1,
+      "country": "TH",
+      "imagePath": "flags/th.png"
+    }
+  ],
+  "youtube": {
+    "title": "Spinning Top Battle 🌍 India, United States, Brazil & 7 more — Who Wins?",
+    "description": "10 countries enter the arena as spinning tops — India, United States, Brazil, Mexico, Argentina, Colombia, Indonesia, Philippines, Vietnam, Thailand.\nThey clash and knock each other's spin out, falling one by one. The LAST top still spinning WINS! 🏆\n\nWhich country are you backing? 👇\n\n#spinningtop #marblerace #countrybattle #satisfying",
+    "tags": [
+      "spinning top battle",
+      "marble race",
+      "country battle",
+      "countries battle",
+      "last one standing",
+      "satisfying",
+      "physics simulation",
+      "beyblade battle",
+      "flag battle",
+      "elimination",
+      "who will win",
+      "spinning top",
+      "India",
+      "United States",
+      "Brazil",
+      "Mexico",
+      "Argentina",
+      "Colombia",
+      "Indonesia",
+      "Philippines",
+      "Vietnam",
+      "Thailand"
+    ],
+    "categoryId": "24",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en",
+    "publishAt": "2026-06-11T17:00:00.000Z"
+  },
+  "battleSeed": 1785177520,
+  "battleBakePath": "battle-bakes/spin-04.bin",
+  "battleResult": {
+    "survivorOrder": [
+      0,
+      9,
+      3,
+      7,
+      5,
+      6,
+      2,
+      4,
+      8,
+      1
+    ],
+    "eliminationFrames": [
+      1122,
+      468,
+      802,
+      917,
+      550,
+      906,
+      820,
+      913,
+      474,
+      1046
+    ],
+    "eliminationReasons": [
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped"
+    ],
+    "battleFrames": 1122
+  }
+}

@@ -21,6 +21,16 @@ import topEconomies from "./top-economies.json";
 import footballGiants from "./football-giants.json";
 import worldPowers from "./world-powers.json";
 import flagsOfTheWorld from "./flags-of-the-world.json";
+import spin01 from "./spin-01.json";
+import spin02 from "./spin-02.json";
+import spin03 from "./spin-03.json";
+import spin04 from "./spin-04.json";
+import spin05 from "./spin-05.json";
+import spin06 from "./spin-06.json";
+import spin07 from "./spin-07.json";
+import spin08 from "./spin-08.json";
+import spin09 from "./spin-09.json";
+import spin10 from "./spin-10.json";
 
 export const episodes: Episode[] = [
   top15LargestDiamondsEverFound as Episode,
@@ -44,4 +54,14 @@ export const episodes: Episode[] = [
   footballGiants as unknown as Episode,
   worldPowers as unknown as Episode,
   flagsOfTheWorld as unknown as Episode,
+  spin01 as unknown as Episode,
+  spin02 as unknown as Episode,
+  spin03 as unknown as Episode,
+  spin04 as unknown as Episode,
+  spin05 as unknown as Episode,
+  spin06 as unknown as Episode,
+  spin07 as unknown as Episode,
+  spin08 as unknown as Episode,
+  spin09 as unknown as Episode,
+  spin10 as unknown as Episode,
 ];

@@ -1,0 +1,153 @@
+{
+  "slug": "spin-06",
+  "template": "battle",
+  "title": [
+    "SPINNING TOP BATTLE",
+    "LAST ONE WINS"
+  ],
+  "outro": [
+    "WHICH COUNTRY DID YOU BACK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "",
+  "coverFit": "cover",
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.3,
+  "items": [
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "flags/us.png"
+    },
+    {
+      "title": "United Kingdom",
+      "value": 1,
+      "country": "GB",
+      "imagePath": "flags/gb.png"
+    },
+    {
+      "title": "Germany",
+      "value": 1,
+      "country": "DE",
+      "imagePath": "flags/de.png"
+    },
+    {
+      "title": "France",
+      "value": 1,
+      "country": "FR",
+      "imagePath": "flags/fr.png"
+    },
+    {
+      "title": "Spain",
+      "value": 1,
+      "country": "ES",
+      "imagePath": "flags/es.png"
+    },
+    {
+      "title": "Italy",
+      "value": 1,
+      "country": "IT",
+      "imagePath": "flags/it.png"
+    },
+    {
+      "title": "Russia",
+      "value": 1,
+      "country": "RU",
+      "imagePath": "flags/ru.png"
+    },
+    {
+      "title": "Japan",
+      "value": 1,
+      "country": "JP",
+      "imagePath": "flags/jp.png"
+    },
+    {
+      "title": "South Korea",
+      "value": 1,
+      "country": "KR",
+      "imagePath": "flags/kr.png"
+    },
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "flags/br.png"
+    }
+  ],
+  "youtube": {
+    "title": "Spinning Top Battle 🌍 United States, United Kingdom, Germany & 7 more — Who Wins?",
+    "description": "10 countries enter the arena as spinning tops — United States, United Kingdom, Germany, France, Spain, Italy, Russia, Japan, South Korea, Brazil.\nThey clash and knock each other's spin out, falling one by one. The LAST top still spinning WINS! 🏆\n\nWhich country are you backing? 👇\n\n#spinningtop #marblerace #countrybattle #satisfying",
+    "tags": [
+      "spinning top battle",
+      "marble race",
+      "country battle",
+      "countries battle",
+      "last one standing",
+      "satisfying",
+      "physics simulation",
+      "beyblade battle",
+      "flag battle",
+      "elimination",
+      "who will win",
+      "spinning top",
+      "United States",
+      "United Kingdom",
+      "Germany",
+      "France",
+      "Spain",
+      "Italy",
+      "Russia",
+      "Japan",
+      "South Korea",
+      "Brazil"
+    ],
+    "categoryId": "24",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en",
+    "publishAt": "2026-06-17T17:00:00.000Z"
+  },
+  "battleSeed": 1848950081,
+  "battleBakePath": "battle-bakes/spin-06.bin",
+  "battleResult": {
+    "survivorOrder": [
+      2,
+      7,
+      6,
+      5,
+      1,
+      4,
+      8,
+      3,
+      9,
+      0
+    ],
+    "eliminationFrames": [
+      489,
+      948,
+      1264,
+      754,
+      860,
+      991,
+      1077,
+      1201,
+      806,
+      664
+    ],
+    "eliminationReasons": [
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped"
+    ],
+    "battleFrames": 1277
+  }
+}
