@@ -12,9 +12,16 @@ on:
   workflow_dispatch:
     inputs:
       slugs:
-        description: "Comma-separated episode slugs (tournament template)"
+        description: "Comma-separated episode slugs"
         required: true
-        default: "football-giants,world-powers,most-populous,flags-of-the-world,europe-cup,asia-cup,top-economies,americas-cup,africa-cup,island-nations"
+        default: "spin-01,spin-02,spin-03,spin-04,spin-05,spin-06,spin-07,spin-08,spin-09,spin-10"
+      variant:
+        description: "Format: battle (single 10-country battle) or tournament"
+        type: choice
+        options:
+          - battle
+          - tournament
+        default: battle
       publish:
         description: "Upload to YouTube after rendering (scheduled via each episode's publishAt)"
         type: boolean
@@ -60,12 +67,17 @@ jobs:
       - run: npm ci
 
       # Regenerate the physics bake deterministically from the committed seed
-      # (episode must have tournamentSeed set, which --keep reuses).
+      # (--keep reuses tournamentSeed / battleSeed already in the episode JSON).
       - name: Bake physics
-        run: node scripts/tournament-roll.mjs ${{ matrix.slug }} --keep
+        run: |
+          if [ "${{ inputs.variant }}" = "tournament" ]; then
+            node scripts/tournament-roll.mjs ${{ matrix.slug }} --keep
+          else
+            node scripts/battle-roll.mjs ${{ matrix.slug }} --keep
+          fi
 
-      # Output filename MUST be out/<slug>-tournament.mp4 — that's the path
-      # publish-episode.mjs (variant "-tournament") looks for.
+      # Output filename MUST be out/<slug>-<variant>.mp4 — that's the path
+      # publish-episode.mjs (variant suffix) looks for.
       # GPU-less runners can't create a hardware WebGL context for the 3D
       # scene, so use SwiftShader software GL (--gl=swangle, Remotion's
       # recommended renderer for headless/cloud Three.js). Lower concurrency
@@ -73,14 +85,14 @@ jobs:
       - name: Render
         run: |
           mkdir -p out
-          npx remotion render ${{ matrix.slug }}-tournament \
-            out/${{ matrix.slug }}-tournament.mp4 \
+          npx remotion render ${{ matrix.slug }}-${{ inputs.variant }} \
+            out/${{ matrix.slug }}-${{ inputs.variant }}.mp4 \
             --concurrency=2 --timeout=300000 --gl=swangle
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.slug }}-mp4
-          path: out/${{ matrix.slug }}-tournament.mp4
+          name: ${{ matrix.slug }}-${{ inputs.variant }}-mp4
+          path: out/${{ matrix.slug }}-${{ inputs.variant }}.mp4
           retention-days: 14
 
       # Scheduled upload to YouTube. The episode's youtube.publishAt (set by
@@ -99,5 +111,5 @@ jobs:
           fi
           printf 'YOUTUBE_CLIENT_ID=%s\nYOUTUBE_CLIENT_SECRET=%s\nYOUTUBE_REFRESH_TOKEN=%s\n' \
             "$YT_ID" "$YT_SECRET" "$YT_REFRESH" > .env
-          node scripts/publish-episode.mjs ${{ matrix.slug }}-tournament
+          node scripts/publish-episode.mjs ${{ matrix.slug }}-${{ inputs.variant }}
           rm -f .env

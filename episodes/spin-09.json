@@ -1,0 +1,153 @@
+{
+  "slug": "spin-09",
+  "template": "battle",
+  "title": [
+    "SPINNING TOP BATTLE",
+    "LAST ONE WINS"
+  ],
+  "outro": [
+    "WHICH COUNTRY DID YOU BACK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "",
+  "coverFit": "cover",
+  "compositeFlagOnCover": false,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.3,
+  "items": [
+    {
+      "title": "India",
+      "value": 1,
+      "country": "IN",
+      "imagePath": "flags/in.png"
+    },
+    {
+      "title": "United States",
+      "value": 1,
+      "country": "US",
+      "imagePath": "flags/us.png"
+    },
+    {
+      "title": "Pakistan",
+      "value": 1,
+      "country": "PK",
+      "imagePath": "flags/pk.png"
+    },
+    {
+      "title": "Nigeria",
+      "value": 1,
+      "country": "NG",
+      "imagePath": "flags/ng.png"
+    },
+    {
+      "title": "Egypt",
+      "value": 1,
+      "country": "EG",
+      "imagePath": "flags/eg.png"
+    },
+    {
+      "title": "South Africa",
+      "value": 1,
+      "country": "ZA",
+      "imagePath": "flags/za.png"
+    },
+    {
+      "title": "Indonesia",
+      "value": 1,
+      "country": "ID",
+      "imagePath": "flags/id.png"
+    },
+    {
+      "title": "Brazil",
+      "value": 1,
+      "country": "BR",
+      "imagePath": "flags/br.png"
+    },
+    {
+      "title": "Turkey",
+      "value": 1,
+      "country": "TR",
+      "imagePath": "flags/tr.png"
+    },
+    {
+      "title": "Saudi Arabia",
+      "value": 1,
+      "country": "SA",
+      "imagePath": "flags/sa.png"
+    }
+  ],
+  "youtube": {
+    "title": "Spinning Top Battle 🌍 India, United States, Pakistan & 7 more — Who Wins?",
+    "description": "10 countries enter the arena as spinning tops — India, United States, Pakistan, Nigeria, Egypt, South Africa, Indonesia, Brazil, Turkey, Saudi Arabia.\nThey clash and knock each other's spin out, falling one by one. The LAST top still spinning WINS! 🏆\n\nWhich country are you backing? 👇\n\n#spinningtop #marblerace #countrybattle #satisfying",
+    "tags": [
+      "spinning top battle",
+      "marble race",
+      "country battle",
+      "countries battle",
+      "last one standing",
+      "satisfying",
+      "physics simulation",
+      "beyblade battle",
+      "flag battle",
+      "elimination",
+      "who will win",
+      "spinning top",
+      "India",
+      "United States",
+      "Pakistan",
+      "Nigeria",
+      "Egypt",
+      "South Africa",
+      "Indonesia",
+      "Brazil",
+      "Turkey",
+      "Saudi Arabia"
+    ],
+    "categoryId": "24",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en",
+    "publishAt": "2026-06-26T17:00:00.000Z"
+  },
+  "battleSeed": 370378399,
+  "battleBakePath": "battle-bakes/spin-09.bin",
+  "battleResult": {
+    "survivorOrder": [
+      1,
+      6,
+      4,
+      5,
+      9,
+      3,
+      8,
+      7,
+      2,
+      0
+    ],
+    "eliminationFrames": [
+      250,
+      995,
+      524,
+      752,
+      881,
+      825,
+      984,
+      696,
+      743,
+      758
+    ],
+    "eliminationReasons": [
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped",
+      "stopped"
+    ],
+    "battleFrames": 1060
+  }
+}

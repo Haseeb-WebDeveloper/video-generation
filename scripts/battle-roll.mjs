@@ -30,6 +30,12 @@ const seedArg = args.find((a) => a.startsWith("--seed="));
 const keepSeed = args.includes("--keep");
 const candidatesArg = args.find((a) => a.startsWith("--candidates="));
 const numCandidates = candidatesArg ? Number(candidatesArg.split("=")[1]) : 1;
+// Optional: force a specific country to win (e.g. --winner=PK). The physics
+// stays 100% real — we just search seeds until that country happens to win,
+// then lock the most dramatic of those. Ignored when --keep (the stored seed
+// already encodes the chosen outcome).
+const winnerArg = args.find((a) => a.startsWith("--winner="));
+const targetWinner = winnerArg ? winnerArg.split("=")[1].toUpperCase() : null;
 
 await initRapier();
 
@@ -37,6 +43,13 @@ const { episode, paths } = await loadEpisode(slug);
 const items = episode.items;
 if (!items || items.length < 2) {
   console.error(`Episode "${slug}" has fewer than 2 items — nothing to battle.`);
+  process.exit(1);
+}
+if (targetWinner && !keepSeed && !items.some((it) => (it.country ?? "").toUpperCase() === targetWinner)) {
+  console.error(
+    `--winner=${targetWinner} is not in this episode's countries: ` +
+      items.map((it) => it.country).join(", "),
+  );
   process.exit(1);
 }
 
@@ -53,23 +66,47 @@ if (keepSeed) {
   seedToUse = Math.floor(Math.random() * 2 ** 31);
 }
 
-const seedsToTry =
-  numCandidates > 1
-    ? Array.from({ length: numCandidates }, (_, i) =>
-        i === 0 ? seedToUse : Math.floor(Math.random() * 2 ** 31),
-      )
-    : [seedToUse];
-
 let best = null;
-for (const seed of seedsToTry) {
-  const result = simulateBattle({ count: items.length, seed });
-  const drama = scoreDrama(result);
-  const winnerIdx = result.survivorOrder[0];
+
+if (targetWinner && !keepSeed) {
+  // Search seeds until the target country wins; collect a handful of matches
+  // and lock the most dramatic. (Physics is unchanged — we only pick a seed.)
+  const MAX_SEARCH = 1500;
+  const MAX_MATCHES = 8;
+  let matches = 0;
+  for (let i = 0; i < MAX_SEARCH && matches < MAX_MATCHES; i++) {
+    const seed = (seedToUse + i) >>> 0;
+    const result = simulateBattle({ count: items.length, seed });
+    const winnerIdx = result.survivorOrder[0];
+    if ((items[winnerIdx].country ?? "").toUpperCase() !== targetWinner) continue;
+    matches++;
+    const drama = scoreDrama(result);
+    if (best == null || drama > best.drama) best = { seed, result, drama };
+  }
+  if (!best) {
+    console.error(`No seed found where ${targetWinner} wins within ${MAX_SEARCH} tries.`);
+    process.exit(1);
+  }
   console.log(
-    `seed ${seed}: ${result.battleFrames}f (${(result.battleFrames / FPS).toFixed(1)}s) ` +
-      `winner=items[${winnerIdx}]:${items[winnerIdx].title} drama=${drama.toFixed(2)}`,
+    `Found ${matches} seed(s) where ${targetWinner} wins — locking the most dramatic.`,
   );
-  if (best == null || drama > best.drama) best = { seed, result, drama };
+} else {
+  const seedsToTry =
+    numCandidates > 1
+      ? Array.from({ length: numCandidates }, (_, i) =>
+          i === 0 ? seedToUse : Math.floor(Math.random() * 2 ** 31),
+        )
+      : [seedToUse];
+  for (const seed of seedsToTry) {
+    const result = simulateBattle({ count: items.length, seed });
+    const drama = scoreDrama(result);
+    const winnerIdx = result.survivorOrder[0];
+    console.log(
+      `seed ${seed}: ${result.battleFrames}f (${(result.battleFrames / FPS).toFixed(1)}s) ` +
+        `winner=items[${winnerIdx}]:${items[winnerIdx].title} drama=${drama.toFixed(2)}`,
+    );
+    if (best == null || drama > best.drama) best = { seed, result, drama };
+  }
 }
 
 const chosen = best;

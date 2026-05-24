@@ -81,16 +81,20 @@ export function validateMetadata(meta) {
   if (tagsLen > TAGS_HARD_LIMIT) {
     errors.push(`tags total ${tagsLen} chars (limit ${TAGS_HARD_LIMIT})`);
   }
-  if (meta.chapters[0].time !== "0:00") {
-    errors.push(`first chapter must be 0:00, got ${meta.chapters[0].time}`);
-  }
-  if (meta.chapters.length < 3) {
-    errors.push(`only ${meta.chapters.length} chapters; need ≥ 3`);
-  }
-  for (let i = 1; i < meta.chapters.length; i++) {
-    if (meta.chapters[i].frame <= meta.chapters[i - 1].frame) {
-      errors.push(`chapter ${i} not strictly after chapter ${i - 1}`);
-      break;
+  // Chapters are optional (single battles/races have none). Only validate the
+  // structure when chapters are present (e.g. tournaments, ranked lists).
+  if (meta.chapters.length > 0) {
+    if (meta.chapters[0].time !== "0:00") {
+      errors.push(`first chapter must be 0:00, got ${meta.chapters[0].time}`);
+    }
+    if (meta.chapters.length < 3) {
+      errors.push(`only ${meta.chapters.length} chapters; need ≥ 3`);
+    }
+    for (let i = 1; i < meta.chapters.length; i++) {
+      if (meta.chapters[i].frame <= meta.chapters[i - 1].frame) {
+        errors.push(`chapter ${i} not strictly after chapter ${i - 1}`);
+        break;
+      }
     }
   }
   if (!["private", "unlisted", "public"].includes(meta.privacyStatus)) {

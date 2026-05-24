@@ -3,6 +3,7 @@ import {
   Audio,
   Img,
   Series,
+  Easing,
   interpolate,
   spring,
   staticFile,
@@ -18,8 +19,13 @@ import {
 
 const { fontFamily: INTER } = loadFont();
 
-const COLOR_BG = "#0a0c10";
-const GOLD = "#f5b35a";
+const COLOR_BG = "#ece3fb";
+const ACCENT = "#963d5a"; // rose accent — premium + high-contrast on the light cards
+
+// Render text in normal Title Case regardless of how it's stored (episode
+// titles/labels are kept uppercase in the data) — the user prefers not-uppercase.
+const titleCase = (s: string) =>
+  s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
 // Segment durations @ 30fps. Cards held long enough to comfortably read every
 // country before the battle starts.
@@ -134,19 +140,54 @@ export const TournamentComposition: React.FC<{ episode: Episode }> = ({
 };
 
 // ─── Cards ─────────────────────────────────────────────────────────
+// Cards share the playground's 3D studio look: a perspective GRID FLOOR
+// receding into a soft lavender cove, with the content sitting in that 3D space.
 const CardShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <AbsoluteFill
     style={{
       fontFamily: INTER,
-      color: "#fff",
-      background:
-        "radial-gradient(ellipse at 50% 40%, #1a1f2a 0%, #0a0c10 70%)",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "column",
+      color: "#2c2333",
+      overflow: "hidden",
+      // Lavender "cove" (sky) the grid floor fades up into.
+      background: "linear-gradient(180deg, #d3c7ea 0%, #e7ddf7 48%, #efe8fb 100%)",
+      perspective: "600px",
+      perspectiveOrigin: "50% 34%",
     }}
   >
-    {children}
+    {/* Perspective grid floor — folds down from a horizon line (~46% height) and
+        recedes, same axis-aligned reference grid as the arena floor, so the card
+        reads as a real 3D scene. Fades into the cove at the horizon. */}
+    <div
+      style={{
+        position: "absolute",
+        top: "46%",
+        left: "-60%",
+        width: "220%",
+        height: "78%",
+        transformOrigin: "center top",
+        transform: "rotateX(66deg)",
+        backgroundColor: "#e1d6f2",
+        backgroundImage:
+          "linear-gradient(0deg, rgba(108,64,104,0.22) 2px, transparent 2px), linear-gradient(90deg, rgba(108,64,104,0.22) 2px, transparent 2px)",
+        backgroundSize: "108px 108px",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 34%)",
+        maskImage: "linear-gradient(to bottom, transparent 0%, black 34%)",
+      }}
+    />
+    {/* Content sits IN the scene — a subtle 3D tilt so the text/flags read as
+        placed in the perspective space, not flat stickers (kept gentle so it
+        stays perfectly legible). */}
+    <AbsoluteFill
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        transform: "rotateX(5deg)",
+        transformStyle: "preserve-3d",
+      }}
+    >
+      {children}
+    </AbsoluteFill>
   </AbsoluteFill>
 );
 
@@ -182,31 +223,82 @@ const FlagChip: React.FC<{ item: EpisodeItem; size: number; delay: number }> = (
           height: size * 0.66,
           objectFit: "cover",
           borderRadius: 8,
-          border: "2px solid rgba(255,255,255,0.25)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.55)",
+          border: "2px solid rgba(60,40,60,0.12)",
+          boxShadow: "0 10px 26px rgba(70,40,70,0.18)",
         }}
       />
-      <div style={{ fontSize: size * 0.16, fontWeight: 600, opacity: 0.9 }}>
+      <div style={{ fontSize: size * 0.16, fontWeight: 600, opacity: 1 }}>
         {item.title}
       </div>
     </div>
   );
 };
 
+// Consistent in-video title across ALL episodes (clarity over per-theme names).
+const INTRO_TITLE = "Country Spin Battle";
+
 const IntroCard: React.FC<{ episode: Episode }> = ({ episode }) => {
   const frame = useCurrentFrame();
-  const op = interpolate(frame, [0, 20], [0, 1], { extrapolateRight: "clamp" });
+  // Clean letter-by-letter swing-in: each character rises + swings up (3D
+  // rotateX about its base) + fades, staggered left→right on a refined ease-out
+  // (no bounce). Then it HOLDS still. Subtitle eases up after the word lands.
+  const easeOut = Easing.out(Easing.cubic);
+  const STAGGER = 1.8; // frames between letters
+  const DUR = 16; // per-letter reveal length
+  const letters = INTRO_TITLE.split("");
+  const titleDone = (letters.length - 1) * STAGGER + DUR;
+  const sp = interpolate(frame, [titleDone - 4, titleDone + 24], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: easeOut,
+  });
+  const n = episode.items.length;
   return (
     <CardShell>
-      <div style={{ opacity: op, textAlign: "center" }}>
-        <div style={{ fontSize: 40, letterSpacing: 8, fontWeight: 500, opacity: 0.8 }}>
-          {episode.title[0]}
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            perspective: 800,
+            fontSize: 132,
+            fontWeight: 800,
+            color: ACCENT,
+            letterSpacing: 1,
+            lineHeight: 1,
+          }}
+        >
+          {letters.map((ch, i) => {
+            const p = interpolate(
+              frame,
+              [i * STAGGER, i * STAGGER + DUR],
+              [0, 1],
+              { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: easeOut },
+            );
+            return (
+              <span
+                key={i}
+                style={{
+                  display: "inline-block",
+                  opacity: p,
+                  transformOrigin: "50% 100%",
+                  transform: `translateY(${(1 - p) * 0.5}em) rotateX(${(1 - p) * -70}deg)`,
+                }}
+              >
+                {ch === " " ? " " : ch}
+              </span>
+            );
+          })}
         </div>
-        <div style={{ fontSize: 130, fontWeight: 800, color: GOLD, letterSpacing: 2, lineHeight: 1 }}>
-          {episode.title[1]}
-        </div>
-        <div style={{ fontSize: 30, marginTop: 24, opacity: 0.7, fontWeight: 500 }}>
-          {episode.items.length} nations · {(episode.tournamentResult?.rounds.length ?? 1) - 1} groups · 1 champion
+        <div
+          style={{
+            fontSize: 56,
+            marginTop: 58,
+            fontWeight: 500,
+            letterSpacing: 0.5,
+            opacity: sp * 0.82,
+            transform: `translateY(${(1 - sp) * 16}px)`,
+          }}
+        >
+          {n} flags spin · last one standing wins
         </div>
       </div>
     </CardShell>
@@ -223,11 +315,11 @@ const RoundCard: React.FC<{
   const op = interpolate(frame, [0, 16], [0, 1], { extrapolateRight: "clamp" });
   return (
     <CardShell>
-      <div style={{ opacity: op * 0.7, fontSize: 26, letterSpacing: 10, fontWeight: 600 }}>
-        GROUP {roundNum} OF {totalRounds}
+      <div style={{ opacity: op * 0.55, fontSize: 26, letterSpacing: 4, fontWeight: 600 }}>
+        Group {roundNum} of {totalRounds}
       </div>
-      <div style={{ opacity: op, fontSize: 110, fontWeight: 800, color: GOLD, letterSpacing: 2, marginBottom: 36 }}>
-        {label}
+      <div style={{ opacity: op, fontSize: 110, fontWeight: 800, color: ACCENT, letterSpacing: 2, marginBottom: 36 }}>
+        {titleCase(label)}
       </div>
       <div
         style={{
@@ -250,11 +342,11 @@ const FinalistsCard: React.FC<{ finalists: EpisodeItem[] }> = ({ finalists }) =>
   const op = interpolate(frame, [0, 16], [0, 1], { extrapolateRight: "clamp" });
   return (
     <CardShell>
-      <div style={{ opacity: op * 0.75, fontSize: 30, letterSpacing: 10, fontWeight: 600 }}>
-        THE
+      <div style={{ opacity: op * 0.55, fontSize: 30, letterSpacing: 4, fontWeight: 600 }}>
+        The
       </div>
-      <div style={{ opacity: op, fontSize: 130, fontWeight: 800, color: GOLD, letterSpacing: 2, marginBottom: 48 }}>
-        FINALISTS
+      <div style={{ opacity: op, fontSize: 130, fontWeight: 800, color: ACCENT, letterSpacing: 2, marginBottom: 48 }}>
+        Finalists
       </div>
       <div style={{ display: "flex", gap: 70 }}>
         {finalists.map((it, i) => (
@@ -272,8 +364,8 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
   const glow = 0.5 + 0.5 * Math.sin(frame * 0.12);
   return (
     <CardShell>
-      <div style={{ fontSize: 34, letterSpacing: 12, fontWeight: 600, opacity: 0.8 }}>
-        🏆 CHAMPION 🏆
+      <div style={{ fontSize: 34, letterSpacing: 6, fontWeight: 600, opacity: 0.7 }}>
+        🏆 Champion 🏆
       </div>
       <div style={{ transform: `scale(${s})`, marginTop: 30, marginBottom: 24 }}>
         <Img
@@ -283,12 +375,12 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
             height: 300,
             objectFit: "cover",
             borderRadius: 18,
-            border: `4px solid ${GOLD}`,
-            boxShadow: `0 0 ${40 + glow * 50}px rgba(245,179,90,${0.5 + glow * 0.4})`,
+            border: `4px solid ${ACCENT}`,
+            boxShadow: `0 0 ${40 + glow * 50}px rgba(150,61,90,${0.4 + glow * 0.35})`,
           }}
         />
       </div>
-      <div style={{ fontSize: 96, fontWeight: 800, color: GOLD, letterSpacing: 1 }}>
+      <div style={{ fontSize: 96, fontWeight: 800, color: ACCENT, letterSpacing: 1 }}>
         {champion.title}
       </div>
     </CardShell>

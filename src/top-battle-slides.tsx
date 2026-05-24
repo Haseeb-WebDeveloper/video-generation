@@ -9,6 +9,7 @@ import {
   continueRender,
   delayRender,
   Easing,
+  Img,
   interpolate,
   Sequence,
   staticFile,
@@ -16,7 +17,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Inter";
-import { Episode } from "./episode";
+import { Episode, EpisodeItem } from "./episode";
 
 const { fontFamily: INTER } = loadFont();
 
@@ -54,7 +55,7 @@ const ACCENT_PALETTE = [
 // Brushed steel arena. Backdrop barely matters since the rectangular
 // floor fills the frame, but kept here in case the camera ever pulls
 // back enough to show it.
-const COLOR_BG = "#0a0c10";
+const COLOR_BG = "#aab5c2"; // muted scene tone (also the load-fallback bg, so no dark flash)
 const COLOR_STEEL_BASE = "#c2c6cc";
 const COLOR_STEEL_HIGHLIGHT = "#e4e7eb";
 const COLOR_STEEL_SHADOW = "#7c8088";
@@ -205,8 +206,9 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={[COLOR_BG]} />
-      <fog attach="fog" args={[COLOR_BG, 28, 70]} />
+      <color attach="background" args={["#aab5c2"]} />
+      <fog attach="fog" args={["#adb8c5", 40, 110]} />
+      <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
       <CameraRig episode={episode} bake={bake} numTops={N} />
@@ -222,7 +224,7 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 const StudioEnvironment: React.FC = () => {
   return (
     <Environment resolution={128} frames={1}>
-      <color attach="background" args={["#15171c"]} />
+      <color attach="background" args={["#5e6772"]} />
       {/* Big soft key panel overhead-front */}
       <Lightformer
         intensity={3.0}
@@ -308,27 +310,17 @@ const ArenaLights: React.FC = () => {
   // wooden rim gets a soft secondary from the rim of the spotlight cone.
   return (
     <>
-      <hemisphereLight args={["#fdf6e8", "#14161c", 0.8]} />
-      {/* Key — strong warm light from above-front for bright tops + highlights */}
-      <directionalLight position={[2, 22, 10]} intensity={4.2} color="#fff4e0" />
-      {/* Fills */}
-      <directionalLight position={[14, 14, 12]} intensity={1.4} color="#fff0d8" />
-      <directionalLight position={[-12, 12, -10]} intensity={0.9} color="#a8b8d8" />
-      {/* Camera-side low fill — lifts the lower/front of each top so the
-          conical underside doesn't read black. */}
-      <directionalLight position={[0, 3, 18]} intensity={1.1} color="#dfe6f0" />
-      {/* Studio spotlight pool on the arena center — decay 1.5 so it actually
-          reaches the floor ~18 units away. */}
-      <spotLight
-        position={[0, 18, 4]}
-        target-position={[0, 0, 0]}
-        angle={0.7}
-        penumbra={0.7}
-        intensity={5000}
-        distance={60}
-        decay={1.5}
-        color="#fff6e6"
-      />
+      {/* Even, uniform lighting — no spotlight pool, so the flat play surface
+          reads as one consistent colour. (The unlit surround stays muted and
+          the DOM vignette keeps the focus on the playground.) */}
+      <hemisphereLight args={["#ffffff", "#aab4c1", 0.7]} />
+      {/* Key from straight overhead — a directional light hits the flat play
+          surface uniformly (no centre hotspot). */}
+      <directionalLight position={[0, 26, 6]} intensity={2.6} color="#fff6ea" />
+      {/* Soft fills for the tops' sides/undersides */}
+      <directionalLight position={[14, 14, 12]} intensity={0.7} color="#fff0d8" />
+      <directionalLight position={[-12, 12, -10]} intensity={0.6} color="#a8b8d8" />
+      <directionalLight position={[0, 3, 18]} intensity={0.7} color="#dfe6f0" />
     </>
   );
 };
@@ -338,50 +330,141 @@ const ArenaLights: React.FC = () => {
 // in battle-roll.mjs so the visible wall is exactly where tops bounce.
 const WALL_VIS_HEIGHT = 0.7;
 const WALL_VIS_THICK = 0.45;
-const BOARD_DROP = 0.7; // how far the board slab extends down onto the ground
+const BOARD_DROP = 0.08; // thin flush edge (no thick protruding base under the walls)
 const GROUND_Y = FLOOR_Y - BOARD_DROP;
+
+// Premium studio gradients (built on a canvas — no external files, works in
+// headless render). A radial floor glow + a vertical backdrop give the scene
+// real depth instead of a flat poster colour.
+function makeRadialGradientTexture(inner: string, outer: string): THREE.CanvasTexture {
+  const size = 1024;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(size / 2, size / 2, size * 0.04, size / 2, size / 2, size * 0.6);
+  g.addColorStop(0, inner);
+  g.addColorStop(1, outer);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+function makeVerticalGradientTexture(stops: [number, string][]): THREE.CanvasTexture {
+  const h = 512;
+  const c = document.createElement("canvas");
+  c.width = 8;
+  c.height = h;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createLinearGradient(0, 0, 0, h);
+  for (const [o, col] of stops) g.addColorStop(o, col);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 8, h);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+// Large vertical-gradient backdrop standing behind the arena (premium studio
+// cove). Unlit + fog-exempt so it shows the full rich gradient.
+const Backdrop: React.FC = () => {
+  const tex = useMemo(
+    () =>
+      makeVerticalGradientTexture([
+        [0, "#929dac"],
+        [0.55, "#9ca7b5"],
+        [1, "#b0bbc8"],
+      ]),
+    [],
+  );
+  // A cylindrical cove wrapping the whole scene, so the camera can orbit 360°
+  // and always have the same backdrop behind the arena (lighter at the horizon,
+  // deeper up top). Unlit + fog-exempt so it shows the full clean gradient.
+  return (
+    <mesh position={[0, 22, 0]}>
+      <cylinderGeometry args={[54, 54, 90, 64, 1, true]} />
+      <meshBasicMaterial map={tex} side={THREE.BackSide} toneMapped={false} fog={false} />
+    </mesh>
+  );
+};
+
+// Muted floor with a soft radial glow PLUS faint panel grid lines. The grid is
+// a FIXED, axis-aligned reference so an orbiting camera reads as the camera
+// moving over a stationary floor — instead of the arena appearing to spin in a
+// featureless void (a plain radial gradient is rotationally symmetric, which is
+// why the orbit felt like the playground was floating/rotating).
+function makeStudioFloorTexture(inner: string, outer: string): THREE.CanvasTexture {
+  const size = 1024;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(size / 2, size / 2, size * 0.04, size / 2, size / 2, size * 0.62);
+  g.addColorStop(0, inner);
+  g.addColorStop(1, outer);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const cells = 12;
+  const step = size / cells;
+  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = "rgba(58,68,84,0.16)";
+  for (let i = 0; i <= cells; i++) {
+    const p = Math.round(i * step) + 0.5;
+    ctx.beginPath(); ctx.moveTo(p, 0); ctx.lineTo(p, size); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, p); ctx.lineTo(size, p); ctx.stroke();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
 
 const Arena: React.FC = () => {
   const steelTex = useMemo(
     () => makeBrushedSteelTexture({ size: 1024, seed: 0x9c7e1131 }),
     [],
   );
-  const groundTex = useMemo(
-    () => makeSurfaceTexture({ size: 1024, seed: 0x51af33d1 }),
-    [],
-  );
+  const shadowTex = getShadowTexture();
+  // Muted floor + faint panel grid = a fixed reference for the orbiting camera.
+  const floorTex = useMemo(() => makeStudioFloorTexture("#b1bac6", "#8c98a7"), []);
 
   return (
     <>
-      {/* OUTER SURFACE — a big real-feeling tabletop the board sits on. */}
-      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      {/* OUTER SURFACE — UNLIT muted studio floor: renders as exactly this
+          calm off-white shade regardless of the studio lights, so the surround
+          never blows out and the (lit, glossy) playground stays the focus. */}
+      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[120, 120]} />
-        <meshStandardMaterial
-          map={groundTex}
-          color={"#5a4632"}
-          roughness={0.72}
-          metalness={0.0}
-          envMapIntensity={0.5}
+        <meshBasicMaterial map={floorTex} toneMapped={false} />
+      </mesh>
+
+      {/* Soft grounding shadow — a faint dark halo on the floor around the
+          board so the arena reads as sitting ON the floor, not floating. */}
+      <mesh position={[0, GROUND_Y + 0.012, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry
+          args={[
+            (ARENA_HALF_X * 2 + WALL_VIS_THICK * 2) * 1.7,
+            (ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2) * 1.9,
+          ]}
         />
+        <meshBasicMaterial map={shadowTex} transparent opacity={0.5} depthWrite={false} />
       </mesh>
 
       {/* BOARD SLAB — raised platform sitting on the surface. Top face at
           y=0 (matches physics floor); extends down BOARD_DROP onto the
           ground so it reads as a thick board, not a floating sheet. */}
       <mesh position={[0, FLOOR_Y - BOARD_DROP / 2, 0]}>
-        <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2 + 0.3, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2 + 0.3]} />
-        <meshStandardMaterial color={"#1c2026"} roughness={0.5} metalness={0.5} envMapIntensity={1.0} />
+        <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2]} />
+        <meshStandardMaterial color={"#aeb7c1"} roughness={0.78} metalness={0.1} envMapIntensity={0.15} />
       </mesh>
 
-      {/* PLAY SURFACE — the brushed-steel floor the tops spin on. */}
+      {/* PLAY SURFACE — light brushed-steel floor the tops spin on. */}
       <mesh position={[0, FLOOR_Y - 0.02, 0]}>
         <boxGeometry args={[ARENA_HALF_X * 2, 0.06, ARENA_HALF_Z * 2]} />
         <meshStandardMaterial
           map={steelTex}
-          color={"#39404c"}
-          roughness={0.3}
-          metalness={0.8}
-          envMapIntensity={1.8}
+          color={"#d3dbe4"}
+          roughness={0.95}
+          metalness={0.0}
+          envMapIntensity={0.0}
         />
       </mesh>
 
@@ -397,7 +480,7 @@ const ArenaWalls: React.FC = () => {
   const off = WALL_VIS_THICK / 2;
   // Dark brushed gunmetal rim — premium, not cheap white plastic.
   const wallMat = (
-    <meshStandardMaterial color={"#2a2e36"} roughness={0.34} metalness={0.95} envMapIntensity={1.5} />
+    <meshStandardMaterial color={"#9aa3ad"} roughness={0.85} metalness={0.0} envMapIntensity={0.1} />
   );
   return (
     <>
@@ -631,7 +714,13 @@ const Top: React.FC<{
   // Spin blur: while a top still has spin, overlay a couple of faint flag
   // copies at trailing angles so it reads as fast-spinning motion (the flag
   // smears into a ring) rather than a frozen disc.
-  const spinning = energy > 0.22;
+  // Spin-blur stays on until a top is nearly dead (not 0.22) so a collision
+  // that bleeds spin doesn't make a still-spinning top look frozen. The smear
+  // arc + opacity scale with energy, so a fast top reads visibly faster than a
+  // slow one (raw rotation alone aliases at 30fps and can't show speed).
+  const spinning = energy > 0.05;
+  const blurArc = 1.0 + energy * 2.6;   // wider trailing smear when faster
+  const blurOpacity = Math.min(1, energy * 1.5);
   return (
     <>
       {/* Contact shadow on the floor (kept flat, follows x/z only). */}
@@ -642,16 +731,17 @@ const Top: React.FC<{
 
       <group position={[x, y, z]}>
         <group quaternion={composedQuat}>
-          {/* Satin metal lathed body — reads as a clear 3D cone with an even
-              light tone top-to-bottom (small self-color emissive lifts the tip). */}
+          {/* Soft pearl satin body — light, smooth and evenly toned (no dark
+              metal bottom). A gentle self-emissive keeps the underside soft
+              instead of dropping to a dark shadow. */}
           <mesh geometry={shellGeo}>
             <meshStandardMaterial
-              color={"#aab0b8"}
-              roughness={0.3}
-              metalness={0.9}
-              envMapIntensity={1.5}
-              emissive={"#5a6068"}
-              emissiveIntensity={0.12}
+              color={"#e2e7ee"}
+              roughness={0.42}
+              metalness={0.28}
+              envMapIntensity={0.6}
+              emissive={"#cdd4dd"}
+              emissiveIntensity={0.14}
             />
           </mesh>
 
@@ -671,20 +761,29 @@ const Top: React.FC<{
             )}
           </mesh>
 
-          {/* Spin-blur ghosts (only while spinning) — wider arc of trailing
-              copies so the fast spin reads as a smooth motion blur. */}
-          {spinning && texture && [0.4, 0.8, 1.2, 1.6].map((a, k) => (
-            <mesh key={k} position={[0, TOP_DISC_Y + 0.021 + k * 0.001, 0]} rotation={[0, -a, 0]}>
-              <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
-              <meshBasicMaterial
-                map={texture}
-                toneMapped={false}
-                transparent
-                opacity={0.3 - k * 0.06}
-                depthWrite={false}
-              />
-            </mesh>
-          ))}
+          {/* Spin-blur ghosts — a fan of trailing flag copies whose arc and
+              opacity grow with energy, so the smear reads as real fast-spin
+              motion and stays present until the top is nearly stopped. The
+              sharp flag above stays readable (country still identifiable). */}
+          {spinning && texture && [0, 1, 2, 3, 4, 5].map((k) => {
+            const frac = (k + 1) / 6;
+            return (
+              <mesh
+                key={k}
+                position={[0, TOP_DISC_Y + 0.021 + k * 0.001, 0]}
+                rotation={[0, -frac * blurArc, 0]}
+              >
+                <cylinderGeometry args={[TOP_RADIUS * 0.8, TOP_RADIUS * 0.8, 0.06, 64]} />
+                <meshBasicMaterial
+                  map={texture}
+                  toneMapped={false}
+                  transparent
+                  opacity={(0.34 - frac * 0.04) * blurOpacity}
+                  depthWrite={false}
+                />
+              </mesh>
+            );
+          })}
 
           {/* Gold stem knob at center top. */}
           <mesh position={[0, TOP_DISC_Y + 0.13, 0]}>
@@ -781,19 +880,30 @@ const CameraRig: React.FC<{
     look = [w.x, 0.5, w.z];
     fov = 30;
   } else {
-    // Battle body — far + telephoto 3/4 view that frames the whole arena with
-    // even top sizes. For the final VICTORY_HOLD beat (lone winner spinning),
-    // smoothly ZOOM in on the champion so the reveal feels earned, not abrupt.
-    const t = frame / 60;
+    // Battle body — a slow showcase ORBIT around the playground: the camera
+    // circles the arena (front → side → back → side) at a roughly fixed height
+    // that gently rises now and then for a top-down angle, so the viewer sees
+    // the action from every side like a live 3D broadcast. The final
+    // VICTORY_HOLD beat smoothly zooms to the champion.
+    const battleLocal = Math.max(0, frame - COUNTDOWN_FRAMES);
+    const t = battleLocal / FPS; // seconds into the battle
+    // Calm, subtle camera that EASES IN from a near-still start: for the first
+    // ~5s the view holds steady so a first-time viewer can read the board, then
+    // it begins a small, slow front sweep. Movement is gentle throughout and
+    // the playground always fills the frame.
+    const warm = Math.min(1, t / 5);
+    const ease = warm * warm * (3 - 2 * warm); // smoothstep 0→1 over the first 5s
+    const az = Math.sin(t * 0.085) * 0.42 * ease; // small ±~24° sweep, eased in
+    const R = 21; // close horizontal radius — playground fills the frame
+    const camY = 13.5 + Math.sin(t * 0.06 + 1.2) * 1.8 * ease; // tiny height drift
     const widePos: [number, number, number] = [
-      Math.sin(t * 0.22) * 1.0,
-      17.5 + Math.sin(t * 0.16) * 0.4,
-      24 + Math.cos(t * 0.19) * 0.8,
+      Math.sin(az) * R,
+      camY,
+      Math.cos(az) * R,
     ];
-    const wideLook: [number, number, number] = [Math.sin(t * 0.13) * 0.4, 0.2, 0];
-    const wideFov = 24 + Math.sin(t * 0.1) * 0.4;
+    const wideLook: [number, number, number] = [0, 0.6, 0];
+    const wideFov = 32;
 
-    const battleLocal = frame - COUNTDOWN_FRAMES;
     const victoryStart = battleFrames - VICTORY_HOLD;
     if (bake && battleFrames > 0 && battleLocal >= victoryStart) {
       const w = readTop(bake, Math.min(battleFrames - 1, battleLocal), winnerIdx, numTops);
@@ -834,6 +944,109 @@ const CameraRig: React.FC<{
   return null;
 };
 
+// Premium GLASS lower-third for the round/match winner — in the rose/lavender
+// theme. A circular flag chip overlaps the left of a frosted-glass capsule
+// (rounded left to hug the chip); inside, the country name + a "Winner" tag with
+// a rose accent. Slides in from the left.
+const WinnerBar: React.FC<{ item: EpisodeItem; opacity: number }> = ({ item, opacity }) => {
+  const flag = item.imagePath
+    ? staticFile(item.imagePath)
+    : staticFile(`flags/${(item.country ?? "us").toLowerCase()}.png`);
+  const CIRCLE = 160;
+  const ringGrad = "linear-gradient(155deg, #efe7ff 0%, #c589e8 48%, #963d5a 100%)";
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: 74,
+        left: 74,
+        opacity,
+        transform: `translateX(${(1 - opacity) * -60}px)`,
+      }}
+    >
+      <div style={{ position: "relative" }}>
+        {/* Frosted-glass bar — rounded rectangle whose left edge tucks BEHIND
+            the flag circle, so the circle reads as the rounded left and the bar
+            cleanly emerges from it (no corner poking out). */}
+        <div
+          style={{
+            marginLeft: 52,
+            background: "rgba(245,240,255,0.5)",
+            backdropFilter: "blur(18px)",
+            WebkitBackdropFilter: "blur(18px)",
+            border: "1.5px solid rgba(255,255,255,0.6)",
+            borderRadius: 26,
+            boxShadow:
+              "0 16px 42px rgba(55,28,55,0.28), inset 0 1px 0 rgba(255,255,255,0.75)",
+            padding: "16px 78px 16px 132px",
+            minWidth: 430,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: INTER,
+              fontSize: 52,
+              fontWeight: 800,
+              letterSpacing: 1.5,
+              color: "#2c1f33",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+              lineHeight: 1.02,
+            }}
+          >
+            {item.title}
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 8 }}>
+            <div
+              style={{
+                fontFamily: INTER,
+                fontSize: 26,
+                fontWeight: 700,
+                letterSpacing: 8,
+                color: "#963d5a",
+                textTransform: "uppercase",
+              }}
+            >
+              Winner
+            </div>
+          </div>
+        </div>
+
+        {/* Flag circle — sits over the bar's left edge (which is hidden behind
+            it), so the circle is the rounded left of the whole unit. */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: CIRCLE,
+            height: CIRCLE,
+            borderRadius: "50%",
+            background: ringGrad,
+            padding: 5,
+            zIndex: 3,
+            boxShadow: "0 12px 28px rgba(55,28,55,0.35)",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              overflow: "hidden",
+              background: "#fff",
+              border: "3px solid rgba(255,255,255,0.9)",
+            }}
+          >
+            <Img src={flag} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ─── HUD ───────────────────────────────────────────────────────
 const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
   const frame = useCurrentFrame();
@@ -860,35 +1073,16 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
-      {/* Title during countdown only — single line, title-case, medium weight. */}
-      {countdownActive && (
-        <div
-          style={{
-            position: "absolute",
-            top: 64,
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            color: "#ffffff",
-            textShadow: "0 4px 24px rgba(0,0,0,0.85)",
-            opacity: interpolate(frame, [0, 20], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            }),
-          }}
-        >
-          <div
-            style={{
-              fontSize: 60,
-              fontWeight: 500,
-              letterSpacing: 1,
-              textTransform: "capitalize",
-            }}
-          >
-            {(episode.title[1] ?? "").toLowerCase()}
-          </div>
-        </div>
-      )}
+      {/* Vignette — gently darkens the corners/surround so the eye focuses on
+          the playground (and tames the bright studio edges). */}
+      <AbsoluteFill
+        style={{
+          background:
+            "radial-gradient(ellipse 66% 74% at 50% 47%, rgba(0,0,0,0) 30%, rgba(24,33,46,0.24) 60%, rgba(13,19,29,0.62) 100%)",
+        }}
+      />
+      {/* (No countdown title — the round card just showed the round, and the
+          per-theme name is intentionally never shown in-video for consistency.) */}
 
       {countdownActive && (
         <div
@@ -899,11 +1093,11 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             right: 0,
             transform: "translateY(-50%)",
             textAlign: "center",
-            color: "#f5b35a",
+            color: "#963d5a",
             fontSize: 300,
-            fontWeight: 600,
+            fontWeight: 800,
             letterSpacing: -8,
-            textShadow: "0 8px 48px rgba(0,0,0,0.9)",
+            textShadow: "0 4px 22px rgba(255,255,255,0.78)",
             opacity: countdownPulseOpacity(frame, fps),
           }}
         >
@@ -915,33 +1109,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
           viewers predict the outcome, which kills engagement. */}
 
       {winnerOpacity > 0 && winnerIdx != null && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 96,
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            color: "#ffffff",
-            opacity: winnerOpacity,
-            textShadow: "0 6px 32px rgba(0,0,0,0.95)",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 26,
-              letterSpacing: 6,
-              opacity: 0.8,
-              textTransform: "capitalize",
-              fontWeight: 500,
-            }}
-          >
-            last top spinning
-          </div>
-          <div style={{ fontSize: 80, fontWeight: 600, color: "#f5b35a", marginTop: 6 }}>
-            {episode.items[winnerIdx].title}
-          </div>
-        </div>
+        <WinnerBar item={episode.items[winnerIdx]} opacity={winnerOpacity} />
       )}
     </AbsoluteFill>
   );
