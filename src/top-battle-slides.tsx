@@ -329,7 +329,7 @@ const ArenaLights: React.FC = () => {
 // in battle-roll.mjs so the visible wall is exactly where tops bounce.
 const WALL_VIS_HEIGHT = 0.7;
 const WALL_VIS_THICK = 0.45;
-const BOARD_DROP = 0.7; // how far the board slab extends down onto the ground
+const BOARD_DROP = 0.08; // thin flush edge (no thick protruding base under the walls)
 const GROUND_Y = FLOOR_Y - BOARD_DROP;
 
 // Premium studio gradients (built on a canvas — no external files, works in
@@ -407,7 +407,7 @@ const Arena: React.FC = () => {
           y=0 (matches physics floor); extends down BOARD_DROP onto the
           ground so it reads as a thick board, not a floating sheet. */}
       <mesh position={[0, FLOOR_Y - BOARD_DROP / 2, 0]}>
-        <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2 + 0.3, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2 + 0.3]} />
+        <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2]} />
         <meshStandardMaterial color={"#aeb7c1"} roughness={0.78} metalness={0.1} envMapIntensity={0.15} />
       </mesh>
 
@@ -417,9 +417,9 @@ const Arena: React.FC = () => {
         <meshStandardMaterial
           map={steelTex}
           color={"#d3dbe4"}
-          roughness={0.72}
-          metalness={0.1}
-          envMapIntensity={0.12}
+          roughness={0.3}
+          metalness={0.8}
+          envMapIntensity={0.6}
         />
       </mesh>
 
@@ -435,7 +435,7 @@ const ArenaWalls: React.FC = () => {
   const off = WALL_VIS_THICK / 2;
   // Dark brushed gunmetal rim — premium, not cheap white plastic.
   const wallMat = (
-    <meshStandardMaterial color={"#9aa3ad"} roughness={0.7} metalness={0.12} envMapIntensity={0.2} />
+    <meshStandardMaterial color={"#9aa3ad"} roughness={0.5} metalness={0.45} envMapIntensity={0.8} />
   );
   return (
     <>
@@ -686,16 +686,17 @@ const Top: React.FC<{
 
       <group position={[x, y, z]}>
         <group quaternion={composedQuat}>
-          {/* Satin metal lathed body — reads as a clear 3D cone with an even
-              light tone top-to-bottom (small self-color emissive lifts the tip). */}
+          {/* Soft pearl satin body — light, smooth and evenly toned (no dark
+              metal bottom). A gentle self-emissive keeps the underside soft
+              instead of dropping to a dark shadow. */}
           <mesh geometry={shellGeo}>
             <meshStandardMaterial
-              color={"#414853"}
-              roughness={0.26}
-              metalness={0.95}
-              envMapIntensity={1.7}
-              emissive={"#14171c"}
-              emissiveIntensity={0.05}
+              color={"#e2e7ee"}
+              roughness={0.42}
+              metalness={0.28}
+              envMapIntensity={0.6}
+              emissive={"#cdd4dd"}
+              emissiveIntensity={0.14}
             />
           </mesh>
 
