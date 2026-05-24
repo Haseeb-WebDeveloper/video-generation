@@ -205,8 +205,8 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={["#dfe5ec"]} />
-      <fog attach="fog" args={["#d8dfe7", 36, 100]} />
+      <color attach="background" args={["#bcc4ce"]} />
+      <fog attach="fog" args={["#b7bfc9", 36, 100]} />
       <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
@@ -223,7 +223,7 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 const StudioEnvironment: React.FC = () => {
   return (
     <Environment resolution={128} frames={1}>
-      <color attach="background" args={["#e6ebf1"]} />
+      <color attach="background" args={["#5e6772"]} />
       {/* Big soft key panel overhead-front */}
       <Lightformer
         intensity={3.0}
@@ -309,23 +309,25 @@ const ArenaLights: React.FC = () => {
   // wooden rim gets a soft secondary from the rim of the spotlight cone.
   return (
     <>
-      <hemisphereLight args={["#ffffff", "#cdd5de", 1.0]} />
-      {/* Key — strong warm light from above-front for bright tops + highlights */}
-      <directionalLight position={[2, 22, 10]} intensity={4.2} color="#fff4e0" />
+      {/* Reduced ambient/flood so the SURROUND falls off to a calm shade; the
+          spotlight (below) pools on the playground so it reads as the focus. */}
+      <hemisphereLight args={["#ffffff", "#aab4c1", 0.45]} />
+      {/* Key — lights the tops + highlights without flooding the whole table */}
+      <directionalLight position={[2, 22, 10]} intensity={2.0} color="#fff4e0" />
       {/* Fills */}
-      <directionalLight position={[14, 14, 12]} intensity={1.4} color="#fff0d8" />
-      <directionalLight position={[-12, 12, -10]} intensity={0.9} color="#a8b8d8" />
+      <directionalLight position={[14, 14, 12]} intensity={0.7} color="#fff0d8" />
+      <directionalLight position={[-12, 12, -10]} intensity={0.5} color="#a8b8d8" />
       {/* Camera-side low fill — lifts the lower/front of each top so the
           conical underside doesn't read black. */}
-      <directionalLight position={[0, 3, 18]} intensity={1.1} color="#dfe6f0" />
-      {/* Studio spotlight pool on the arena center — decay 1.5 so it actually
-          reaches the floor ~18 units away. */}
+      <directionalLight position={[0, 3, 18]} intensity={0.6} color="#dfe6f0" />
+      {/* Studio spotlight pool on the arena center — this is the main key now,
+          so the playground is bright while the surround stays muted. */}
       <spotLight
         position={[0, 18, 4]}
         target-position={[0, 0, 0]}
-        angle={0.7}
-        penumbra={0.7}
-        intensity={5000}
+        angle={0.62}
+        penumbra={0.75}
+        intensity={4200}
         distance={60}
         decay={1.5}
         color="#fff6e6"
@@ -380,9 +382,9 @@ const Backdrop: React.FC = () => {
   const tex = useMemo(
     () =>
       makeVerticalGradientTexture([
-        [0, "#bcc7d4"],
-        [0.6, "#d3dce6"],
-        [1, "#e3e9f0"],
+        [0, "#aeb8c4"],
+        [0.6, "#bcc6d2"],
+        [1, "#c8d1db"],
       ]),
     [],
   );
@@ -401,19 +403,19 @@ const Arena: React.FC = () => {
   );
   // Premium floor: a soft radial glow (brighter under the board, deepening out)
   // on a glossy surface so it catches the studio lights — reads real, not flat.
-  const floorTex = useMemo(() => makeRadialGradientTexture("#e7ebf1", "#c7cfda"), []);
+  const floorTex = useMemo(() => makeRadialGradientTexture("#c4ccd6", "#a6b1be"), []);
 
   return (
     <>
-      {/* OUTER SURFACE — premium glossy studio floor with a soft radial glow
-          (brighter under the board), reflecting the studio lights for depth. */}
+      {/* OUTER SURFACE — MATTE muted studio floor (no glossy hotspots) so the
+          surround recedes to a calm off-white and the playground is the focus. */}
       <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[120, 120]} />
         <meshStandardMaterial
           map={floorTex}
-          roughness={0.34}
+          roughness={0.92}
           metalness={0.0}
-          envMapIntensity={1.1}
+          envMapIntensity={0.2}
         />
       </mesh>
 
@@ -422,7 +424,7 @@ const Arena: React.FC = () => {
           ground so it reads as a thick board, not a floating sheet. */}
       <mesh position={[0, FLOOR_Y - BOARD_DROP / 2, 0]}>
         <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2 + 0.3, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2 + 0.3]} />
-        <meshStandardMaterial color={"#c4ccd6"} roughness={0.5} metalness={0.5} envMapIntensity={1.0} />
+        <meshStandardMaterial color={"#aeb7c1"} roughness={0.55} metalness={0.4} envMapIntensity={0.7} />
       </mesh>
 
       {/* PLAY SURFACE — light brushed-steel floor the tops spin on. */}
@@ -430,7 +432,7 @@ const Arena: React.FC = () => {
         <boxGeometry args={[ARENA_HALF_X * 2, 0.06, ARENA_HALF_Z * 2]} />
         <meshStandardMaterial
           map={steelTex}
-          color={"#8a93a0"}
+          color={"#d3dbe4"}
           roughness={0.3}
           metalness={0.8}
           envMapIntensity={1.8}
@@ -449,7 +451,7 @@ const ArenaWalls: React.FC = () => {
   const off = WALL_VIS_THICK / 2;
   // Dark brushed gunmetal rim — premium, not cheap white plastic.
   const wallMat = (
-    <meshStandardMaterial color={"#d2d9e1"} roughness={0.34} metalness={0.95} envMapIntensity={1.5} />
+    <meshStandardMaterial color={"#9aa3ad"} roughness={0.5} metalness={0.45} envMapIntensity={0.8} />
   );
   return (
     <>
@@ -927,6 +929,14 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
+      {/* Vignette — gently darkens the corners/surround so the eye focuses on
+          the playground (and tames the bright studio edges). */}
+      <AbsoluteFill
+        style={{
+          background:
+            "radial-gradient(ellipse 72% 80% at 50% 46%, rgba(0,0,0,0) 42%, rgba(26,36,50,0.14) 70%, rgba(18,26,38,0.52) 100%)",
+        }}
+      />
       {/* Title during countdown only — single line, title-case, medium weight. */}
       {countdownActive && (
         <div
