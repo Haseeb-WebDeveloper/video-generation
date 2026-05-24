@@ -205,8 +205,9 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={[COLOR_BG]} />
-      <fog attach="fog" args={[COLOR_BG, 28, 70]} />
+      <color attach="background" args={["#0a1f3d"]} />
+      <fog attach="fog" args={["#163f72", 34, 92]} />
+      <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
       <CameraRig episode={episode} bake={bake} numTops={N} />
@@ -341,20 +342,79 @@ const WALL_VIS_THICK = 0.45;
 const BOARD_DROP = 0.7; // how far the board slab extends down onto the ground
 const GROUND_Y = FLOOR_Y - BOARD_DROP;
 
+// Premium studio gradients (built on a canvas — no external files, works in
+// headless render). A radial floor glow + a vertical backdrop give the scene
+// real depth instead of a flat poster colour.
+function makeRadialGradientTexture(inner: string, outer: string): THREE.CanvasTexture {
+  const size = 1024;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(size / 2, size / 2, size * 0.04, size / 2, size / 2, size * 0.6);
+  g.addColorStop(0, inner);
+  g.addColorStop(1, outer);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+function makeVerticalGradientTexture(stops: [number, string][]): THREE.CanvasTexture {
+  const h = 512;
+  const c = document.createElement("canvas");
+  c.width = 8;
+  c.height = h;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createLinearGradient(0, 0, 0, h);
+  for (const [o, col] of stops) g.addColorStop(o, col);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 8, h);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+// Large vertical-gradient backdrop standing behind the arena (premium studio
+// cove). Unlit + fog-exempt so it shows the full rich gradient.
+const Backdrop: React.FC = () => {
+  const tex = useMemo(
+    () =>
+      makeVerticalGradientTexture([
+        [0, "#0a1f3d"],
+        [0.62, "#163f72"],
+        [1, "#2360a8"],
+      ]),
+    [],
+  );
+  return (
+    <mesh position={[0, 16, -40]}>
+      <planeGeometry args={[280, 150]} />
+      <meshBasicMaterial map={tex} toneMapped={false} fog={false} />
+    </mesh>
+  );
+};
+
 const Arena: React.FC = () => {
   const steelTex = useMemo(
     () => makeBrushedSteelTexture({ size: 1024, seed: 0x9c7e1131 }),
     [],
   );
+  // Premium floor: a soft radial glow (brighter under the board, deepening out)
+  // on a glossy surface so it catches the studio lights — reads real, not flat.
+  const floorTex = useMemo(() => makeRadialGradientTexture("#2f74c8", "#0b2546"), []);
 
   return (
     <>
-      {/* OUTER SURFACE — a big flat, BRIGHT "cartoon" tabletop the board sits
-          on. Unlit (meshBasicMaterial) so it renders as the exact vivid colour,
-          unaffected by scene lighting (true flat cartoon look). */}
-      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      {/* OUTER SURFACE — premium glossy studio floor with a soft radial glow
+          (brighter under the board), reflecting the studio lights for depth. */}
+      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[120, 120]} />
-        <meshBasicMaterial color={"#2ea6ff"} toneMapped={false} />
+        <meshStandardMaterial
+          map={floorTex}
+          roughness={0.34}
+          metalness={0.0}
+          envMapIntensity={1.1}
+        />
       </mesh>
 
       {/* BOARD SLAB — raised platform sitting on the surface. Top face at

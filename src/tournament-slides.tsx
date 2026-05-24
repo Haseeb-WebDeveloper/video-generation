@@ -18,7 +18,7 @@ import {
 
 const { fontFamily: INTER } = loadFont();
 
-const COLOR_BG = "#0a0c10";
+const COLOR_BG = "#0a1f40";
 const ACCENT = "#2bff66"; // bright neon green accent (was gold)
 
 // Render text in normal Title Case regardless of how it's stored (episode
@@ -145,7 +145,7 @@ const CardShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       fontFamily: INTER,
       color: "#fff",
       background:
-        "radial-gradient(ellipse at 50% 40%, #1a1f2a 0%, #0a0c10 70%)",
+        "radial-gradient(ellipse at 50% 34%, #1f57a0 0%, #12345f 46%, #0a1f40 100%)",
       alignItems: "center",
       justifyContent: "center",
       flexDirection: "column",
