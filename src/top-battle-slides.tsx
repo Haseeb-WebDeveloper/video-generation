@@ -309,29 +309,17 @@ const ArenaLights: React.FC = () => {
   // wooden rim gets a soft secondary from the rim of the spotlight cone.
   return (
     <>
-      {/* Reduced ambient/flood so the SURROUND falls off to a calm shade; the
-          spotlight (below) pools on the playground so it reads as the focus. */}
-      <hemisphereLight args={["#ffffff", "#aab4c1", 0.45]} />
-      {/* Key — lights the tops + highlights without flooding the whole table */}
-      <directionalLight position={[2, 22, 10]} intensity={2.0} color="#fff4e0" />
-      {/* Fills */}
+      {/* Even, uniform lighting — no spotlight pool, so the flat play surface
+          reads as one consistent colour. (The unlit surround stays muted and
+          the DOM vignette keeps the focus on the playground.) */}
+      <hemisphereLight args={["#ffffff", "#aab4c1", 0.7]} />
+      {/* Key from straight overhead — a directional light hits the flat play
+          surface uniformly (no centre hotspot). */}
+      <directionalLight position={[0, 26, 6]} intensity={2.6} color="#fff6ea" />
+      {/* Soft fills for the tops' sides/undersides */}
       <directionalLight position={[14, 14, 12]} intensity={0.7} color="#fff0d8" />
-      <directionalLight position={[-12, 12, -10]} intensity={0.5} color="#a8b8d8" />
-      {/* Camera-side low fill — lifts the lower/front of each top so the
-          conical underside doesn't read black. */}
-      <directionalLight position={[0, 3, 18]} intensity={0.6} color="#dfe6f0" />
-      {/* Studio spotlight pool on the arena center — this is the main key now,
-          so the playground is bright while the surround stays muted. */}
-      <spotLight
-        position={[0, 18, 4]}
-        target-position={[0, 0, 0]}
-        angle={0.62}
-        penumbra={0.75}
-        intensity={4200}
-        distance={60}
-        decay={1.5}
-        color="#fff6e6"
-      />
+      <directionalLight position={[-12, 12, -10]} intensity={0.6} color="#a8b8d8" />
+      <directionalLight position={[0, 3, 18]} intensity={0.7} color="#dfe6f0" />
     </>
   );
 };
@@ -431,7 +419,7 @@ const Arena: React.FC = () => {
           color={"#d3dbe4"}
           roughness={0.3}
           metalness={0.8}
-          envMapIntensity={1.8}
+          envMapIntensity={0.6}
         />
       </mesh>
 
