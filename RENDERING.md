@@ -24,8 +24,9 @@ Notes:
   parallel, and free. A ~3-min video fits comfortably in one job.
 - For much longer videos (10–15 min), split each into frame-range chunks across
   jobs and concat — ask Claude to extend the workflow when you get there.
-- If a render errors on WebGL, change `--gl=angle` to `--gl=swiftshader` in the
-  workflow.
+- The render uses `--gl=swangle` (SwiftShader software WebGL) because the
+  runners have no GPU. If a render still errors on WebGL, try `--gl=swiftshader`
+  or lower `--concurrency` further in `.github/workflows/render.yml`.
 
 ## One-time YouTube setup (needed for auto-publish — only you can do this)
 1. Google Cloud Console → new project → enable **YouTube Data API v3**.

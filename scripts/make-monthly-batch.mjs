@@ -210,6 +210,7 @@ function buildEpisode(theme) {
   ].join("\n");
   return {
     slug,
+    template: "tournament",
     title: titleLines,
     outro: ["", ""],
     unitLabel: "",

@@ -66,12 +66,16 @@ jobs:
 
       # Output filename MUST be out/<slug>-tournament.mp4 — that's the path
       # publish-episode.mjs (variant "-tournament") looks for.
+      # GPU-less runners can't create a hardware WebGL context for the 3D
+      # scene, so use SwiftShader software GL (--gl=swangle, Remotion's
+      # recommended renderer for headless/cloud Three.js). Lower concurrency
+      # so parallel tabs don't exhaust software-GL contexts/memory.
       - name: Render
         run: |
           mkdir -p out
           npx remotion render ${{ matrix.slug }}-tournament \
             out/${{ matrix.slug }}-tournament.mp4 \
-            --concurrency=4 --timeout=180000 --gl=angle
+            --concurrency=2 --timeout=300000 --gl=swangle
 
       - uses: actions/upload-artifact@v4
         with:

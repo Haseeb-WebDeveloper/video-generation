@@ -27,7 +27,9 @@ import type { Episode } from "./episode";
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      {episodes.map((ep) => (
+      {episodes
+        .filter((ep) => ep.template === "flow" || !ep.template)
+        .map((ep) => (
         <Composition
           key={`${ep.slug}-flow`}
           id={`${ep.slug}-flow`}
@@ -42,7 +44,9 @@ export const RemotionRoot: React.FC = () => {
           })}
         />
       ))}
-      {episodes.map((ep) => (
+      {episodes
+        .filter((ep) => ep.template === "bars" || !ep.template)
+        .map((ep) => (
         <Composition
           key={`${ep.slug}-bars`}
           id={`${ep.slug}-bars`}
@@ -62,7 +66,12 @@ export const RemotionRoot: React.FC = () => {
           list until you've run `npm run race-roll <slug>`, so non-race
           episodes don't carry an empty placeholder. */}
       {episodes
-        .filter((ep) => !!ep.raceResult && !!ep.raceBakePath)
+        .filter(
+          (ep) =>
+            (ep.template === "race" || !ep.template) &&
+            !!ep.raceResult &&
+            !!ep.raceBakePath,
+        )
         .map((ep) => (
           <Composition
             key={`${ep.slug}-race`}
@@ -82,7 +91,12 @@ export const RemotionRoot: React.FC = () => {
           (battleResult + battleBakePath both set). Same gating pattern as
           race above so non-battle episodes don't show an empty entry. */}
       {episodes
-        .filter((ep) => !!ep.battleResult && !!ep.battleBakePath)
+        .filter(
+          (ep) =>
+            (ep.template === "battle" || !ep.template) &&
+            !!ep.battleResult &&
+            !!ep.battleBakePath,
+        )
         .map((ep) => (
           <Composition
             key={`${ep.slug}-battle`}
@@ -101,7 +115,11 @@ export const RemotionRoot: React.FC = () => {
       {/* Tournament template — bracket of battles. Registered only when a
           tournamentResult exists (run `npm run tournament-roll <slug>`). */}
       {episodes
-        .filter((ep) => !!ep.tournamentResult)
+        .filter(
+          (ep) =>
+            (ep.template === "tournament" || !ep.template) &&
+            !!ep.tournamentResult,
+        )
         .map((ep) => (
           <Composition
             key={`${ep.slug}-tournament`}
@@ -124,7 +142,9 @@ export const RemotionRoot: React.FC = () => {
             npx remotion still <slug>-bars-thumb out/thumbnails/<slug>.png
           Then copy into public/thumbnails/ and set "thumbnailPath" on the
           episode JSON for publish-episode to pick up. */}
-      {episodes.map((ep) => (
+      {episodes
+        .filter((ep) => ep.template === "bars" || !ep.template)
+        .map((ep) => (
         <Composition
           key={`${ep.slug}-bars-thumb`}
           id={`${ep.slug}-bars-thumb`}

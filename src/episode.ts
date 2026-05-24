@@ -61,6 +61,13 @@ export type EpisodeYouTube = {
 
 export type Episode = {
   slug: string;
+  // Pins this episode to ONE template so the Remotion studio (and renders)
+  // expose only that composition instead of one per template. When set, only
+  // the matching `<slug>-<template>` composition is registered (the
+  // physics templates still require their baked result to be present).
+  // When omitted, the legacy behavior applies: flow + bars + thumbnail are
+  // all registered, plus race/battle/tournament if their bake exists.
+  template?: "flow" | "bars" | "race" | "battle" | "tournament";
   title: [string, string];
   outro: [string, string];
   unitLabel: string;
