@@ -109,32 +109,32 @@
     "defaultLanguage": "en",
     "publishAt": "2026-06-05T17:00:00.000Z"
   },
-  "battleSeed": 1123315358,
+  "battleSeed": 752687429,
   "battleBakePath": "battle-bakes/spin-02.bin",
   "battleResult": {
     "survivorOrder": [
-      3,
       2,
       0,
-      1,
-      5,
-      4,
-      8,
       9,
+      4,
+      1,
+      3,
+      7,
       6,
-      7
+      8,
+      5
     ],
     "eliminationFrames": [
-      926,
-      900,
-      1031,
-      1107,
-      766,
-      789,
-      436,
-      365,
-      663,
-      579
+      804,
+      624,
+      880,
+      595,
+      691,
+      433,
+      548,
+      574,
+      475,
+      781
     ],
     "eliminationReasons": [
       "stopped",
@@ -148,6 +148,6 @@
       "stopped",
       "stopped"
     ],
-    "battleFrames": 1107
+    "battleFrames": 880
   }
 }
