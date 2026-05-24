@@ -205,8 +205,8 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={["#0a1f3d"]} />
-      <fog attach="fog" args={["#163f72", 34, 92]} />
+      <color attach="background" args={["#eef3f8"]} />
+      <fog attach="fog" args={["#e9eff5", 36, 100]} />
       <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
@@ -223,7 +223,7 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 const StudioEnvironment: React.FC = () => {
   return (
     <Environment resolution={128} frames={1}>
-      <color attach="background" args={["#15171c"]} />
+      <color attach="background" args={["#e6ebf1"]} />
       {/* Big soft key panel overhead-front */}
       <Lightformer
         intensity={3.0}
@@ -309,7 +309,7 @@ const ArenaLights: React.FC = () => {
   // wooden rim gets a soft secondary from the rim of the spotlight cone.
   return (
     <>
-      <hemisphereLight args={["#fdf6e8", "#14161c", 0.8]} />
+      <hemisphereLight args={["#ffffff", "#cdd5de", 1.0]} />
       {/* Key — strong warm light from above-front for bright tops + highlights */}
       <directionalLight position={[2, 22, 10]} intensity={4.2} color="#fff4e0" />
       {/* Fills */}
@@ -380,9 +380,9 @@ const Backdrop: React.FC = () => {
   const tex = useMemo(
     () =>
       makeVerticalGradientTexture([
-        [0, "#0a1f3d"],
-        [0.62, "#163f72"],
-        [1, "#2360a8"],
+        [0, "#d4dde7"],
+        [0.6, "#e9eff5"],
+        [1, "#f7fafc"],
       ]),
     [],
   );
@@ -401,7 +401,7 @@ const Arena: React.FC = () => {
   );
   // Premium floor: a soft radial glow (brighter under the board, deepening out)
   // on a glossy surface so it catches the studio lights — reads real, not flat.
-  const floorTex = useMemo(() => makeRadialGradientTexture("#2f74c8", "#0b2546"), []);
+  const floorTex = useMemo(() => makeRadialGradientTexture("#ffffff", "#d3dbe4"), []);
 
   return (
     <>
@@ -422,15 +422,15 @@ const Arena: React.FC = () => {
           ground so it reads as a thick board, not a floating sheet. */}
       <mesh position={[0, FLOOR_Y - BOARD_DROP / 2, 0]}>
         <boxGeometry args={[ARENA_HALF_X * 2 + WALL_VIS_THICK * 2 + 0.3, BOARD_DROP, ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2 + 0.3]} />
-        <meshStandardMaterial color={"#1c2026"} roughness={0.5} metalness={0.5} envMapIntensity={1.0} />
+        <meshStandardMaterial color={"#c4ccd6"} roughness={0.5} metalness={0.5} envMapIntensity={1.0} />
       </mesh>
 
-      {/* PLAY SURFACE — the brushed-steel floor the tops spin on. */}
+      {/* PLAY SURFACE — light brushed-steel floor the tops spin on. */}
       <mesh position={[0, FLOOR_Y - 0.02, 0]}>
         <boxGeometry args={[ARENA_HALF_X * 2, 0.06, ARENA_HALF_Z * 2]} />
         <meshStandardMaterial
           map={steelTex}
-          color={"#39404c"}
+          color={"#aab3be"}
           roughness={0.3}
           metalness={0.8}
           envMapIntensity={1.8}
@@ -449,7 +449,7 @@ const ArenaWalls: React.FC = () => {
   const off = WALL_VIS_THICK / 2;
   // Dark brushed gunmetal rim — premium, not cheap white plastic.
   const wallMat = (
-    <meshStandardMaterial color={"#2a2e36"} roughness={0.34} metalness={0.95} envMapIntensity={1.5} />
+    <meshStandardMaterial color={"#d2d9e1"} roughness={0.34} metalness={0.95} envMapIntensity={1.5} />
   );
   return (
     <>
@@ -936,8 +936,8 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             left: 0,
             right: 0,
             textAlign: "center",
-            color: "#ffffff",
-            textShadow: "0 4px 24px rgba(0,0,0,0.85)",
+            color: "#17202e",
+            textShadow: "0 2px 12px rgba(255,255,255,0.6)",
             opacity: interpolate(frame, [0, 20], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
@@ -966,11 +966,11 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             right: 0,
             transform: "translateY(-50%)",
             textAlign: "center",
-            color: "#2bff66",
+            color: "#0a9d4e",
             fontSize: 300,
-            fontWeight: 600,
+            fontWeight: 700,
             letterSpacing: -8,
-            textShadow: "0 8px 48px rgba(0,0,0,0.9)",
+            textShadow: "0 4px 24px rgba(255,255,255,0.7)",
             opacity: countdownPulseOpacity(frame, fps),
           }}
         >
@@ -989,9 +989,9 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             left: 0,
             right: 0,
             textAlign: "center",
-            color: "#ffffff",
+            color: "#17202e",
             opacity: winnerOpacity,
-            textShadow: "0 6px 32px rgba(0,0,0,0.95)",
+            textShadow: "0 2px 16px rgba(255,255,255,0.7)",
           }}
         >
           <div
@@ -1005,7 +1005,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
           >
             last top spinning
           </div>
-          <div style={{ fontSize: 80, fontWeight: 600, color: "#2bff66", marginTop: 6 }}>
+          <div style={{ fontSize: 80, fontWeight: 600, color: "#0a9d4e", marginTop: 6 }}>
             {episode.items[winnerIdx].title}
           </div>
         </div>

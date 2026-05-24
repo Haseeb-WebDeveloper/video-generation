@@ -18,8 +18,8 @@ import {
 
 const { fontFamily: INTER } = loadFont();
 
-const COLOR_BG = "#0a1f40";
-const ACCENT = "#2bff66"; // bright neon green accent (was gold)
+const COLOR_BG = "#eef3f8";
+const ACCENT = "#0a9d4e"; // rich emerald green — readable + premium on the light theme
 
 // Render text in normal Title Case regardless of how it's stored (episode
 // titles/labels are kept uppercase in the data) — the user prefers not-uppercase.
@@ -143,9 +143,9 @@ const CardShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <AbsoluteFill
     style={{
       fontFamily: INTER,
-      color: "#fff",
+      color: "#17202e",
       background:
-        "radial-gradient(ellipse at 50% 34%, #1f57a0 0%, #12345f 46%, #0a1f40 100%)",
+        "radial-gradient(ellipse at 50% 32%, #ffffff 0%, #eef3f8 46%, #d8e1ea 100%)",
       alignItems: "center",
       justifyContent: "center",
       flexDirection: "column",
@@ -187,8 +187,8 @@ const FlagChip: React.FC<{ item: EpisodeItem; size: number; delay: number }> = (
           height: size * 0.66,
           objectFit: "cover",
           borderRadius: 8,
-          border: "2px solid rgba(255,255,255,0.25)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.55)",
+          border: "2px solid rgba(0,0,0,0.10)",
+          boxShadow: "0 10px 26px rgba(20,40,70,0.22)",
         }}
       />
       <div style={{ fontSize: size * 0.16, fontWeight: 600, opacity: 1 }}>
@@ -204,13 +204,13 @@ const IntroCard: React.FC<{ episode: Episode }> = ({ episode }) => {
   return (
     <CardShell>
       <div style={{ opacity: op, textAlign: "center" }}>
-        <div style={{ fontSize: 40, letterSpacing: 4, fontWeight: 500, opacity: 1 }}>
+        <div style={{ fontSize: 40, letterSpacing: 4, fontWeight: 600, opacity: 0.55 }}>
           {titleCase(episode.title[0])}
         </div>
         <div style={{ fontSize: 130, fontWeight: 800, color: ACCENT, letterSpacing: 2, lineHeight: 1 }}>
           {titleCase(episode.title[1])}
         </div>
-        <div style={{ fontSize: 30, marginTop: 24, opacity: 1, fontWeight: 500 }}>
+        <div style={{ fontSize: 30, marginTop: 24, opacity: 0.55, fontWeight: 500 }}>
           {episode.items.length} nations · {(episode.tournamentResult?.rounds.length ?? 1) - 1} groups · 1 champion
         </div>
       </div>
@@ -228,7 +228,7 @@ const RoundCard: React.FC<{
   const op = interpolate(frame, [0, 16], [0, 1], { extrapolateRight: "clamp" });
   return (
     <CardShell>
-      <div style={{ opacity: op, fontSize: 26, letterSpacing: 4, fontWeight: 600 }}>
+      <div style={{ opacity: op * 0.55, fontSize: 26, letterSpacing: 4, fontWeight: 600 }}>
         Group {roundNum} of {totalRounds}
       </div>
       <div style={{ opacity: op, fontSize: 110, fontWeight: 800, color: ACCENT, letterSpacing: 2, marginBottom: 36 }}>
@@ -255,7 +255,7 @@ const FinalistsCard: React.FC<{ finalists: EpisodeItem[] }> = ({ finalists }) =>
   const op = interpolate(frame, [0, 16], [0, 1], { extrapolateRight: "clamp" });
   return (
     <CardShell>
-      <div style={{ opacity: op, fontSize: 30, letterSpacing: 4, fontWeight: 600 }}>
+      <div style={{ opacity: op * 0.55, fontSize: 30, letterSpacing: 4, fontWeight: 600 }}>
         The
       </div>
       <div style={{ opacity: op, fontSize: 130, fontWeight: 800, color: ACCENT, letterSpacing: 2, marginBottom: 48 }}>
@@ -277,7 +277,7 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
   const glow = 0.5 + 0.5 * Math.sin(frame * 0.12);
   return (
     <CardShell>
-      <div style={{ fontSize: 34, letterSpacing: 6, fontWeight: 600, opacity: 1 }}>
+      <div style={{ fontSize: 34, letterSpacing: 6, fontWeight: 600, opacity: 0.7 }}>
         🏆 Champion 🏆
       </div>
       <div style={{ transform: `scale(${s})`, marginTop: 30, marginBottom: 24 }}>
@@ -289,7 +289,7 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
             objectFit: "cover",
             borderRadius: 18,
             border: `4px solid ${ACCENT}`,
-            boxShadow: `0 0 ${40 + glow * 50}px rgba(43,255,102,${0.5 + glow * 0.4})`,
+            boxShadow: `0 0 ${40 + glow * 50}px rgba(10,157,78,${0.45 + glow * 0.35})`,
           }}
         />
       </div>
