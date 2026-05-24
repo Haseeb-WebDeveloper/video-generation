@@ -25,12 +25,12 @@ const SPAWN_Y = TOP_HEIGHT / 2 + 0.25;
 const SLEEP_LINVEL_THRESHOLD = 0.015;
 
 // ── Spin / damping model ──
-export const INIT_SPIN = 120;  // fast launch; reads as a spin-blur ring @30fps
+export const INIT_SPIN = 210;  // bigger spin budget → longer matches + more headroom above the stop threshold (longer final duel)
 const SPIN_JITTER = 6;         // near-uniform start; outcome decided by clashes
 const STOP_THRESHOLD = 4;
 const STOP_DWELL_FRAMES = 10;  // ~0.33s @ 30fps
-const ANGULAR_DAMPING = 0.010;
-const ANGULAR_DAMPING_JITTER = 0.020;
+const ANGULAR_DAMPING = 0.007; // slower natural decay → the fight lasts
+const ANGULAR_DAMPING_JITTER = 0.024;
 const LINEAR_DAMPING = 0.22;
 const TOP_FRICTION = 0.02;
 const TOP_RESTITUTION = 0.82;
@@ -41,7 +41,14 @@ const WALL_RESTITUTION = 0.78;
 
 // Continuous stir keeps the battle dynamic (tops wander & re-collide).
 const NUDGE_INTERVAL = 18;
-const NUDGE_STRENGTH = 3.2;
+const NUDGE_STRENGTH = 2.4;
+// Center attractor (per physics step, scaled by a top's remaining energy).
+// RAMPS UP over the match: early game tops skirmish freely around the arena;
+// late game the pull tightens so the survivors are forced together into a
+// climactic brawl instead of drifting apart and quietly spinning down.
+const CENTER_PULL_BASE = 0.04;
+const CENTER_PULL_RAMP = 0.30;
+const CENTER_PULL_RAMP_SECONDS = 36;
 
 // Output/bake rate. Physics still steps at 1/60 (PHYS_PER_FRAME sub-steps per
 // recorded frame) so the tuned dynamics are unchanged — we just record every
@@ -216,10 +223,11 @@ export function simulateBattle({ count, seed }) {
   const collisions = []; // { frame, type:"top"|"wall", strength } for SFX
 
   // Per-collision spin loss: a clash bleeds spin from both tops, scaled by
-  // impact strength, so hits clearly MATTER (a hard clash visibly slows a top;
-  // gang-ups kill fast). Base + strength term.
-  const SPIN_LOSS_BASE = 0.18;
-  const SPIN_LOSS_STR = 0.27;
+  // impact strength, so hits MATTER but don't instantly gut a top — kept gentle
+  // so collisions ACCUMULATE into a long, escalating fight instead of deciding
+  // the match in the opening pile-up. Base + strength term.
+  const SPIN_LOSS_BASE = 0.09;
+  const SPIN_LOSS_STR = 0.14;
 
   world.timestep = PHYS_DT;
   let frame = 0;
@@ -245,7 +253,10 @@ export function simulateBattle({ count, seed }) {
         }
         const strNorm = Math.min(1, strength / 8);
         if (topTop) {
-          const loss = SPIN_LOSS_BASE + SPIN_LOSS_STR * strNorm;
+          // Final-two showdown: ease the spin drain so the last duel is a
+          // drawn-out, suspenseful 1v1 instead of ending in a hit or two.
+          const duelFactor = N - eliminated.size <= 2 ? 0.4 : 1;
+          const loss = (SPIN_LOSS_BASE + SPIN_LOSS_STR * strNorm) * duelFactor;
           for (const idx of [i1, i2]) {
             if (idx === undefined || eliminated.has(idx)) continue;
             const b = tops[idx];
@@ -257,6 +268,10 @@ export function simulateBattle({ count, seed }) {
       });
 
       const doNudge = pstep > 30 && pstep % NUDGE_INTERVAL === 0;
+      // Center-pull strength for this step, ramping up as the match goes on.
+      const pullNow =
+        CENTER_PULL_BASE +
+        CENTER_PULL_RAMP * Math.min(1, pstep / (CENTER_PULL_RAMP_SECONDS * 60));
       for (let i = 0; i < N; i++) {
         const body = tops[i];
         const lv = body.linvel();
@@ -268,9 +283,15 @@ export function simulateBattle({ count, seed }) {
           body.setAngvel({ x: 0, y: 0, z: 0 }, true);
           continue;
         }
+        const energy = Math.max(0, Math.min(1, Math.abs(av.y) / INIT_SPIN));
         let nx = lv.x, nz = lv.z;
+        // Inward pull toward arena center — keeps the fight in the middle and
+        // tightens toward the end (climactic finish).
+        const pos = body.translation();
+        const dc = Math.hypot(pos.x, pos.z) || 1;
+        nx += (-pos.x / dc) * pullNow * energy;
+        nz += (-pos.z / dc) * pullNow * energy;
         if (doNudge) {
-          const energy = Math.max(0, Math.min(1, Math.abs(av.y) / INIT_SPIN));
           const ang = rand() * Math.PI * 2;
           const mag = NUDGE_STRENGTH * energy;
           nx += Math.cos(ang) * mag;
