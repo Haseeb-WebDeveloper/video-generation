@@ -9,6 +9,7 @@ import {
   continueRender,
   delayRender,
   Easing,
+  Img,
   interpolate,
   Sequence,
   staticFile,
@@ -16,7 +17,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Inter";
-import { Episode } from "./episode";
+import { Episode, EpisodeItem } from "./episode";
 
 const { fontFamily: INTER } = loadFont();
 
@@ -54,7 +55,7 @@ const ACCENT_PALETTE = [
 // Brushed steel arena. Backdrop barely matters since the rectangular
 // floor fills the frame, but kept here in case the camera ever pulls
 // back enough to show it.
-const COLOR_BG = "#0a0c10";
+const COLOR_BG = "#aab5c2"; // muted scene tone (also the load-fallback bg, so no dark flash)
 const COLOR_STEEL_BASE = "#c2c6cc";
 const COLOR_STEEL_HIGHLIGHT = "#e4e7eb";
 const COLOR_STEEL_SHADOW = "#7c8088";
@@ -205,8 +206,8 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={["#a3aebb"]} />
-      <fog attach="fog" args={["#9ea9b7", 36, 100]} />
+      <color attach="background" args={["#aab5c2"]} />
+      <fog attach="fog" args={["#adb8c5", 40, 110]} />
       <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
@@ -370,28 +371,60 @@ const Backdrop: React.FC = () => {
   const tex = useMemo(
     () =>
       makeVerticalGradientTexture([
-        [0, "#98a2b0"],
-        [0.6, "#a4afbd"],
+        [0, "#929dac"],
+        [0.55, "#9ca7b5"],
         [1, "#b0bbc8"],
       ]),
     [],
   );
+  // A cylindrical cove wrapping the whole scene, so the camera can orbit 360°
+  // and always have the same backdrop behind the arena (lighter at the horizon,
+  // deeper up top). Unlit + fog-exempt so it shows the full clean gradient.
   return (
-    <mesh position={[0, 16, -40]}>
-      <planeGeometry args={[280, 150]} />
-      <meshBasicMaterial map={tex} toneMapped={false} fog={false} />
+    <mesh position={[0, 22, 0]}>
+      <cylinderGeometry args={[54, 54, 90, 64, 1, true]} />
+      <meshBasicMaterial map={tex} side={THREE.BackSide} toneMapped={false} fog={false} />
     </mesh>
   );
 };
+
+// Muted floor with a soft radial glow PLUS faint panel grid lines. The grid is
+// a FIXED, axis-aligned reference so an orbiting camera reads as the camera
+// moving over a stationary floor — instead of the arena appearing to spin in a
+// featureless void (a plain radial gradient is rotationally symmetric, which is
+// why the orbit felt like the playground was floating/rotating).
+function makeStudioFloorTexture(inner: string, outer: string): THREE.CanvasTexture {
+  const size = 1024;
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(size / 2, size / 2, size * 0.04, size / 2, size / 2, size * 0.62);
+  g.addColorStop(0, inner);
+  g.addColorStop(1, outer);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const cells = 12;
+  const step = size / cells;
+  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = "rgba(58,68,84,0.16)";
+  for (let i = 0; i <= cells; i++) {
+    const p = Math.round(i * step) + 0.5;
+    ctx.beginPath(); ctx.moveTo(p, 0); ctx.lineTo(p, size); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, p); ctx.lineTo(size, p); ctx.stroke();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
 
 const Arena: React.FC = () => {
   const steelTex = useMemo(
     () => makeBrushedSteelTexture({ size: 1024, seed: 0x9c7e1131 }),
     [],
   );
-  // Premium floor: a soft radial glow (brighter under the board, deepening out)
-  // on a glossy surface so it catches the studio lights — reads real, not flat.
-  const floorTex = useMemo(() => makeRadialGradientTexture("#b1bac6", "#8c98a7"), []);
+  const shadowTex = getShadowTexture();
+  // Muted floor + faint panel grid = a fixed reference for the orbiting camera.
+  const floorTex = useMemo(() => makeStudioFloorTexture("#b1bac6", "#8c98a7"), []);
 
   return (
     <>
@@ -401,6 +434,18 @@ const Arena: React.FC = () => {
       <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[120, 120]} />
         <meshBasicMaterial map={floorTex} toneMapped={false} />
+      </mesh>
+
+      {/* Soft grounding shadow — a faint dark halo on the floor around the
+          board so the arena reads as sitting ON the floor, not floating. */}
+      <mesh position={[0, GROUND_Y + 0.012, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry
+          args={[
+            (ARENA_HALF_X * 2 + WALL_VIS_THICK * 2) * 1.7,
+            (ARENA_HALF_Z * 2 + WALL_VIS_THICK * 2) * 1.9,
+          ]}
+        />
+        <meshBasicMaterial map={shadowTex} transparent opacity={0.5} depthWrite={false} />
       </mesh>
 
       {/* BOARD SLAB — raised platform sitting on the surface. Top face at
@@ -417,9 +462,9 @@ const Arena: React.FC = () => {
         <meshStandardMaterial
           map={steelTex}
           color={"#d3dbe4"}
-          roughness={0.3}
-          metalness={0.8}
-          envMapIntensity={0.6}
+          roughness={0.95}
+          metalness={0.0}
+          envMapIntensity={0.0}
         />
       </mesh>
 
@@ -435,7 +480,7 @@ const ArenaWalls: React.FC = () => {
   const off = WALL_VIS_THICK / 2;
   // Dark brushed gunmetal rim — premium, not cheap white plastic.
   const wallMat = (
-    <meshStandardMaterial color={"#9aa3ad"} roughness={0.5} metalness={0.45} envMapIntensity={0.8} />
+    <meshStandardMaterial color={"#9aa3ad"} roughness={0.85} metalness={0.0} envMapIntensity={0.1} />
   );
   return (
     <>
@@ -835,19 +880,30 @@ const CameraRig: React.FC<{
     look = [w.x, 0.5, w.z];
     fov = 30;
   } else {
-    // Battle body — far + telephoto 3/4 view that frames the whole arena with
-    // even top sizes. For the final VICTORY_HOLD beat (lone winner spinning),
-    // smoothly ZOOM in on the champion so the reveal feels earned, not abrupt.
-    const t = frame / 60;
+    // Battle body — a slow showcase ORBIT around the playground: the camera
+    // circles the arena (front → side → back → side) at a roughly fixed height
+    // that gently rises now and then for a top-down angle, so the viewer sees
+    // the action from every side like a live 3D broadcast. The final
+    // VICTORY_HOLD beat smoothly zooms to the champion.
+    const battleLocal = Math.max(0, frame - COUNTDOWN_FRAMES);
+    const t = battleLocal / FPS; // seconds into the battle
+    // Calm, subtle camera that EASES IN from a near-still start: for the first
+    // ~5s the view holds steady so a first-time viewer can read the board, then
+    // it begins a small, slow front sweep. Movement is gentle throughout and
+    // the playground always fills the frame.
+    const warm = Math.min(1, t / 5);
+    const ease = warm * warm * (3 - 2 * warm); // smoothstep 0→1 over the first 5s
+    const az = Math.sin(t * 0.085) * 0.42 * ease; // small ±~24° sweep, eased in
+    const R = 21; // close horizontal radius — playground fills the frame
+    const camY = 13.5 + Math.sin(t * 0.06 + 1.2) * 1.8 * ease; // tiny height drift
     const widePos: [number, number, number] = [
-      Math.sin(t * 0.22) * 1.0,
-      17.5 + Math.sin(t * 0.16) * 0.4,
-      24 + Math.cos(t * 0.19) * 0.8,
+      Math.sin(az) * R,
+      camY,
+      Math.cos(az) * R,
     ];
-    const wideLook: [number, number, number] = [Math.sin(t * 0.13) * 0.4, 0.2, 0];
-    const wideFov = 24 + Math.sin(t * 0.1) * 0.4;
+    const wideLook: [number, number, number] = [0, 0.6, 0];
+    const wideFov = 32;
 
-    const battleLocal = frame - COUNTDOWN_FRAMES;
     const victoryStart = battleFrames - VICTORY_HOLD;
     if (bake && battleFrames > 0 && battleLocal >= victoryStart) {
       const w = readTop(bake, Math.min(battleFrames - 1, battleLocal), winnerIdx, numTops);
@@ -888,6 +944,109 @@ const CameraRig: React.FC<{
   return null;
 };
 
+// Premium GLASS lower-third for the round/match winner — in the rose/lavender
+// theme. A circular flag chip overlaps the left of a frosted-glass capsule
+// (rounded left to hug the chip); inside, the country name + a "Winner" tag with
+// a rose accent. Slides in from the left.
+const WinnerBar: React.FC<{ item: EpisodeItem; opacity: number }> = ({ item, opacity }) => {
+  const flag = item.imagePath
+    ? staticFile(item.imagePath)
+    : staticFile(`flags/${(item.country ?? "us").toLowerCase()}.png`);
+  const CIRCLE = 160;
+  const ringGrad = "linear-gradient(155deg, #efe7ff 0%, #c589e8 48%, #963d5a 100%)";
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: 74,
+        left: 74,
+        opacity,
+        transform: `translateX(${(1 - opacity) * -60}px)`,
+      }}
+    >
+      <div style={{ position: "relative" }}>
+        {/* Frosted-glass bar — rounded rectangle whose left edge tucks BEHIND
+            the flag circle, so the circle reads as the rounded left and the bar
+            cleanly emerges from it (no corner poking out). */}
+        <div
+          style={{
+            marginLeft: 52,
+            background: "rgba(245,240,255,0.5)",
+            backdropFilter: "blur(18px)",
+            WebkitBackdropFilter: "blur(18px)",
+            border: "1.5px solid rgba(255,255,255,0.6)",
+            borderRadius: 26,
+            boxShadow:
+              "0 16px 42px rgba(55,28,55,0.28), inset 0 1px 0 rgba(255,255,255,0.75)",
+            padding: "16px 78px 16px 132px",
+            minWidth: 430,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: INTER,
+              fontSize: 52,
+              fontWeight: 800,
+              letterSpacing: 1.5,
+              color: "#2c1f33",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+              lineHeight: 1.02,
+            }}
+          >
+            {item.title}
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 8 }}>
+            <div
+              style={{
+                fontFamily: INTER,
+                fontSize: 26,
+                fontWeight: 700,
+                letterSpacing: 8,
+                color: "#963d5a",
+                textTransform: "uppercase",
+              }}
+            >
+              Winner
+            </div>
+          </div>
+        </div>
+
+        {/* Flag circle — sits over the bar's left edge (which is hidden behind
+            it), so the circle is the rounded left of the whole unit. */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: CIRCLE,
+            height: CIRCLE,
+            borderRadius: "50%",
+            background: ringGrad,
+            padding: 5,
+            zIndex: 3,
+            boxShadow: "0 12px 28px rgba(55,28,55,0.35)",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              overflow: "hidden",
+              background: "#fff",
+              border: "3px solid rgba(255,255,255,0.9)",
+            }}
+          >
+            <Img src={flag} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ─── HUD ───────────────────────────────────────────────────────
 const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
   const frame = useCurrentFrame();
@@ -922,35 +1081,8 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             "radial-gradient(ellipse 66% 74% at 50% 47%, rgba(0,0,0,0) 30%, rgba(24,33,46,0.24) 60%, rgba(13,19,29,0.62) 100%)",
         }}
       />
-      {/* Title during countdown only — single line, title-case, medium weight. */}
-      {countdownActive && (
-        <div
-          style={{
-            position: "absolute",
-            top: 64,
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            color: "#17202e",
-            textShadow: "0 2px 12px rgba(255,255,255,0.6)",
-            opacity: interpolate(frame, [0, 20], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            }),
-          }}
-        >
-          <div
-            style={{
-              fontSize: 60,
-              fontWeight: 500,
-              letterSpacing: 1,
-              textTransform: "capitalize",
-            }}
-          >
-            {(episode.title[1] ?? "").toLowerCase()}
-          </div>
-        </div>
-      )}
+      {/* (No countdown title — the round card just showed the round, and the
+          per-theme name is intentionally never shown in-video for consistency.) */}
 
       {countdownActive && (
         <div
@@ -961,11 +1093,11 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             right: 0,
             transform: "translateY(-50%)",
             textAlign: "center",
-            color: "#0a9d4e",
+            color: "#963d5a",
             fontSize: 300,
-            fontWeight: 700,
+            fontWeight: 800,
             letterSpacing: -8,
-            textShadow: "0 4px 24px rgba(255,255,255,0.7)",
+            textShadow: "0 4px 22px rgba(255,255,255,0.78)",
             opacity: countdownPulseOpacity(frame, fps),
           }}
         >
@@ -977,33 +1109,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
           viewers predict the outcome, which kills engagement. */}
 
       {winnerOpacity > 0 && winnerIdx != null && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 96,
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            color: "#17202e",
-            opacity: winnerOpacity,
-            textShadow: "0 2px 16px rgba(255,255,255,0.7)",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 26,
-              letterSpacing: 4,
-              opacity: 1,
-              textTransform: "capitalize",
-              fontWeight: 500,
-            }}
-          >
-            last top spinning
-          </div>
-          <div style={{ fontSize: 80, fontWeight: 600, color: "#0a9d4e", marginTop: 6 }}>
-            {episode.items[winnerIdx].title}
-          </div>
-        </div>
+        <WinnerBar item={episode.items[winnerIdx]} opacity={winnerOpacity} />
       )}
     </AbsoluteFill>
   );
