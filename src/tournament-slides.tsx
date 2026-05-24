@@ -19,7 +19,7 @@ import {
 const { fontFamily: INTER } = loadFont();
 
 const COLOR_BG = "#0a0c10";
-const ACCENT = "#35e36b"; // bright green accent (was gold)
+const ACCENT = "#2bff66"; // bright neon green accent (was gold)
 
 // Render text in normal Title Case regardless of how it's stored (episode
 // titles/labels are kept uppercase in the data) — the user prefers not-uppercase.
@@ -289,7 +289,7 @@ const ChampionCard: React.FC<{ champion: EpisodeItem }> = ({ champion }) => {
             objectFit: "cover",
             borderRadius: 18,
             border: `4px solid ${ACCENT}`,
-            boxShadow: `0 0 ${40 + glow * 50}px rgba(53,227,107,${0.5 + glow * 0.4})`,
+            boxShadow: `0 0 ${40 + glow * 50}px rgba(43,255,102,${0.5 + glow * 0.4})`,
           }}
         />
       </div>

@@ -346,23 +346,15 @@ const Arena: React.FC = () => {
     () => makeBrushedSteelTexture({ size: 1024, seed: 0x9c7e1131 }),
     [],
   );
-  const groundTex = useMemo(
-    () => makeSurfaceTexture({ size: 1024, seed: 0x51af33d1 }),
-    [],
-  );
 
   return (
     <>
-      {/* OUTER SURFACE — a big real-feeling tabletop the board sits on. */}
-      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      {/* OUTER SURFACE — a big flat, BRIGHT "cartoon" tabletop the board sits
+          on. Unlit (meshBasicMaterial) so it renders as the exact vivid colour,
+          unaffected by scene lighting (true flat cartoon look). */}
+      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[120, 120]} />
-        <meshStandardMaterial
-          map={groundTex}
-          color={"#5a4632"}
-          roughness={0.72}
-          metalness={0.0}
-          envMapIntensity={0.5}
-        />
+        <meshBasicMaterial color={"#2ea6ff"} toneMapped={false} />
       </mesh>
 
       {/* BOARD SLAB — raised platform sitting on the surface. Top face at
@@ -914,7 +906,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
             right: 0,
             transform: "translateY(-50%)",
             textAlign: "center",
-            color: "#35e36b",
+            color: "#2bff66",
             fontSize: 300,
             fontWeight: 600,
             letterSpacing: -8,
@@ -953,7 +945,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
           >
             last top spinning
           </div>
-          <div style={{ fontSize: 80, fontWeight: 600, color: "#35e36b", marginTop: 6 }}>
+          <div style={{ fontSize: 80, fontWeight: 600, color: "#2bff66", marginTop: 6 }}>
             {episode.items[winnerIdx].title}
           </div>
         </div>
