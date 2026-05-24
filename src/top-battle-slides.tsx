@@ -205,8 +205,8 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 
   return (
     <>
-      <color attach="background" args={["#bcc4ce"]} />
-      <fog attach="fog" args={["#b7bfc9", 36, 100]} />
+      <color attach="background" args={["#a3aebb"]} />
+      <fog attach="fog" args={["#9ea9b7", 36, 100]} />
       <Backdrop />
       <StudioEnvironment />
       <ArenaLights />
@@ -382,9 +382,9 @@ const Backdrop: React.FC = () => {
   const tex = useMemo(
     () =>
       makeVerticalGradientTexture([
-        [0, "#aeb8c4"],
-        [0.6, "#bcc6d2"],
-        [1, "#c8d1db"],
+        [0, "#98a2b0"],
+        [0.6, "#a4afbd"],
+        [1, "#b0bbc8"],
       ]),
     [],
   );
@@ -403,20 +403,16 @@ const Arena: React.FC = () => {
   );
   // Premium floor: a soft radial glow (brighter under the board, deepening out)
   // on a glossy surface so it catches the studio lights — reads real, not flat.
-  const floorTex = useMemo(() => makeRadialGradientTexture("#c4ccd6", "#a6b1be"), []);
+  const floorTex = useMemo(() => makeRadialGradientTexture("#b1bac6", "#8c98a7"), []);
 
   return (
     <>
-      {/* OUTER SURFACE — MATTE muted studio floor (no glossy hotspots) so the
-          surround recedes to a calm off-white and the playground is the focus. */}
-      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      {/* OUTER SURFACE — UNLIT muted studio floor: renders as exactly this
+          calm off-white shade regardless of the studio lights, so the surround
+          never blows out and the (lit, glossy) playground stays the focus. */}
+      <mesh position={[0, GROUND_Y, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[120, 120]} />
-        <meshStandardMaterial
-          map={floorTex}
-          roughness={0.92}
-          metalness={0.0}
-          envMapIntensity={0.2}
-        />
+        <meshBasicMaterial map={floorTex} toneMapped={false} />
       </mesh>
 
       {/* BOARD SLAB — raised platform sitting on the surface. Top face at
@@ -934,7 +930,7 @@ const HUD: React.FC<{ episode: Episode }> = ({ episode }) => {
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(ellipse 72% 80% at 50% 46%, rgba(0,0,0,0) 42%, rgba(26,36,50,0.14) 70%, rgba(18,26,38,0.52) 100%)",
+            "radial-gradient(ellipse 66% 74% at 50% 47%, rgba(0,0,0,0) 30%, rgba(24,33,46,0.24) 60%, rgba(13,19,29,0.62) 100%)",
         }}
       />
       {/* Title during countdown only — single line, title-case, medium weight. */}
