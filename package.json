@@ -38,6 +38,7 @@
     "new-episode": "node scripts/new-episode.mjs",
     "build-episode": "node scripts/build-episode.mjs",
     "fetch-flags": "node scripts/fetch-flags.mjs",
+    "normalize-flags": "node scripts/normalize-flags.mjs",
     "upscale": "node scripts/upscale-image.mjs",
     "remove-bg": "node scripts/remove-bg.mjs",
     "render": "node scripts/render-episode.mjs",

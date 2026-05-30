@@ -78,7 +78,8 @@ export type Episode = {
   audioVolume?: number;
   // "compact" (default): value treated as millions, displayed as "2.1M" / "14.0B".
   // "raw": value is the literal count, displayed with thousands separators ("2,100,000").
-  valueFormat?: "compact" | "raw";
+  // "hms": value is a minute count, displayed as hours+minutes ("352" → "5h 52m").
+  valueFormat?: "compact" | "raw" | "hms";
   // When true, no space is inserted between the formatted value and the
   // unitLabel — useful for "%" where "96 %" reads as two tokens but "96%"
   // is one. Defaults to false (existing space behavior preserved).

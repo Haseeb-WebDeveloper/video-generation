@@ -1,0 +1,150 @@
+{
+  "slug": "countries-that-sleep-the-least",
+  "title": [
+    "Countries That",
+    "Sleep the Least"
+  ],
+  "outro": [
+    "HOW MANY HOURS DO YOU SLEEP?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "",
+  "valueFormat": "hms",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Japan Sleeps Just 5h 52m a Night — Countries That Sleep the LEAST | Top 15",
+    "description": "Japan sleeps just 5 hours and 52 minutes a night — the least on Earth. Saudi Arabia and South Korea aren't far behind. Where does your country rank?\n\nThis is the countdown of the 15 countries that sleep the least, by average sleep duration per night (Sleep Cycle / World Population Review 2026 data). From the Gulf states to East Asia, work culture and long commutes are quietly stealing the world's sleep.\n\nHow many hours do YOU get? Drop it in the comments.",
+    "tags": [
+      "top 15",
+      "countries that sleep the least",
+      "average sleep by country",
+      "sleep deprivation",
+      "japan sleep",
+      "sleep statistics",
+      "country ranking",
+      "least sleep",
+      "sleep facts",
+      "ranked",
+      "countdown",
+      "ranking",
+      "world facts",
+      "health"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "Japan",
+      "value": 352,
+      "country": "JP",
+      "imagePath": "flags/jp.png"
+    },
+    {
+      "rank": 2,
+      "title": "Saudi Arabia",
+      "value": 362,
+      "country": "SA",
+      "imagePath": "flags/sa.png"
+    },
+    {
+      "rank": 3,
+      "title": "South Korea",
+      "value": 362,
+      "country": "KR",
+      "imagePath": "flags/kr.png"
+    },
+    {
+      "rank": 4,
+      "title": "Philippines",
+      "value": 368,
+      "country": "PH",
+      "imagePath": "flags/ph.png"
+    },
+    {
+      "rank": 5,
+      "title": "Kuwait",
+      "value": 375,
+      "country": "KW",
+      "imagePath": "flags/kw.png"
+    },
+    {
+      "rank": 6,
+      "title": "Taiwan",
+      "value": 381,
+      "country": "TW",
+      "imagePath": "flags/tw.png"
+    },
+    {
+      "rank": 7,
+      "title": "Indonesia",
+      "value": 385,
+      "country": "ID",
+      "imagePath": "flags/id.png"
+    },
+    {
+      "rank": 8,
+      "title": "Qatar",
+      "value": 386,
+      "country": "QA",
+      "imagePath": "flags/qa.png"
+    },
+    {
+      "rank": 9,
+      "title": "Malaysia",
+      "value": 387,
+      "country": "MY",
+      "imagePath": "flags/my.png"
+    },
+    {
+      "rank": 10,
+      "title": "Singapore",
+      "value": 394,
+      "country": "SG",
+      "imagePath": "flags/sg.png"
+    },
+    {
+      "rank": 11,
+      "title": "Turkey",
+      "value": 395,
+      "country": "TR",
+      "imagePath": "flags/tr.png"
+    },
+    {
+      "rank": 12,
+      "title": "India",
+      "value": 395,
+      "country": "IN",
+      "imagePath": "flags/in.png"
+    },
+    {
+      "rank": 13,
+      "title": "Israel",
+      "value": 396,
+      "country": "IL",
+      "imagePath": "flags/il.png"
+    },
+    {
+      "rank": 14,
+      "title": "Colombia",
+      "value": 397,
+      "country": "CO",
+      "imagePath": "flags/co.png"
+    },
+    {
+      "rank": 15,
+      "title": "Mexico",
+      "value": 397,
+      "country": "MX",
+      "imagePath": "flags/mx.png"
+    }
+  ]
+}

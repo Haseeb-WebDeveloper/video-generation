@@ -68,10 +68,22 @@ const ROW_Z = 0;
 const TITLE_Y = ROW_Y;
 const OUTRO_Y = ROW_Y;
 
-function formatValue(m: number, format: "compact" | "raw" = "compact"): string {
+function formatValue(
+  m: number,
+  format: "compact" | "raw" | "hms" = "compact",
+): string {
   if (format === "raw") return m.toLocaleString("en-US");
+  if (format === "hms") return formatHms(m);
   if (m >= 1000) return `${(m / 1000).toFixed(1)}B`;
   return `${m}M`;
+}
+
+// Render a minute count as hours+minutes, e.g. 352 → "5h 52m", 362 → "6h 02m",
+// 360 → "6h". Minutes are zero-padded so the values read like clock times.
+function formatHms(totalMinutes: number): string {
+  const h = Math.floor(totalMinutes / 60);
+  const mm = Math.round(totalMinutes % 60);
+  return mm === 0 ? `${h}h` : `${h}h ${String(mm).padStart(2, "0")}m`;
 }
 
 type Vec3 = [number, number, number];
@@ -89,7 +101,8 @@ const CAM_X_OFFSET = 0;
 // hold. PER_ITEM_FRAMES is the time budget per card — bigger = slower pan.
 // At CAM_DIST = 36 each card has a narrower transit window than the wide
 // framing did, so we slow down a bit to keep ~3s of clear read time per card.
-const PHASE_INTRO = 70; // ~1s swoop-in for episodes WITHOUT intro cards
+const PHASE_INTRO = 130; // ~2.2s slow, gentle swoop-in (episodes WITHOUT intro cards)
+const TITLE_HOLD = 110; // ~1.8s the title board sits centred & dead-still so it reads
 const PER_ITEM_FRAMES = 300; // ~5s per card-spacing of camera travel
 const TAIL_PADDING = 120; // ~2s outro hold
 
@@ -125,7 +138,10 @@ export function totalFrames(episode: {
     // exact frame count of pre-intro renders so older episodes stay
     // bit-for-bit equivalent.
     return (
-      PHASE_INTRO + episode.items.length * PER_ITEM_FRAMES + TAIL_PADDING
+      PHASE_INTRO +
+      TITLE_HOLD +
+      episode.items.length * PER_ITEM_FRAMES +
+      TAIL_PADDING
     );
   }
   // With intro: each card (intro, [title], ranked, outro) is an explicit
@@ -144,7 +160,6 @@ function clamp01(t: number) {
   return Math.max(0, Math.min(1, t));
 }
 
-const easeInOut = Easing.bezier(0.45, 0, 0.2, 1);
 
 // Gap from the last intro card center to the title board. Bigger than
 // CARD_GAP so the title reads as a clear section break between the "context"
@@ -247,15 +262,21 @@ function cameraXAt(frame: number, layout: Layout): number {
   // lerp from titleX to outroX over N×PER_ITEM_FRAMES, so the title and
   // outro share the same continuous motion as the ranking cards.
   if (layout.introCenters.length === 0) {
+    // Slow, gently-eased approach that settles to rest on the title board.
     if (frame < PHASE_INTRO) {
-      const t = easeInOut(clamp01(frame / PHASE_INTRO));
+      const t = easeCinematic(clamp01(frame / PHASE_INTRO));
       return lerp(layout.startCamX, layout.titleX, t);
+    }
+    // Dead-still hold so the title is comfortably readable before the pan.
+    if (frame < PHASE_INTRO + TITLE_HOLD) {
+      return layout.titleX;
     }
     const N = layout.centers.length;
     const travelFrames = N * PER_ITEM_FRAMES;
-    const travelEnd = PHASE_INTRO + travelFrames;
+    const travelStart = PHASE_INTRO + TITLE_HOLD;
+    const travelEnd = travelStart + travelFrames;
     if (frame < travelEnd) {
-      const t = clamp01((frame - PHASE_INTRO) / travelFrames);
+      const t = clamp01((frame - travelStart) / travelFrames);
       return lerp(layout.titleX, layout.outroX, t);
     }
     return layout.outroX;
@@ -336,7 +357,7 @@ const LABEL_FONT_MIN = Math.round(LABEL_H * 0.13); // ~99
 function chooseLabelFontSize(
   items: EpisodeItem[],
   unitLabel: string,
-  valueFormat: "compact" | "raw" = "compact",
+  valueFormat: "compact" | "raw" | "hms" = "compact",
   valueNoSpace: boolean = false,
 ): number {
   const c = document.createElement("canvas");
@@ -392,7 +413,7 @@ function makeLabel(
   item: EpisodeItem,
   unitLabel: string,
   fontSize: number,
-  valueFormat: "compact" | "raw" = "compact",
+  valueFormat: "compact" | "raw" | "hms" = "compact",
   valueNoSpace: boolean = false,
 ): THREE.CanvasTexture {
   const c = document.createElement("canvas");
@@ -675,6 +696,43 @@ function makeTitleTexture(
 
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+
+  // Title board (accent === false): render both lines as ONE cohesive
+  // headline — same weight, size, and colour — so it reads as a single clear
+  // title rather than a big line + a faded "description" subtitle. Both lines
+  // share one font size (the largest that fits the wider line) so the block
+  // looks intentional and balanced.
+  if (!accent) {
+    const maxW = W * 0.92;
+    const minSize = Math.round(H * 0.1);
+    let size = Math.round(H * 0.22);
+    const widest = () => {
+      ctx.font = `800 ${size}px ${FONT}`;
+      return Math.max(
+        ctx.measureText(line1).width,
+        line2 ? ctx.measureText(line2).width : 0,
+      );
+    };
+    while (widest() > maxW && size > minSize) size -= 4;
+
+    const lineH = size * 1.14;
+    const lineCount = line2 ? 2 : 1;
+    const blockH = lineH * (lineCount - 1) + size;
+    const topY = (H - blockH) / 2;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `800 ${size}px ${FONT}`;
+    ctx.fillText(line1, W / 2, topY + size);
+    if (line2) ctx.fillText(line2, W / 2, topY + size + lineH);
+
+    const titleTex = new THREE.CanvasTexture(c);
+    titleTex.colorSpace = THREE.SRGBColorSpace;
+    titleTex.anisotropy = 16;
+    return titleTex;
+  }
 
   const line1MaxW = W * 0.92;
   let line1Size = Math.round(H * 0.18);

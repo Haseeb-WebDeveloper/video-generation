@@ -162,9 +162,14 @@ export { SPACING_X, BAR_W, MIN_BAR_H, MAX_BAR_H };
 // non-currency rankings like solar masses or population counts.
 function formatValueFull(
   m: number,
-  format: "compact" | "raw" = "compact",
+  format: "compact" | "raw" | "hms" = "compact",
 ): string {
   if (format === "raw") return m.toLocaleString("en-US");
+  if (format === "hms") {
+    const h = Math.floor(m / 60);
+    const mm = Math.round(m % 60);
+    return mm === 0 ? `${h}h` : `${h}h ${String(mm).padStart(2, "0")}m`;
+  }
   if (m >= 1000) return `${(m / 1000).toFixed(1)} B`;
   return `${m.toFixed(0)} M`;
 }
