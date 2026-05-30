@@ -1,12 +1,14 @@
 name: Render videos
 
-# Free cloud rendering. Each episode renders on its own parallel runner, off
-# your PC. On a PUBLIC repo this uses unlimited free Linux minutes; on a private
-# repo it draws from your 2,000 free min/month.
+# Free cloud rendering for the ranking channel (flow / bars / race templates).
+# Each episode renders on its own parallel runner, off your PC. On a PUBLIC repo
+# this uses unlimited free Linux minutes; on a private repo it draws from your
+# 2,000 free min/month.
 #
 # Trigger from the GitHub UI: Actions → "Render videos" → Run workflow →
-# enter one or more episode slugs (comma-separated). The finished MP4s are
-# uploaded as downloadable artifacts.
+# enter one or more episode slugs (comma-separated) and pick the template.
+# The finished MP4s are uploaded as downloadable artifacts; set publish=true
+# to also upload them to YouTube (scheduled via each episode's publishAt).
 
 on:
   workflow_dispatch:
@@ -14,14 +16,15 @@ on:
       slugs:
         description: "Comma-separated episode slugs"
         required: true
-        default: "spin-01,spin-02,spin-03,spin-04,spin-05,spin-06,spin-07,spin-08,spin-09,spin-10"
+        default: "top-15-largest-diamonds-ever-found"
       variant:
-        description: "Format: battle (single 10-country battle) or tournament"
+        description: "Template: flow (side-scroll), bars (3D pillars), or race (marble race)"
         type: choice
         options:
-          - battle
-          - tournament
-        default: battle
+          - flow
+          - bars
+          - race
+        default: bars
       publish:
         description: "Upload to YouTube after rendering (scheduled via each episode's publishAt)"
         type: boolean
@@ -66,15 +69,14 @@ jobs:
 
       - run: npm ci
 
-      # Regenerate the physics bake deterministically from the committed seed
-      # (--keep reuses tournamentSeed / battleSeed already in the episode JSON).
-      - name: Bake physics
-        run: |
-          if [ "${{ inputs.variant }}" = "tournament" ]; then
-            node scripts/tournament-roll.mjs ${{ matrix.slug }} --keep
-          else
-            node scripts/battle-roll.mjs ${{ matrix.slug }} --keep
-          fi
+      # The race template is physics-driven and needs a baked simulation.
+      # `--keep` reuses the raceSeed already committed in the episode JSON, so
+      # the cloud bake matches what you saw locally. flow / bars need no bake —
+      # their cover images are committed under public/covers, so there is
+      # nothing to fetch or generate before rendering.
+      - name: Bake physics (race only)
+        if: ${{ inputs.variant == 'race' }}
+        run: node scripts/race-roll.mjs ${{ matrix.slug }} --keep
 
       # Output filename MUST be out/<slug>-<variant>.mp4 — that's the path
       # publish-episode.mjs (variant suffix) looks for.
@@ -82,6 +84,9 @@ jobs:
       # scene, so use SwiftShader software GL (--gl=swangle, Remotion's
       # recommended renderer for headless/cloud Three.js). Lower concurrency
       # so parallel tabs don't exhaust software-GL contexts/memory.
+      # Audio (when an episode sets audioPath) is rendered in-composition via
+      # the <Audio> tag — the Windows-only ffmpeg post-mux in
+      # scripts/render-episode.mjs is intentionally bypassed here.
       - name: Render
         run: |
           mkdir -p out

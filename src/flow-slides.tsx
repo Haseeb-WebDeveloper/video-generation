@@ -877,7 +877,7 @@ function Scene({
   frame: number;
 }) {
   const items = useMemo(
-    () => [...episode.items].sort((a, b) => b.rank - a.rank),
+    () => [...episode.items].sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0)),
     [episode.items],
   );
   const introCards = useMemo<EpisodeIntroCard[]>(

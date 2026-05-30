@@ -9,28 +9,6 @@ import top15MostExpensiveSneakersEverSold from "./top-15-most-expensive-sneakers
 import top20MostExpensiveCelebrityDivorces from "./top-20-most-expensive-celebrity-divorces.json";
 import religionOfEveryCountry from "./religion-of-every-country.json";
 import countriesMarbleRace from "./countries-marble-race.json";
-import countriesTopBattle from "./countries-top-battle.json";
-import countriesTournament from "./countries-tournament.json";
-import europeCup from "./europe-cup.json";
-import asiaCup from "./asia-cup.json";
-import africaCup from "./africa-cup.json";
-import americasCup from "./americas-cup.json";
-import islandNations from "./island-nations.json";
-import mostPopulous from "./most-populous.json";
-import topEconomies from "./top-economies.json";
-import footballGiants from "./football-giants.json";
-import worldPowers from "./world-powers.json";
-import flagsOfTheWorld from "./flags-of-the-world.json";
-import spin01 from "./spin-01.json";
-import spin02 from "./spin-02.json";
-import spin03 from "./spin-03.json";
-import spin04 from "./spin-04.json";
-import spin05 from "./spin-05.json";
-import spin06 from "./spin-06.json";
-import spin07 from "./spin-07.json";
-import spin08 from "./spin-08.json";
-import spin09 from "./spin-09.json";
-import spin10 from "./spin-10.json";
 
 export const episodes: Episode[] = [
   top15LargestDiamondsEverFound as Episode,
@@ -42,26 +20,4 @@ export const episodes: Episode[] = [
   top20MostExpensiveCelebrityDivorces as Episode,
   religionOfEveryCountry as Episode,
   countriesMarbleRace as unknown as Episode,
-  countriesTopBattle as unknown as Episode,
-  countriesTournament as unknown as Episode,
-  europeCup as unknown as Episode,
-  asiaCup as unknown as Episode,
-  africaCup as unknown as Episode,
-  americasCup as unknown as Episode,
-  islandNations as unknown as Episode,
-  mostPopulous as unknown as Episode,
-  topEconomies as unknown as Episode,
-  footballGiants as unknown as Episode,
-  worldPowers as unknown as Episode,
-  flagsOfTheWorld as unknown as Episode,
-  spin01 as unknown as Episode,
-  spin02 as unknown as Episode,
-  spin03 as unknown as Episode,
-  spin04 as unknown as Episode,
-  spin05 as unknown as Episode,
-  spin06 as unknown as Episode,
-  spin07 as unknown as Episode,
-  spin08 as unknown as Episode,
-  spin09 as unknown as Episode,
-  spin10 as unknown as Episode,
 ];

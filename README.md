@@ -1,15 +1,18 @@
 # Top X Ranking Video Generator
 
-Remotion + React Three Fiber pipeline for producing 1920×1080 ranking videos. One JSON file describes an episode (rank, title, value, image source); the build pipeline fetches images, optionally strips backgrounds and adds country flags; the renderer outputs a finished MP4 in one of two 3D templates.
+Remotion + React Three Fiber pipeline for producing 1920×1080 ranking videos. One JSON file describes an episode (rank, title, value, image source); the build pipeline fetches images, optionally strips backgrounds and adds country flags; the renderer outputs a finished MP4 in one of three 3D templates.
+
+This is the **ranking channel** project. Its sibling repo (`../video-spin`) holds the spinning-top battle/tournament templates and targets a different YouTube channel.
 
 ## Templates
 
-For each episode `<slug>` you get two compositions in the studio:
+For each episode `<slug>` you get the matching composition(s) in the studio:
 
 | Composition id          | File                  | Best for                                        |
 | ----------------------- | --------------------- | ----------------------------------------------- |
 | `<slug>-flow`           | `src/flow-slides.tsx` | Continuous side-scrolling row of covers over a still photo backdrop.          |
 | `<slug>-bars`           | `src/bar-slides.tsx`  | Money / count / size comparisons — 3D pillars sized by value, indoor showroom. |
+| `<slug>-race`           | `src/race-slides.tsx` | Marble-race elimination — physics-driven finish order (run `npm run race-roll <slug>` first). |
 
 ## Per-episode workflow
 

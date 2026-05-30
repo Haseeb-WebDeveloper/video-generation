@@ -13,32 +13,12 @@ import {
   RaceSlidesComposition,
   totalFrames as raceTotalFrames,
 } from "./race-slides";
-import {
-  TopBattleSlidesComposition,
-  totalFrames as battleTotalFrames,
-} from "./top-battle-slides";
-import {
-  TournamentComposition,
-  tournamentTotalFrames,
-} from "./tournament-slides";
 import { BarThumbnailComposition } from "./thumbnail-bar";
-import { SpinThumbnailComposition } from "./thumbnail-spin";
-import { BannerComposition } from "./banner-spin";
 import type { Episode } from "./episode";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      {/* Channel banner — static 2560×1440 still. Render via:
-          node scripts/render-banner.mjs  →  public/banner.png */}
-      <Composition
-        id="banner"
-        component={BannerComposition}
-        durationInFrames={1}
-        fps={30}
-        width={2560}
-        height={1440}
-      />
       {episodes
         .filter((ep) => ep.template === "flow" || !ep.template)
         .map((ep) => (
@@ -99,54 +79,6 @@ export const RemotionRoot: React.FC = () => {
             })}
           />
         ))}
-      {/* Top-battle template — registered only when a battle bake exists
-          (battleResult + battleBakePath both set). Same gating pattern as
-          race above so non-battle episodes don't show an empty entry. */}
-      {episodes
-        .filter(
-          (ep) =>
-            (ep.template === "battle" || !ep.template) &&
-            !!ep.battleResult &&
-            !!ep.battleBakePath,
-        )
-        .map((ep) => (
-          <Composition
-            key={`${ep.slug}-battle`}
-            id={`${ep.slug}-battle`}
-            component={TopBattleSlidesComposition}
-            durationInFrames={battleTotalFrames(ep)}
-            fps={30}
-            width={1920}
-            height={1080}
-            defaultProps={{ episode: ep }}
-            calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-              durationInFrames: battleTotalFrames(props.episode),
-            })}
-          />
-        ))}
-      {/* Tournament template — bracket of battles. Registered only when a
-          tournamentResult exists (run `npm run tournament-roll <slug>`). */}
-      {episodes
-        .filter(
-          (ep) =>
-            (ep.template === "tournament" || !ep.template) &&
-            !!ep.tournamentResult,
-        )
-        .map((ep) => (
-          <Composition
-            key={`${ep.slug}-tournament`}
-            id={`${ep.slug}-tournament`}
-            component={TournamentComposition}
-            durationInFrames={tournamentTotalFrames(ep)}
-            fps={30}
-            width={1920}
-            height={1080}
-            defaultProps={{ episode: ep }}
-            calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-              durationInFrames: tournamentTotalFrames(props.episode),
-            })}
-          />
-        ))}
       {/* Thumbnail still for the bar template — one frame per episode at
           2560×1440 (16:9, ~4K). Composes the top 5 pillars on the same
           backdrop the video uses, shot at a 3/4-perspective camera that
@@ -154,23 +86,6 @@ export const RemotionRoot: React.FC = () => {
             npx remotion still <slug>-bars-thumb out/thumbnails/<slug>.png
           Then copy into public/thumbnails/ and set "thumbnailPath" on the
           episode JSON for publish-episode to pick up. */}
-      {/* Dynamic thumbnail for spin battles/tournaments — each episode's flag
-          tops scattered on the studio floor + the big title. Render via:
-          npx remotion still <slug>-spin-thumb out/thumbnails/<slug>.png */}
-      {episodes
-        .filter((ep) => ep.template === "battle" || ep.template === "tournament")
-        .map((ep) => (
-          <Composition
-            key={`${ep.slug}-spin-thumb`}
-            id={`${ep.slug}-spin-thumb`}
-            component={SpinThumbnailComposition}
-            durationInFrames={1}
-            fps={30}
-            width={2560}
-            height={1440}
-            defaultProps={{ episode: ep }}
-          />
-        ))}
       {episodes
         .filter((ep) => ep.template === "bars" || !ep.template)
         .map((ep) => (
