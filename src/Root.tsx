@@ -22,11 +22,23 @@ import {
   tournamentTotalFrames,
 } from "./tournament-slides";
 import { BarThumbnailComposition } from "./thumbnail-bar";
+import { SpinThumbnailComposition } from "./thumbnail-spin";
+import { BannerComposition } from "./banner-spin";
 import type { Episode } from "./episode";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* Channel banner — static 2560×1440 still. Render via:
+          node scripts/render-banner.mjs  →  public/banner.png */}
+      <Composition
+        id="banner"
+        component={BannerComposition}
+        durationInFrames={1}
+        fps={30}
+        width={2560}
+        height={1440}
+      />
       {episodes
         .filter((ep) => ep.template === "flow" || !ep.template)
         .map((ep) => (
@@ -142,6 +154,23 @@ export const RemotionRoot: React.FC = () => {
             npx remotion still <slug>-bars-thumb out/thumbnails/<slug>.png
           Then copy into public/thumbnails/ and set "thumbnailPath" on the
           episode JSON for publish-episode to pick up. */}
+      {/* Dynamic thumbnail for spin battles/tournaments — each episode's flag
+          tops scattered on the studio floor + the big title. Render via:
+          npx remotion still <slug>-spin-thumb out/thumbnails/<slug>.png */}
+      {episodes
+        .filter((ep) => ep.template === "battle" || ep.template === "tournament")
+        .map((ep) => (
+          <Composition
+            key={`${ep.slug}-spin-thumb`}
+            id={`${ep.slug}-spin-thumb`}
+            component={SpinThumbnailComposition}
+            durationInFrames={1}
+            fps={30}
+            width={2560}
+            height={1440}
+            defaultProps={{ episode: ep }}
+          />
+        ))}
       {episodes
         .filter((ep) => ep.template === "bars" || !ep.template)
         .map((ep) => (

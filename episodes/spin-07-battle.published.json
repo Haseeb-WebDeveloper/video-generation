@@ -1,0 +1,21 @@
+{
+  "videoId": "mJ0AyfBNTq0",
+  "url": "https://youtu.be/mJ0AyfBNTq0",
+  "uploadedAt": "2026-05-24T13:29:32Z",
+  "discoveredVia": "set-thumbnails (title match)",
+  "thumbnail": {
+    "source": "thumbnails/spin-07.png",
+    "uploadedWidth": 2560,
+    "uploadedHeight": 1440,
+    "uploadedBytes": 258904,
+    "tier": "native",
+    "quality": 92,
+    "etag": "SmoVaVAZQ-h4AW12OojEhWneAhg",
+    "setAt": "2026-05-25T01:18:53.364Z"
+  },
+  "metadata": {
+    "publishAt": "2026-06-12T11:00:00.000Z",
+    "privacyStatus": "private"
+  },
+  "rescheduledAt": "2026-05-25T01:37:13.367Z"
+}

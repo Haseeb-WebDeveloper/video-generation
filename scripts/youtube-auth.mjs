@@ -43,7 +43,15 @@ if (!clientId || !clientSecret) {
   process.exit(1);
 }
 
-const SCOPE = "https://www.googleapis.com/auth/youtube.upload";
+// upload    → videos.insert (publish-episode resumable upload)
+// force-ssl → full read + write: channels/playlistItems list (discovery),
+//             videos.update (re-schedule publishAt / edit metadata in place),
+//             and thumbnails.set. Superset of youtube.readonly, so one consent
+//             covers the whole pipeline.
+const SCOPE = [
+  "https://www.googleapis.com/auth/youtube.upload",
+  "https://www.googleapis.com/auth/youtube.force-ssl",
+].join(" ");
 
 const server = http.createServer();
 await new Promise((resolve, reject) => {

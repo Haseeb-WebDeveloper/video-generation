@@ -107,7 +107,7 @@
     "privacyStatus": "private",
     "madeForKids": false,
     "defaultLanguage": "en",
-    "publishAt": "2026-06-20T17:00:00.000Z"
+    "publishAt": "2026-06-12T11:00:00.000Z"
   },
   "battleSeed": 1742711856,
   "battleBakePath": "battle-bakes/spin-07.bin",
@@ -149,5 +149,6 @@
       "stopped"
     ],
     "battleFrames": 1057
-  }
+  },
+  "thumbnailPath": "thumbnails/spin-07.png"
 }

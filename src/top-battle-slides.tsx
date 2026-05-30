@@ -221,7 +221,7 @@ const Scene: React.FC<{ episode: Episode }> = ({ episode }) => {
 // Studio HDRI-style environment built from emissive light panels (no external
 // files — works in headless render). Gives the chrome tops + metal arena
 // something premium to reflect, which is what sells the "modern game" look.
-const StudioEnvironment: React.FC = () => {
+export const StudioEnvironment: React.FC = () => {
   return (
     <Environment resolution={128} frames={1}>
       <color attach="background" args={["#5e6772"]} />
@@ -304,7 +304,7 @@ const TopField: React.FC<{
   );
 };
 
-const ArenaLights: React.FC = () => {
+export const ArenaLights: React.FC = () => {
   // Top-down spotlight to mimic a studio shoot — the marble catches a
   // bright highlight directly below the key light, and the polished
   // wooden rim gets a soft secondary from the rim of the spotlight cone.
@@ -367,7 +367,7 @@ function makeVerticalGradientTexture(stops: [number, string][]): THREE.CanvasTex
 
 // Large vertical-gradient backdrop standing behind the arena (premium studio
 // cove). Unlit + fog-exempt so it shows the full rich gradient.
-const Backdrop: React.FC = () => {
+export const Backdrop: React.FC = () => {
   const tex = useMemo(
     () =>
       makeVerticalGradientTexture([
@@ -417,7 +417,7 @@ function makeStudioFloorTexture(inner: string, outer: string): THREE.CanvasTextu
   return tex;
 }
 
-const Arena: React.FC = () => {
+export const Arena: React.FC = () => {
   const steelTex = useMemo(
     () => makeBrushedSteelTexture({ size: 1024, seed: 0x9c7e1131 }),
     [],
