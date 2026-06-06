@@ -1,0 +1,60 @@
+{
+  "slug": "highest-antidepressant-use",
+  "title": [
+    "Highest Antidepressant Use",
+    "in the World"
+  ],
+  "outro": [
+    "WHERE DOES YOUR COUNTRY RANK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "DDD/1k",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Iceland Tops the List — Highest Antidepressant Use in the World | Top 30",
+    "description": "Iceland uses more antidepressants than any country on Earth — about 169 daily doses per 1,000 people every day. Portugal, the UK and Canada aren't far behind. Where does your country rank?\n\nThis is the countdown of the 30 countries with the highest antidepressant consumption, measured in defined daily doses (DDD) per 1,000 inhabitants per day, from OECD Health Statistics (latest available year per country, 2022 to 2024).\n\nHigher use often reflects better diagnosis and access to treatment, not necessarily worse mental health. Where does your country rank? Let us know in the comments.",
+    "tags": ["top 30", "antidepressant use by country", "antidepressant consumption", "mental health", "depression treatment", "OECD", "country ranking", "world facts", "ranked", "countdown", "ranking", "health", "iceland"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Iceland", "value": 168.9, "country": "IS", "imagePath": "flags/is.png" },
+    { "rank": 2, "title": "Portugal", "value": 163.4, "country": "PT", "imagePath": "flags/pt.png" },
+    { "rank": 3, "title": "United Kingdom", "value": 136.9, "country": "GB", "imagePath": "flags/gb.png" },
+    { "rank": 4, "title": "Canada", "value": 134.6, "country": "CA", "imagePath": "flags/ca.png" },
+    { "rank": 5, "title": "Australia", "value": 130.7, "country": "AU", "imagePath": "flags/au.png" },
+    { "rank": 6, "title": "Sweden", "value": 121.8, "country": "SE", "imagePath": "flags/se.png" },
+    { "rank": 7, "title": "Spain", "value": 106.1, "country": "ES", "imagePath": "flags/es.png" },
+    { "rank": 8, "title": "Chile", "value": 104.0, "country": "CL", "imagePath": "flags/cl.png" },
+    { "rank": 9, "title": "New Zealand", "value": 100.6, "country": "NZ", "imagePath": "flags/nz.png" },
+    { "rank": 10, "title": "Finland", "value": 97.7, "country": "FI", "imagePath": "flags/fi.png" },
+    { "rank": 11, "title": "Denmark", "value": 96.2, "country": "DK", "imagePath": "flags/dk.png" },
+    { "rank": 12, "title": "Belgium", "value": 90.2, "country": "BE", "imagePath": "flags/be.png" },
+    { "rank": 13, "title": "Greece", "value": 80.2, "country": "GR", "imagePath": "flags/gr.png" },
+    { "rank": 14, "title": "Czechia", "value": 75.3, "country": "CZ", "imagePath": "flags/cz.png" },
+    { "rank": 15, "title": "Slovenia", "value": 70.2, "country": "SI", "imagePath": "flags/si.png" },
+    { "rank": 16, "title": "Israel", "value": 69.9, "country": "IL", "imagePath": "flags/il.png" },
+    { "rank": 17, "title": "Germany", "value": 66.7, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 18, "title": "Norway", "value": 65.3, "country": "NO", "imagePath": "flags/no.png" },
+    { "rank": 19, "title": "France", "value": 63.5, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 20, "title": "Austria", "value": 61.9, "country": "AT", "imagePath": "flags/at.png" },
+    { "rank": 21, "title": "Turkey", "value": 60.8, "country": "TR", "imagePath": "flags/tr.png" },
+    { "rank": 22, "title": "Luxembourg", "value": 56.8, "country": "LU", "imagePath": "flags/lu.png" },
+    { "rank": 23, "title": "Estonia", "value": 52.5, "country": "EE", "imagePath": "flags/ee.png" },
+    { "rank": 24, "title": "Netherlands", "value": 50.9, "country": "NL", "imagePath": "flags/nl.png" },
+    { "rank": 25, "title": "Slovakia", "value": 49.1, "country": "SK", "imagePath": "flags/sk.png" },
+    { "rank": 26, "title": "Italy", "value": 48.5, "country": "IT", "imagePath": "flags/it.png" },
+    { "rank": 27, "title": "Costa Rica", "value": 47.9, "country": "CR", "imagePath": "flags/cr.png" },
+    { "rank": 28, "title": "Poland", "value": 44.2, "country": "PL", "imagePath": "flags/pl.png" },
+    { "rank": 29, "title": "Lithuania", "value": 42.4, "country": "LT", "imagePath": "flags/lt.png" },
+    { "rank": 30, "title": "Croatia", "value": 39.4, "country": "HR", "imagePath": "flags/hr.png" }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "slug": "highest-national-debt",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 72.86,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.52,
+      "file": "voiceover/highest-national-debt/hook.mp3",
+      "text": "Here are the 15 countries that owe the most money."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.32,
+      "durationSec": 4.22,
+      "file": "voiceover/highest-national-debt/15.mp3",
+      "text": "At number 15, Australia — 930 billion dollars."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 7.82,
+      "durationSec": 3.43,
+      "file": "voiceover/highest-national-debt/14.mp3",
+      "text": "South Korea comes in at 990 billion dollars."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 11.54,
+      "durationSec": 3.5,
+      "file": "voiceover/highest-national-debt/13.mp3",
+      "text": "Next up, Singapore — 1.0 trillion dollars."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 15.32,
+      "durationSec": 3.12,
+      "file": "voiceover/highest-national-debt/12.mp3",
+      "text": "Then there's Mexico, at 1.1 trillion dollars."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 18.72,
+      "durationSec": 4.78,
+      "file": "voiceover/highest-national-debt/11.mp3",
+      "text": "That puts Spain at number 11 — 1.9 trillion dollars. Big step up there."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 23.78,
+      "durationSec": 5.02,
+      "file": "voiceover/highest-national-debt/10.mp3",
+      "text": "Into the top ten. At number 10, Brazil — 2.1 trillion dollars."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 29.07,
+      "durationSec": 3.14,
+      "file": "voiceover/highest-national-debt/9.mp3",
+      "text": "Then Canada, with 2.6 trillion dollars."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 32.5,
+      "durationSec": 4.51,
+      "file": "voiceover/highest-national-debt/8.mp3",
+      "text": "We're halfway. Number 8 is Germany, at 3.2 trillion dollars."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 37.29,
+      "durationSec": 4.3,
+      "file": "voiceover/highest-national-debt/7.mp3",
+      "text": "India lands at number 7, with 3.4 trillion dollars."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 41.86,
+      "durationSec": 2.95,
+      "file": "voiceover/highest-national-debt/6.mp3",
+      "text": "Italy comes in at 3.5 trillion dollars."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 45.1,
+      "durationSec": 4.8,
+      "file": "voiceover/highest-national-debt/5.mp3",
+      "text": "Top five now. At number 5, France — 3.9 trillion dollars."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 50.18,
+      "durationSec": 3.43,
+      "file": "voiceover/highest-national-debt/4.mp3",
+      "text": "Then there's United Kingdom, at 4.1 trillion dollars."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 53.89,
+      "durationSec": 5.66,
+      "file": "voiceover/highest-national-debt/3.mp3",
+      "text": "The top three. Number 3 is Japan, at 9.8 trillion dollars. Quite a jump."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 59.83,
+      "durationSec": 3.53,
+      "file": "voiceover/highest-national-debt/2.mp3",
+      "text": "China makes the list too — 18.7 trillion dollars."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 63.64,
+      "durationSec": 4.7,
+      "file": "voiceover/highest-national-debt/1.mp3",
+      "text": "And right at the top, United States. 38.3 trillion dollars."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 69.04,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-national-debt/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

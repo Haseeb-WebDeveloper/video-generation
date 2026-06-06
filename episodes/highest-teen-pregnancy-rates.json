@@ -1,0 +1,60 @@
+{
+  "slug": "highest-teen-pregnancy-rates",
+  "title": [
+    "Highest Teen Pregnancy",
+    "Rates in the World"
+  ],
+  "outro": [
+    "WHERE DOES YOUR COUNTRY RANK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "per 1k",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Central African Republic Tops the List — Highest Teen Pregnancy Rates | Top 30",
+    "description": "The Central African Republic has the world's highest teen pregnancy rate — 163 births for every 1,000 girls aged 15 to 19 each year. Sub-Saharan Africa dominates the list, with a few nations elsewhere. Where does your country rank?\n\nThis is the countdown of the 30 countries with the highest adolescent birth rates (births per 1,000 women aged 15-19 per year), from the World Bank / UN Population Division (2023).\n\nThese rates reflect poverty, limited access to education and contraception, and early marriage. Where does your country rank? Let us know in the comments.",
+    "tags": ["top 30", "teen pregnancy by country", "adolescent birth rate", "teenage pregnancy", "world bank data", "country ranking", "world facts", "ranked", "countdown", "ranking", "society", "africa"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Central African Republic", "value": 163.1, "country": "CF", "imagePath": "flags/cf.png" },
+    { "rank": 2, "title": "Mozambique", "value": 153.4, "country": "MZ", "imagePath": "flags/mz.png" },
+    { "rank": 3, "title": "Equatorial Guinea", "value": 150.4, "country": "GQ", "imagePath": "flags/gq.png" },
+    { "rank": 4, "title": "Niger", "value": 145.3, "country": "NE", "imagePath": "flags/ne.png" },
+    { "rank": 5, "title": "Angola", "value": 140.8, "country": "AO", "imagePath": "flags/ao.png" },
+    { "rank": 6, "title": "Mali", "value": 138.6, "country": "ML", "imagePath": "flags/ml.png" },
+    { "rank": 7, "title": "Chad", "value": 134.7, "country": "TD", "imagePath": "flags/td.png" },
+    { "rank": 8, "title": "Madagascar", "value": 129.8, "country": "MG", "imagePath": "flags/mg.png" },
+    { "rank": 9, "title": "Liberia", "value": 126.0, "country": "LR", "imagePath": "flags/lr.png" },
+    { "rank": 10, "title": "Guinea", "value": 118.6, "country": "GN", "imagePath": "flags/gn.png" },
+    { "rank": 11, "title": "Somalia", "value": 117.1, "country": "SO", "imagePath": "flags/so.png" },
+    { "rank": 12, "title": "Zambia", "value": 115.9, "country": "ZM", "imagePath": "flags/zm.png" },
+    { "rank": 13, "title": "Malawi", "value": 113.6, "country": "MW", "imagePath": "flags/mw.png" },
+    { "rank": 14, "title": "Tanzania", "value": 113.2, "country": "TZ", "imagePath": "flags/tz.png" },
+    { "rank": 15, "title": "Congo", "value": 109.9, "country": "CG", "imagePath": "flags/cg.png" },
+    { "rank": 16, "title": "Uganda", "value": 107.0, "country": "UG", "imagePath": "flags/ug.png" },
+    { "rank": 17, "title": "DR Congo", "value": 106.9, "country": "CD", "imagePath": "flags/cd.png" },
+    { "rank": 18, "title": "Cameroon", "value": 106.7, "country": "CM", "imagePath": "flags/cm.png" },
+    { "rank": 19, "title": "Zimbabwe", "value": 98.1, "country": "ZW", "imagePath": "flags/zw.png" },
+    { "rank": 20, "title": "South Sudan", "value": 97.1, "country": "SS", "imagePath": "flags/ss.png" },
+    { "rank": 21, "title": "Sierra Leone", "value": 93.6, "country": "SL", "imagePath": "flags/sl.png" },
+    { "rank": 22, "title": "Nicaragua", "value": 93.5, "country": "NI", "imagePath": "flags/ni.png" },
+    { "rank": 23, "title": "Ivory Coast", "value": 92.1, "country": "CI", "imagePath": "flags/ci.png" },
+    { "rank": 24, "title": "Gabon", "value": 91.7, "country": "GA", "imagePath": "flags/ga.png" },
+    { "rank": 25, "title": "Mauritania", "value": 88.9, "country": "MR", "imagePath": "flags/mr.png" },
+    { "rank": 26, "title": "Burkina Faso", "value": 87.1, "country": "BF", "imagePath": "flags/bf.png" },
+    { "rank": 27, "title": "Nigeria", "value": 86.4, "country": "NG", "imagePath": "flags/ng.png" },
+    { "rank": 28, "title": "Sao Tome and Principe", "value": 86.2, "country": "ST", "imagePath": "flags/st.png" },
+    { "rank": 29, "title": "Honduras", "value": 82.1, "country": "HN", "imagePath": "flags/hn.png" },
+    { "rank": 30, "title": "Guinea-Bissau", "value": 82.0, "country": "GW", "imagePath": "flags/gw.png" }
+  ]
+}

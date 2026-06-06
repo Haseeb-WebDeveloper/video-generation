@@ -1,0 +1,99 @@
+{
+  "slug": "most-nuclear-weapons",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 45.93,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.78,
+      "file": "voiceover/most-nuclear-weapons/hook.mp3",
+      "text": "Here are the 9 countries with the most nuclear weapons."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 3.58,
+      "durationSec": 3.31,
+      "file": "voiceover/most-nuclear-weapons/9.mp3",
+      "text": "At number 9, North Korea — 60 warheads."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 7.18,
+      "durationSec": 2.42,
+      "file": "voiceover/most-nuclear-weapons/8.mp3",
+      "text": "Israel comes in at 90 warheads."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 9.88,
+      "durationSec": 4.37,
+      "file": "voiceover/most-nuclear-weapons/7.mp3",
+      "text": "Next up, Pakistan — 170 warheads. That's a real leap."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 14.53,
+      "durationSec": 2.83,
+      "file": "voiceover/most-nuclear-weapons/6.mp3",
+      "text": "Then there's India, at 190 warheads."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 17.64,
+      "durationSec": 5.3,
+      "file": "voiceover/most-nuclear-weapons/5.mp3",
+      "text": "We're halfway. That puts United Kingdom at number 5 — 225 warheads."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 23.22,
+      "durationSec": 3.29,
+      "file": "voiceover/most-nuclear-weapons/4.mp3",
+      "text": "France makes the list too — 370 warheads."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 26.79,
+      "durationSec": 5.4,
+      "file": "voiceover/most-nuclear-weapons/3.mp3",
+      "text": "The top three. In 3rd place, China. 620 warheads. Quite a jump."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 32.47,
+      "durationSec": 4.39,
+      "file": "voiceover/most-nuclear-weapons/2.mp3",
+      "text": "United States isn't far behind, at 5,042 warheads."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 37.14,
+      "durationSec": 4.27,
+      "file": "voiceover/most-nuclear-weapons/1.mp3",
+      "text": "And the number one… Russia. 5,420 warheads."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 42.12,
+      "durationSec": 3.31,
+      "file": "voiceover/most-nuclear-weapons/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "slug": "most-visited-countries",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 75.16,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.98,
+      "file": "voiceover/most-visited-countries/hook.mp3",
+      "text": "Here are the 15 the most visited countries on earth."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.78,
+      "durationSec": 4.22,
+      "file": "voiceover/most-visited-countries/15.mp3",
+      "text": "At number 15, Hong Kong — 20.5 million visitors."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.28,
+      "durationSec": 3.7,
+      "file": "voiceover/most-visited-countries/14.mp3",
+      "text": "Saudi Arabia comes in at 29.7 million visitors."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 12.26,
+      "durationSec": 3.46,
+      "file": "voiceover/most-visited-countries/13.mp3",
+      "text": "Next up, China — 30.5 million visitors."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 15.99,
+      "durationSec": 3.58,
+      "file": "voiceover/most-visited-countries/12.mp3",
+      "text": "Then there's Austria, at 32.2 million visitors."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 19.85,
+      "durationSec": 4.56,
+      "file": "voiceover/most-visited-countries/11.mp3",
+      "text": "That puts Thailand at number 11 — 35.5 million visitors."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 24.69,
+      "durationSec": 4.97,
+      "file": "voiceover/most-visited-countries/10.mp3",
+      "text": "Into the top ten. At number 10, Greece — 36 million visitors."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 29.94,
+      "durationSec": 3.67,
+      "file": "voiceover/most-visited-countries/9.mp3",
+      "text": "Then Japan, with 36.9 million visitors."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 33.89,
+      "durationSec": 5.11,
+      "file": "voiceover/most-visited-countries/8.mp3",
+      "text": "We're halfway. Number 8 is Germany, at 37.5 million visitors."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 39.28,
+      "durationSec": 4.75,
+      "file": "voiceover/most-visited-countries/7.mp3",
+      "text": "United Kingdom lands at number 7, with 41.8 million visitors."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 44.31,
+      "durationSec": 2.95,
+      "file": "voiceover/most-visited-countries/6.mp3",
+      "text": "Mexico comes in at 45 million visitors."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 47.54,
+      "durationSec": 5.23,
+      "file": "voiceover/most-visited-countries/5.mp3",
+      "text": "Top five now. At number 5, Italy — 57.8 million visitors."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 53.06,
+      "durationSec": 3.26,
+      "file": "voiceover/most-visited-countries/4.mp3",
+      "text": "Then there's Turkey, at 60.6 million visitors."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 56.6,
+      "durationSec": 5.59,
+      "file": "voiceover/most-visited-countries/3.mp3",
+      "text": "The top three. Number 3 is United States, at 72.4 million visitors."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 62.47,
+      "durationSec": 4.03,
+      "file": "voiceover/most-visited-countries/2.mp3",
+      "text": "Spain makes the list too — 93.8 million visitors."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 66.78,
+      "durationSec": 3.86,
+      "file": "voiceover/most-visited-countries/1.mp3",
+      "text": "And right at the top, France. 102 million visitors."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 71.35,
+      "durationSec": 3.31,
+      "file": "voiceover/most-visited-countries/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

@@ -12,6 +12,10 @@ import {
   useVideoConfig,
 } from "remotion";
 import { Episode, EpisodeIntroCard, EpisodeItem } from "./episode";
+import {
+  VoiceoverAudio,
+  type VoiceoverTiming,
+} from "./voiceover-preview";
 
 // ───── Geometry ─────
 // Cover sizing — covers fit inside a max bounding box; landscape/portrait
@@ -68,10 +72,38 @@ const ROW_Z = 0;
 const TITLE_Y = ROW_Y;
 const OUTRO_Y = ROW_Y;
 
-function formatValue(m: number, format: "compact" | "raw" = "compact"): string {
+function formatValue(
+  m: number,
+  format: "compact" | "raw" | "hms" | "days24" | "usd" | "millions" = "compact",
+): string {
   if (format === "raw") return m.toLocaleString("en-US");
+  if (format === "hms") return formatHms(m);
+  if (format === "days24") return Math.round(m / 24).toLocaleString("en-US");
+  if (format === "usd") return formatUsdBillions(m);
+  if (format === "millions") return formatMillions(m);
   if (m >= 1000) return `${(m / 1000).toFixed(1)}B`;
   return `${m}M`;
+}
+
+// Value is in billions of USD. 954 → "$954B"; 38270 → "$38.3T"; 3.4 → "$3.4B".
+function formatUsdBillions(b: number): string {
+  if (b >= 1000) return `$${(b / 1000).toFixed(1)}T`;
+  if (b >= 100 || Number.isInteger(b)) return `$${Math.round(b)}B`;
+  return `$${b.toFixed(1)}B`;
+}
+
+// Value is in millions. 102 → "102M"; 1200 → "1.2B".
+function formatMillions(m: number): string {
+  if (m >= 1000) return `${(m / 1000).toFixed(1)}B`;
+  return `${Math.round(m)}M`;
+}
+
+// Render a minute count as hours+minutes, e.g. 352 → "5h 52m", 362 → "6h 02m",
+// 360 → "6h". Minutes are zero-padded so the values read like clock times.
+function formatHms(totalMinutes: number): string {
+  const h = Math.floor(totalMinutes / 60);
+  const mm = Math.round(totalMinutes % 60);
+  return mm === 0 ? `${h}h` : `${h}h ${String(mm).padStart(2, "0")}m`;
 }
 
 type Vec3 = [number, number, number];
@@ -89,9 +121,10 @@ const CAM_X_OFFSET = 0;
 // hold. PER_ITEM_FRAMES is the time budget per card — bigger = slower pan.
 // At CAM_DIST = 36 each card has a narrower transit window than the wide
 // framing did, so we slow down a bit to keep ~3s of clear read time per card.
-const PHASE_INTRO = 70; // ~1s swoop-in for episodes WITHOUT intro cards
+const PHASE_INTRO = 130; // ~2.2s slow, gentle swoop-in (episodes WITHOUT intro cards)
+const TITLE_HOLD = 110; // ~1.8s the title board sits centred & dead-still so it reads
 const PER_ITEM_FRAMES = 300; // ~5s per card-spacing of camera travel
-const TAIL_PADDING = 120; // ~2s outro hold
+const TAIL_PADDING = 360; // ~6s outro hold — room for the #1 reveal line + closing CTA voiceover
 
 // ───── Cinematic intro (only when episode.intro is set) ─────
 // A long, deliberate camera approach into the first intro card, paired with
@@ -125,7 +158,10 @@ export function totalFrames(episode: {
     // exact frame count of pre-intro renders so older episodes stay
     // bit-for-bit equivalent.
     return (
-      PHASE_INTRO + episode.items.length * PER_ITEM_FRAMES + TAIL_PADDING
+      PHASE_INTRO +
+      TITLE_HOLD +
+      episode.items.length * PER_ITEM_FRAMES +
+      TAIL_PADDING
     );
   }
   // With intro: each card (intro, [title], ranked, outro) is an explicit
@@ -144,7 +180,6 @@ function clamp01(t: number) {
   return Math.max(0, Math.min(1, t));
 }
 
-const easeInOut = Easing.bezier(0.45, 0, 0.2, 1);
 
 // Gap from the last intro card center to the title board. Bigger than
 // CARD_GAP so the title reads as a clear section break between the "context"
@@ -247,15 +282,21 @@ function cameraXAt(frame: number, layout: Layout): number {
   // lerp from titleX to outroX over N×PER_ITEM_FRAMES, so the title and
   // outro share the same continuous motion as the ranking cards.
   if (layout.introCenters.length === 0) {
+    // Slow, gently-eased approach that settles to rest on the title board.
     if (frame < PHASE_INTRO) {
-      const t = easeInOut(clamp01(frame / PHASE_INTRO));
+      const t = easeCinematic(clamp01(frame / PHASE_INTRO));
       return lerp(layout.startCamX, layout.titleX, t);
+    }
+    // Dead-still hold so the title is comfortably readable before the pan.
+    if (frame < PHASE_INTRO + TITLE_HOLD) {
+      return layout.titleX;
     }
     const N = layout.centers.length;
     const travelFrames = N * PER_ITEM_FRAMES;
-    const travelEnd = PHASE_INTRO + travelFrames;
+    const travelStart = PHASE_INTRO + TITLE_HOLD;
+    const travelEnd = travelStart + travelFrames;
     if (frame < travelEnd) {
-      const t = clamp01((frame - PHASE_INTRO) / travelFrames);
+      const t = clamp01((frame - travelStart) / travelFrames);
       return lerp(layout.titleX, layout.outroX, t);
     }
     return layout.outroX;
@@ -281,16 +322,82 @@ function cameraXAt(frame: number, layout: Layout): number {
   return lerp(w[segIdx], w[segIdx + 1], t);
 }
 
+type Cue = {
+  itemCueFrames: number[];
+  itemEndFrames: number[];
+  outroCueFrame: number;
+};
+
+// Frames before the first card's cue to start gliding off the title board.
+const TITLE_EXIT_LEAD = 34;
+// As a fraction of card spacing: where card i sits at the MOMENT its line
+// starts (ENTER to the right of centre, so it's "coming in from the right"),
+// and where it has drifted to as its line ENDS (DRIFT to the left of centre).
+// ENTER+DRIFT is the slow distance covered DURING the line; the rest of the
+// spacing is covered FAST in the short gap before the next line. Sum kept high
+// so most travel happens slowly under speech and the gap move stays gentle —
+// the row never stops, it just changes speed.
+const ENTER_FRAC = 0.6;
+const DRIFT_FRAC = 0.28;
+
+// Voiceover-driven camera: CONTINUOUS VARIABLE-SPEED FLOW. The row is always
+// moving. While a line plays, the camera drifts slowly so that card glides
+// right-to-left through centre (the viewer reads it as it's described). In the
+// brief gap before the next line, the camera speeds up to carry the next card
+// toward centre. Nothing ever freezes — that's what made it feel fake.
+function cameraXCued(frame: number, layout: Layout, cue: Cue): number {
+  const swoopEnd = PHASE_INTRO;
+  if (frame < swoopEnd) {
+    const t = easeCinematic(clamp01(frame / swoopEnd));
+    return lerp(layout.startCamX, layout.titleX, t);
+  }
+
+  const centers = layout.centers;
+  const N = centers.length;
+  const firstCue = cue.itemCueFrames[0] ?? swoopEnd;
+  if (frame < firstCue - TITLE_EXIT_LEAD) return layout.titleX;
+
+  const spacing =
+    N > 1 ? (centers[N - 1] - centers[0]) / (N - 1) : COVER_H + CARD_GAP;
+  const enter = spacing * ENTER_FRAC;
+  const drift = spacing * DRIFT_FRAC;
+
+  // Piecewise-linear waypoints (frame → camera x). Linear segments keep a
+  // CONSTANT non-zero velocity within each piece, so motion is continuous and
+  // only the SPEED changes at the seams — never a stop.
+  const wf: number[] = [firstCue - TITLE_EXIT_LEAD];
+  const wx: number[] = [layout.titleX];
+  for (let i = 0; i < N; i++) {
+    wf.push(cue.itemCueFrames[i]);
+    wx.push(centers[i] - enter); // line i starts: card entering from the right
+    wf.push(cue.itemEndFrames[i]);
+    wx.push(centers[i] + drift); // line i ends: card drifted just past centre
+  }
+  wf.push(cue.outroCueFrame);
+  wx.push(layout.outroX);
+
+  if (frame >= wf[wf.length - 1]) return layout.outroX;
+  for (let k = 0; k < wf.length - 1; k++) {
+    if (frame < wf[k + 1]) {
+      const t = clamp01((frame - wf[k]) / Math.max(1, wf[k + 1] - wf[k]));
+      return lerp(wx[k], wx[k + 1], t);
+    }
+  }
+  return layout.outroX;
+}
+
 function CameraRig({
   frame,
   layout,
+  cue,
 }: {
   frame: number;
   layout: Layout;
+  cue?: Cue;
 }) {
   const camera = useThree((s) => s.camera);
 
-  const x = cameraXAt(frame, layout);
+  const x = cue ? cameraXCued(frame, layout, cue) : cameraXAt(frame, layout);
   const lookY = TITLE_Y - 0.6;
 
   // Cinematic Z dolly during the intro swoop: camera starts CINEMATIC_Z_PULLBACK
@@ -336,7 +443,7 @@ const LABEL_FONT_MIN = Math.round(LABEL_H * 0.13); // ~99
 function chooseLabelFontSize(
   items: EpisodeItem[],
   unitLabel: string,
-  valueFormat: "compact" | "raw" = "compact",
+  valueFormat: "compact" | "raw" | "hms" | "days24" | "usd" | "millions" = "compact",
   valueNoSpace: boolean = false,
 ): number {
   const c = document.createElement("canvas");
@@ -392,7 +499,7 @@ function makeLabel(
   item: EpisodeItem,
   unitLabel: string,
   fontSize: number,
-  valueFormat: "compact" | "raw" = "compact",
+  valueFormat: "compact" | "raw" | "hms" | "days24" | "usd" | "millions" = "compact",
   valueNoSpace: boolean = false,
 ): THREE.CanvasTexture {
   const c = document.createElement("canvas");
@@ -676,6 +783,43 @@ function makeTitleTexture(
   const FONT =
     "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+
+  // Title board (accent === false): render both lines as ONE cohesive
+  // headline — same weight, size, and colour — so it reads as a single clear
+  // title rather than a big line + a faded "description" subtitle. Both lines
+  // share one font size (the largest that fits the wider line) so the block
+  // looks intentional and balanced.
+  if (!accent) {
+    const maxW = W * 0.92;
+    const minSize = Math.round(H * 0.1);
+    let size = Math.round(H * 0.22);
+    const widest = () => {
+      ctx.font = `800 ${size}px ${FONT}`;
+      return Math.max(
+        ctx.measureText(line1).width,
+        line2 ? ctx.measureText(line2).width : 0,
+      );
+    };
+    while (widest() > maxW && size > minSize) size -= 4;
+
+    const lineH = size * 1.14;
+    const lineCount = line2 ? 2 : 1;
+    const blockH = lineH * (lineCount - 1) + size;
+    const topY = (H - blockH) / 2;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `800 ${size}px ${FONT}`;
+    ctx.fillText(line1, W / 2, topY + size);
+    if (line2) ctx.fillText(line2, W / 2, topY + size + lineH);
+
+    const titleTex = new THREE.CanvasTexture(c);
+    titleTex.colorSpace = THREE.SRGBColorSpace;
+    titleTex.anisotropy = 16;
+    return titleTex;
+  }
+
   const line1MaxW = W * 0.92;
   let line1Size = Math.round(H * 0.18);
   ctx.font = `800 ${line1Size}px ${FONT}`;
@@ -872,12 +1016,14 @@ function Backdrop() {
 function Scene({
   episode,
   frame,
+  cue,
 }: {
   episode: Episode;
   frame: number;
+  cue?: Cue;
 }) {
   const items = useMemo(
-    () => [...episode.items].sort((a, b) => b.rank - a.rank),
+    () => [...episode.items].sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0)),
     [episode.items],
   );
   const introCards = useMemo<EpisodeIntroCard[]>(
@@ -1035,23 +1181,35 @@ function Scene({
       ))}
       <TextBoard position={[layout.outroX, OUTRO_Y, 0]} texture={outroTex} />
 
-      <CameraRig frame={frame} layout={layout} />
+      <CameraRig frame={frame} layout={layout} cue={cue} />
     </>
   );
 }
 
 const AUDIO_FADE_FRAMES = 90;
 
-export const FlowSlidesComposition: React.FC<{ episode: Episode }> = ({
-  episode,
-}) => {
+export const FlowSlidesComposition: React.FC<{
+  episode: Episode;
+  voiceover?: VoiceoverTiming | null;
+}> = ({ episode, voiceover }) => {
   const { width, height, durationInFrames } = useVideoConfig();
   const frame = useCurrentFrame();
+  const hasVoiceover = !!voiceover && voiceover.clips.length > 0;
+  const cue: Cue | undefined = hasVoiceover
+    ? {
+        itemCueFrames: voiceover!.itemCueFrames,
+        itemEndFrames: voiceover!.itemEndFrames,
+        outroCueFrame: voiceover!.outroCueFrame,
+      }
+    : undefined;
   const baseVolume = episode.audioVolume ?? 0.35;
+  // Duck the music bed under narration so the voice is clear (mirrors the
+  // render mux, which drops music to ≤0.10 when narration plays).
+  const musicVolume = hasVoiceover ? Math.min(baseVolume, 0.1) : baseVolume;
   const fadeVolume = (f: number) => {
     const fadeIn = Math.min(1, f / AUDIO_FADE_FRAMES);
     const fadeOut = Math.min(1, (durationInFrames - f) / AUDIO_FADE_FRAMES);
-    return baseVolume * Math.max(0, Math.min(fadeIn, fadeOut));
+    return musicVolume * Math.max(0, Math.min(fadeIn, fadeOut));
   };
   return (
     <AbsoluteFill style={{ background: BG_COLOR }}>
@@ -1068,7 +1226,7 @@ export const FlowSlidesComposition: React.FC<{ episode: Episode }> = ({
         }}
       >
         <Suspense fallback={null}>
-          <Scene episode={episode} frame={frame} />
+          <Scene episode={episode} frame={frame} cue={cue} />
         </Suspense>
       </ThreeCanvas>
       {episode.audioPath && (
@@ -1078,6 +1236,9 @@ export const FlowSlidesComposition: React.FC<{ episode: Episode }> = ({
         // composition, so this is safe across every episode.
         <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
       )}
+      {/* Live narration in the Studio preview (only if generated). The render
+          path is muted + re-muxed, so this never double-plays at render. */}
+      {hasVoiceover && <VoiceoverAudio clips={voiceover!.clips} fps={60} />}
     </AbsoluteFill>
   );
 };

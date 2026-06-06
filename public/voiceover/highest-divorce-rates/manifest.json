@@ -1,0 +1,147 @@
+{
+  "slug": "highest-divorce-rates",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 65.22,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.81,
+      "file": "voiceover/highest-divorce-rates/hook.mp3",
+      "text": "Here are the 15 highest divorce rates in the world."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.61,
+      "durationSec": 3.55,
+      "file": "voiceover/highest-divorce-rates/15.mp3",
+      "text": "At number 15, Iran — 2.4 per thousand."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 7.44,
+      "durationSec": 2.52,
+      "file": "voiceover/highest-divorce-rates/14.mp3",
+      "text": "Egypt comes in at 2.4 per thousand."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 10.24,
+      "durationSec": 3.34,
+      "file": "voiceover/highest-divorce-rates/13.mp3",
+      "text": "Next up, United States — 2.5 per thousand."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 13.86,
+      "durationSec": 2.71,
+      "file": "voiceover/highest-divorce-rates/12.mp3",
+      "text": "Then there's China, at 2.5 per thousand."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 16.85,
+      "durationSec": 3.86,
+      "file": "voiceover/highest-divorce-rates/11.mp3",
+      "text": "That puts Lithuania at number 11 — 2.5 per thousand."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 20.99,
+      "durationSec": 4.68,
+      "file": "voiceover/highest-divorce-rates/10.mp3",
+      "text": "Into the top ten. At number 10, Cyprus — 2.6 per thousand."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 25.95,
+      "durationSec": 3.07,
+      "file": "voiceover/highest-divorce-rates/9.mp3",
+      "text": "Then Costa Rica, with 2.7 per thousand."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 29.3,
+      "durationSec": 4.15,
+      "file": "voiceover/highest-divorce-rates/8.mp3",
+      "text": "We're halfway. Number 8 is Latvia, at 2.8 per thousand."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 33.74,
+      "durationSec": 3.77,
+      "file": "voiceover/highest-divorce-rates/7.mp3",
+      "text": "Ukraine lands at number 7, with 3.1 per thousand."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 37.78,
+      "durationSec": 2.45,
+      "file": "voiceover/highest-divorce-rates/6.mp3",
+      "text": "Chile comes in at 3.6 per thousand."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 40.51,
+      "durationSec": 4.56,
+      "file": "voiceover/highest-divorce-rates/5.mp3",
+      "text": "Top five now. At number 5, Georgia — 3.7 per thousand."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 45.35,
+      "durationSec": 3.14,
+      "file": "voiceover/highest-divorce-rates/4.mp3",
+      "text": "Then there's Belarus, at 3.7 per thousand."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 48.78,
+      "durationSec": 4.61,
+      "file": "voiceover/highest-divorce-rates/3.mp3",
+      "text": "The top three. Number 3 is Moldova, at 3.9 per thousand."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 53.66,
+      "durationSec": 3.07,
+      "file": "voiceover/highest-divorce-rates/2.mp3",
+      "text": "Russia makes the list too — 3.9 per thousand."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 57.02,
+      "durationSec": 3.7,
+      "file": "voiceover/highest-divorce-rates/1.mp3",
+      "text": "And right at the top, Maldives. 5.5 per thousand."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 61.41,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-divorce-rates/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

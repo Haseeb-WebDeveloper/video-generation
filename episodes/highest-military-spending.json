@@ -1,0 +1,39 @@
+{
+  "slug": "highest-military-spending",
+  "title": ["Countries That Spend the Most", "on Their Military"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "",
+  "valueFormat": "usd",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries That Spend the Most on Their Military (2026) — The USA Gap Is Insane",
+    "description": "The United States spends 954 billion dollars a year on its military — more than the next six countries combined, and about a third of all military spending on Earth. The world now burns through 2.9 trillion dollars a year on defense. Here are the top 15 biggest military spenders, based on SIPRI's Military Expenditure Database (2025).\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["military spending by country", "defense budget", "biggest military budget", "military power", "us military spending", "country ranking", "world facts", "ranked", "countdown", "military", "SIPRI"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "United States", "value": 954, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 2, "title": "China", "value": 336, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 3, "title": "Russia", "value": 190, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 4, "title": "Germany", "value": 114, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 5, "title": "India", "value": 92.1, "country": "IN", "imagePath": "flags/in.png" },
+    { "rank": 6, "title": "United Kingdom", "value": 89, "country": "GB", "imagePath": "flags/gb.png" },
+    { "rank": 7, "title": "Ukraine", "value": 84.1, "country": "UA", "imagePath": "flags/ua.png" },
+    { "rank": 8, "title": "Saudi Arabia", "value": 83.2, "country": "SA", "imagePath": "flags/sa.png" },
+    { "rank": 9, "title": "France", "value": 68, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 10, "title": "Japan", "value": 62.2, "country": "JP", "imagePath": "flags/jp.png" },
+    { "rank": 11, "title": "Israel", "value": 48.3, "country": "IL", "imagePath": "flags/il.png" },
+    { "rank": 12, "title": "Italy", "value": 48.1, "country": "IT", "imagePath": "flags/it.png" },
+    { "rank": 13, "title": "South Korea", "value": 47.8, "country": "KR", "imagePath": "flags/kr.png" },
+    { "rank": 14, "title": "Poland", "value": 46.8, "country": "PL", "imagePath": "flags/pl.png" },
+    { "rank": 15, "title": "Spain", "value": 40.2, "country": "ES", "imagePath": "flags/es.png" }
+  ]
+}

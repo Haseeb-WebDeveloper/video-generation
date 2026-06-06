@@ -1,0 +1,147 @@
+{
+  "slug": "highest-suicide-rates",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 75.9,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3,
+      "file": "voiceover/highest-suicide-rates/hook.mp3",
+      "text": "Here are the 15 highest suicide rates in the world."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.8,
+      "durationSec": 4.25,
+      "file": "voiceover/highest-suicide-rates/15.mp3",
+      "text": "At number 15, Kiribati — 18.7 per hundred thousand."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.33,
+      "durationSec": 4.42,
+      "file": "voiceover/highest-suicide-rates/14.mp3",
+      "text": "Central African Republic comes in at 18.7 per hundred thousand."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 13.02,
+      "durationSec": 3.38,
+      "file": "voiceover/highest-suicide-rates/13.mp3",
+      "text": "Next up, Mozambique — 19 per hundred thousand."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 16.69,
+      "durationSec": 3.34,
+      "file": "voiceover/highest-suicide-rates/12.mp3",
+      "text": "Then there's Mongolia, at 19.8 per hundred thousand."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 20.3,
+      "durationSec": 4.25,
+      "file": "voiceover/highest-suicide-rates/11.mp3",
+      "text": "That puts Eritrea at number 11 — 20.2 per hundred thousand."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 24.83,
+      "durationSec": 5.21,
+      "file": "voiceover/highest-suicide-rates/10.mp3",
+      "text": "Into the top ten. At number 10, South Korea — 20.6 per hundred thousand."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 30.32,
+      "durationSec": 3.48,
+      "file": "voiceover/highest-suicide-rates/9.mp3",
+      "text": "Then Micronesia, with 20.8 per hundred thousand."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 34.08,
+      "durationSec": 4.92,
+      "file": "voiceover/highest-suicide-rates/8.mp3",
+      "text": "We're halfway. Number 8 is South Africa, at 21.1 per hundred thousand."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 39.28,
+      "durationSec": 3.94,
+      "file": "voiceover/highest-suicide-rates/7.mp3",
+      "text": "Uruguay lands at number 7, with 22 per hundred thousand."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 43.5,
+      "durationSec": 3.74,
+      "file": "voiceover/highest-suicide-rates/6.mp3",
+      "text": "Suriname comes in at 22.5 per hundred thousand."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 47.52,
+      "durationSec": 5.62,
+      "file": "voiceover/highest-suicide-rates/5.mp3",
+      "text": "Top five now. At number 5, Solomon Islands — 22.5 per hundred thousand."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 53.42,
+      "durationSec": 3.6,
+      "file": "voiceover/highest-suicide-rates/4.mp3",
+      "text": "Then there's Zimbabwe, at 25.4 per hundred thousand."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 57.3,
+      "durationSec": 5.21,
+      "file": "voiceover/highest-suicide-rates/3.mp3",
+      "text": "The top three. Number 3 is Guyana, at 26.3 per hundred thousand."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 62.78,
+      "durationSec": 4.13,
+      "file": "voiceover/highest-suicide-rates/2.mp3",
+      "text": "Eswatini makes the list too — 31.8 per hundred thousand."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 67.19,
+      "durationSec": 4.2,
+      "file": "voiceover/highest-suicide-rates/1.mp3",
+      "text": "And right at the top, Lesotho. 36.7 per hundred thousand."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 72.09,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-suicide-rates/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

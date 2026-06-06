@@ -1,0 +1,267 @@
+{
+  "slug": "most-obese-countries",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 121.79,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.62,
+      "file": "voiceover/most-obese-countries/hook.mp3",
+      "text": "Here are the thirty most obese countries on Earth."
+    },
+    {
+      "id": "30",
+      "kind": "item",
+      "startSec": 3.42,
+      "durationSec": 3.24,
+      "file": "voiceover/most-obese-countries/30.mp3",
+      "text": "Number thirty: Libya, at thirty-six percent."
+    },
+    {
+      "id": "29",
+      "kind": "item",
+      "startSec": 6.94,
+      "durationSec": 2.74,
+      "file": "voiceover/most-obese-countries/29.mp3",
+      "text": "Hungary comes in at 36.4 percent."
+    },
+    {
+      "id": "28",
+      "kind": "item",
+      "startSec": 9.95,
+      "durationSec": 3.19,
+      "file": "voiceover/most-obese-countries/28.mp3",
+      "text": "Next up, Bahrain — 37.2 percent."
+    },
+    {
+      "id": "27",
+      "kind": "item",
+      "startSec": 13.42,
+      "durationSec": 3,
+      "file": "voiceover/most-obese-countries/27.mp3",
+      "text": "Then there's Iraq, at 37.4 percent."
+    },
+    {
+      "id": "26",
+      "kind": "item",
+      "startSec": 16.7,
+      "durationSec": 4.1,
+      "file": "voiceover/most-obese-countries/26.mp3",
+      "text": "That puts Barbados at number 26 — 38.2 percent."
+    },
+    {
+      "id": "25",
+      "kind": "item",
+      "startSec": 21.09,
+      "durationSec": 3.24,
+      "file": "voiceover/most-obese-countries/25.mp3",
+      "text": "Romania makes the list too — 38.2 percent."
+    },
+    {
+      "id": "24",
+      "kind": "item",
+      "startSec": 24.61,
+      "durationSec": 2.93,
+      "file": "voiceover/most-obese-countries/24.mp3",
+      "text": "Then Georgia, with 38.9 percent."
+    },
+    {
+      "id": "23",
+      "kind": "item",
+      "startSec": 27.82,
+      "durationSec": 3.48,
+      "file": "voiceover/most-obese-countries/23.mp3",
+      "text": "Chile isn't far behind, at 39.5 percent."
+    },
+    {
+      "id": "22",
+      "kind": "item",
+      "startSec": 31.58,
+      "durationSec": 3.84,
+      "file": "voiceover/most-obese-countries/22.mp3",
+      "text": "Puerto Rico lands at number 22, with 41 percent."
+    },
+    {
+      "id": "21",
+      "kind": "item",
+      "startSec": 35.7,
+      "durationSec": 3.19,
+      "file": "voiceover/most-obese-countries/21.mp3",
+      "text": "Saudi Arabia comes in at 41.1 percent."
+    },
+    {
+      "id": "20",
+      "kind": "item",
+      "startSec": 39.17,
+      "durationSec": 4.32,
+      "file": "voiceover/most-obese-countries/20.mp3",
+      "text": "Halfway there. Number twenty: Belize, nearly forty-two percent."
+    },
+    {
+      "id": "19",
+      "kind": "item",
+      "startSec": 43.77,
+      "durationSec": 2.83,
+      "file": "voiceover/most-obese-countries/19.mp3",
+      "text": "Then there's Palau, at 42.2 percent."
+    },
+    {
+      "id": "18",
+      "kind": "item",
+      "startSec": 46.88,
+      "durationSec": 4.27,
+      "file": "voiceover/most-obese-countries/18.mp3",
+      "text": "Number eighteen — and here's the United States, at almost forty-three percent."
+    },
+    {
+      "id": "17",
+      "kind": "item",
+      "startSec": 51.43,
+      "durationSec": 2.86,
+      "file": "voiceover/most-obese-countries/17.mp3",
+      "text": "Egypt makes the list too — 43 percent."
+    },
+    {
+      "id": "16",
+      "kind": "item",
+      "startSec": 54.57,
+      "durationSec": 2.98,
+      "file": "voiceover/most-obese-countries/16.mp3",
+      "text": "Then Qatar, with 43.8 percent."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 57.82,
+      "durationSec": 3.96,
+      "file": "voiceover/most-obese-countries/15.mp3",
+      "text": "Cracking the top fifteen: Kuwait, over forty-five percent."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 62.06,
+      "durationSec": 3.98,
+      "file": "voiceover/most-obese-countries/14.mp3",
+      "text": "In 14th place, Micronesia. 45.6 percent."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 66.33,
+      "durationSec": 2.9,
+      "file": "voiceover/most-obese-countries/13.mp3",
+      "text": "Kiribati comes in at 46.2 percent."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 69.51,
+      "durationSec": 3.86,
+      "file": "voiceover/most-obese-countries/12.mp3",
+      "text": "Next up, Saint Kitts and Nevis — 46.6 percent."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 73.66,
+      "durationSec": 3.38,
+      "file": "voiceover/most-obese-countries/11.mp3",
+      "text": "Then there's Marshall Islands, at 47.3 percent."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 77.32,
+      "durationSec": 3.12,
+      "file": "voiceover/most-obese-countries/10.mp3",
+      "text": "Top ten now. The Bahamas, at forty-eight percent."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 80.72,
+      "durationSec": 3.94,
+      "file": "voiceover/most-obese-countries/9.mp3",
+      "text": "French Polynesia makes the list too — 48.4 percent."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 84.94,
+      "durationSec": 2.88,
+      "file": "voiceover/most-obese-countries/8.mp3",
+      "text": "Then Samoa, with 61.2 percent."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 88.1,
+      "durationSec": 3.98,
+      "file": "voiceover/most-obese-countries/7.mp3",
+      "text": "Tuvalu isn't far behind, at 63.9 percent."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 92.36,
+      "durationSec": 3.84,
+      "file": "voiceover/most-obese-countries/6.mp3",
+      "text": "That puts Niue at number 6 — 66.5 percent."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 96.48,
+      "durationSec": 3.36,
+      "file": "voiceover/most-obese-countries/5.mp3",
+      "text": "Number five: the Cook Islands. Sixty-eight percent."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 100.12,
+      "durationSec": 3.19,
+      "file": "voiceover/most-obese-countries/4.mp3",
+      "text": "Next up, Tokelau — 69.2 percent."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 103.59,
+      "durationSec": 3.36,
+      "file": "voiceover/most-obese-countries/3.mp3",
+      "text": "Number three: Nauru. Seventy percent of adults."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 107.23,
+      "durationSec": 3.41,
+      "file": "voiceover/most-obese-countries/2.mp3",
+      "text": "Number two: Tonga, also over seventy percent."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 110.92,
+      "durationSec": 6.36,
+      "file": "voiceover/most-obese-countries/1.mp3",
+      "text": "And the most obese country on Earth… American Samoa. Three-quarters of all adults — seventy-six percent."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 117.98,
+      "durationSec": 3.31,
+      "file": "voiceover/most-obese-countries/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

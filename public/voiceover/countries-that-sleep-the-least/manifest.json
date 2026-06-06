@@ -1,0 +1,147 @@
+{
+  "slug": "countries-that-sleep-the-least",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 61.91,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.54,
+      "file": "voiceover/countries-that-sleep-the-least/hook.mp3",
+      "text": "Here are the 15 countries that sleep the least."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.34,
+      "durationSec": 3.5,
+      "file": "voiceover/countries-that-sleep-the-least/15.mp3",
+      "text": "At number 15, Mexico — 397."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 7.13,
+      "durationSec": 2.42,
+      "file": "voiceover/countries-that-sleep-the-least/14.mp3",
+      "text": "Colombia comes in at 397."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 9.83,
+      "durationSec": 3.05,
+      "file": "voiceover/countries-that-sleep-the-least/13.mp3",
+      "text": "Next up, Israel — 396."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 13.16,
+      "durationSec": 2.62,
+      "file": "voiceover/countries-that-sleep-the-least/12.mp3",
+      "text": "Then there's India, at 395."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 16.06,
+      "durationSec": 3.34,
+      "file": "voiceover/countries-that-sleep-the-least/11.mp3",
+      "text": "That puts Turkey at number 11 — 395."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 19.67,
+      "durationSec": 4.37,
+      "file": "voiceover/countries-that-sleep-the-least/10.mp3",
+      "text": "Into the top ten. At number 10, Singapore — 394."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 24.32,
+      "durationSec": 2.71,
+      "file": "voiceover/countries-that-sleep-the-least/9.mp3",
+      "text": "Then Malaysia, with 387."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 27.31,
+      "durationSec": 4.1,
+      "file": "voiceover/countries-that-sleep-the-least/8.mp3",
+      "text": "We're halfway. Number 8 is Qatar, at 386."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 31.7,
+      "durationSec": 3.79,
+      "file": "voiceover/countries-that-sleep-the-least/7.mp3",
+      "text": "Indonesia lands at number 7, with 385."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 35.77,
+      "durationSec": 2.3,
+      "file": "voiceover/countries-that-sleep-the-least/6.mp3",
+      "text": "Taiwan comes in at 381."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 38.35,
+      "durationSec": 4.32,
+      "file": "voiceover/countries-that-sleep-the-least/5.mp3",
+      "text": "Top five now. At number 5, Kuwait — 375."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 42.95,
+      "durationSec": 2.69,
+      "file": "voiceover/countries-that-sleep-the-least/4.mp3",
+      "text": "Then there's Philippines, at 368."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 45.92,
+      "durationSec": 4.37,
+      "file": "voiceover/countries-that-sleep-the-least/3.mp3",
+      "text": "The top three. Number 3 is South Korea, at 362."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 50.57,
+      "durationSec": 3.43,
+      "file": "voiceover/countries-that-sleep-the-least/2.mp3",
+      "text": "Saudi Arabia makes the list too — 362."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 54.28,
+      "durationSec": 3.12,
+      "file": "voiceover/countries-that-sleep-the-least/1.mp3",
+      "text": "And right at the top, Japan. 352."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 58.1,
+      "durationSec": 3.31,
+      "file": "voiceover/countries-that-sleep-the-least/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

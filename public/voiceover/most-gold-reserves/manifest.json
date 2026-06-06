@@ -1,0 +1,147 @@
+{
+  "slug": "most-gold-reserves",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 71.18,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.76,
+      "file": "voiceover/most-gold-reserves/hook.mp3",
+      "text": "Here are the 15 countries hoarding the most gold."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.56,
+      "durationSec": 4.13,
+      "file": "voiceover/most-gold-reserves/15.mp3",
+      "text": "At number 15, Portugal — 383 tonnes."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 7.97,
+      "durationSec": 3.19,
+      "file": "voiceover/most-gold-reserves/14.mp3",
+      "text": "Uzbekistan comes in at 399 tonnes."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 11.44,
+      "durationSec": 3.24,
+      "file": "voiceover/most-gold-reserves/13.mp3",
+      "text": "Next up, Taiwan — 424 tonnes."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 14.96,
+      "durationSec": 2.78,
+      "file": "voiceover/most-gold-reserves/12.mp3",
+      "text": "Then there's Poland, at 550 tonnes."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 18.02,
+      "durationSec": 3.62,
+      "file": "voiceover/most-gold-reserves/11.mp3",
+      "text": "That puts Turkey at number 11 — 603 tonnes."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 21.93,
+      "durationSec": 4.78,
+      "file": "voiceover/most-gold-reserves/10.mp3",
+      "text": "Into the top ten. At number 10, Netherlands — 612 tonnes."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 26.98,
+      "durationSec": 3.05,
+      "file": "voiceover/most-gold-reserves/9.mp3",
+      "text": "Then Japan, with 846 tonnes."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 30.31,
+      "durationSec": 4.18,
+      "file": "voiceover/most-gold-reserves/8.mp3",
+      "text": "We're halfway. Number 8 is India, at 880 tonnes."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 34.77,
+      "durationSec": 4.2,
+      "file": "voiceover/most-gold-reserves/7.mp3",
+      "text": "Switzerland lands at number 7, with 1,040 tonnes."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 39.25,
+      "durationSec": 2.83,
+      "file": "voiceover/most-gold-reserves/6.mp3",
+      "text": "China comes in at 2,308 tonnes."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 42.36,
+      "durationSec": 5.33,
+      "file": "voiceover/most-gold-reserves/5.mp3",
+      "text": "Top five now. At number 5, Russia — 2,317 tonnes."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 47.97,
+      "durationSec": 3.86,
+      "file": "voiceover/most-gold-reserves/4.mp3",
+      "text": "Then there's France, at 2,437 tonnes."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 52.11,
+      "durationSec": 5.42,
+      "file": "voiceover/most-gold-reserves/3.mp3",
+      "text": "The top three. Number 3 is Italy, at 2,452 tonnes."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 57.82,
+      "durationSec": 3.84,
+      "file": "voiceover/most-gold-reserves/2.mp3",
+      "text": "Germany makes the list too — 3,350 tonnes."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 61.94,
+      "durationSec": 4.73,
+      "file": "voiceover/most-gold-reserves/1.mp3",
+      "text": "And right at the top, United States. 8,133 tonnes."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 67.36,
+      "durationSec": 3.31,
+      "file": "voiceover/most-gold-reserves/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

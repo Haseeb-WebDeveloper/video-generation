@@ -1,0 +1,147 @@
+{
+  "slug": "most-oil-reserves",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 74.1,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3,
+      "file": "voiceover/most-oil-reserves/hook.mp3",
+      "text": "Here are the 15 countries with the most oil on earth."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.8,
+      "durationSec": 4.15,
+      "file": "voiceover/most-oil-reserves/15.mp3",
+      "text": "At number 15, Brazil — 15.9 billion barrels."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.23,
+      "durationSec": 2.95,
+      "file": "voiceover/most-oil-reserves/14.mp3",
+      "text": "Qatar comes in at 25.2 billion barrels."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 11.46,
+      "durationSec": 3.12,
+      "file": "voiceover/most-oil-reserves/13.mp3",
+      "text": "Next up, China — 26 billion barrels."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 14.86,
+      "durationSec": 2.98,
+      "file": "voiceover/most-oil-reserves/12.mp3",
+      "text": "Then there's Kazakhstan, at 30 billion barrels."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 18.12,
+      "durationSec": 4.7,
+      "file": "voiceover/most-oil-reserves/11.mp3",
+      "text": "That puts Nigeria at number 11 — 37.5 billion barrels."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 23.1,
+      "durationSec": 5.02,
+      "file": "voiceover/most-oil-reserves/10.mp3",
+      "text": "Into the top ten. At number 10, Libya — 48.4 billion barrels."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 28.4,
+      "durationSec": 3.77,
+      "file": "voiceover/most-oil-reserves/9.mp3",
+      "text": "Then United States, with 68.9 billion barrels."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 32.45,
+      "durationSec": 4.03,
+      "file": "voiceover/most-oil-reserves/8.mp3",
+      "text": "We're halfway. Number 8 is Russia, at 80 billion barrels."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 36.76,
+      "durationSec": 4.37,
+      "file": "voiceover/most-oil-reserves/7.mp3",
+      "text": "Kuwait lands at number 7, with 101.5 billion barrels."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 41.41,
+      "durationSec": 4.06,
+      "file": "voiceover/most-oil-reserves/6.mp3",
+      "text": "United Arab Emirates comes in at 113 billion barrels."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 45.74,
+      "durationSec": 5.02,
+      "file": "voiceover/most-oil-reserves/5.mp3",
+      "text": "Top five now. At number 5, Iraq — 145 billion barrels."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 51.04,
+      "durationSec": 3.12,
+      "file": "voiceover/most-oil-reserves/4.mp3",
+      "text": "Then there's Canada, at 170 billion barrels."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 54.44,
+      "durationSec": 5.3,
+      "file": "voiceover/most-oil-reserves/3.mp3",
+      "text": "The top three. Number 3 is Iran, at 208.6 billion barrels."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 60.02,
+      "durationSec": 4.85,
+      "file": "voiceover/most-oil-reserves/2.mp3",
+      "text": "Saudi Arabia makes the list too — 267.2 billion barrels."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 65.15,
+      "durationSec": 4.44,
+      "file": "voiceover/most-oil-reserves/1.mp3",
+      "text": "And right at the top, Venezuela. 303.8 billion barrels."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 70.29,
+      "durationSec": 3.31,
+      "file": "voiceover/most-oil-reserves/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "slug": "countries-that-drink-the-most",
+  "title": [
+    "Countries That Drink",
+    "the Most Alcohol"
+  ],
+  "outro": [
+    "WHERE DOES YOUR COUNTRY RANK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "liters",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Romania Drinks the Most — Countries That Drink the Most Alcohol | Top 30",
+    "description": "The average adult in Romania drinks 16.8 liters of pure alcohol a year — the most on Earth. Eastern Europe dominates the top of the list, but a few surprises sneak in. Where does your country rank?\n\nThis is the countdown of the 30 countries that drink the most, by total alcohol consumption per capita (liters of pure alcohol per person aged 15+ per year), from WHO data via Our World in Data (latest available, 2020).\n\nWhere does your country rank? Let us know in the comments.",
+    "tags": ["top 30", "countries that drink the most", "alcohol consumption by country", "drinking by country", "alcohol statistics", "country ranking", "world facts", "ranked", "countdown", "ranking", "alcohol", "romania"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Romania", "value": 16.8, "country": "RO", "imagePath": "flags/ro.png" },
+    { "rank": 2, "title": "Georgia", "value": 14.4, "country": "GE", "imagePath": "flags/ge.png" },
+    { "rank": 3, "title": "Latvia", "value": 12.9, "country": "LV", "imagePath": "flags/lv.png" },
+    { "rank": 4, "title": "Lithuania", "value": 12.1, "country": "LT", "imagePath": "flags/lt.png" },
+    { "rank": 5, "title": "Czechia", "value": 12.0, "country": "CZ", "imagePath": "flags/cz.png" },
+    { "rank": 6, "title": "Germany", "value": 11.8, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 7, "title": "Poland", "value": 11.7, "country": "PL", "imagePath": "flags/pl.png" },
+    { "rank": 8, "title": "Belarus", "value": 11.6, "country": "BY", "imagePath": "flags/by.png" },
+    { "rank": 9, "title": "Bulgaria", "value": 11.6, "country": "BG", "imagePath": "flags/bg.png" },
+    { "rank": 10, "title": "Austria", "value": 11.5, "country": "AT", "imagePath": "flags/at.png" },
+    { "rank": 11, "title": "Uganda", "value": 11.3, "country": "UG", "imagePath": "flags/ug.png" },
+    { "rank": 12, "title": "Burkina Faso", "value": 11.3, "country": "BF", "imagePath": "flags/bf.png" },
+    { "rank": 13, "title": "Moldova", "value": 11.1, "country": "MD", "imagePath": "flags/md.png" },
+    { "rank": 14, "title": "Tanzania", "value": 11.0, "country": "TZ", "imagePath": "flags/tz.png" },
+    { "rank": 15, "title": "Laos", "value": 10.8, "country": "LA", "imagePath": "flags/la.png" },
+    { "rank": 16, "title": "Luxembourg", "value": 10.8, "country": "LU", "imagePath": "flags/lu.png" },
+    { "rank": 17, "title": "Ireland", "value": 10.8, "country": "IE", "imagePath": "flags/ie.png" },
+    { "rank": 18, "title": "United Kingdom", "value": 10.7, "country": "GB", "imagePath": "flags/gb.png" },
+    { "rank": 19, "title": "Estonia", "value": 10.7, "country": "EE", "imagePath": "flags/ee.png" },
+    { "rank": 20, "title": "Slovakia", "value": 10.7, "country": "SK", "imagePath": "flags/sk.png" },
+    { "rank": 21, "title": "Russia", "value": 10.5, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 22, "title": "Slovenia", "value": 10.4, "country": "SI", "imagePath": "flags/si.png" },
+    { "rank": 23, "title": "Montenegro", "value": 10.3, "country": "ME", "imagePath": "flags/me.png" },
+    { "rank": 24, "title": "France", "value": 10.3, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 25, "title": "Australia", "value": 10.3, "country": "AU", "imagePath": "flags/au.png" },
+    { "rank": 26, "title": "Seychelles", "value": 10.2, "country": "SC", "imagePath": "flags/sc.png" },
+    { "rank": 27, "title": "Switzerland", "value": 10.1, "country": "CH", "imagePath": "flags/ch.png" },
+    { "rank": 28, "title": "New Zealand", "value": 10.0, "country": "NZ", "imagePath": "flags/nz.png" },
+    { "rank": 29, "title": "Hungary", "value": 9.9, "country": "HU", "imagePath": "flags/hu.png" },
+    { "rank": 30, "title": "United States", "value": 9.9, "country": "US", "imagePath": "flags/us.png" }
+  ]
+}

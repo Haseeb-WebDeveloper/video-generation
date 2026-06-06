@@ -1,0 +1,39 @@
+{
+  "slug": "most-remittances",
+  "title": ["Countries That Get the Most", "Money From Abroad"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "",
+  "valueFormat": "usd",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries That Get the Most Money From Abroad — India Got $138 Billion",
+    "description": "Workers living overseas send home staggering amounts of money. India just set an all-time world record, receiving over 137 billion dollars in a single year from its diaspora. Here are the top 15 countries by remittances received, based on World Bank data (2024).\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["remittances by country", "money sent home", "remittances received", "india remittances", "diaspora money", "country ranking", "world facts", "ranked", "countdown", "economy"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "India", "value": 137.67, "country": "IN", "imagePath": "flags/in.png" },
+    { "rank": 2, "title": "Mexico", "value": 67.64, "country": "MX", "imagePath": "flags/mx.png" },
+    { "rank": 3, "title": "Philippines", "value": 40.28, "country": "PH", "imagePath": "flags/ph.png" },
+    { "rank": 4, "title": "France", "value": 38.78, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 5, "title": "Pakistan", "value": 34.91, "country": "PK", "imagePath": "flags/pk.png" },
+    { "rank": 6, "title": "China", "value": 31.41, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 7, "title": "Egypt", "value": 29.56, "country": "EG", "imagePath": "flags/eg.png" },
+    { "rank": 8, "title": "Bangladesh", "value": 27.60, "country": "BD", "imagePath": "flags/bd.png" },
+    { "rank": 9, "title": "Guatemala", "value": 21.64, "country": "GT", "imagePath": "flags/gt.png" },
+    { "rank": 10, "title": "Nigeria", "value": 21.29, "country": "NG", "imagePath": "flags/ng.png" },
+    { "rank": 11, "title": "Germany", "value": 21.23, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 12, "title": "Uzbekistan", "value": 16.58, "country": "UZ", "imagePath": "flags/uz.png" },
+    { "rank": 13, "title": "Indonesia", "value": 16.04, "country": "ID", "imagePath": "flags/id.png" },
+    { "rank": 14, "title": "Vietnam", "value": 16.00, "country": "VN", "imagePath": "flags/vn.png" },
+    { "rank": 15, "title": "Belgium", "value": 15.48, "country": "BE", "imagePath": "flags/be.png" }
+  ]
+}

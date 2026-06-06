@@ -1,0 +1,147 @@
+{
+  "slug": "highest-military-spending",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 73.67,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3.17,
+      "file": "voiceover/highest-military-spending/hook.mp3",
+      "text": "Here are the 15 countries that spend the most on their military."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.97,
+      "durationSec": 3.79,
+      "file": "voiceover/highest-military-spending/15.mp3",
+      "text": "At number 15, Spain — 40.2 billion dollars."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.04,
+      "durationSec": 3.02,
+      "file": "voiceover/highest-military-spending/14.mp3",
+      "text": "Poland comes in at 46.8 billion dollars."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 11.34,
+      "durationSec": 3.94,
+      "file": "voiceover/highest-military-spending/13.mp3",
+      "text": "Next up, South Korea — 47.8 billion dollars."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 15.56,
+      "durationSec": 3.19,
+      "file": "voiceover/highest-military-spending/12.mp3",
+      "text": "Then there's Italy, at 48.1 billion dollars."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 19.03,
+      "durationSec": 4.3,
+      "file": "voiceover/highest-military-spending/11.mp3",
+      "text": "That puts Israel at number 11 — 48.3 billion dollars."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 23.61,
+      "durationSec": 5.4,
+      "file": "voiceover/highest-military-spending/10.mp3",
+      "text": "Into the top ten. At number 10, Japan — 62.2 billion dollars."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 29.29,
+      "durationSec": 2.88,
+      "file": "voiceover/highest-military-spending/9.mp3",
+      "text": "Then France, with 68 billion dollars."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 32.45,
+      "durationSec": 5.21,
+      "file": "voiceover/highest-military-spending/8.mp3",
+      "text": "We're halfway. Number 8 is Saudi Arabia, at 83.2 billion dollars."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 37.94,
+      "durationSec": 4.25,
+      "file": "voiceover/highest-military-spending/7.mp3",
+      "text": "Ukraine lands at number 7, with 84.1 billion dollars."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 42.46,
+      "durationSec": 3.29,
+      "file": "voiceover/highest-military-spending/6.mp3",
+      "text": "United Kingdom comes in at 89 billion dollars."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 46.03,
+      "durationSec": 5.06,
+      "file": "voiceover/highest-military-spending/5.mp3",
+      "text": "Top five now. At number 5, India — 92.1 billion dollars."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 51.38,
+      "durationSec": 3.19,
+      "file": "voiceover/highest-military-spending/4.mp3",
+      "text": "Then there's Germany, at 114 billion dollars."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 54.85,
+      "durationSec": 5.57,
+      "file": "voiceover/highest-military-spending/3.mp3",
+      "text": "The top three. Number 3 is Russia, at 190 billion dollars. Quite a jump."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 60.7,
+      "durationSec": 3.79,
+      "file": "voiceover/highest-military-spending/2.mp3",
+      "text": "China makes the list too — 336 billion dollars."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 64.77,
+      "durationSec": 4.39,
+      "file": "voiceover/highest-military-spending/1.mp3",
+      "text": "And right at the top, United States. 954 billion dollars."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 69.86,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-military-spending/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

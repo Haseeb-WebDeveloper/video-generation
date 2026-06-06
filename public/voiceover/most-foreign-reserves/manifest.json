@@ -1,0 +1,147 @@
+{
+  "slug": "most-foreign-reserves",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 75.28,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.98,
+      "file": "voiceover/most-foreign-reserves/hook.mp3",
+      "text": "Here are the 15 countries sitting on the most cash."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.78,
+      "durationSec": 4.51,
+      "file": "voiceover/most-foreign-reserves/15.mp3",
+      "text": "At number 15, United Kingdom — 162 billion dollars."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.57,
+      "durationSec": 3.19,
+      "file": "voiceover/most-foreign-reserves/14.mp3",
+      "text": "Poland comes in at 188 billion dollars."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 12.04,
+      "durationSec": 3.53,
+      "file": "voiceover/most-foreign-reserves/13.mp3",
+      "text": "Next up, Thailand — 217 billion dollars."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 15.85,
+      "durationSec": 3.38,
+      "file": "voiceover/most-foreign-reserves/12.mp3",
+      "text": "Then there's Mexico, at 236 billion dollars."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 19.51,
+      "durationSec": 4.13,
+      "file": "voiceover/most-foreign-reserves/11.mp3",
+      "text": "That puts Brazil at number 11 — 344 billion dollars."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 23.92,
+      "durationSec": 5.14,
+      "file": "voiceover/most-foreign-reserves/10.mp3",
+      "text": "Into the top ten. At number 10, Singapore — 419 billion dollars."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 29.34,
+      "durationSec": 3.74,
+      "file": "voiceover/most-foreign-reserves/9.mp3",
+      "text": "Then South Korea, with 423 billion dollars."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 33.36,
+      "durationSec": 4.92,
+      "file": "voiceover/most-foreign-reserves/8.mp3",
+      "text": "We're halfway. Number 8 is Russia, at 434 billion dollars."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 38.56,
+      "durationSec": 4.56,
+      "file": "voiceover/most-foreign-reserves/7.mp3",
+      "text": "Hong Kong lands at number 7, with 442 billion dollars."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 43.4,
+      "durationSec": 3.79,
+      "file": "voiceover/most-foreign-reserves/6.mp3",
+      "text": "Saudi Arabia comes in at 494 billion dollars."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 47.47,
+      "durationSec": 5.3,
+      "file": "voiceover/most-foreign-reserves/5.mp3",
+      "text": "Top five now. At number 5, India — 543 billion dollars."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 53.06,
+      "durationSec": 3.6,
+      "file": "voiceover/most-foreign-reserves/4.mp3",
+      "text": "Then there's Taiwan, at 544 billion dollars."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 56.94,
+      "durationSec": 6.05,
+      "file": "voiceover/most-foreign-reserves/3.mp3",
+      "text": "The top three. Number 3 is Switzerland, at 932 billion dollars. Quite a jump."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 63.26,
+      "durationSec": 3.65,
+      "file": "voiceover/most-foreign-reserves/2.mp3",
+      "text": "Japan makes the list too — 1.3 trillion dollars."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 67.19,
+      "durationSec": 3.58,
+      "file": "voiceover/most-foreign-reserves/1.mp3",
+      "text": "And right at the top, China. 3.4 trillion dollars."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 71.47,
+      "durationSec": 3.31,
+      "file": "voiceover/most-foreign-reserves/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

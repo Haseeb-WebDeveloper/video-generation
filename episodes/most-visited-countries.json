@@ -1,0 +1,39 @@
+{
+  "slug": "most-visited-countries",
+  "title": ["The Most Visited", "Countries on Earth"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "visitors",
+  "valueFormat": "millions",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "The Most Visited Countries on Earth — France Gets More Tourists Than It Has People",
+    "description": "France welcomed 102 million tourists in a single year — the first country in history to cross 100 million, and more visitors than it has citizens. Here are the top 15 most visited countries in the world, based on UN Tourism arrivals data (2024).\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["most visited countries", "tourism by country", "international tourist arrivals", "most tourists", "travel", "country ranking", "world facts", "ranked", "countdown", "tourism"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "France", "value": 102.0, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 2, "title": "Spain", "value": 93.8, "country": "ES", "imagePath": "flags/es.png" },
+    { "rank": 3, "title": "United States", "value": 72.4, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 4, "title": "Turkey", "value": 60.6, "country": "TR", "imagePath": "flags/tr.png" },
+    { "rank": 5, "title": "Italy", "value": 57.8, "country": "IT", "imagePath": "flags/it.png" },
+    { "rank": 6, "title": "Mexico", "value": 45.0, "country": "MX", "imagePath": "flags/mx.png" },
+    { "rank": 7, "title": "United Kingdom", "value": 41.8, "country": "GB", "imagePath": "flags/gb.png" },
+    { "rank": 8, "title": "Germany", "value": 37.5, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 9, "title": "Japan", "value": 36.9, "country": "JP", "imagePath": "flags/jp.png" },
+    { "rank": 10, "title": "Greece", "value": 36.0, "country": "GR", "imagePath": "flags/gr.png" },
+    { "rank": 11, "title": "Thailand", "value": 35.5, "country": "TH", "imagePath": "flags/th.png" },
+    { "rank": 12, "title": "Austria", "value": 32.2, "country": "AT", "imagePath": "flags/at.png" },
+    { "rank": 13, "title": "China", "value": 30.5, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 14, "title": "Saudi Arabia", "value": 29.7, "country": "SA", "imagePath": "flags/sa.png" },
+    { "rank": 15, "title": "Hong Kong", "value": 20.5, "country": "HK", "imagePath": "flags/hk.png" }
+  ]
+}

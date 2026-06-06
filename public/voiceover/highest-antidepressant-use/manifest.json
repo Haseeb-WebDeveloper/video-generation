@@ -1,0 +1,267 @@
+{
+  "slug": "highest-antidepressant-use",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 150.04,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3.14,
+      "file": "voiceover/highest-antidepressant-use/hook.mp3",
+      "text": "Here are the 30 highest antidepressant use in the world."
+    },
+    {
+      "id": "30",
+      "kind": "item",
+      "startSec": 3.94,
+      "durationSec": 4.42,
+      "file": "voiceover/highest-antidepressant-use/30.mp3",
+      "text": "At number 30, Croatia — 39.4 doses per thousand people."
+    },
+    {
+      "id": "29",
+      "kind": "item",
+      "startSec": 8.64,
+      "durationSec": 3.67,
+      "file": "voiceover/highest-antidepressant-use/29.mp3",
+      "text": "Lithuania comes in at 42.4 doses per thousand people."
+    },
+    {
+      "id": "28",
+      "kind": "item",
+      "startSec": 12.59,
+      "durationSec": 3.98,
+      "file": "voiceover/highest-antidepressant-use/28.mp3",
+      "text": "Next up, Poland — 44.2 doses per thousand people."
+    },
+    {
+      "id": "27",
+      "kind": "item",
+      "startSec": 16.86,
+      "durationSec": 3.98,
+      "file": "voiceover/highest-antidepressant-use/27.mp3",
+      "text": "Then there's Costa Rica, at 47.9 doses per thousand people."
+    },
+    {
+      "id": "26",
+      "kind": "item",
+      "startSec": 21.12,
+      "durationSec": 4.87,
+      "file": "voiceover/highest-antidepressant-use/26.mp3",
+      "text": "That puts Italy at number 26 — 48.5 doses per thousand people."
+    },
+    {
+      "id": "25",
+      "kind": "item",
+      "startSec": 26.27,
+      "durationSec": 4.27,
+      "file": "voiceover/highest-antidepressant-use/25.mp3",
+      "text": "Slovakia makes the list too — 49.1 doses per thousand people."
+    },
+    {
+      "id": "24",
+      "kind": "item",
+      "startSec": 30.82,
+      "durationSec": 3.48,
+      "file": "voiceover/highest-antidepressant-use/24.mp3",
+      "text": "Then Netherlands, with 50.9 doses per thousand people."
+    },
+    {
+      "id": "23",
+      "kind": "item",
+      "startSec": 34.58,
+      "durationSec": 4.58,
+      "file": "voiceover/highest-antidepressant-use/23.mp3",
+      "text": "Estonia isn't far behind, at 52.5 doses per thousand people."
+    },
+    {
+      "id": "22",
+      "kind": "item",
+      "startSec": 39.45,
+      "durationSec": 5.26,
+      "file": "voiceover/highest-antidepressant-use/22.mp3",
+      "text": "Luxembourg lands at number 22, with 56.8 doses per thousand people."
+    },
+    {
+      "id": "21",
+      "kind": "item",
+      "startSec": 44.98,
+      "durationSec": 3.36,
+      "file": "voiceover/highest-antidepressant-use/21.mp3",
+      "text": "Turkey comes in at 60.8 doses per thousand people."
+    },
+    {
+      "id": "20",
+      "kind": "item",
+      "startSec": 48.62,
+      "durationSec": 4.25,
+      "file": "voiceover/highest-antidepressant-use/20.mp3",
+      "text": "Next up, Austria — 61.9 doses per thousand people."
+    },
+    {
+      "id": "19",
+      "kind": "item",
+      "startSec": 53.15,
+      "durationSec": 3.94,
+      "file": "voiceover/highest-antidepressant-use/19.mp3",
+      "text": "Then there's France, at 63.5 doses per thousand people."
+    },
+    {
+      "id": "18",
+      "kind": "item",
+      "startSec": 57.37,
+      "durationSec": 4.7,
+      "file": "voiceover/highest-antidepressant-use/18.mp3",
+      "text": "Number 18 is Norway, at 65.3 doses per thousand people."
+    },
+    {
+      "id": "17",
+      "kind": "item",
+      "startSec": 62.35,
+      "durationSec": 4.46,
+      "file": "voiceover/highest-antidepressant-use/17.mp3",
+      "text": "Germany makes the list too — 66.7 doses per thousand people."
+    },
+    {
+      "id": "16",
+      "kind": "item",
+      "startSec": 67.1,
+      "durationSec": 3.84,
+      "file": "voiceover/highest-antidepressant-use/16.mp3",
+      "text": "Then Israel, with 69.9 doses per thousand people."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 71.22,
+      "durationSec": 5.42,
+      "file": "voiceover/highest-antidepressant-use/15.mp3",
+      "text": "We're halfway. At number 15, Slovenia — 70.2 doses per thousand people."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 76.92,
+      "durationSec": 4.8,
+      "file": "voiceover/highest-antidepressant-use/14.mp3",
+      "text": "In 14th place, Czechia. 75.3 doses per thousand people."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 82,
+      "durationSec": 3.34,
+      "file": "voiceover/highest-antidepressant-use/13.mp3",
+      "text": "Greece comes in at 80.2 doses per thousand people."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 85.62,
+      "durationSec": 3.65,
+      "file": "voiceover/highest-antidepressant-use/12.mp3",
+      "text": "Next up, Belgium — 90.2 doses per thousand people."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 89.54,
+      "durationSec": 3.74,
+      "file": "voiceover/highest-antidepressant-use/11.mp3",
+      "text": "Then there's Denmark, at 96.2 doses per thousand people."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 93.57,
+      "durationSec": 5.83,
+      "file": "voiceover/highest-antidepressant-use/10.mp3",
+      "text": "Into the top ten. At number 10, Finland — 97.7 doses per thousand people."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 99.68,
+      "durationSec": 4.46,
+      "file": "voiceover/highest-antidepressant-use/9.mp3",
+      "text": "New Zealand makes the list too — 100.6 doses per thousand people."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 104.42,
+      "durationSec": 3.22,
+      "file": "voiceover/highest-antidepressant-use/8.mp3",
+      "text": "Then Chile, with 104 doses per thousand people."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 107.92,
+      "durationSec": 4.32,
+      "file": "voiceover/highest-antidepressant-use/7.mp3",
+      "text": "Spain isn't far behind, at 106.1 doses per thousand people."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 112.52,
+      "durationSec": 5.04,
+      "file": "voiceover/highest-antidepressant-use/6.mp3",
+      "text": "That puts Sweden at number 6 — 121.8 doses per thousand people."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 117.84,
+      "durationSec": 5.88,
+      "file": "voiceover/highest-antidepressant-use/5.mp3",
+      "text": "Top five now. At number 5, Australia — 130.7 doses per thousand people."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 124,
+      "durationSec": 4.49,
+      "file": "voiceover/highest-antidepressant-use/4.mp3",
+      "text": "Next up, Canada — 134.6 doses per thousand people."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 128.77,
+      "durationSec": 6.05,
+      "file": "voiceover/highest-antidepressant-use/3.mp3",
+      "text": "The top three. Number 3 is United Kingdom, at 136.9 doses per thousand people."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 135.1,
+      "durationSec": 5.14,
+      "file": "voiceover/highest-antidepressant-use/2.mp3",
+      "text": "Portugal lands at number 2, with 163.4 doses per thousand people."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 140.51,
+      "durationSec": 5.02,
+      "file": "voiceover/highest-antidepressant-use/1.mp3",
+      "text": "Which leaves number one. Iceland — 168.9 doses per thousand people."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 146.23,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-antidepressant-use/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

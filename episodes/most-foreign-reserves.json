@@ -1,0 +1,39 @@
+{
+  "slug": "most-foreign-reserves",
+  "title": ["Countries Sitting on", "the Most Cash"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "",
+  "valueFormat": "usd",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries Sitting on the Most Cash — China Has $3.4 TRILLION",
+    "description": "China is sitting on more than 3.3 trillion dollars in foreign currency reserves — and the United States isn't even close to the top. The real shock is number three: tiny Switzerland, holding more cash than countries many times its size. Here are the top 15 countries by foreign exchange reserves, based on IMF and central bank data (2025).\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["foreign exchange reserves", "countries with most reserves", "forex reserves by country", "china reserves", "cash reserves", "country ranking", "world facts", "ranked", "countdown", "economy"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "China", "value": 3389, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 2, "title": "Japan", "value": 1259, "country": "JP", "imagePath": "flags/jp.png" },
+    { "rank": 3, "title": "Switzerland", "value": 932, "country": "CH", "imagePath": "flags/ch.png" },
+    { "rank": 4, "title": "Taiwan", "value": 544, "country": "TW", "imagePath": "flags/tw.png" },
+    { "rank": 5, "title": "India", "value": 543, "country": "IN", "imagePath": "flags/in.png" },
+    { "rank": 6, "title": "Saudi Arabia", "value": 494, "country": "SA", "imagePath": "flags/sa.png" },
+    { "rank": 7, "title": "Hong Kong", "value": 442, "country": "HK", "imagePath": "flags/hk.png" },
+    { "rank": 8, "title": "Russia", "value": 434, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 9, "title": "South Korea", "value": 423, "country": "KR", "imagePath": "flags/kr.png" },
+    { "rank": 10, "title": "Singapore", "value": 419, "country": "SG", "imagePath": "flags/sg.png" },
+    { "rank": 11, "title": "Brazil", "value": 344, "country": "BR", "imagePath": "flags/br.png" },
+    { "rank": 12, "title": "Mexico", "value": 236, "country": "MX", "imagePath": "flags/mx.png" },
+    { "rank": 13, "title": "Thailand", "value": 217, "country": "TH", "imagePath": "flags/th.png" },
+    { "rank": 14, "title": "Poland", "value": 188, "country": "PL", "imagePath": "flags/pl.png" },
+    { "rank": 15, "title": "United Kingdom", "value": 162, "country": "GB", "imagePath": "flags/gb.png" }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "slug": "most-guns-per-person",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 71.15,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3.1,
+      "file": "voiceover/most-guns-per-person/hook.mp3",
+      "text": "Here are the 15 countries with the most guns per person."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.9,
+      "durationSec": 3.98,
+      "file": "voiceover/most-guns-per-person/15.mp3",
+      "text": "At number 15, Malta — 28.3 per 100."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.16,
+      "durationSec": 2.71,
+      "file": "voiceover/most-guns-per-person/14.mp3",
+      "text": "Norway comes in at 28.8 per 100."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 11.15,
+      "durationSec": 3.84,
+      "file": "voiceover/most-guns-per-person/13.mp3",
+      "text": "Next up, North Macedonia — 29.8 per 100."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 15.27,
+      "durationSec": 2.69,
+      "file": "voiceover/most-guns-per-person/12.mp3",
+      "text": "Then there's Austria, at 30 per 100."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 18.24,
+      "durationSec": 4.94,
+      "file": "voiceover/most-guns-per-person/11.mp3",
+      "text": "That puts Bosnia and Herzegovina at number 11 — 31.2 per 100."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 23.46,
+      "durationSec": 5.09,
+      "file": "voiceover/most-guns-per-person/10.mp3",
+      "text": "Into the top ten. At number 10, Iceland — 31.7 per 100."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 28.83,
+      "durationSec": 3.17,
+      "file": "voiceover/most-guns-per-person/9.mp3",
+      "text": "Then Lebanon, with 31.9 per 100."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 32.28,
+      "durationSec": 4.63,
+      "file": "voiceover/most-guns-per-person/8.mp3",
+      "text": "We're halfway. Number 8 is Finland, at 32.4 per 100."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 37.19,
+      "durationSec": 3.74,
+      "file": "voiceover/most-guns-per-person/7.mp3",
+      "text": "Cyprus lands at number 7, with 34 per 100."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 41.22,
+      "durationSec": 3.05,
+      "file": "voiceover/most-guns-per-person/6.mp3",
+      "text": "Uruguay comes in at 34.7 per 100."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 44.54,
+      "durationSec": 4.8,
+      "file": "voiceover/most-guns-per-person/5.mp3",
+      "text": "Top five now. At number 5, Canada — 34.7 per 100."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 49.62,
+      "durationSec": 3.43,
+      "file": "voiceover/most-guns-per-person/4.mp3",
+      "text": "Then there's Montenegro, at 39.1 per 100."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 53.34,
+      "durationSec": 4.9,
+      "file": "voiceover/most-guns-per-person/3.mp3",
+      "text": "The top three. Number 3 is Serbia, at 39.1 per 100."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 58.51,
+      "durationSec": 3.43,
+      "file": "voiceover/most-guns-per-person/2.mp3",
+      "text": "Yemen makes the list too — 52.8 per 100."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 62.22,
+      "durationSec": 4.42,
+      "file": "voiceover/most-guns-per-person/1.mp3",
+      "text": "And right at the top, United States. 120.5 per 100."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 67.34,
+      "durationSec": 3.31,
+      "file": "voiceover/most-guns-per-person/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

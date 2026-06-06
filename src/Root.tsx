@@ -13,15 +13,11 @@ import {
   RaceSlidesComposition,
   totalFrames as raceTotalFrames,
 } from "./race-slides";
-import {
-  TopBattleSlidesComposition,
-  totalFrames as battleTotalFrames,
-} from "./top-battle-slides";
-import {
-  TournamentComposition,
-  tournamentTotalFrames,
-} from "./tournament-slides";
 import { BarThumbnailComposition } from "./thumbnail-bar";
+import {
+  loadVoiceoverManifest,
+  timingFromManifest,
+} from "./voiceover-preview";
 import type { Episode } from "./episode";
 
 export const RemotionRoot: React.FC = () => {
@@ -38,10 +34,21 @@ export const RemotionRoot: React.FC = () => {
           fps={60}
           width={1920}
           height={1080}
-          defaultProps={{ episode: ep }}
-          calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-            durationInFrames: flowTotalFrames(props.episode),
-          })}
+          defaultProps={{ episode: ep, voiceover: null }}
+          calculateMetadata={async ({ props }: { props: { episode: Episode } }) => {
+            // If a voiceover manifest exists, drive duration + camera reveal
+            // cues from the (sequential, non-overlapping) audio. Otherwise fall
+            // back to the fixed-grid timing.
+            const m = await loadVoiceoverManifest(props.episode.slug);
+            if (m) {
+              const t = timingFromManifest(m, 60);
+              return {
+                durationInFrames: t.durationInFrames,
+                props: { ...props, voiceover: t },
+              };
+            }
+            return { durationInFrames: flowTotalFrames(props.episode) };
+          }}
         />
       ))}
       {episodes
@@ -55,10 +62,18 @@ export const RemotionRoot: React.FC = () => {
           fps={60}
           width={1920}
           height={1080}
-          defaultProps={{ episode: ep }}
-          calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-            durationInFrames: barTotalFrames(props.episode.items),
-          })}
+          defaultProps={{ episode: ep, voiceover: null }}
+          calculateMetadata={async ({ props }: { props: { episode: Episode } }) => {
+            const m = await loadVoiceoverManifest(props.episode.slug);
+            if (m) {
+              const t = timingFromManifest(m, 60);
+              return {
+                durationInFrames: t.durationInFrames,
+                props: { ...props, voiceover: t },
+              };
+            }
+            return { durationInFrames: barTotalFrames(props.episode.items) };
+          }}
         />
       ))}
       {/* Race template — registered only when a bake exists (raceResult +
@@ -84,54 +99,6 @@ export const RemotionRoot: React.FC = () => {
             defaultProps={{ episode: ep }}
             calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
               durationInFrames: raceTotalFrames(props.episode),
-            })}
-          />
-        ))}
-      {/* Top-battle template — registered only when a battle bake exists
-          (battleResult + battleBakePath both set). Same gating pattern as
-          race above so non-battle episodes don't show an empty entry. */}
-      {episodes
-        .filter(
-          (ep) =>
-            (ep.template === "battle" || !ep.template) &&
-            !!ep.battleResult &&
-            !!ep.battleBakePath,
-        )
-        .map((ep) => (
-          <Composition
-            key={`${ep.slug}-battle`}
-            id={`${ep.slug}-battle`}
-            component={TopBattleSlidesComposition}
-            durationInFrames={battleTotalFrames(ep)}
-            fps={30}
-            width={1920}
-            height={1080}
-            defaultProps={{ episode: ep }}
-            calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-              durationInFrames: battleTotalFrames(props.episode),
-            })}
-          />
-        ))}
-      {/* Tournament template — bracket of battles. Registered only when a
-          tournamentResult exists (run `npm run tournament-roll <slug>`). */}
-      {episodes
-        .filter(
-          (ep) =>
-            (ep.template === "tournament" || !ep.template) &&
-            !!ep.tournamentResult,
-        )
-        .map((ep) => (
-          <Composition
-            key={`${ep.slug}-tournament`}
-            id={`${ep.slug}-tournament`}
-            component={TournamentComposition}
-            durationInFrames={tournamentTotalFrames(ep)}
-            fps={30}
-            width={1920}
-            height={1080}
-            defaultProps={{ episode: ep }}
-            calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-              durationInFrames: tournamentTotalFrames(props.episode),
             })}
           />
         ))}

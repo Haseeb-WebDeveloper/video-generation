@@ -1,0 +1,150 @@
+{
+  "slug": "highest-suicide-rates",
+  "title": [
+    "Highest Suicide Rates",
+    "in the World"
+  ],
+  "outro": [
+    "STAY SAFE — YOU MATTER",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "per 100k",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Lesotho Tops the List — Highest Suicide Rates in the World | Top 15",
+    "description": "Lesotho has the world's highest suicide rate at 36.7 per 100,000 people — and the full ranking holds some surprises, including South Korea among wealthy nations. Where does your country stand?\n\nThis is the countdown of the 15 countries with the highest suicide rates, age-standardized per 100,000 population, both sexes, from the latest official data: WHO Global Health Estimates 2021 (Suicide worldwide in 2021, released 2025).\n\nA note on the data: rates for some small countries (Solomon Islands, Micronesia, Kiribati) rest on small populations and are modeled estimates with wide uncertainty. The 2021 figures were also affected by pandemic-era reporting disruptions.\n\nIf you or someone you know is struggling, please reach out. In the US call or text 988 (Suicide & Crisis Lifeline). Find international helplines at https://findahelpline.com — you are not alone.",
+    "tags": [
+      "top 15",
+      "highest suicide rates",
+      "suicide rate by country",
+      "suicide statistics",
+      "mental health",
+      "WHO data",
+      "country ranking",
+      "global health",
+      "world facts",
+      "ranked",
+      "countdown",
+      "ranking",
+      "health",
+      "lesotho"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "Lesotho",
+      "value": 36.7,
+      "country": "LS",
+      "imagePath": "flags/ls.png"
+    },
+    {
+      "rank": 2,
+      "title": "Eswatini",
+      "value": 31.8,
+      "country": "SZ",
+      "imagePath": "flags/sz.png"
+    },
+    {
+      "rank": 3,
+      "title": "Guyana",
+      "value": 26.3,
+      "country": "GY",
+      "imagePath": "flags/gy.png"
+    },
+    {
+      "rank": 4,
+      "title": "Zimbabwe",
+      "value": 25.4,
+      "country": "ZW",
+      "imagePath": "flags/zw.png"
+    },
+    {
+      "rank": 5,
+      "title": "Solomon Islands",
+      "value": 22.5,
+      "country": "SB",
+      "imagePath": "flags/sb.png"
+    },
+    {
+      "rank": 6,
+      "title": "Suriname",
+      "value": 22.5,
+      "country": "SR",
+      "imagePath": "flags/sr.png"
+    },
+    {
+      "rank": 7,
+      "title": "Uruguay",
+      "value": 22.0,
+      "country": "UY",
+      "imagePath": "flags/uy.png"
+    },
+    {
+      "rank": 8,
+      "title": "South Africa",
+      "value": 21.1,
+      "country": "ZA",
+      "imagePath": "flags/za.png"
+    },
+    {
+      "rank": 9,
+      "title": "Micronesia",
+      "value": 20.8,
+      "country": "FM",
+      "imagePath": "flags/fm.png"
+    },
+    {
+      "rank": 10,
+      "title": "South Korea",
+      "value": 20.6,
+      "country": "KR",
+      "imagePath": "flags/kr.png"
+    },
+    {
+      "rank": 11,
+      "title": "Eritrea",
+      "value": 20.2,
+      "country": "ER",
+      "imagePath": "flags/er.png"
+    },
+    {
+      "rank": 12,
+      "title": "Mongolia",
+      "value": 19.8,
+      "country": "MN",
+      "imagePath": "flags/mn.png"
+    },
+    {
+      "rank": 13,
+      "title": "Mozambique",
+      "value": 19.0,
+      "country": "MZ",
+      "imagePath": "flags/mz.png"
+    },
+    {
+      "rank": 14,
+      "title": "Central African Republic",
+      "value": 18.7,
+      "country": "CF",
+      "imagePath": "flags/cf.png"
+    },
+    {
+      "rank": 15,
+      "title": "Kiribati",
+      "value": 18.7,
+      "country": "KI",
+      "imagePath": "flags/ki.png"
+    }
+  ]
+}

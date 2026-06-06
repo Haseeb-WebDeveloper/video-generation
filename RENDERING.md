@@ -1,7 +1,10 @@
-# Free cloud rendering & monthly batch workflow
+# Free cloud rendering & publish workflow
 
-Rendering happens on **GitHub Actions** (free), not your PC. Combined with the
-30fps output and lighter render scene, this removes the render-time bottleneck.
+This is the **ranking channel** project (flow / bars / race templates). Its
+sibling repo (`../video-spin`) holds the spinning-top battle/tournament videos
+and targets a different YouTube channel.
+
+Rendering happens on **GitHub Actions** (free), not your PC.
 
 ## One-time setup
 1. Push this repo to GitHub. **Make it public** for *unlimited* free Actions
@@ -13,13 +16,17 @@ Rendering happens on **GitHub Actions** (free), not your PC. Combined with the
 ## Rendering a video (or a batch) for free
 1. On GitHub: **Actions → "Render videos" → Run workflow**.
 2. Enter one or more episode slugs, comma-separated
-   (e.g. `countries-tournament` or `worldcup-jan1,worldcup-jan2,...`).
-3. Each slug renders on its **own parallel runner**. When done, download the
-   MP4s from the run's **Artifacts**.
+   (e.g. `top-15-largest-diamonds-ever-found` or `slug1,slug2,...`).
+3. Pick the **template** for that batch: `flow`, `bars`, or `race`.
+4. Each slug renders on its **own parallel runner**. When done, download the
+   MP4s from the run's **Artifacts**. Tick **publish = true** to also upload to
+   YouTube (scheduled via each episode's `publishAt`).
 
 Notes:
-- The bake is regenerated deterministically in CI from the committed
-  `tournamentSeed` (`--keep`), so the cloud render matches what you saw locally.
+- `flow` and `bars` need no bake — their cover images are committed under
+  `public/covers`, so CI just renders. `race` regenerates its physics bake
+  deterministically in CI from the committed `raceSeed` (`--keep`), so the
+  cloud render matches what you saw locally.
 - Runners have no GPU (software WebGL), but the CPU beats the laptop, it's
   parallel, and free. A ~3-min video fits comfortably in one job.
 - For much longer videos (10–15 min), split each into frame-range chunks across
@@ -44,19 +51,18 @@ Notes:
 Quota note: each upload costs 1,600 of the default 10,000/day quota (~6/day).
 Spread a 10-video batch over 2 days, or request a quota increase.
 
-## The monthly production loop (≈1 hour of work / month)
-1. **Create 10 episodes** locally (different country sets). Each is an
-   `episodes/<slug>.json` with `items` (40 countries). Lock a good seed +
-   auto-generate SEO + bake:
-   `npm run tournament-roll <slug> --seed=N` (eyeball the winner/drama; it also
-   writes a `youtube` title/description/tags block if one isn't already there).
-2. **Schedule the batch** — stamp each episode's release 3 days apart:
+## The production loop
+1. **Author each episode** locally per `WORKFLOW.md` (research → items list →
+   `npm run build-episode <slug>` to fetch covers → preview in `npm run dev`).
+   For `race` episodes, also bake the sim: `npm run race-roll <slug> --seed=N`.
+2. **Schedule the batch** — stamp each episode's release N days apart:
    `npm run schedule-batch -- --start=2026-06-02T17:00:00Z --every=3 slug1 slug2 ...`
-3. **Commit & push** to GitHub.
-4. **Run the "Render videos" workflow** with all slugs and **publish = true**.
-   Each video renders in parallel (free), then uploads to YouTube as *private*
-   with its `publishAt` set — **YouTube auto-releases one every 3 days**. Fully
-   hands-off after this click.
+3. **Commit & push** to GitHub (covers, flags, and any race bake are committed
+   so CI needs no network fetch).
+4. **Run the "Render videos" workflow** with all slugs, the chosen template, and
+   **publish = true**. Each video renders in parallel (free), then uploads to
+   YouTube as *private* with its `publishAt` set — YouTube auto-releases each at
+   its scheduled time. Fully hands-off after this click.
 
 Render-only (no upload): run the workflow with **publish = false** and download
 the MP4s from the run's Artifacts.

@@ -1,0 +1,39 @@
+{
+  "slug": "most-gold-reserves",
+  "title": ["Countries Hoarding", "the Most Gold"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "tonnes",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries Hoarding the Most Gold — The USA Holds 8,133 Tonnes",
+    "description": "The United States sits on more than 8,100 tonnes of gold — about 2.4 times more than any other single country. Meanwhile China has been quietly buying gold for months on end. Here are the top 15 countries by official gold reserves, based on the World Gold Council and IMF data (end of 2025).\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["gold reserves by country", "countries with most gold", "gold reserves", "central bank gold", "us gold reserves", "country ranking", "world facts", "ranked", "countdown", "economy", "gold"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "United States", "value": 8133, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 2, "title": "Germany", "value": 3350, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 3, "title": "Italy", "value": 2452, "country": "IT", "imagePath": "flags/it.png" },
+    { "rank": 4, "title": "France", "value": 2437, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 5, "title": "Russia", "value": 2317, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 6, "title": "China", "value": 2308, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 7, "title": "Switzerland", "value": 1040, "country": "CH", "imagePath": "flags/ch.png" },
+    { "rank": 8, "title": "India", "value": 880, "country": "IN", "imagePath": "flags/in.png" },
+    { "rank": 9, "title": "Japan", "value": 846, "country": "JP", "imagePath": "flags/jp.png" },
+    { "rank": 10, "title": "Netherlands", "value": 612, "country": "NL", "imagePath": "flags/nl.png" },
+    { "rank": 11, "title": "Turkey", "value": 603, "country": "TR", "imagePath": "flags/tr.png" },
+    { "rank": 12, "title": "Poland", "value": 550, "country": "PL", "imagePath": "flags/pl.png" },
+    { "rank": 13, "title": "Taiwan", "value": 424, "country": "TW", "imagePath": "flags/tw.png" },
+    { "rank": 14, "title": "Uzbekistan", "value": 399, "country": "UZ", "imagePath": "flags/uz.png" },
+    { "rank": 15, "title": "Portugal", "value": 383, "country": "PT", "imagePath": "flags/pt.png" }
+  ]
+}

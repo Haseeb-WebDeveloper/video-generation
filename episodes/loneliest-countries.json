@@ -1,0 +1,38 @@
+{
+  "slug": "loneliest-countries",
+  "title": [
+    "The Loneliest Countries",
+    "in the World"
+  ],
+  "outro": [
+    "DO YOU FEEL IT TOO?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "%",
+  "valueFormat": "raw",
+  "valueNoSpace": true,
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Lesotho Tops the List — The Loneliest Countries in the World",
+    "description": "In Lesotho, 58% of people say they feel very or fairly lonely — the highest rate measured on Earth. Across the world, nearly 1 in 4 people feel lonely. Where does your country rank?\n\nThis is a look at the loneliest countries, by the share of people who say they feel very or fairly lonely, from the Meta-Gallup State of Social Connections global survey (data collected 2022-2023, 142 countries).\n\nA note on the data: Gallup published these as an interactive global map rather than a full ranked table, so this video features the countries with clearly reported figures. Globally, 24% of people feel lonely, and the highest rates are concentrated in Africa and South Asia.\n\nDo you feel it too? Let us know in the comments.",
+    "tags": ["loneliest countries", "loneliness by country", "loneliness", "social connection", "gallup", "mental health", "country ranking", "world facts", "ranked", "ranking", "society", "lesotho"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Lesotho", "value": 58, "country": "LS", "imagePath": "flags/ls.png" },
+    { "rank": 2, "title": "Philippines", "value": 57, "country": "PH", "imagePath": "flags/ph.png" },
+    { "rank": 3, "title": "Uganda", "value": 53, "country": "UG", "imagePath": "flags/ug.png" },
+    { "rank": 4, "title": "Botswana", "value": 50, "country": "BW", "imagePath": "flags/bw.png" },
+    { "rank": 5, "title": "Afghanistan", "value": 50, "country": "AF", "imagePath": "flags/af.png" },
+    { "rank": 6, "title": "Pakistan", "value": 41, "country": "PK", "imagePath": "flags/pk.png" },
+    { "rank": 7, "title": "Ethiopia", "value": 36, "country": "ET", "imagePath": "flags/et.png" }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "slug": "most-depressed-countries",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 67.86,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.95,
+      "file": "voiceover/most-depressed-countries/hook.mp3",
+      "text": "Here are the 15 most depressed countries in the world."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.75,
+      "durationSec": 3.38,
+      "file": "voiceover/most-depressed-countries/15.mp3",
+      "text": "At number 15, Greece — 5.2 percent."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 7.42,
+      "durationSec": 2.98,
+      "file": "voiceover/most-depressed-countries/14.mp3",
+      "text": "Switzerland comes in at 5.21 percent."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 10.67,
+      "durationSec": 3.19,
+      "file": "voiceover/most-depressed-countries/13.mp3",
+      "text": "Next up, Sudan — 5.28 percent."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 14.14,
+      "durationSec": 3.12,
+      "file": "voiceover/most-depressed-countries/12.mp3",
+      "text": "Then there's Ethiopia, at 5.29 percent."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 17.54,
+      "durationSec": 3.86,
+      "file": "voiceover/most-depressed-countries/11.mp3",
+      "text": "That puts Ukraine at number 11 — 5.31 percent."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 21.69,
+      "durationSec": 4.75,
+      "file": "voiceover/most-depressed-countries/10.mp3",
+      "text": "Into the top ten. At number 10, Lebanon — 5.58 percent."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 26.72,
+      "durationSec": 2.95,
+      "file": "voiceover/most-depressed-countries/9.mp3",
+      "text": "Then Gabon, with 5.66 percent."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 29.95,
+      "durationSec": 4.34,
+      "file": "voiceover/most-depressed-countries/8.mp3",
+      "text": "We're halfway. Number 8 is Tunisia, at 5.68 percent."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 34.58,
+      "durationSec": 3.74,
+      "file": "voiceover/most-depressed-countries/7.mp3",
+      "text": "Angola lands at number 7, with 5.78 percent."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 38.6,
+      "durationSec": 3.98,
+      "file": "voiceover/most-depressed-countries/6.mp3",
+      "text": "Central African Republic comes in at 5.81 percent."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 42.86,
+      "durationSec": 4.94,
+      "file": "voiceover/most-depressed-countries/5.mp3",
+      "text": "Top five now. At number 5, DR Congo — 5.86 percent."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 48.09,
+      "durationSec": 2.74,
+      "file": "voiceover/most-depressed-countries/4.mp3",
+      "text": "Then there's Congo, at 5.88 percent."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 51.1,
+      "durationSec": 4.58,
+      "file": "voiceover/most-depressed-countries/3.mp3",
+      "text": "The top three. Number 3 is Netherlands, at 6.21 percent."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 55.97,
+      "durationSec": 3.46,
+      "file": "voiceover/most-depressed-countries/2.mp3",
+      "text": "United Kingdom makes the list too — 6.8 percent."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 59.7,
+      "durationSec": 3.65,
+      "file": "voiceover/most-depressed-countries/1.mp3",
+      "text": "And right at the top, Syria. 7.95 percent."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 64.05,
+      "durationSec": 3.31,
+      "file": "voiceover/most-depressed-countries/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

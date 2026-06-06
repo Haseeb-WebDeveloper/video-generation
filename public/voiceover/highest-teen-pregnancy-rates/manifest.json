@@ -1,0 +1,267 @@
+{
+  "slug": "highest-teen-pregnancy-rates",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 139.36,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-teen-pregnancy-rates/hook.mp3",
+      "text": "Here are the 30 highest teen pregnancy rates in the world."
+    },
+    {
+      "id": "30",
+      "kind": "item",
+      "startSec": 4.11,
+      "durationSec": 3.48,
+      "file": "voiceover/highest-teen-pregnancy-rates/30.mp3",
+      "text": "At number 30, Guinea-Bissau — 82 per thousand."
+    },
+    {
+      "id": "29",
+      "kind": "item",
+      "startSec": 7.87,
+      "durationSec": 3.17,
+      "file": "voiceover/highest-teen-pregnancy-rates/29.mp3",
+      "text": "Honduras comes in at 82.1 per thousand."
+    },
+    {
+      "id": "28",
+      "kind": "item",
+      "startSec": 11.32,
+      "durationSec": 4.42,
+      "file": "voiceover/highest-teen-pregnancy-rates/28.mp3",
+      "text": "Next up, Sao Tome and Principe — 86.2 per thousand."
+    },
+    {
+      "id": "27",
+      "kind": "item",
+      "startSec": 16.02,
+      "durationSec": 3.26,
+      "file": "voiceover/highest-teen-pregnancy-rates/27.mp3",
+      "text": "Then there's Nigeria, at 86.4 per thousand."
+    },
+    {
+      "id": "26",
+      "kind": "item",
+      "startSec": 19.56,
+      "durationSec": 4.85,
+      "file": "voiceover/highest-teen-pregnancy-rates/26.mp3",
+      "text": "That puts Burkina Faso at number 26 — 87.1 per thousand."
+    },
+    {
+      "id": "25",
+      "kind": "item",
+      "startSec": 24.69,
+      "durationSec": 3.86,
+      "file": "voiceover/highest-teen-pregnancy-rates/25.mp3",
+      "text": "Mauritania makes the list too — 88.9 per thousand."
+    },
+    {
+      "id": "24",
+      "kind": "item",
+      "startSec": 28.83,
+      "durationSec": 3.22,
+      "file": "voiceover/highest-teen-pregnancy-rates/24.mp3",
+      "text": "Then Gabon, with 91.7 per thousand."
+    },
+    {
+      "id": "23",
+      "kind": "item",
+      "startSec": 32.33,
+      "durationSec": 4.15,
+      "file": "voiceover/highest-teen-pregnancy-rates/23.mp3",
+      "text": "Ivory Coast isn't far behind, at 92.1 per thousand."
+    },
+    {
+      "id": "22",
+      "kind": "item",
+      "startSec": 36.76,
+      "durationSec": 4.78,
+      "file": "voiceover/highest-teen-pregnancy-rates/22.mp3",
+      "text": "Nicaragua lands at number 22, with 93.5 per thousand."
+    },
+    {
+      "id": "21",
+      "kind": "item",
+      "startSec": 41.82,
+      "durationSec": 3.5,
+      "file": "voiceover/highest-teen-pregnancy-rates/21.mp3",
+      "text": "Sierra Leone comes in at 93.6 per thousand."
+    },
+    {
+      "id": "20",
+      "kind": "item",
+      "startSec": 45.6,
+      "durationSec": 3.82,
+      "file": "voiceover/highest-teen-pregnancy-rates/20.mp3",
+      "text": "Next up, South Sudan — 97.1 per thousand."
+    },
+    {
+      "id": "19",
+      "kind": "item",
+      "startSec": 49.7,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-teen-pregnancy-rates/19.mp3",
+      "text": "Then there's Zimbabwe, at 98.1 per thousand."
+    },
+    {
+      "id": "18",
+      "kind": "item",
+      "startSec": 53.29,
+      "durationSec": 4.13,
+      "file": "voiceover/highest-teen-pregnancy-rates/18.mp3",
+      "text": "Number 18 is Cameroon, at 106.7 per thousand."
+    },
+    {
+      "id": "17",
+      "kind": "item",
+      "startSec": 57.7,
+      "durationSec": 4.15,
+      "file": "voiceover/highest-teen-pregnancy-rates/17.mp3",
+      "text": "DR Congo makes the list too — 106.9 per thousand."
+    },
+    {
+      "id": "16",
+      "kind": "item",
+      "startSec": 62.13,
+      "durationSec": 2.83,
+      "file": "voiceover/highest-teen-pregnancy-rates/16.mp3",
+      "text": "Then Uganda, with 107 per thousand."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 65.24,
+      "durationSec": 4.94,
+      "file": "voiceover/highest-teen-pregnancy-rates/15.mp3",
+      "text": "We're halfway. At number 15, Congo — 109.9 per thousand."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 70.46,
+      "durationSec": 4.42,
+      "file": "voiceover/highest-teen-pregnancy-rates/14.mp3",
+      "text": "In 14th place, Tanzania. 113.2 per thousand."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 75.16,
+      "durationSec": 3.41,
+      "file": "voiceover/highest-teen-pregnancy-rates/13.mp3",
+      "text": "Malawi comes in at 113.6 per thousand."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 78.85,
+      "durationSec": 3.79,
+      "file": "voiceover/highest-teen-pregnancy-rates/12.mp3",
+      "text": "Next up, Zambia — 115.9 per thousand."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 82.92,
+      "durationSec": 3.46,
+      "file": "voiceover/highest-teen-pregnancy-rates/11.mp3",
+      "text": "Then there's Somalia, at 117.1 per thousand."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 86.66,
+      "durationSec": 5.26,
+      "file": "voiceover/highest-teen-pregnancy-rates/10.mp3",
+      "text": "Into the top ten. At number 10, Guinea — 118.6 per thousand."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 92.19,
+      "durationSec": 3.6,
+      "file": "voiceover/highest-teen-pregnancy-rates/9.mp3",
+      "text": "Liberia makes the list too — 126 per thousand."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 96.07,
+      "durationSec": 3.84,
+      "file": "voiceover/highest-teen-pregnancy-rates/8.mp3",
+      "text": "Then Madagascar, with 129.8 per thousand."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 100.19,
+      "durationSec": 4.13,
+      "file": "voiceover/highest-teen-pregnancy-rates/7.mp3",
+      "text": "Chad isn't far behind, at 134.7 per thousand."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 104.6,
+      "durationSec": 4.2,
+      "file": "voiceover/highest-teen-pregnancy-rates/6.mp3",
+      "text": "That puts Mali at number 6 — 138.6 per thousand."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 109.08,
+      "durationSec": 5.02,
+      "file": "voiceover/highest-teen-pregnancy-rates/5.mp3",
+      "text": "Top five now. At number 5, Angola — 140.8 per thousand."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 114.38,
+      "durationSec": 3.91,
+      "file": "voiceover/highest-teen-pregnancy-rates/4.mp3",
+      "text": "Next up, Niger — 145.3 per thousand."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 118.57,
+      "durationSec": 5.52,
+      "file": "voiceover/highest-teen-pregnancy-rates/3.mp3",
+      "text": "The top three. Number 3 is Equatorial Guinea, at 150.4 per thousand."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 124.37,
+      "durationSec": 4.73,
+      "file": "voiceover/highest-teen-pregnancy-rates/2.mp3",
+      "text": "Mozambique lands at number 2, with 153.4 per thousand."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 129.38,
+      "durationSec": 5.47,
+      "file": "voiceover/highest-teen-pregnancy-rates/1.mp3",
+      "text": "Which leaves number one. Central African Republic — 163.1 per thousand."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 135.55,
+      "durationSec": 3.31,
+      "file": "voiceover/highest-teen-pregnancy-rates/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}
