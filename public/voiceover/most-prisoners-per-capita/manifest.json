@@ -1,0 +1,139 @@
+{
+  "slug": "most-prisoners-per-capita",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 75.34,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.95,
+      "file": "voiceover/most-prisoners-per-capita/hook.mp3",
+      "text": "Here are the 14 countries that lock up the most people."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 3.75,
+      "durationSec": 4.46,
+      "file": "voiceover/most-prisoners-per-capita/14.mp3",
+      "text": "At number 14, Nicaragua — 332 per hundred thousand."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 8.5,
+      "durationSec": 3.34,
+      "file": "voiceover/most-prisoners-per-capita/13.mp3",
+      "text": "Belarus comes in at 345 per hundred thousand."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 12.11,
+      "durationSec": 4.03,
+      "file": "voiceover/most-prisoners-per-capita/12.mp3",
+      "text": "Next up, Costa Rica — 345 per hundred thousand."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 16.42,
+      "durationSec": 3.82,
+      "file": "voiceover/most-prisoners-per-capita/11.mp3",
+      "text": "Then there's Eswatini, at 369 per hundred thousand."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 20.52,
+      "durationSec": 5.5,
+      "file": "voiceover/most-prisoners-per-capita/10.mp3",
+      "text": "Into the top ten. That puts Brazil at number 10 — 416 per hundred thousand."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 26.3,
+      "durationSec": 4.06,
+      "file": "voiceover/most-prisoners-per-capita/9.mp3",
+      "text": "Thailand makes the list too — 428 per hundred thousand."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 30.63,
+      "durationSec": 3.79,
+      "file": "voiceover/most-prisoners-per-capita/8.mp3",
+      "text": "Then Uruguay, with 449 per hundred thousand."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 34.7,
+      "durationSec": 5.06,
+      "file": "voiceover/most-prisoners-per-capita/7.mp3",
+      "text": "We're halfway. Number 7 is Turkey, at 489 per hundred thousand."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 40.05,
+      "durationSec": 4.49,
+      "file": "voiceover/most-prisoners-per-capita/6.mp3",
+      "text": "Rwanda lands at number 6, with 489 per hundred thousand."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 44.82,
+      "durationSec": 5.62,
+      "file": "voiceover/most-prisoners-per-capita/5.mp3",
+      "text": "Top five now. That puts Panama at number 5 — 527 per hundred thousand."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 50.71,
+      "durationSec": 4.01,
+      "file": "voiceover/most-prisoners-per-capita/4.mp3",
+      "text": "Next up, United States — 542 per hundred thousand."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 55,
+      "durationSec": 5.71,
+      "file": "voiceover/most-prisoners-per-capita/3.mp3",
+      "text": "The top three. In 3rd place, Turkmenistan. 576 per hundred thousand."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 60.99,
+      "durationSec": 4.13,
+      "file": "voiceover/most-prisoners-per-capita/2.mp3",
+      "text": "Number 2 is Cuba, at 794 per hundred thousand."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 65.4,
+      "durationSec": 5.42,
+      "file": "voiceover/most-prisoners-per-capita/1.mp3",
+      "text": "Which leaves number one. El Salvador — 1,659 per hundred thousand."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 71.52,
+      "durationSec": 3.31,
+      "file": "voiceover/most-prisoners-per-capita/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

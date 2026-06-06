@@ -1,0 +1,39 @@
+{
+  "slug": "highest-national-debt",
+  "title": ["Countries That Owe", "the Most Money"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "",
+  "valueFormat": "usd",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries That Owe the Most Money — The USA Owes $38 TRILLION",
+    "description": "The United States now owes more than 38 trillion dollars — about a third of all government debt on the planet. Together, the US and China account for over half the world's debt. Here are the top 15 most indebted countries by total government debt, based on IMF data (2025).\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["national debt by country", "most indebted countries", "government debt", "us national debt", "world debt", "country ranking", "world facts", "ranked", "countdown", "economy"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "United States", "value": 38270, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 2, "title": "China", "value": 18680, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 3, "title": "Japan", "value": 9830, "country": "JP", "imagePath": "flags/jp.png" },
+    { "rank": 4, "title": "United Kingdom", "value": 4090, "country": "GB", "imagePath": "flags/gb.png" },
+    { "rank": 5, "title": "France", "value": 3920, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 6, "title": "Italy", "value": 3480, "country": "IT", "imagePath": "flags/it.png" },
+    { "rank": 7, "title": "India", "value": 3360, "country": "IN", "imagePath": "flags/in.png" },
+    { "rank": 8, "title": "Germany", "value": 3230, "country": "DE", "imagePath": "flags/de.png" },
+    { "rank": 9, "title": "Canada", "value": 2600, "country": "CA", "imagePath": "flags/ca.png" },
+    { "rank": 10, "title": "Brazil", "value": 2060, "country": "BR", "imagePath": "flags/br.png" },
+    { "rank": 11, "title": "Spain", "value": 1900, "country": "ES", "imagePath": "flags/es.png" },
+    { "rank": 12, "title": "Mexico", "value": 1100, "country": "MX", "imagePath": "flags/mx.png" },
+    { "rank": 13, "title": "Singapore", "value": 1010, "country": "SG", "imagePath": "flags/sg.png" },
+    { "rank": 14, "title": "South Korea", "value": 990, "country": "KR", "imagePath": "flags/kr.png" },
+    { "rank": 15, "title": "Australia", "value": 930, "country": "AU", "imagePath": "flags/au.png" }
+  ]
+}

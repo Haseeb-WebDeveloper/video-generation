@@ -1,0 +1,147 @@
+{
+  "slug": "most-remittances",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 78.14,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 3.14,
+      "file": "voiceover/most-remittances/hook.mp3",
+      "text": "Here are the 15 countries that get the most money from abroad."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 3.94,
+      "durationSec": 4.37,
+      "file": "voiceover/most-remittances/15.mp3",
+      "text": "At number 15, Belgium — 15.48 billion dollars."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 8.59,
+      "durationSec": 2.64,
+      "file": "voiceover/most-remittances/14.mp3",
+      "text": "Vietnam comes in at 16 billion dollars."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 11.51,
+      "durationSec": 4.32,
+      "file": "voiceover/most-remittances/13.mp3",
+      "text": "Next up, Indonesia — 16.04 billion dollars."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 16.11,
+      "durationSec": 3.86,
+      "file": "voiceover/most-remittances/12.mp3",
+      "text": "Then there's Uzbekistan, at 16.58 billion dollars."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 20.26,
+      "durationSec": 4.49,
+      "file": "voiceover/most-remittances/11.mp3",
+      "text": "That puts Germany at number 11 — 21.23 billion dollars."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 25.02,
+      "durationSec": 5.71,
+      "file": "voiceover/most-remittances/10.mp3",
+      "text": "Into the top ten. At number 10, Nigeria — 21.29 billion dollars."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 31.02,
+      "durationSec": 3.77,
+      "file": "voiceover/most-remittances/9.mp3",
+      "text": "Then Guatemala, with 21.64 billion dollars."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 35.06,
+      "durationSec": 5.02,
+      "file": "voiceover/most-remittances/8.mp3",
+      "text": "We're halfway. Number 8 is Bangladesh, at 27.6 billion dollars."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 40.36,
+      "durationSec": 4.54,
+      "file": "voiceover/most-remittances/7.mp3",
+      "text": "Egypt lands at number 7, with 29.56 billion dollars."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 45.18,
+      "durationSec": 3.19,
+      "file": "voiceover/most-remittances/6.mp3",
+      "text": "China comes in at 31.41 billion dollars."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 48.65,
+      "durationSec": 5.57,
+      "file": "voiceover/most-remittances/5.mp3",
+      "text": "Top five now. At number 5, Pakistan — 34.91 billion dollars."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 54.5,
+      "durationSec": 3.58,
+      "file": "voiceover/most-remittances/4.mp3",
+      "text": "Then there's France, at 38.78 billion dollars."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 58.35,
+      "durationSec": 5.02,
+      "file": "voiceover/most-remittances/3.mp3",
+      "text": "The top three. Number 3 is Philippines, at 40.28 billion dollars."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 63.65,
+      "durationSec": 4.58,
+      "file": "voiceover/most-remittances/2.mp3",
+      "text": "Mexico makes the list too — 67.64 billion dollars."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 68.51,
+      "durationSec": 5.11,
+      "file": "voiceover/most-remittances/1.mp3",
+      "text": "And right at the top, India. 137.67 billion dollars."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 74.32,
+      "durationSec": 3.31,
+      "file": "voiceover/most-remittances/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

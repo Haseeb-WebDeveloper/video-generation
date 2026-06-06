@@ -1,0 +1,45 @@
+{
+  "slug": "highest-divorce-rates",
+  "title": [
+    "Highest Divorce Rates",
+    "in the World"
+  ],
+  "outro": [
+    "WHERE DOES YOUR COUNTRY RANK?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "per 1k",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "The Maldives Tops the List — Highest Divorce Rates in the World | Top 15",
+    "description": "The Maldives has the highest divorce rate on Earth — around 5.5 divorces per 1,000 people every year. The old viral claim of 10.97 was from 2002; the rate has roughly halved, but the Maldives still leads the world. Where does your country rank?\n\nThis is the countdown of the 15 countries with the highest crude divorce rates (divorces per 1,000 population per year), compiled from UN Statistics Division, OECD and national statistics offices (latest available years).\n\nA note on the data: divorce statistics are reported in different years by different countries, so treat this as the best available comparison rather than a perfect snapshot. Where does your country rank? Let us know in the comments.",
+    "tags": ["top 15", "highest divorce rates", "divorce rate by country", "divorce statistics", "marriage and divorce", "country ranking", "world facts", "ranked", "countdown", "ranking", "society", "maldives"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Maldives", "value": 5.5, "country": "MV", "imagePath": "flags/mv.png" },
+    { "rank": 2, "title": "Russia", "value": 3.9, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 3, "title": "Moldova", "value": 3.9, "country": "MD", "imagePath": "flags/md.png" },
+    { "rank": 4, "title": "Belarus", "value": 3.7, "country": "BY", "imagePath": "flags/by.png" },
+    { "rank": 5, "title": "Georgia", "value": 3.7, "country": "GE", "imagePath": "flags/ge.png" },
+    { "rank": 6, "title": "Chile", "value": 3.6, "country": "CL", "imagePath": "flags/cl.png" },
+    { "rank": 7, "title": "Ukraine", "value": 3.1, "country": "UA", "imagePath": "flags/ua.png" },
+    { "rank": 8, "title": "Latvia", "value": 2.8, "country": "LV", "imagePath": "flags/lv.png" },
+    { "rank": 9, "title": "Costa Rica", "value": 2.7, "country": "CR", "imagePath": "flags/cr.png" },
+    { "rank": 10, "title": "Cyprus", "value": 2.6, "country": "CY", "imagePath": "flags/cy.png" },
+    { "rank": 11, "title": "Lithuania", "value": 2.5, "country": "LT", "imagePath": "flags/lt.png" },
+    { "rank": 12, "title": "China", "value": 2.5, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 13, "title": "United States", "value": 2.5, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 14, "title": "Egypt", "value": 2.4, "country": "EG", "imagePath": "flags/eg.png" },
+    { "rank": 15, "title": "Iran", "value": 2.4, "country": "IR", "imagePath": "flags/ir.png" }
+  ]
+}

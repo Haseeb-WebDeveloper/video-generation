@@ -12,6 +12,10 @@ import {
 } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Inter";
 import { Episode, EpisodeItem } from "./episode";
+import {
+  VoiceoverAudio,
+  type VoiceoverTiming,
+} from "./voiceover-preview";
 
 // Trigger Inter load at module scope so Remotion's delayRender holds the
 // render until the font is actually available. Without this, the first
@@ -162,13 +166,22 @@ export { SPACING_X, BAR_W, MIN_BAR_H, MAX_BAR_H };
 // non-currency rankings like solar masses or population counts.
 function formatValueFull(
   m: number,
-  format: "compact" | "raw" | "hms" = "compact",
+  format: "compact" | "raw" | "hms" | "days24" | "usd" | "millions" = "compact",
 ): string {
   if (format === "raw") return m.toLocaleString("en-US");
   if (format === "hms") {
     const h = Math.floor(m / 60);
     const mm = Math.round(m % 60);
     return mm === 0 ? `${h}h` : `${h}h ${String(mm).padStart(2, "0")}m`;
+  }
+  if (format === "days24") return Math.round(m / 24).toLocaleString("en-US");
+  if (format === "usd") {
+    if (m >= 1000) return `$${(m / 1000).toFixed(1)}T`;
+    if (m >= 100 || Number.isInteger(m)) return `$${Math.round(m)}B`;
+    return `$${m.toFixed(1)}B`;
+  }
+  if (format === "millions") {
+    return m >= 1000 ? `${(m / 1000).toFixed(1)}B` : `${Math.round(m)}M`;
   }
   if (m >= 1000) return `${(m / 1000).toFixed(1)} B`;
   return `${m.toFixed(0)} M`;
@@ -188,12 +201,13 @@ type FocusPose = { camPos: Vec3; lookAt: Vec3 };
 // bar. Peak velocity inside each curve is several × V_BAR — the visible
 // "cinematic dive in/out." The math links the seams so there are no
 // velocity jolts.
-// Frame counts at 30 fps — halve/double in lockstep if the root fps
-// changes (see Root.tsx). Seconds in the comments are authoritative.
-const INTRO_FRAMES = 75; // ~2.5s cinematic dive into the first bar
-const PER_ITEM_FRAMES = 100; // ~3.3s per bar at constant velocity
-const EXIT_FRAMES = 90; // ~3.0s — dive away from last bar
-const HOLD_OUTRO = 45; // ~1.5s static outro hold
+// Frame counts at 60 fps (bars comp is registered at fps=60 in Root.tsx).
+// Seconds in the comments are authoritative — scale frames in lockstep if the
+// root fps ever changes.
+const INTRO_FRAMES = 130; // ~2.2s cinematic dive into the first bar
+const PER_ITEM_FRAMES = 195; // ~3.25s per bar at constant velocity (slow, readable)
+const EXIT_FRAMES = 140; // ~2.3s — dive away from last bar
+const HOLD_OUTRO = 320; // ~5.3s static outro hold — room for the #1 reveal + closing CTA voiceover
 
 // Where the camera starts at frame 0 relative to the first bar.
 //   -X = to the LEFT of bar 0 (camera will slide right into it)
@@ -340,9 +354,15 @@ function camPoseAt(x: number, runtime: EpisodeRuntime): FocusPose {
 function CameraRig({
   frame,
   runtime,
+  cue,
 }: {
   frame: number;
   runtime: EpisodeRuntime;
+  cue?: {
+    itemCueFrames: number[];
+    itemEndFrames: number[];
+    outroCueFrame: number;
+  };
 }) {
   const camera = useThree((s) => s.camera);
 
@@ -352,47 +372,104 @@ function CameraRig({
   const barPanFrames = Math.max(0, N - 1) * PER_ITEM_FRAMES;
   const exitD = outroX - xN; // > 0
 
-  // Phase boundary frames.
-  const fBarPan = INTRO_FRAMES;
-  const fExit = fBarPan + barPanFrames;
-  const fOutroHold = fExit + EXIT_FRAMES;
-
   let x: number;
   let introZ = 0;
   let introY = 0;
   let dollyZ = 0;
   let dollyY = 0;
   let lookAtFirstBar = false;
-  if (frame < fBarPan) {
-    // Phase 0: cinematic intro. X eases from (x0 + INTRO_X_OFFSET) to x0
-    // via a Hermite curve whose end-velocity is exactly V_BAR, so the
-    // transition into the bar pan is seamless. Z/Y dolly in from their
-    // start offsets to 0 with a plain smoothstep — slower at the start,
-    // faster in the middle, settling cleanly at the seam.
-    const u = frame / INTRO_FRAMES;
-    x = x0 + INTRO_X_OFFSET + hermiteAccelerate(u, -INTRO_X_OFFSET, INTRO_FRAMES);
-    const e = smoothstep(u);
-    introZ = (1 - e) * INTRO_Z_OFFSET;
-    introY = (1 - e) * INTRO_Y_OFFSET;
-    // Keep the first bar as the focal point throughout the intro — the
-    // bar slides into screen center as the camera arrives, instead of
-    // appearing in the corner of the frame.
-    lookAtFirstBar = true;
-  } else if (frame < fExit) {
-    // Phase 1: constant V_BAR pan through the bar row. Each bar gets the
-    // same on-screen time.
-    x = x0 + V_BAR * (frame - fBarPan);
-  } else if (frame < fOutroHold) {
-    // Phase 2: fast exit. Starts at V_BAR, decelerates to rest exactly at
-    // the outro position.
-    const u = (frame - fExit) / EXIT_FRAMES;
-    x = xN + hermiteDecelerate(u, exitD, EXIT_FRAMES);
+
+  if (cue && cue.itemCueFrames.length === N) {
+    // ── Audio-driven CONTINUOUS VARIABLE-SPEED FLOW. The row is always moving.
+    // While a line plays, the camera drifts SLOWLY so that bar glides through
+    // centre (read as it's described). In the brief gap before the next line it
+    // speeds up to carry the next bar toward centre. Nothing freezes — a frozen
+    // camera under speech is what felt fake.
+    const cues = cue.itemCueFrames;
+    const ends = cue.itemEndFrames;
+    const fExit = cue.outroCueFrame;
+    const firstCue = cues[0];
+    const fOutroHold = fExit + EXIT_FRAMES;
+    const spacing = N > 1 ? barX(1, N) - barX(0, N) : 1;
+    // Bars sit close together (the camera sees 2-3 at once), so unlike the flow
+    // row we keep the spoken bar near centre for its WHOLE line — only a small
+    // drift — and do most of the travel FAST in the gap before the next line.
+    // That keeps the next bar parked at the right edge until it's actually its
+    // turn, instead of looming in while the current bar is still being talked
+    // about.
+    const ENTER = spacing * 0.22; // bar starts just right of centre as its line begins
+    const DRIFT = spacing * 0.1; // barely drifts past centre while its line plays
+
+    if (frame < firstCue) {
+      // Intro dive toward bar 0, arriving (entering from the right) as line 0
+      // begins — still moving, not parking.
+      const u = clamp01(frame / Math.max(1, firstCue));
+      x = lerp(x0 + INTRO_X_OFFSET, x0 - ENTER, smoothstep(u));
+      const e = smoothstep(u);
+      introZ = (1 - e) * INTRO_Z_OFFSET;
+      introY = (1 - e) * INTRO_Y_OFFSET;
+      lookAtFirstBar = true;
+    } else if (frame < fExit) {
+      // Piecewise-linear: for each bar, slow drift across [cue, end] then a
+      // faster move across [end, nextCue]. Constant velocity within each piece
+      // → continuous motion, only the speed changes.
+      const wf: number[] = [];
+      const wx: number[] = [];
+      for (let i = 0; i < N; i++) {
+        wf.push(cues[i]);
+        wx.push(barX(i, N) - ENTER);
+        wf.push(ends[i]);
+        wx.push(barX(i, N) + DRIFT);
+      }
+      wf.push(fExit);
+      wx.push(xN);
+      x = xN;
+      for (let k = 0; k < wf.length - 1; k++) {
+        if (frame < wf[k + 1]) {
+          const t = clamp01((frame - wf[k]) / Math.max(1, wf[k + 1] - wf[k]));
+          x = lerp(wx[k], wx[k + 1], t);
+          break;
+        }
+      }
+    } else if (frame < fOutroHold) {
+      const u = clamp01((frame - fExit) / EXIT_FRAMES);
+      x = xN + hermiteDecelerate(u, exitD, EXIT_FRAMES);
+    } else {
+      x = outroX;
+      const t = smoothstep((frame - fOutroHold) / HOLD_OUTRO);
+      dollyZ = t * HOLD_DOLLY_Z;
+      dollyY = t * HOLD_DOLLY_Y;
+    }
   } else {
-    // Phase 3: outro hold. Subtle pull-back dolly (base → back+up).
-    x = outroX;
-    const t = smoothstep((frame - fOutroHold) / HOLD_OUTRO);
-    dollyZ = t * HOLD_DOLLY_Z;
-    dollyY = t * HOLD_DOLLY_Y;
+    // ── Fixed-grid timing (no voiceover) ──
+    const fBarPan = INTRO_FRAMES;
+    const fExit = fBarPan + barPanFrames;
+    const fOutroHold = fExit + EXIT_FRAMES;
+
+    if (frame < fBarPan) {
+      // Phase 0: cinematic intro. X eases from (x0 + INTRO_X_OFFSET) to x0
+      // via a Hermite curve whose end-velocity is exactly V_BAR, so the
+      // transition into the bar pan is seamless.
+      const u = frame / INTRO_FRAMES;
+      x = x0 + INTRO_X_OFFSET + hermiteAccelerate(u, -INTRO_X_OFFSET, INTRO_FRAMES);
+      const e = smoothstep(u);
+      introZ = (1 - e) * INTRO_Z_OFFSET;
+      introY = (1 - e) * INTRO_Y_OFFSET;
+      lookAtFirstBar = true;
+    } else if (frame < fExit) {
+      // Phase 1: constant V_BAR pan through the bar row.
+      x = x0 + V_BAR * (frame - fBarPan);
+    } else if (frame < fOutroHold) {
+      // Phase 2: fast exit, decelerating to rest at the outro position.
+      const u = (frame - fExit) / EXIT_FRAMES;
+      x = xN + hermiteDecelerate(u, exitD, EXIT_FRAMES);
+    } else {
+      // Phase 3: outro hold. Subtle pull-back dolly.
+      x = outroX;
+      const t = smoothstep((frame - fOutroHold) / HOLD_OUTRO);
+      dollyZ = t * HOLD_DOLLY_Z;
+      dollyY = t * HOLD_DOLLY_Y;
+    }
   }
 
   const pose = camPoseAt(x, runtime);
@@ -577,7 +654,7 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
   //   gap     → ~22% of the number, tight enough to read as one block
   // Auto-shrink falls back gracefully for very long values or units.
   const MAX_W = W * 0.92;
-  let valueSize = Math.round(H * 0.52);
+  let valueSize = Math.round(H * 0.48);
   ctx.font = `800 ${valueSize}px ${FONT_SERIF}`;
   while (ctx.measureText(value).width > MAX_W && valueSize > Math.round(H * 0.3)) {
     valueSize -= 6;
@@ -591,8 +668,13 @@ function makeValueTex(value: string, unit: string): THREE.CanvasTexture {
     ctx.font = `600 ${unitSize}px ${FONT_SANS}`;
   }
 
-  const gap = Math.round(valueSize * 0.22);
-  const blockH = valueSize + gap + unitSize;
+  // Reserve descender room beneath the unit baseline — letters like "p"/"k"
+  // in "per 100k" drop below the alphabetic baseline and were being clipped
+  // by the bottom edge of the canvas. Including it in blockH shifts the whole
+  // (vertically-centered) stack up so the tails always fit.
+  const gap = Math.round(valueSize * 0.2);
+  const descentPad = Math.round(unitSize * 0.35);
+  const blockH = valueSize + gap + unitSize + descentPad;
   const topY = (H - blockH) / 2;
 
   ctx.font = `800 ${valueSize}px ${FONT_SERIF}`;
@@ -991,14 +1073,18 @@ export function Pillar({
     () => makeNameplateTex(item.title),
     [item.title],
   );
-  const valueTex = useMemo(
-    () =>
-      makeValueTex(
-        formatValueFull(item.value, episode.valueFormat ?? "compact"),
-        episode.unitLabel ?? "",
-      ),
-    [item.value, episode.valueFormat, episode.unitLabel],
-  );
+  const valueTex = useMemo(() => {
+    const formatted = formatValueFull(item.value, episode.valueFormat ?? "compact");
+    const unit = episode.unitLabel ?? "";
+    // valueNoSpace → render value + unit on ONE line (e.g. "41.1%"), the same
+    // inline treatment the flow template uses, instead of stacking the unit on
+    // a second line. Routes through makeValueTex's single-line path by folding
+    // the unit into the value string.
+    if (episode.valueNoSpace && unit) {
+      return makeValueTex(`${formatted}${unit}`, "");
+    }
+    return makeValueTex(formatted, unit);
+  }, [item.value, episode.valueFormat, episode.unitLabel, episode.valueNoSpace]);
 
   // Front face is at z = +BAR_D/2 ; mount nameplate/value slightly in front.
   const FRONT_Z = BAR_D / 2 + 0.015;
@@ -1268,17 +1354,28 @@ function Scene({
 
 const AUDIO_FADE_FRAMES = 90;
 
-export const BarSlidesComposition: React.FC<{ episode: Episode }> = ({
-  episode,
-}) => {
+export const BarSlidesComposition: React.FC<{
+  episode: Episode;
+  voiceover?: VoiceoverTiming | null;
+}> = ({ episode, voiceover }) => {
   const { width, height, durationInFrames } = useVideoConfig();
   const frame = useCurrentFrame();
   const runtime = useMemo(() => buildRuntime(episode), [episode]);
+  const hasVoiceover = !!voiceover && voiceover.clips.length > 0;
+  const cue = hasVoiceover
+    ? {
+        itemCueFrames: voiceover!.itemCueFrames,
+        itemEndFrames: voiceover!.itemEndFrames,
+        outroCueFrame: voiceover!.outroCueFrame,
+      }
+    : undefined;
   const baseVolume = episode.audioVolume ?? 0.35;
+  // Duck the music bed under narration (mirrors the render mux).
+  const musicVolume = hasVoiceover ? Math.min(baseVolume, 0.1) : baseVolume;
   const fadeVolume = (f: number) => {
     const fadeIn = Math.min(1, f / AUDIO_FADE_FRAMES);
     const fadeOut = Math.min(1, (durationInFrames - f) / AUDIO_FADE_FRAMES);
-    return baseVolume * Math.max(0, Math.min(fadeIn, fadeOut));
+    return musicVolume * Math.max(0, Math.min(fadeIn, fadeOut));
   };
   return (
     <AbsoluteFill style={{ background: WALL_COLOR }}>
@@ -1297,13 +1394,16 @@ export const BarSlidesComposition: React.FC<{ episode: Episode }> = ({
         <Suspense fallback={null}>
           <Scene frame={frame} episode={episode} runtime={runtime} />
         </Suspense>
-        <CameraRig frame={frame} runtime={runtime} />
+        <CameraRig frame={frame} runtime={runtime} cue={cue} />
       </ThreeCanvas>
       {episode.audioPath && (
         // `loop` so a short music bed repeats across long compositions.
         // No-op when the clip is already at least the composition length.
         <Audio src={staticFile(episode.audioPath)} volume={fadeVolume} loop />
       )}
+      {/* Live narration in the Studio preview (only if generated). Render path
+          is muted + re-muxed, so this never double-plays at render. */}
+      {hasVoiceover && <VoiceoverAudio clips={voiceover!.clips} fps={60} />}
     </AbsoluteFill>
   );
 };

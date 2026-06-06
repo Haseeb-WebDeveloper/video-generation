@@ -1,0 +1,151 @@
+{
+  "slug": "most-depressed-countries",
+  "title": [
+    "Most Depressed Countries",
+    "in the World"
+  ],
+  "outro": [
+    "HOW IS YOUR COUNTRY DOING?",
+    "Like & subscribe for more"
+  ],
+  "unitLabel": "%",
+  "valueFormat": "raw",
+  "valueNoSpace": true,
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Syria Tops the List — Most Depressed Countries in the World | Top 15",
+    "description": "Syria has the world's highest depression rate at 7.95% of its population — and the rest of the ranking is full of surprises. The UK and the Netherlands sit near the top, alongside several Central African nations. Where does your country stand?\n\nThis is the countdown of the 15 countries with the highest prevalence of depressive disorders, age-standardized share of population, from the latest data: IHME Global Burden of Disease 2023, via Our World in Data.\n\nOne important note: these figures partly reflect how well each country diagnoses and reports mental illness, and conflict and instability drive several of the highest rates — they don't simply mean people elsewhere don't struggle.\n\nHow is your country doing? Let's talk in the comments.",
+    "tags": [
+      "top 15",
+      "most depressed countries",
+      "depression by country",
+      "depression rates",
+      "mental health",
+      "depression statistics",
+      "country ranking",
+      "global mental health",
+      "world facts",
+      "ranked",
+      "countdown",
+      "ranking",
+      "health",
+      "syria"
+    ],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "title": "Syria",
+      "value": 7.95,
+      "country": "SY",
+      "imagePath": "flags/sy.png"
+    },
+    {
+      "rank": 2,
+      "title": "United Kingdom",
+      "value": 6.8,
+      "country": "GB",
+      "imagePath": "flags/gb.png"
+    },
+    {
+      "rank": 3,
+      "title": "Netherlands",
+      "value": 6.21,
+      "country": "NL",
+      "imagePath": "flags/nl.png"
+    },
+    {
+      "rank": 4,
+      "title": "Congo",
+      "value": 5.88,
+      "country": "CG",
+      "imagePath": "flags/cg.png"
+    },
+    {
+      "rank": 5,
+      "title": "DR Congo",
+      "value": 5.86,
+      "country": "CD",
+      "imagePath": "flags/cd.png"
+    },
+    {
+      "rank": 6,
+      "title": "Central African Republic",
+      "value": 5.81,
+      "country": "CF",
+      "imagePath": "flags/cf.png"
+    },
+    {
+      "rank": 7,
+      "title": "Angola",
+      "value": 5.78,
+      "country": "AO",
+      "imagePath": "flags/ao.png"
+    },
+    {
+      "rank": 8,
+      "title": "Tunisia",
+      "value": 5.68,
+      "country": "TN",
+      "imagePath": "flags/tn.png"
+    },
+    {
+      "rank": 9,
+      "title": "Gabon",
+      "value": 5.66,
+      "country": "GA",
+      "imagePath": "flags/ga.png"
+    },
+    {
+      "rank": 10,
+      "title": "Lebanon",
+      "value": 5.58,
+      "country": "LB",
+      "imagePath": "flags/lb.png"
+    },
+    {
+      "rank": 11,
+      "title": "Ukraine",
+      "value": 5.31,
+      "country": "UA",
+      "imagePath": "flags/ua.png"
+    },
+    {
+      "rank": 12,
+      "title": "Ethiopia",
+      "value": 5.29,
+      "country": "ET",
+      "imagePath": "flags/et.png"
+    },
+    {
+      "rank": 13,
+      "title": "Sudan",
+      "value": 5.28,
+      "country": "SD",
+      "imagePath": "flags/sd.png"
+    },
+    {
+      "rank": 14,
+      "title": "Switzerland",
+      "value": 5.21,
+      "country": "CH",
+      "imagePath": "flags/ch.png"
+    },
+    {
+      "rank": 15,
+      "title": "Greece",
+      "value": 5.2,
+      "country": "GR",
+      "imagePath": "flags/gr.png"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "slug": "loneliest-countries",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 34.11,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.88,
+      "file": "voiceover/loneliest-countries/hook.mp3",
+      "text": "Here are the 7 the loneliest countries in the world."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 3.68,
+      "durationSec": 3.34,
+      "file": "voiceover/loneliest-countries/7.mp3",
+      "text": "At number 7, Ethiopia — 36 percent."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 7.3,
+      "durationSec": 2.38,
+      "file": "voiceover/loneliest-countries/6.mp3",
+      "text": "Pakistan comes in at 41 percent."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 9.95,
+      "durationSec": 3.98,
+      "file": "voiceover/loneliest-countries/5.mp3",
+      "text": "Top five now. Number 5 is Afghanistan, at 50 percent."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 14.22,
+      "durationSec": 4.13,
+      "file": "voiceover/loneliest-countries/4.mp3",
+      "text": "We're halfway. Botswana lands at number 4, with 50 percent."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 18.62,
+      "durationSec": 4.27,
+      "file": "voiceover/loneliest-countries/3.mp3",
+      "text": "The top three. That puts Uganda at number 3 — 53 percent."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 23.18,
+      "durationSec": 3.07,
+      "file": "voiceover/loneliest-countries/2.mp3",
+      "text": "Philippines makes the list too — 57 percent."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 26.53,
+      "durationSec": 3.07,
+      "file": "voiceover/loneliest-countries/1.mp3",
+      "text": "And right at the top, Lesotho. 58 percent."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 30.3,
+      "durationSec": 3.31,
+      "file": "voiceover/loneliest-countries/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

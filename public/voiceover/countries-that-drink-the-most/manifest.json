@@ -1,0 +1,267 @@
+{
+  "slug": "countries-that-drink-the-most",
+  "engine": "edge",
+  "voiceId": "en-US-AndrewNeural",
+  "modelId": "edge-neural",
+  "fps": 60,
+  "totalAudioSec": 116.61,
+  "leadInSec": 0.4,
+  "clips": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "startSec": 0.4,
+      "durationSec": 2.76,
+      "file": "voiceover/countries-that-drink-the-most/hook.mp3",
+      "text": "Here are the 30 countries that drink the most alcohol."
+    },
+    {
+      "id": "30",
+      "kind": "item",
+      "startSec": 3.56,
+      "durationSec": 3.7,
+      "file": "voiceover/countries-that-drink-the-most/30.mp3",
+      "text": "At number 30, United States — 9.9 liters."
+    },
+    {
+      "id": "29",
+      "kind": "item",
+      "startSec": 7.54,
+      "durationSec": 2.54,
+      "file": "voiceover/countries-that-drink-the-most/29.mp3",
+      "text": "Hungary comes in at 9.9 liters."
+    },
+    {
+      "id": "28",
+      "kind": "item",
+      "startSec": 10.36,
+      "durationSec": 2.64,
+      "file": "voiceover/countries-that-drink-the-most/28.mp3",
+      "text": "Next up, New Zealand — 10 liters."
+    },
+    {
+      "id": "27",
+      "kind": "item",
+      "startSec": 13.28,
+      "durationSec": 2.66,
+      "file": "voiceover/countries-that-drink-the-most/27.mp3",
+      "text": "Then there's Switzerland, at 10.1 liters."
+    },
+    {
+      "id": "26",
+      "kind": "item",
+      "startSec": 16.22,
+      "durationSec": 3.86,
+      "file": "voiceover/countries-that-drink-the-most/26.mp3",
+      "text": "That puts Seychelles at number 26 — 10.2 liters."
+    },
+    {
+      "id": "25",
+      "kind": "item",
+      "startSec": 20.37,
+      "durationSec": 3.36,
+      "file": "voiceover/countries-that-drink-the-most/25.mp3",
+      "text": "Australia makes the list too — 10.3 liters."
+    },
+    {
+      "id": "24",
+      "kind": "item",
+      "startSec": 24.01,
+      "durationSec": 2.71,
+      "file": "voiceover/countries-that-drink-the-most/24.mp3",
+      "text": "Then France, with 10.3 liters."
+    },
+    {
+      "id": "23",
+      "kind": "item",
+      "startSec": 27,
+      "durationSec": 3.55,
+      "file": "voiceover/countries-that-drink-the-most/23.mp3",
+      "text": "Montenegro isn't far behind, at 10.3 liters."
+    },
+    {
+      "id": "22",
+      "kind": "item",
+      "startSec": 30.83,
+      "durationSec": 3.89,
+      "file": "voiceover/countries-that-drink-the-most/22.mp3",
+      "text": "Slovenia lands at number 22, with 10.4 liters."
+    },
+    {
+      "id": "21",
+      "kind": "item",
+      "startSec": 35,
+      "durationSec": 2.38,
+      "file": "voiceover/countries-that-drink-the-most/21.mp3",
+      "text": "Russia comes in at 10.5 liters."
+    },
+    {
+      "id": "20",
+      "kind": "item",
+      "startSec": 37.66,
+      "durationSec": 3.26,
+      "file": "voiceover/countries-that-drink-the-most/20.mp3",
+      "text": "Next up, Slovakia — 10.7 liters."
+    },
+    {
+      "id": "19",
+      "kind": "item",
+      "startSec": 41.2,
+      "durationSec": 2.93,
+      "file": "voiceover/countries-that-drink-the-most/19.mp3",
+      "text": "Then there's Estonia, at 10.7 liters."
+    },
+    {
+      "id": "18",
+      "kind": "item",
+      "startSec": 44.41,
+      "durationSec": 3.7,
+      "file": "voiceover/countries-that-drink-the-most/18.mp3",
+      "text": "Number 18 is United Kingdom, at 10.7 liters."
+    },
+    {
+      "id": "17",
+      "kind": "item",
+      "startSec": 48.38,
+      "durationSec": 2.98,
+      "file": "voiceover/countries-that-drink-the-most/17.mp3",
+      "text": "Ireland makes the list too — 10.8 liters."
+    },
+    {
+      "id": "16",
+      "kind": "item",
+      "startSec": 51.64,
+      "durationSec": 2.71,
+      "file": "voiceover/countries-that-drink-the-most/16.mp3",
+      "text": "Then Luxembourg, with 10.8 liters."
+    },
+    {
+      "id": "15",
+      "kind": "item",
+      "startSec": 54.63,
+      "durationSec": 4.32,
+      "file": "voiceover/countries-that-drink-the-most/15.mp3",
+      "text": "We're halfway. At number 15, Laos — 10.8 liters."
+    },
+    {
+      "id": "14",
+      "kind": "item",
+      "startSec": 59.23,
+      "durationSec": 3.22,
+      "file": "voiceover/countries-that-drink-the-most/14.mp3",
+      "text": "In 14th place, Tanzania. 11 liters."
+    },
+    {
+      "id": "13",
+      "kind": "item",
+      "startSec": 62.73,
+      "durationSec": 2.71,
+      "file": "voiceover/countries-that-drink-the-most/13.mp3",
+      "text": "Moldova comes in at 11.1 liters."
+    },
+    {
+      "id": "12",
+      "kind": "item",
+      "startSec": 65.72,
+      "durationSec": 3.58,
+      "file": "voiceover/countries-that-drink-the-most/12.mp3",
+      "text": "Next up, Burkina Faso — 11.3 liters."
+    },
+    {
+      "id": "11",
+      "kind": "item",
+      "startSec": 69.58,
+      "durationSec": 2.93,
+      "file": "voiceover/countries-that-drink-the-most/11.mp3",
+      "text": "Then there's Uganda, at 11.3 liters."
+    },
+    {
+      "id": "10",
+      "kind": "item",
+      "startSec": 72.78,
+      "durationSec": 4.87,
+      "file": "voiceover/countries-that-drink-the-most/10.mp3",
+      "text": "Into the top ten. At number 10, Austria — 11.5 liters."
+    },
+    {
+      "id": "9",
+      "kind": "item",
+      "startSec": 77.94,
+      "durationSec": 3.22,
+      "file": "voiceover/countries-that-drink-the-most/9.mp3",
+      "text": "Bulgaria makes the list too — 11.6 liters."
+    },
+    {
+      "id": "8",
+      "kind": "item",
+      "startSec": 81.43,
+      "durationSec": 2.86,
+      "file": "voiceover/countries-that-drink-the-most/8.mp3",
+      "text": "Then Belarus, with 11.6 liters."
+    },
+    {
+      "id": "7",
+      "kind": "item",
+      "startSec": 84.57,
+      "durationSec": 3.53,
+      "file": "voiceover/countries-that-drink-the-most/7.mp3",
+      "text": "Poland isn't far behind, at 11.7 liters."
+    },
+    {
+      "id": "6",
+      "kind": "item",
+      "startSec": 88.38,
+      "durationSec": 3.5,
+      "file": "voiceover/countries-that-drink-the-most/6.mp3",
+      "text": "That puts Germany at number 6 — 11.8 liters."
+    },
+    {
+      "id": "5",
+      "kind": "item",
+      "startSec": 92.16,
+      "durationSec": 3.91,
+      "file": "voiceover/countries-that-drink-the-most/5.mp3",
+      "text": "Top five now. At number 5, Czechia — 12 liters."
+    },
+    {
+      "id": "4",
+      "kind": "item",
+      "startSec": 96.35,
+      "durationSec": 3.22,
+      "file": "voiceover/countries-that-drink-the-most/4.mp3",
+      "text": "Next up, Lithuania — 12.1 liters."
+    },
+    {
+      "id": "3",
+      "kind": "item",
+      "startSec": 99.85,
+      "durationSec": 4.46,
+      "file": "voiceover/countries-that-drink-the-most/3.mp3",
+      "text": "The top three. Number 3 is Latvia, at 12.9 liters."
+    },
+    {
+      "id": "2",
+      "kind": "item",
+      "startSec": 104.59,
+      "durationSec": 3.48,
+      "file": "voiceover/countries-that-drink-the-most/2.mp3",
+      "text": "Georgia lands at number 2, with 14.4 liters."
+    },
+    {
+      "id": "1",
+      "kind": "item",
+      "startSec": 108.35,
+      "durationSec": 3.74,
+      "file": "voiceover/countries-that-drink-the-most/1.mp3",
+      "text": "Which leaves number one. Romania — 16.8 liters."
+    },
+    {
+      "id": "outro",
+      "kind": "outro",
+      "startSec": 112.8,
+      "durationSec": 3.31,
+      "file": "voiceover/countries-that-drink-the-most/outro.mp3",
+      "text": "Did your country make the list? Let me know down in the comments."
+    }
+  ]
+}

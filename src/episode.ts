@@ -79,7 +79,13 @@ export type Episode = {
   // "compact" (default): value treated as millions, displayed as "2.1M" / "14.0B".
   // "raw": value is the literal count, displayed with thousands separators ("2,100,000").
   // "hms": value is a minute count, displayed as hours+minutes ("352" → "5h 52m").
-  valueFormat?: "compact" | "raw" | "hms";
+  // "days24": value is an hour count, displayed as whole 24-hour days
+  // ("2658" → "111"). Pair with unitLabel "days/year".
+  // "usd": value is in BILLIONS of US dollars, shown as money ("954" → "$954B",
+  // "38270" → "$38.3T"). Leave unitLabel empty.
+  // "millions": value is in MILLIONS, shown as "102M" / "1.2B". Pair with a
+  // unitLabel like "visitors".
+  valueFormat?: "compact" | "raw" | "hms" | "days24" | "usd" | "millions";
   // When true, no space is inserted between the formatted value and the
   // unitLabel — useful for "%" where "96 %" reads as two tokens but "96%"
   // is one. Defaults to false (existing space behavior preserved).

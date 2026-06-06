@@ -14,6 +14,10 @@ import {
   totalFrames as raceTotalFrames,
 } from "./race-slides";
 import { BarThumbnailComposition } from "./thumbnail-bar";
+import {
+  loadVoiceoverManifest,
+  timingFromManifest,
+} from "./voiceover-preview";
 import type { Episode } from "./episode";
 
 export const RemotionRoot: React.FC = () => {
@@ -30,10 +34,21 @@ export const RemotionRoot: React.FC = () => {
           fps={60}
           width={1920}
           height={1080}
-          defaultProps={{ episode: ep }}
-          calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-            durationInFrames: flowTotalFrames(props.episode),
-          })}
+          defaultProps={{ episode: ep, voiceover: null }}
+          calculateMetadata={async ({ props }: { props: { episode: Episode } }) => {
+            // If a voiceover manifest exists, drive duration + camera reveal
+            // cues from the (sequential, non-overlapping) audio. Otherwise fall
+            // back to the fixed-grid timing.
+            const m = await loadVoiceoverManifest(props.episode.slug);
+            if (m) {
+              const t = timingFromManifest(m, 60);
+              return {
+                durationInFrames: t.durationInFrames,
+                props: { ...props, voiceover: t },
+              };
+            }
+            return { durationInFrames: flowTotalFrames(props.episode) };
+          }}
         />
       ))}
       {episodes
@@ -47,10 +62,18 @@ export const RemotionRoot: React.FC = () => {
           fps={60}
           width={1920}
           height={1080}
-          defaultProps={{ episode: ep }}
-          calculateMetadata={({ props }: { props: { episode: Episode } }) => ({
-            durationInFrames: barTotalFrames(props.episode.items),
-          })}
+          defaultProps={{ episode: ep, voiceover: null }}
+          calculateMetadata={async ({ props }: { props: { episode: Episode } }) => {
+            const m = await loadVoiceoverManifest(props.episode.slug);
+            if (m) {
+              const t = timingFromManifest(m, 60);
+              return {
+                durationInFrames: t.durationInFrames,
+                props: { ...props, voiceover: t },
+              };
+            }
+            return { durationInFrames: barTotalFrames(props.episode.items) };
+          }}
         />
       ))}
       {/* Race template — registered only when a bake exists (raceResult +

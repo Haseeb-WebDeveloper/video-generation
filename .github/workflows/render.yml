@@ -1,37 +1,46 @@
-name: Render videos
+name: Render & schedule videos
 
-# Free cloud rendering for the ranking channel (flow / bars / race templates).
+# Free cloud rendering + scheduled YouTube publishing for the ranking channel.
 # Each episode renders on its own parallel runner, off your PC. On a PUBLIC repo
-# this uses unlimited free Linux minutes; on a private repo it draws from your
-# 2,000 free min/month.
+# this uses unlimited free Linux minutes.
 #
-# Trigger from the GitHub UI: Actions → "Render videos" → Run workflow →
-# enter one or more episode slugs (comma-separated) and pick the template.
-# The finished MP4s are uploaded as downloadable artifacts; set publish=true
-# to also upload them to YouTube (scheduled via each episode's publishAt).
+# Trigger: Actions → "Render & schedule videos" → Run workflow.
+# With the defaults it renders all 10 country videos (flow template) and, if
+# publish=true, uploads them to YouTube as PRIVATE + scheduled — the first goes
+# live at `start`, then one every `every_days` days (default 2 = "post today,
+# skip a day, post, …"). You just click Run.
 
 on:
   workflow_dispatch:
     inputs:
       slugs:
-        description: "Comma-separated episode slugs"
+        description: "Comma-separated episode slugs (order = publish order)"
         required: true
-        default: "top-15-largest-diamonds-ever-found"
+        default: "most-nuclear-weapons,highest-military-spending,most-guns-per-person,most-prisoners-per-capita,highest-national-debt,most-gold-reserves,most-foreign-reserves,most-remittances,most-visited-countries,most-oil-reserves"
       variant:
-        description: "Template: flow (side-scroll), bars (3D pillars), or race (marble race)"
+        description: "Template"
         type: choice
         options:
           - flow
           - bars
           - race
-        default: bars
+        default: flow
       publish:
-        description: "Upload to YouTube after rendering (scheduled via each episode's publishAt)"
+        description: "Upload to YouTube (private + scheduled). Off = render only."
         type: boolean
         default: false
+      start:
+        description: "First publish time, UTC ISO (e.g. 2026-06-07T16:00:00Z). Required if publish=true and must be in the future."
+        required: false
+        default: ""
+      every_days:
+        description: "Days between releases (2 = one video, skip a day, next video)"
+        required: false
+        default: "2"
 
 jobs:
-  # Turn the comma-separated slugs into a JSON matrix so each renders in parallel.
+  # Build a JSON matrix of { slug, index } so each render job knows its position
+  # in the publish order (used to compute its staggered publishAt).
   plan:
     runs-on: ubuntu-22.04
     outputs:
@@ -40,8 +49,9 @@ jobs:
       - id: set
         run: |
           json=$(printf '%s' "${{ github.event.inputs.slugs }}" \
-            | tr ',' '\n' | sed 's/[[:space:]]//g' | grep . | jq -R . | jq -cs .)
-          echo "matrix={\"slug\":$json}" >> "$GITHUB_OUTPUT"
+            | tr ',' '\n' | sed 's/[[:space:]]//g' | grep . \
+            | jq -R . | jq -cs '[to_entries[] | {slug: .value, index: .key}]')
+          echo "matrix={\"include\":$json}" >> "$GITHUB_OUTPUT"
 
   render:
     needs: plan
@@ -69,24 +79,15 @@ jobs:
 
       - run: npm ci
 
-      # The race template is physics-driven and needs a baked simulation.
-      # `--keep` reuses the raceSeed already committed in the episode JSON, so
-      # the cloud bake matches what you saw locally. flow / bars need no bake —
-      # their cover images are committed under public/covers, so there is
-      # nothing to fetch or generate before rendering.
+      # Race template needs a baked sim; flow/bars don't. Covers/flags and the
+      # generated voiceover clips are all committed, so nothing to fetch.
       - name: Bake physics (race only)
         if: ${{ inputs.variant == 'race' }}
         run: node scripts/race-roll.mjs ${{ matrix.slug }} --keep
 
-      # Output filename MUST be out/<slug>-<variant>.mp4 — that's the path
-      # publish-episode.mjs (variant suffix) looks for.
-      # GPU-less runners can't create a hardware WebGL context for the 3D
-      # scene, so use SwiftShader software GL (--gl=swangle, Remotion's
-      # recommended renderer for headless/cloud Three.js). Lower concurrency
-      # so parallel tabs don't exhaust software-GL contexts/memory.
-      # Audio (when an episode sets audioPath) is rendered in-composition via
-      # the <Audio> tag — the Windows-only ffmpeg post-mux in
-      # scripts/render-episode.mjs is intentionally bypassed here.
+      # GPU-less runners use SwiftShader software GL (--gl=swangle). The
+      # committed voiceover manifest drives duration + camera; the ffmpeg
+      # narration/music mux runs after render (same as local).
       - name: Render
         run: |
           mkdir -p out
@@ -100,9 +101,26 @@ jobs:
           path: out/${{ matrix.slug }}-${{ inputs.variant }}.mp4
           retention-days: 14
 
-      # Scheduled upload to YouTube. The episode's youtube.publishAt (set by
-      # scripts/schedule-batch.mjs) makes YouTube auto-release it at that time.
-      # Requires the 3 YouTube secrets in the repo's Settings → Secrets.
+      # Compute this episode's scheduled release: start + index * every_days.
+      # Each parallel job uses its own matrix.index, so the batch staggers
+      # without any shared state.
+      - name: Compute publishAt
+        if: ${{ inputs.publish }}
+        id: when
+        run: |
+          START="${{ inputs.start }}"
+          if [ -z "$START" ]; then
+            echo "::error::publish=true requires a 'start' UTC ISO time (e.g. 2026-06-07T16:00:00Z)."
+            exit 1
+          fi
+          EVERY="${{ inputs.every_days }}"
+          OFFSET=$(( ${{ matrix.index }} * EVERY * 86400 ))
+          BASE=$(date -u -d "$START" +%s) || { echo "::error::Invalid start time '$START'"; exit 1; }
+          WHEN=$(date -u -d "@$(( BASE + OFFSET ))" +%Y-%m-%dT%H:%M:%SZ)
+          echo "publishAt=$WHEN" >> "$GITHUB_OUTPUT"
+          echo "Episode #${{ matrix.index }} (${{ matrix.slug }}) → $WHEN"
+
+      # Scheduled upload to YouTube. Requires the 3 secrets in repo Settings.
       - name: Publish to YouTube (scheduled)
         if: ${{ inputs.publish }}
         env:
@@ -116,5 +134,6 @@ jobs:
           fi
           printf 'YOUTUBE_CLIENT_ID=%s\nYOUTUBE_CLIENT_SECRET=%s\nYOUTUBE_REFRESH_TOKEN=%s\n' \
             "$YT_ID" "$YT_SECRET" "$YT_REFRESH" > .env
-          node scripts/publish-episode.mjs ${{ matrix.slug }}-${{ inputs.variant }}
+          node scripts/publish-episode.mjs ${{ matrix.slug }}-${{ inputs.variant }} \
+            --publish-at=${{ steps.when.outputs.publishAt }}
           rm -f .env

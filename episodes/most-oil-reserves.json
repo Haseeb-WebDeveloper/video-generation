@@ -1,0 +1,39 @@
+{
+  "slug": "most-oil-reserves",
+  "title": ["Countries With the Most", "Oil on Earth"],
+  "outro": ["DID THE #1 SURPRISE YOU?", "Like & subscribe for more"],
+  "unitLabel": "barrels",
+  "valueFormat": "millions",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries With the Most Oil — It's NOT Saudi Arabia",
+    "description": "Everyone assumes Saudi Arabia has the most oil — but it's actually Venezuela, sitting on more than 300 billion barrels of proven crude. Here are the top 15 countries by proven oil reserves, based on OPEC and EIA data.\n\nValues are shown in billions of barrels. Did the number one surprise you? Let me know in the comments.",
+    "tags": ["oil reserves by country", "countries with most oil", "proven oil reserves", "venezuela oil", "saudi arabia oil", "country ranking", "world facts", "ranked", "countdown", "oil"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Venezuela", "value": 303800, "country": "VE", "imagePath": "flags/ve.png" },
+    { "rank": 2, "title": "Saudi Arabia", "value": 267200, "country": "SA", "imagePath": "flags/sa.png" },
+    { "rank": 3, "title": "Iran", "value": 208600, "country": "IR", "imagePath": "flags/ir.png" },
+    { "rank": 4, "title": "Canada", "value": 170000, "country": "CA", "imagePath": "flags/ca.png" },
+    { "rank": 5, "title": "Iraq", "value": 145000, "country": "IQ", "imagePath": "flags/iq.png" },
+    { "rank": 6, "title": "United Arab Emirates", "value": 113000, "country": "AE", "imagePath": "flags/ae.png" },
+    { "rank": 7, "title": "Kuwait", "value": 101500, "country": "KW", "imagePath": "flags/kw.png" },
+    { "rank": 8, "title": "Russia", "value": 80000, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 9, "title": "United States", "value": 68900, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 10, "title": "Libya", "value": 48400, "country": "LY", "imagePath": "flags/ly.png" },
+    { "rank": 11, "title": "Nigeria", "value": 37500, "country": "NG", "imagePath": "flags/ng.png" },
+    { "rank": 12, "title": "Kazakhstan", "value": 30000, "country": "KZ", "imagePath": "flags/kz.png" },
+    { "rank": 13, "title": "China", "value": 26000, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 14, "title": "Qatar", "value": 25200, "country": "QA", "imagePath": "flags/qa.png" },
+    { "rank": 15, "title": "Brazil", "value": 15900, "country": "BR", "imagePath": "flags/br.png" }
+  ]
+}

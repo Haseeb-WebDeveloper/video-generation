@@ -76,6 +76,12 @@ const { episode, paths } = await loadEpisode(slug, variantSuffix);
 const meta = buildMetadata(episode);
 if (opts.privacy) meta.privacyStatus = opts.privacy;
 if (flags.has("--no-schedule")) meta.publishAt = undefined;
+// --publish-at=<ISO> overrides the scheduled release time for this run (used by
+// the CI workflow to stagger a batch without committing publishAt to the JSON).
+if (opts["publish-at"]) {
+  meta.publishAt = opts["publish-at"];
+  meta.privacyStatus = "private";
+}
 
 const errors = validateMetadata(meta);
 if (errors.length > 0) {

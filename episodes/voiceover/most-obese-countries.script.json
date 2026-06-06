@@ -1,0 +1,16 @@
+{
+  "_comment": "Hand-written narration. Keyed by RANK. Any omitted line is auto-generated. Keep item lines SHORT (1 sentence, ~2-4s) — they must fit the ~5s per-card window. Use cliffhangers on the last few. Generate with: npm run voiceover most-obese-countries",
+  "hook": "Here are the thirty most obese countries on Earth.",
+  "outro": "Did your country make the list? Let me know down in the comments.",
+  "items": {
+    "30": "Number thirty: Libya, at thirty-six percent.",
+    "20": "Halfway there. Number twenty: Belize, nearly forty-two percent.",
+    "18": "Number eighteen — and here's the United States, at almost forty-three percent.",
+    "15": "Cracking the top fifteen: Kuwait, over forty-five percent.",
+    "10": "Top ten now. The Bahamas, at forty-eight percent.",
+    "5": "Number five: the Cook Islands. Sixty-eight percent.",
+    "3": "Number three: Nauru. Seventy percent of adults.",
+    "2": "Number two: Tonga, also over seventy percent.",
+    "1": "And the most obese country on Earth… American Samoa. Three-quarters of all adults — seventy-six percent."
+  }
+}

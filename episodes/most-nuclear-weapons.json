@@ -1,0 +1,33 @@
+{
+  "slug": "most-nuclear-weapons",
+  "title": ["Countries With the Most", "Nuclear Weapons"],
+  "outro": ["WHICH ONE SHOCKED YOU?", "Like & subscribe for more"],
+  "unitLabel": "warheads",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries With the Most Nuclear Weapons (2026) — Russia Beats the USA",
+    "description": "Only nine countries on Earth have nuclear weapons — and just two of them control about 90% of every warhead in existence. The surprise? Russia has more than the United States. Here is every nuclear-armed nation ranked by total warhead inventory, based on the Federation of American Scientists' Status of World Nuclear Forces (2026).\n\nWhich country shocked you? Let me know in the comments.",
+    "tags": ["nuclear weapons by country", "countries with nuclear weapons", "nuclear warheads", "most nuclear weapons", "russia nuclear", "nuclear arsenal", "country ranking", "world facts", "ranked", "countdown", "military"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "Russia", "value": 5420, "country": "RU", "imagePath": "flags/ru.png" },
+    { "rank": 2, "title": "United States", "value": 5042, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 3, "title": "China", "value": 620, "country": "CN", "imagePath": "flags/cn.png" },
+    { "rank": 4, "title": "France", "value": 370, "country": "FR", "imagePath": "flags/fr.png" },
+    { "rank": 5, "title": "United Kingdom", "value": 225, "country": "GB", "imagePath": "flags/gb.png" },
+    { "rank": 6, "title": "India", "value": 190, "country": "IN", "imagePath": "flags/in.png" },
+    { "rank": 7, "title": "Pakistan", "value": 170, "country": "PK", "imagePath": "flags/pk.png" },
+    { "rank": 8, "title": "Israel", "value": 90, "country": "IL", "imagePath": "flags/il.png" },
+    { "rank": 9, "title": "North Korea", "value": 60, "country": "KP", "imagePath": "flags/kp.png" }
+  ]
+}

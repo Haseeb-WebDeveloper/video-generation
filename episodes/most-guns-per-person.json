@@ -1,0 +1,39 @@
+{
+  "slug": "most-guns-per-person",
+  "title": ["Countries With the Most", "Guns Per Person"],
+  "outro": ["WHERE DOES YOUR COUNTRY RANK?", "Like & subscribe for more"],
+  "unitLabel": "per 100",
+  "valueFormat": "raw",
+  "coverFit": "inside",
+  "removeBg": false,
+  "compositeFlagOnCover": false,
+  "flagHero": true,
+  "audioPath": "audio/When The Smoke Clears - Evening Telecast.mp3",
+  "audioVolume": 0.32,
+  "youtube": {
+    "title": "Countries With the Most Guns Per Person — The USA Has More Guns Than People",
+    "description": "There are about 120 civilian guns for every 100 people in the United States — more guns than there are Americans. The US has 4% of the world's population but owns nearly half of all civilian firearms on Earth. Here are the top 15 countries by civilian guns per 100 people, based on the Small Arms Survey's Global Firearms Holdings.\n\nWhere does your country rank? Let me know in the comments.",
+    "tags": ["guns per capita", "guns per person by country", "civilian firearms", "gun ownership by country", "most guns", "country ranking", "world facts", "ranked", "countdown", "guns"],
+    "categoryId": "27",
+    "privacyStatus": "private",
+    "madeForKids": false,
+    "defaultLanguage": "en"
+  },
+  "items": [
+    { "rank": 1, "title": "United States", "value": 120.5, "country": "US", "imagePath": "flags/us.png" },
+    { "rank": 2, "title": "Yemen", "value": 52.8, "country": "YE", "imagePath": "flags/ye.png" },
+    { "rank": 3, "title": "Serbia", "value": 39.1, "country": "RS", "imagePath": "flags/rs.png" },
+    { "rank": 4, "title": "Montenegro", "value": 39.1, "country": "ME", "imagePath": "flags/me.png" },
+    { "rank": 5, "title": "Canada", "value": 34.7, "country": "CA", "imagePath": "flags/ca.png" },
+    { "rank": 6, "title": "Uruguay", "value": 34.7, "country": "UY", "imagePath": "flags/uy.png" },
+    { "rank": 7, "title": "Cyprus", "value": 34.0, "country": "CY", "imagePath": "flags/cy.png" },
+    { "rank": 8, "title": "Finland", "value": 32.4, "country": "FI", "imagePath": "flags/fi.png" },
+    { "rank": 9, "title": "Lebanon", "value": 31.9, "country": "LB", "imagePath": "flags/lb.png" },
+    { "rank": 10, "title": "Iceland", "value": 31.7, "country": "IS", "imagePath": "flags/is.png" },
+    { "rank": 11, "title": "Bosnia and Herzegovina", "value": 31.2, "country": "BA", "imagePath": "flags/ba.png" },
+    { "rank": 12, "title": "Austria", "value": 30.0, "country": "AT", "imagePath": "flags/at.png" },
+    { "rank": 13, "title": "North Macedonia", "value": 29.8, "country": "MK", "imagePath": "flags/mk.png" },
+    { "rank": 14, "title": "Norway", "value": 28.8, "country": "NO", "imagePath": "flags/no.png" },
+    { "rank": 15, "title": "Malta", "value": 28.3, "country": "MT", "imagePath": "flags/mt.png" }
+  ]
+}
